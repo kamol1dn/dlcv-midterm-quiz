@@ -114,35 +114,82 @@ SYNC_FILES = ["progress.json", "answers.jsonl"]
 
 
 def git(*args: str, timeout: int = 30) -> bool:
+    return git_out(*args, timeout=timeout) is not None
+
+
+def git_out(*args: str, timeout: int = 30) -> bytes | None:
     import subprocess
     try:
-        r = subprocess.run(["git", "-C", str(HERE), *args], capture_output=True, text=True, timeout=timeout)
+        r = subprocess.run(["git", "-C", str(HERE), *args], capture_output=True, timeout=timeout)
     except (OSError, subprocess.TimeoutExpired):
-        return False
-    return r.returncode == 0
+        return None
+    return r.stdout if r.returncode == 0 else None
+
+
+def read_progress_text(text: str) -> dict:
+    try:
+        return json.loads(text)
+    except (ValueError, TypeError):
+        return {}
+
+
+def answer_lines(text: str) -> list[str]:
+    # Keeps only real log lines, so conflict markers from an old merge are dropped.
+    return [l for l in text.splitlines() if l.startswith("{")]
+
+
+def merge_progress(a: dict, b: dict) -> dict:
+    """Card by card, keep the state with more attempts; turn = the larger."""
+    tries = lambda s: -1 if s is None else s["right"] + s["wrong"]
+    out = {"version": 1, "turn": max(a.get("turn", 0), b.get("turn", 0)),
+           "recent": a.get("recent") or b.get("recent") or [], "cards": {}}
+    for cid in set(a.get("cards", {})) | set(b.get("cards", {})):
+        sa, sb = a.get("cards", {}).get(cid), b.get("cards", {}).get(cid)
+        out["cards"][cid] = sa if tries(sa) >= tries(sb) else sb
+    return out
 
 
 def sync_pull() -> None:
+    """Fetch GitHub's copy and merge it into this device's progress; git never merges these files."""
     if not (HERE / ".git").exists():
         return
     print(f"{DIM}Pulling progress from GitHub…{RESET}", flush=True)
-    if not git("pull", "--rebase", "--autostash", "-q"):
+    git("rebase", "--abort")  # leftovers from the first version of this script
+    git("merge", "--abort")
+    if not git("fetch", "-q", "origin"):
         print(f"{YELLOW}Couldn't pull (offline?). Using the progress on this device.{RESET}")
+        return
+    remote_prog = read_progress_text((git_out("show", "origin/main:progress.json") or b"").decode("utf-8"))
+    remote_ans = answer_lines((git_out("show", "origin/main:answers.jsonl") or b"").decode("utf-8"))
+    local_prog, local_ans = {}, []
+    for name in ("progress.json", "progress.broken.json"):
+        if (HERE / name).exists():
+            local_prog = merge_progress(local_prog, read_progress_text((HERE / name).read_text(encoding="utf-8")))
+    if ANSWER_LOG.exists():
+        local_ans = answer_lines(ANSWER_LOG.read_text(encoding="utf-8"))
+    merged = merge_progress(local_prog, remote_prog)
+    lines = sorted(set(local_ans) | set(remote_ans), key=lambda l: json.loads(l).get("time", ""))
+    git("reset", "-q", "--hard", "origin/main")  # code and questions as on GitHub
+    save_progress(merged)
+    ANSWER_LOG.write_text("".join(l + "\n" for l in lines), encoding="utf-8")
+    (HERE / "progress.broken.json").unlink(missing_ok=True)
 
 
 def sync_push() -> None:
     if not (HERE / ".git").exists():
         return
     import datetime
-    git("add", *[f for f in SYNC_FILES if (HERE / f).exists()])
-    if git("diff", "--cached", "--quiet"):
-        return  # nothing new to push
-    git("commit", "-q", "-m", f"progress {datetime.datetime.now():%Y-%m-%d %H:%M}")
-    print(f"{DIM}Pushing progress to GitHub…{RESET}", flush=True)
-    if git("push", "-q") or (git("pull", "--rebase", "-q") and git("push", "-q")):
-        print(f"{GREEN}Progress pushed.{RESET}")
-    else:
-        print(f"{YELLOW}Couldn't push (offline?). It's committed here; it goes up next time you quit online.{RESET}")
+    for attempt in range(2):
+        git("add", *[f for f in SYNC_FILES if (HERE / f).exists()])
+        if not git("diff", "--cached", "--quiet"):
+            git("commit", "-q", "-m", f"progress {datetime.datetime.now():%Y-%m-%d %H:%M}")
+        print(f"{DIM}Pushing progress to GitHub…{RESET}", flush=True)
+        if git("push", "-q", "origin", "HEAD:main"):
+            print(f"{GREEN}Progress pushed.{RESET}")
+            return
+        if attempt == 0:
+            sync_pull()  # the other device pushed in between: merge its progress in and try again
+    print(f"{YELLOW}Couldn't push (offline or not logged in?). Saved here; it goes up next time you quit online.{RESET}")
 
 
 def save_progress(prog: dict) -> None:

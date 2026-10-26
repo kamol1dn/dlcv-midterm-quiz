@@ -1,0 +1,917 @@
+[
+ {
+  "id": "ch0-001",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "The robot loop",
+  "kind": "concept",
+  "q": "Which sequence is the single loop that every robot, real or simulated, runs?",
+  "choices": [
+   "sense → decide → act → the world changes → sense again",
+   "plan the whole motion → act → sense once at the very end",
+   "decide → act → stop as soon as the goal has been reached",
+   "act → sense → decide only when a sensor reports an error"
+  ],
+  "why": "The course reduces every robot to one closed loop: sense, decide, act, the world changes, sense again. A loop that plans once and only senses at the end is open loop, not what a robot runs.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-002",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Why layers",
+  "kind": "concept",
+  "q": "According to the course, what is the one engineering reason a robot is split into layers?",
+  "choices": [
+   "Its parts must run at wildly different speeds",
+   "Layered code is tidier and easier to read",
+   "Each layer is sold by a different robot vendor",
+   "ROS 2 forces programs to be split this way"
+  ],
+  "why": "\"Layers are a consequence of timescales, not of tidiness.\" A motor must be corrected thousands of times a second; a walking decision need not change more than once a second.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-003",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Why layers",
+  "kind": "concept",
+  "q": "Why not write one single program that both corrects the motors and decides where to walk?",
+  "choices": [
+   "It would be both too slow and too twitchy",
+   "It would need two separate physics engines",
+   "It would no longer run inside MuJoCo",
+   "It could not read the IMU's sensor data"
+  ],
+  "why": "The guide quotes it directly: one program doing both would be \"both too slow and too twitchy\": too slow for the motors, too jumpy for the plan. That is why the stack separates by rate.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-004",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "The five layers",
+  "kind": "concept",
+  "q": "From bottom to top, what is the order of the five layers?",
+  "choices": [
+   "Physics → Robot Model → Middleware → Control & Planning → AI",
+   "Robot Model → Physics → Control & Planning → Middleware → AI",
+   "Physics → Middleware → Robot Model → AI → Control & Planning",
+   "Middleware → Physics → Robot Model → Control & Planning → AI"
+  ],
+  "why": "Layer 1 Physics/World, 2 Robot Model, 3 Middleware/Robot OS, 4 Control & Planning, 5 AI/Behaviour. Swapping 1 and 2 is the classic slip: the model is a blueprint, the physics is the world.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-005",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "The five layers",
+  "kind": "concept",
+  "q": "Which layer is nicknamed \"the brainstem\" and answers \"What should the motors do now?\"",
+  "choices": [
+   "Layer 4, Control & Planning",
+   "Layer 5, AI / Behaviour",
+   "Layer 3, Middleware / Robot OS",
+   "Layer 1, Physics / World"
+  ],
+  "why": "Layer 4 is the brainstem (PD, IK, trajectories, ZMP/LIPM, WBC, MPC). Layer 5 is the cortex, which answers what the robot should achieve, not what the motors do right now.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-006",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "The five layers",
+  "kind": "concept",
+  "q": "Layer 3 (Middleware / Robot OS) has which nickname and answers which question?",
+  "choices": [
+   "The nervous system: how do the parts talk?",
+   "The blueprint: what is this robot made of?",
+   "The cortex: what should the robot achieve?",
+   "The body's reality: what do forces do?"
+  ],
+  "why": "Middleware is the nervous system: transport, interface contracts, time, logging between programs. The blueprint is Layer 2, the cortex Layer 5, the body's reality Layer 1.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-007",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "The five layers",
+  "kind": "concept",
+  "q": "Complete the course's one-line summary of the stack: \"Bottom is ___. Top is ___.\"",
+  "choices": [
+   "fast and dumb; slow and smart",
+   "slow and exact; fast and rough",
+   "smart and slow; dumb and fast",
+   "hardware only; software only"
+  ],
+  "why": "Physics runs at 500 Hz and knows nothing about goals; task planning runs below 1 Hz and is the smartest part. The rates fall as the intelligence rises.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-008",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Layer rates",
+  "kind": "number",
+  "q": "Roughly how many orders of magnitude separate the 500 Hz physics step from a sub-1 Hz task plan?",
+  "choices": [
+   "About three",
+   "About one",
+   "About six",
+   "About ten"
+  ],
+  "why": "500 Hz down to ~0.5 Hz is a factor of ~1000, i.e. about three orders of magnitude. That spread is exactly why one program cannot do everything.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-009",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Layer rates",
+  "kind": "number",
+  "q": "Which typical rate does the study guide give for Layer 5 (AI / Behaviour)?",
+  "choices": [
+   "About 1 – 50 Hz",
+   "About 100 – 1000 Hz",
+   "About 500 Hz – 1 kHz+",
+   "Static: it never runs"
+  ],
+  "why": "Layer 5 runs at ~1–50 Hz (a learned gait policy ~50 Hz, navigation 1–10 Hz, task planning below 1 Hz). 100–1000 Hz is Layer 4; 500 Hz–1 kHz+ is physics; static is the robot model.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-010",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Layer 1: Physics / World",
+  "kind": "concept",
+  "q": "On the real Unitree G1, what plays the role of Layer 1 (Physics / World)?",
+  "choices": [
+   "Reality itself: nothing computes it",
+   "An onboard copy of the MuJoCo engine",
+   "The vendor SDK's physics module",
+   "The MJCF file stored on the robot"
+  ],
+  "why": "\"On a real robot there is no physics layer: there is only reality.\" Gravity is not computed and friction is not a parameter. The MJCF is Layer 2 (the model), not the world.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-011",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Layer 1: Physics / World",
+  "kind": "concept",
+  "q": "Which of these is NOT something the physics engine (Layer 1) computes?",
+  "choices": [
+   "Which joint angles the robot should aim for",
+   "Contact forces and friction at the feet",
+   "Actuator dynamics and joint limits",
+   "Synthetic IMU readings for the declared sensors"
+  ],
+  "why": "Layer 1 computes integration, contact, friction, inertia, joint limits, actuator dynamics and sensor readings. Choosing target angles is a decision: Layer 4 or 5.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-012",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Layer 1: Physics / World",
+  "kind": "concept",
+  "q": "Which of these is NOT a Layer 1 physics engine?",
+  "choices": [
+   "URDF",
+   "PyBullet",
+   "Isaac Sim",
+   "Gazebo"
+  ],
+  "why": "URDF is a robot-model file format (Layer 2, ROS's interchange format). MuJoCo, PyBullet, Isaac Sim/Lab, Gazebo and ODE/Bullet/PhysX are engines or simulators.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-013",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Layer 1: Physics / World",
+  "kind": "concept",
+  "q": "Why does the course say \"contact is the whole game in legged robotics\"?",
+  "choices": [
+   "Everything interesting happens where foot meets floor",
+   "Contact is the only force that MuJoCo actually computes",
+   "Legged robots are judged mainly on how softly they land",
+   "Contact sensors are a walking policy's most important input"
+  ],
+  "why": "Balance, walking and falling are all decided at the foot-floor contact, which is also the hardest thing to simulate well. The G1 model does not even declare contact sensors.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-014",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Layer 2: Robot Model",
+  "kind": "concept",
+  "q": "Which pairing of robot-model format and ecosystem is correct?",
+  "choices": [
+   "URDF – ROS, the interchange format",
+   "MJCF – Gazebo, the ROS simulator",
+   "SDF – NVIDIA Omniverse and Isaac",
+   "USD – MuJoCo, our course format"
+  ],
+  "why": "MJCF is MuJoCo's (ours), URDF is ROS's and the de-facto interchange format, SDF is Gazebo's, USD is NVIDIA Omniverse/Isaac's.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-015",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Model vs engine",
+  "kind": "trap",
+  "q": "A student says: \"The robot model is the simulation part; a real robot doesn't need one.\" What is the correction?",
+  "choices": [
+   "Real controllers need it: IK needs link lengths, MPC needs dynamics",
+   "Correct: a real robot needs only its vendor SDK, its motors and its IMU",
+   "Correct: the model exists only to feed numbers to the engine",
+   "Real robots need it only to render a 3-D picture for the user"
+  ],
+  "why": "The guide calls this a correction worth making early. IK needs link lengths, MPC needs dynamics, estimation needs sensor positions: \"The model describes the robot; the engine simulates the world.\"",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-016",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Model vs engine",
+  "kind": "concept",
+  "q": "What does a real G1 carry onboard?",
+  "choices": [
+   "A model of itself, but no world simulator",
+   "A world simulator, but no model of itself",
+   "Both a world simulator and a self-model",
+   "Neither: it runs only learned policies"
+  ],
+  "why": "The real-vs-sim table: the real G1 has an onboard kinematic/dynamic model (Layer 2) while Layer 1 is reality itself. Keeping model and engine apart makes Layer 1 vs Layer 2 clear.",
+  "source": "Week 0 slides"
+ },
+ {
+  "id": "ch0-017",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Sensors are declared",
+  "kind": "number",
+  "q": "The G1 has nsensor = 4. What are the four sensors?",
+  "choices": [
+   "A gyro and an accelerometer in each of two IMUs",
+   "One foot contact switch under each of four soles",
+   "Two head cameras plus two IMUs in the torso",
+   "Four joint-torque sensors in the hips and knees"
+  ],
+  "why": "Two IMUs (torso and pelvis), each a 3-axis gyroscope plus a 3-axis accelerometer: 4 sensors, 12 numbers. No camera, no joint-torque sensors, no foot contact switches.",
+  "source": "Study guide · Week 0 numbers"
+ },
+ {
+  "id": "ch0-018",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Sensors are declared",
+  "kind": "trap",
+  "q": "A controller needs to know when a G1 foot touches the floor. What does the course's G1 model provide for that?",
+  "choices": [
+   "Nothing: no contact sensor is declared, so you must add one",
+   "A foot contact switch under each sole, two numbers per step",
+   "The IMUs report foot contact as part of their 12 numbers",
+   "sensordata lists all eight contact forces every step"
+  ],
+  "why": "\"A robot cannot sense what its blueprint does not declare.\" The G1 declares only two IMUs; contact switches, cameras and torque sensors would have to be added to the MJCF.",
+  "source": "Study guide · Week 0 numbers"
+ },
+ {
+  "id": "ch0-019",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Servo law",
+  "kind": "concept",
+  "q": "Where does the G1's servo law τ = k_p(ctrl − q) − k_v·q̇ actually run?",
+  "choices": [
+   "Inside mj_step, in the actuator model, so inside f",
+   "Inside your policy π, once per 20 ms decision, before mj_step",
+   "Inside the sensor function h, after each step",
+   "In the middleware, between two processes"
+  ],
+  "why": "The position servo is part of the actuator model, computed by the physics engine every timestep, just as a real servo drive closes its own loop below anything you write.",
+  "source": "Week 0 slides"
+ },
+ {
+  "id": "ch0-020",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Servo law",
+  "kind": "number",
+  "q": "On the G1, what is k_p on every joint, and what torque does a 0.1 rad error produce?",
+  "choices": [
+   "k_p = 500 N·m/rad; 50 N·m",
+   "k_p = 500 N·m/rad; 5000 N·m",
+   "k_p = 15.8 N·m/rad; 1.58 N·m",
+   "k_p = 200 N·m/rad; 20 N·m"
+  ],
+  "why": "k_p = 500 on every joint, so 500 × 0.1 = 50 N·m. 15.8 is the knee's damping k_v, not its stiffness; 200 is the week-1 two-link leg's gain.",
+  "source": "Study guide · Week 0 numbers"
+ },
+ {
+  "id": "ch0-021",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Servo law",
+  "kind": "calc",
+  "q": "A G1 position servo (k_p = 500 N·m/rad) is at rest, 0.04 rad short of its command. What torque does it apply?",
+  "choices": [
+   "20 N·m",
+   "2 N·m",
+   "200 N·m",
+   "12,500 N·m"
+  ],
+  "why": "At rest q̇ = 0, so τ = k_p(ctrl − q) = 500 × 0.04 = 20 N·m. 12,500 comes from dividing 500 by 0.04 instead of multiplying.",
+  "source": "Study guide · Week 0 maths"
+ },
+ {
+  "id": "ch0-022",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Servo law",
+  "kind": "calc",
+  "q": "A servo has k_p = 500, k_v = 10. The error ctrl − q is 0.06 rad and the joint moves at q̇ = +1 rad/s. What torque?",
+  "choices": [
+   "20 N·m",
+   "40 N·m",
+   "30 N·m",
+   "−10 N·m"
+  ],
+  "why": "τ = 500 × 0.06 − 10 × 1 = 30 − 10 = 20 N·m. Adding the damper (40) or ignoring it (30) are the typical slips; the damper resists motion, so it subtracts.",
+  "source": "Study guide · Week 0 maths"
+ },
+ {
+  "id": "ch0-023",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Layer 3: Middleware",
+  "kind": "concept",
+  "q": "What does middleware (Layer 3) ultimately buy you?",
+  "choices": [
+   "Modularity: separately written programs act as one robot",
+   "Speed: contacts are solved in parallel on many machines",
+   "Accuracy: link lengths are measured for you on start-up",
+   "Learning: policies are trained from its message logs"
+  ],
+  "why": "Transport, interface contracts, time, lifecycle, logging and introspection together buy modularity: perception, control and planning become separable programs.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-024",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Layer 3: Middleware",
+  "kind": "concept",
+  "q": "Why does this course deliberately skip ROS 2?",
+  "choices": [
+   "Linux-only, no Colab, and it solves a problem we lack",
+   "It is obsolete and no longer used in industry",
+   "MuJoCo refuses to run on a machine where ROS 2 is installed",
+   "It drives real hardware only, never a simulator"
+  ],
+  "why": "ROS 2 is effectively Linux-only, cannot run in Colab, and solves a distributed-systems problem a one-process simulation does not have. The course still says: learn it if you go into robotics.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-025",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Layer 3: Middleware",
+  "kind": "concept",
+  "q": "In this course's own stack, what is Layer 3?",
+  "choices": [
+   "A single Python process",
+   "A ROS 2 bridge to the vendor SDK",
+   "LCM messages between twelve programs",
+   "The MJCF file's <actuator> section"
+  ],
+  "why": "For one simulated robot, a single Python process is a legitimate architecture. The real G1 uses a vendor SDK plus a ROS 2 bridge.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-026",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Layer 4 vs Layer 5",
+  "kind": "concept",
+  "q": "Which technique belongs to Layer 4 (Control & Planning) rather than Layer 5?",
+  "choices": [
+   "ZMP / LIPM walking",
+   "Reinforcement-learned gaits",
+   "Vision-language-action models",
+   "Task planning from a spoken goal"
+  ],
+  "why": "Layer 4: PID/PD, IK, trajectory generation, ZMP/LIPM walking, whole-body control, MPC (weeks 2–6). RL, imitation, vision, navigation, task planning and VLAs are Layer 5.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-027",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Classify the layer",
+  "kind": "concept",
+  "q": "Which classification of items into layers is correct?",
+  "choices": [
+   "URDF file → 2; PID gain → 4; PPO → 5",
+   "URDF file → 1; PID gain → 3; PPO → 4",
+   "URDF file → 2; PID gain → 5; PPO → 4",
+   "URDF file → 3; PID gain → 4; PPO → 2"
+  ],
+  "why": "A URDF is a robot-model file (Layer 2), a PID gain is classical control (Layer 4), PPO is reinforcement learning (Layer 5).",
+  "source": "Week 0 slides"
+ },
+ {
+  "id": "ch0-028",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Learning on top of control",
+  "kind": "concept",
+  "q": "How does a typical learned walking policy actually drive the robot?",
+  "choices": [
+   "It outputs joint targets at ~50 Hz that PD servos track faster",
+   "It outputs motor torques directly at 1 kHz, with no servos below it",
+   "It replaces both the servos and the physics engine",
+   "It rewrites the MJCF gains once at the start of each run"
+  ],
+  "why": "A learned policy typically outputs joint position targets at about 50 Hz, and the same classical PD servos track them 10–20× faster.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-029",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Learning on top of control",
+  "kind": "trap",
+  "q": "\"Learning has won at locomotion, so classical control is now obsolete.\" What does the course say?",
+  "choices": [
+   "Learning sits on top of classical control; it does not delete it",
+   "Correct: learned policies now command raw torques with no servos at all",
+   "Correct: only the physics engine is still written by hand",
+   "Wrong: learning has not worked for locomotion at all"
+  ],
+  "why": "Learning has largely won at locomotion, but the engine, the model, the joint servos and the safety limits are all still hand-written. The policy's targets are tracked by PD servos.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-030",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Learning on top of control",
+  "kind": "number",
+  "q": "A learned policy outputs targets at about what rate, and how much faster do the PD servos track them?",
+  "choices": [
+   "About 50 Hz; servos 10–20× faster",
+   "About 500 Hz; servos 2× faster",
+   "About 1 Hz; servos 1000× faster",
+   "About 1 kHz; servos at the same rate"
+  ],
+  "why": "~50 Hz policy, servos 10–20× faster (500 Hz–1 kHz). On our G1: 50 Hz policy over 500 Hz physics, ten physics steps per decision.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-031",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Timescales",
+  "kind": "trap",
+  "q": "Why does a learned walking policy not run inside the 1 kHz servo loop?",
+  "choices": [
+   "It need not: the fast servos chase its targets between decisions",
+   "It must, or the robot would fall over in the gap between two decisions",
+   "It does: neural networks are fastest in a 1 kHz loop",
+   "MuJoCo refuses to call any policy faster than 10 Hz"
+  ],
+  "why": "\"You cannot put a neural network in a 1 kHz loop, and you do not need to.\" The slow layer sets the goal; the fast servo layer chases it every physics tick.",
+  "source": "Study guide · Week 0 traps"
+ },
+ {
+  "id": "ch0-032",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "The loop as equations",
+  "kind": "concept",
+  "q": "In x_{k+1} = f(x_k, u_k), y_k = h(x_k), u_k = π(y_k), which is the only part you write?",
+  "choices": [
+   "π, the policy (Layers 4–5)",
+   "f, the world (Layer 1)",
+   "h, the sensors (Layer 2)",
+   "x, the state (qpos and qvel, 71 numbers)"
+  ],
+  "why": "f is the world (mj_step), h is the sensors declared in the MJCF, x is the state. π is your code: the first half of the course writes it by hand, the second half learns it.",
+  "source": "Study guide · Week 0 maths"
+ },
+ {
+  "id": "ch0-033",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "The loop as equations",
+  "kind": "concept",
+  "q": "Which statement about the three-equation loop is true?",
+  "choices": [
+   "The policy sees the state only via h and moves it only via f",
+   "The policy reads the state x directly and writes x_{k+1} directly",
+   "h is the physics engine and f is the sensor model",
+   "u is the observation the sensors report each step"
+  ],
+  "why": "\"No box can skip another.\" π gets y = h(x), never x itself, and its action u changes the state only through f. h is the sensors, f the world.",
+  "source": "Study guide · Week 0 maths"
+ },
+ {
+  "id": "ch0-034",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "State, action, observation sizes",
+  "kind": "number",
+  "q": "On the G1, what are the sizes of the state x, the action u and the observation y?",
+  "choices": [
+   "71, 29, 12",
+   "36, 35, 12",
+   "71, 35, 4",
+   "35, 29, 71"
+  ],
+  "why": "x = qpos + qvel = 36 + 35 = 71; u = ctrl = 29 actuators; y = sensordata = 12 numbers (4 sensors × 3 axes). \"The robot is described by 71 numbers but senses only 12.\"",
+  "source": "Study guide · Week 0 maths"
+ },
+ {
+  "id": "ch0-035",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "State, action, observation sizes",
+  "kind": "calc",
+  "q": "A robot has nq = 23 and nv = 21. How many numbers make up its full state x?",
+  "choices": [
+   "44",
+   "23",
+   "21",
+   "46"
+  ],
+  "why": "The state is qpos plus qvel, so 23 + 21 = 44. Doubling nq (46) assumes qpos and qvel have the same length, which is false whenever there is a free or ball joint.",
+  "source": "Study guide · Week 0 maths"
+ },
+ {
+  "id": "ch0-036",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "State, action, observation sizes",
+  "kind": "trap",
+  "q": "\"The G1's declared sensors report all 71 numbers of its state.\" Is that right?",
+  "choices": [
+   "No: they report 12, so the state must be estimated",
+   "Yes: qpos and qvel are copied into sensordata",
+   "Yes: the two IMUs measure every joint angle",
+   "No: they report none; the policy reads qpos"
+  ],
+  "why": "The model declares two IMUs giving 12 numbers. Closing the gap between 12 sensed and 71 state numbers (estimating x from y) is week 6.",
+  "source": "Study guide · Week 0 maths"
+ },
+ {
+  "id": "ch0-037",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Steps per decision",
+  "kind": "calc",
+  "q": "Physics runs at 1 kHz and a policy at 100 Hz. How many physics steps per decision, and what happens to ctrl in between?",
+  "choices": [
+   "10; the same ctrl is held and the servos keep correcting",
+   "10; ctrl drops back to zero until the next decision",
+   "100; the same ctrl is held and the servos keep correcting",
+   "0.1; the policy runs faster than the physics does"
+  ],
+  "why": "N = f_phys / f_pol = 1000 / 100 = 10 (practice Q2). Between decisions the action is held, and the servo law keeps correcting the joints at every physics tick.",
+  "source": "Study guide · Practice questions"
+ },
+ {
+  "id": "ch0-038",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Steps per decision",
+  "kind": "calc",
+  "q": "Physics runs at 500 Hz and a slower policy at 25 Hz. How many physics steps pass per decision?",
+  "choices": [
+   "20",
+   "12,500",
+   "0.05",
+   "25"
+  ],
+  "why": "N = 500 / 25 = 20. 12,500 is multiplying the rates instead of dividing; 0.05 is dividing the wrong way round.",
+  "source": "Study guide · Week 0 maths"
+ },
+ {
+  "id": "ch0-039",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Steps per decision",
+  "kind": "calc",
+  "q": "Physics runs at 2 kHz and the policy decides once every 25 ms. Physics steps per decision?",
+  "choices": [
+   "50",
+   "80",
+   "25",
+   "500"
+  ],
+  "why": "The physics period is 1/2000 s = 0.5 ms, and 25 ms / 0.5 ms = 50. Equivalently N = 2000 × 0.025 = 50.",
+  "source": "Study guide · Week 0 maths"
+ },
+ {
+  "id": "ch0-040",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Steps per decision",
+  "kind": "calc",
+  "q": "A physics engine runs at 250 Hz. What is its timestep (period)?",
+  "choices": [
+   "4 ms",
+   "0.4 ms",
+   "25 ms",
+   "2.5 ms"
+  ],
+  "why": "T = 1/f = 1/250 s = 0.004 s = 4 ms. For comparison our G1 runs at 500 Hz, i.e. 2 ms.",
+  "source": "Study guide · Week 0 maths"
+ },
+ {
+  "id": "ch0-041",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Steps per decision",
+  "kind": "concept",
+  "q": "Between two policy decisions, what keeps correcting the joints?",
+  "choices": [
+   "The servo law, at every physics step",
+   "Nothing: the joints coast until the next decision",
+   "The policy, re-run on a cached observation",
+   "The middleware, replaying the last message"
+  ],
+  "why": "The same ctrl is held while the PD law inside mj_step corrects the joints every 2 ms tick. \"The slow layer sets the goal; the fast layer chases it.\"",
+  "source": "Study guide · Week 0 maths"
+ },
+ {
+  "id": "ch0-042",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "One timestep",
+  "kind": "concept",
+  "q": "What does a fixed-step integrator pretend happens during one timestep Δt?",
+  "choices": [
+   "Nothing changes during the step",
+   "The robot stays in floor contact",
+   "Gravity switches off mid-step",
+   "The exact answer is already known"
+  ],
+  "why": "An integrator turns a derivative into a jump and pretends nothing changes during Δt. That is why a smaller step is closer to reality, and costs more steps per second of robot time.",
+  "source": "Study guide · Week 0 maths"
+ },
+ {
+  "id": "ch0-043",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "One timestep",
+  "kind": "calc",
+  "q": "A ball drop simulated at Δt = 0.01 s is 20 mm off after 0.4 s. Using the guide's rule, roughly what error at Δt = 0.002 s?",
+  "choices": [
+   "4 mm, for five times the work",
+   "0.8 mm, for five times the work",
+   "4 mm, at no extra computing cost",
+   "100 mm, since more steps add error"
+  ],
+  "why": "The guide's example: 25× smaller step, 25× smaller error, 25× more work. Here the step is 5× smaller, so the error is 20/5 = 4 mm. 0.8 mm would be a second-order (squared) method.",
+  "source": "Study guide · Week 0 maths"
+ },
+ {
+  "id": "ch0-044",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Standing is a loop",
+  "kind": "number",
+  "q": "G1 torso height after 3 s from stand: servos off versus servos on?",
+  "choices": [
+   "0.134 m off, 0.792 m on",
+   "0.792 m off, 0.134 m on",
+   "0.79 m off, 0.79 m on",
+   "0.142 m off, 0.327 m on"
+  ],
+  "why": "Disabling actuation drops the torso to 0.134 m; servos on hold 0.792 m. Same physics, same model, same start. (0.142 m is the same fall on Colab; 327 is the weight in N.)",
+  "source": "Study guide · Week 0 numbers"
+ },
+ {
+  "id": "ch0-045",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Standing is a loop",
+  "kind": "concept",
+  "q": "Complete the professor's line: \"Standing is not a property of the robot. It is a property of the ___.\"",
+  "choices": [
+   "loop",
+   "model",
+   "floor",
+   "keyframe"
+  ],
+  "why": "Nothing about the robot differs between the 0.134 m and 0.792 m runs; only whether a controller is closing the loop.",
+  "source": "Study guide · Week 0 numbers"
+ },
+ {
+  "id": "ch0-046",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "ctrl = 0 trap",
+  "kind": "trap",
+  "q": "With actuation enabled, you set ctrl = 0 on every G1 actuator and step for 3 s. What happens?",
+  "choices": [
+   "It stands straight-legged at about 0.79 m",
+   "It collapses like a rag doll to about 0.13 m",
+   "It drops in free fall in about 0.35 s",
+   "MuJoCo raises BADQACC and resets it"
+  ],
+  "why": "Position servos turn ctrl = 0 into \"hold every joint at angle zero\", a straight-legged stance they hold at 0.79 m. \"Zero command is a command.\"",
+  "source": "Study guide · Week 0 traps"
+ },
+ {
+  "id": "ch0-047",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "ctrl = 0 trap",
+  "kind": "trap",
+  "q": "How do you get a G1 that truly has no controller?",
+  "choices": [
+   "Disable actuation (soc4180.actuation_disabled)",
+   "Set ctrl = 0 on all 29 actuators",
+   "Delete the stand keyframe from the file",
+   "Zero every sensor reading and command before stepping"
+  ],
+  "why": "ctrl = 0 is still a command to the position servos. Only disabling actuation removes the controller, and then the torso drops 0.79 → 0.134 m.",
+  "source": "Study guide · Week 0 traps"
+ },
+ {
+  "id": "ch0-048",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Limp fall",
+  "kind": "trap",
+  "q": "The limp G1 takes about 1.3 s to drop below 0.2 m, while free fall would take about 0.35 s. Why the difference?",
+  "choices": [
+   "It folds on legs whose feet stay on the floor",
+   "MuJoCo's default gravity is weaker than 9.81",
+   "The servos still resist it even when disabled",
+   "Air drag on the large meshes slows it down"
+  ],
+  "why": "The body is not dropped: it pivots and folds on legs planted on the floor, and straight legs buckle slowly at first. Disabled servos produce no torque, and MuJoCo models no air drag here.",
+  "source": "Study guide · Week 0 traps"
+ },
+ {
+  "id": "ch0-049",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Limp fall",
+  "kind": "calc",
+  "q": "Ignoring the legs, how long would a body take to free-fall 0.45 m (take g = 10 m/s²)?",
+  "choices": [
+   "0.3 s",
+   "0.09 s",
+   "0.045 s",
+   "0.9 s"
+  ],
+  "why": "t = √(2d/g) = √(0.9/10) = √0.09 = 0.3 s. 0.09 s forgets the square root. The real limp G1 is much slower than free fall because its feet stay on the floor.",
+  "source": "Study guide · Week 0 traps"
+ },
+ {
+  "id": "ch0-050",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "G1 model sizes",
+  "kind": "number",
+  "q": "Which set of G1 model counts is correct?",
+  "choices": [
+   "31 bodies, 30 joints, nu = 29",
+   "30 bodies, 29 joints, nu = 30",
+   "29 bodies, 36 joints, nu = 35",
+   "31 bodies, 36 joints, nu = 36"
+  ],
+  "why": "31 bodies (counting the world), 30 joints (1 free + 29 hinges), 29 actuators, nq = 36, nv = 35, nsensor = 4. 36 and 35 are nq and nv, not joint or actuator counts.",
+  "source": "Study guide · Week 0 numbers"
+ },
+ {
+  "id": "ch0-051",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "G1 model sizes",
+  "kind": "number",
+  "q": "What are the G1's mass and weight?",
+  "choices": [
+   "33.3 kg and 327 N",
+   "327 kg and 33.3 N",
+   "33.3 kg and 33.3 N",
+   "29 kg and 284 N"
+  ],
+  "why": "33.3 kg × 9.81 m/s² ≈ 327 N. Standing still, the contact forces sum to exactly this weight.",
+  "source": "Study guide · Week 0 numbers"
+ },
+ {
+  "id": "ch0-052",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Engine settings",
+  "kind": "number",
+  "q": "What are our engine's settings for the G1?",
+  "choices": [
+   "0.002 s step (500 Hz), implicitfast, g = (0, 0, −9.81)",
+   "0.02 s step (50 Hz), Euler, g = (0, 0, −9.81)",
+   "0.001 s step (1 kHz), implicitfast, g = (0, −9.81, 0) m/s²",
+   "0.002 s step (500 Hz), RK4, g = (0, 0, +9.81)"
+  ],
+  "why": "Timestep 0.002 s → 500 Hz, integrator implicitfast, gravity along −z. 0.02 s is the week-1 timestep that breaks things; +z is up, so gravity is negative z.",
+  "source": "Study guide · Week 0 numbers"
+ },
+ {
+  "id": "ch0-053",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Engine settings",
+  "kind": "calc",
+  "q": "At the G1's 500 Hz, how many physics steps does a 3 s simulation take?",
+  "choices": [
+   "1500",
+   "167",
+   "500",
+   "6000"
+  ],
+  "why": "3 s / 0.002 s = 1500 steps. 167 comes from dividing 500 by 3.",
+  "source": "Study guide · Week 0 numbers"
+ },
+ {
+  "id": "ch0-054",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Sim-to-real",
+  "kind": "concept",
+  "q": "Comparing the real G1 with our MuJoCo G1, which layers transfer between the two?",
+  "choices": [
+   "Layers 2–5 transfer; Layer 1 never does",
+   "Layer 1 transfers; Layers 2–5 are rewritten",
+   "Only Layer 5, the trained policy, transfers",
+   "All five transfer if the MJCF is accurate"
+  ],
+  "why": "Model, middleware, control and AI can move across; the physics engine is replaced by reality. \"That one asymmetry is the sim-to-real problem.\"",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-055",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Sim-to-real",
+  "kind": "concept",
+  "q": "Which of these is a source of the sim-to-real gap named in the course?",
+  "choices": [
+   "Real sensors are noisy, biased and late",
+   "Real gravity is not 9.81 m/s² indoors",
+   "Real robots cannot run PD servo loops",
+   "Real joints have no mechanical limits"
+  ],
+  "why": "Listed: friction changes with dust and wear, motors saturate and lag, sensors are noisy, biased and late, gearboxes have backlash, real mass is never the file's mass.",
+  "source": "Study guide · Week 0 ideas"
+ },
+ {
+  "id": "ch0-056",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Sim-to-real",
+  "kind": "concept",
+  "q": "You set gravity to the Moon's −1.62 m/s² and re-run the limp fall. Which other layers had to change?",
+  "choices": [
+   "None: only Layer 1 changed",
+   "Layer 2: rescale every MJCF mass",
+   "Layer 4: retune every servo gain",
+   "Layer 3: slow the shared clock"
+  ],
+  "why": "Gravity is a property of the world. Changing it touches Layer 1 only, which is the point of the exercise: the other layers do not know or care.",
+  "source": "Week 0 slides"
+ },
+ {
+  "id": "ch0-057",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Sim-to-real",
+  "kind": "calc",
+  "q": "A 30 kg robot stands still on the Moon (take g = 1.6 m/s²). What do its contact normal forces sum to?",
+  "choices": [
+   "48 N",
+   "300 N",
+   "480 N",
+   "18.75 N"
+  ],
+  "why": "Standing still, ΣF_n = m·g = 30 × 1.6 = 48 N. 300 N is its Earth weight (g ≈ 10). The lab shows the G1 on the Moon at about 54 N.",
+  "source": "Week 0 slides"
+ },
+ {
+  "id": "ch0-058",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Measure, do not believe",
+  "kind": "trap",
+  "q": "Which belief did the course measure and find to be false?",
+  "choices": [
+   "That the G1 falls over with ctrl = 0",
+   "That the G1 falls with actuation off",
+   "That standing contacts sum to the weight",
+   "That one model can serve many data"
+  ],
+  "why": "With ctrl = 0 the position servos hold a straight stance at 0.79 m. The other three statements are true and measured.",
+  "source": "Study guide · How the course fits together"
+ },
+ {
+  "id": "ch0-059",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "The course question",
+  "kind": "concept",
+  "q": "What question does the professor want you to ask of any robotics claim, paper or demo?",
+  "choices": [
+   "Which layer is this, and what does it assume beneath it?",
+   "How many parameters does the learned policy have?",
+   "Was this trained in simulation or on real hardware?",
+   "Which physics engine rendered the demo video?"
+  ],
+  "why": "\"Which layer is this, and what is it assuming about the layers beneath it?\" Much robotics hype is a Layer 5 result relying on a Layer 1 that exists only in the lab.",
+  "source": "Study guide · Week 0 traps"
+ },
+ {
+  "id": "ch0-060",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "Sensors are declared",
+  "kind": "trap",
+  "q": "\"The G1 has nsensor = 4, so its observation y has 4 numbers.\" What is wrong with this?",
+  "choices": [
+   "Each sensor is 3-axis, so 4 sensors give 12 numbers",
+   "Nothing: one number per sensor, 4 numbers in all",
+   "nsensor counts IMUs, so there are 4 IMUs, 24 numbers",
+   "y is the full state, so it has 71 numbers, not 4"
+  ],
+  "why": "nsensor = 4 is two IMUs × (gyro + accelerometer). Each of the four reads 3 axes, so sensordata holds 12 numbers per step.",
+  "source": "Study guide · Week 0 numbers"
+ },
+ {
+  "id": "ch0-061",
+  "chapter": "Week 0 · Five-layer stack",
+  "topic": "One timestep",
+  "kind": "trap",
+  "q": "A student shrinks the timestep from 0.002 s to 0.0005 s \"for free accuracy\". What did it cost?",
+  "choices": [
+   "4× more steps per simulated second",
+   "Nothing: accuracy is free in MuJoCo",
+   "4× fewer steps per simulated second",
+   "16× more steps per simulated second"
+  ],
+  "why": "The step is 4× smaller, so each simulated second needs 4× as many steps (and the error drops about 4×). Smaller is closer to reality and always more work.",
+  "source": "Study guide · Week 0 maths"
+ }
+]

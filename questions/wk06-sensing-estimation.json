@@ -1,0 +1,1217 @@
+[
+  {
+    "id": "ch6-001",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Privileged state",
+    "kind": "concept",
+    "q": "Every controller up to week 5 read qpos[:7]. Why does the course call that 'cheating'?",
+    "choices": [
+      "It is the pelvis position and orientation, which no G1 sensor measures",
+      "It is the joint angles, which the real G1 must estimate from torque",
+      "It is the previous action, which a policy is not allowed to see",
+      "It is the raw IMU reading, before the noise is added in software"
+    ],
+    "why": "qpos[:7] is the floating base: 3 position numbers plus a quaternion. There is no sensor for 'where am I in the room', so it is privileged; the joint angles are qpos[7:].",
+    "source": "Study guide · Week 6 ideas"
+  },
+  {
+    "id": "ch6-002",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "What the G1 senses",
+    "kind": "concept",
+    "q": "Which sensors does the G1 actually have?",
+    "choices": [
+      "Two IMUs and joint encoders, nothing else",
+      "Two IMUs, foot contact switches and encoders",
+      "A head camera, one IMU and joint torque sensors",
+      "One IMU, a magnetometer and joint encoders"
+    ],
+    "why": "Torso and pelvis IMUs (each a gyro plus accelerometer) and the joint encoders. No cameras, no torque sensors, no foot contact switches.",
+    "source": "Study guide · Week 6 ideas"
+  },
+  {
+    "id": "ch6-003",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "What the G1 senses",
+    "kind": "trap",
+    "q": "Which part of qpos may a controller for the real G1 fairly use?",
+    "choices": [
+      "qpos[7:], the joint angles, read by encoders",
+      "qpos[:7], the pelvis pose, read by the IMU",
+      "qpos[:3], the pelvis position, from the accelerometer",
+      "None of it; only qvel can be measured"
+    ],
+    "why": "A real robot reads its own joint angles, so qpos[7:] is fair. The pelvis pose qpos[:7] is not measured by anything: the IMU gives rates and specific force, not pose.",
+    "source": "Study guide · Week 6 ideas"
+  },
+  {
+    "id": "ch6-004",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "What the G1 senses",
+    "kind": "number",
+    "q": "How many sensor numbers per timestep do the G1's two IMUs provide?",
+    "choices": [
+      "12: a gyro and an accelerometer, 3 axes each, twice",
+      "6: one gyro and one accelerometer, 3 axes each",
+      "4: one number per sensor, since nsensor = 4",
+      "29: one per actuated joint of the robot"
+    ],
+    "why": "nsensor = 4 is four 3-axis sensors (gyro + accelerometer at torso and at pelvis), 12 numbers per step. 29 is the number of actuators.",
+    "source": "Week 6 slides"
+  },
+  {
+    "id": "ch6-005",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Perfect sim sensors",
+    "kind": "trap",
+    "q": "Two identical G1 runs give identical sensordata, although the MJCF declares noise. What does the course conclude?",
+    "choices": [
+      "'Convenient and dishonest': inject noise and bias by hand",
+      "The sensors are ideal, so test estimators on them as they are",
+      "Noise is applied only on Colab, so test there instead",
+      "Declared noise appears only once the robot starts walking"
+    ],
+    "why": "This MuJoCo build applies no sensor noise, so readings are exactly deterministic. An estimator tested on perfect sensors teaches nothing, so noise and gyro bias are added by hand.",
+    "source": "Study guide · Week 6 ideas"
+  },
+  {
+    "id": "ch6-006",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Specific force",
+    "kind": "trap",
+    "q": "Proof mass on a spring: m·a = f_spring + m·g. The chip reads only the spring. So it reports…",
+    "choices": [
+      "The specific force f = a − g",
+      "The true acceleration a of the body",
+      "Gravity alone, g, in body axes",
+      "The sum a + g of motion and gravity"
+    ],
+    "why": "Solving for the spring force per kilogram gives f = a − g: every force except gravity, per kilogram. That is why 'the accelerometer does not measure acceleration'.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-007",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Specific force",
+    "kind": "concept",
+    "q": "In the body's own axes (R maps body to world), the accelerometer reads…",
+    "choices": [
+      "f_b = Rᵀ(a − g)",
+      "f_b = R(a − g)",
+      "f_b = Rᵀ(a + g)",
+      "f_b = Rᵀa − g"
+    ],
+    "why": "The chip is bolted to the body, so a world vector is seen in body axes as Rᵀ times it, and the vector is the specific force a − g. Rotating with R instead of Rᵀ goes the wrong way.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-008",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Accelerometer readings",
+    "kind": "trap",
+    "q": "What does an accelerometer on a robot standing perfectly still read?",
+    "choices": [
+      "9.81 m/s² pointing up, in its own axes",
+      "Zero, because the robot is not accelerating",
+      "9.81 m/s² pointing down, along gravity",
+      "Zero vertically and 9.81 along its x axis"
+    ],
+    "why": "At rest a = 0, so f = a − g = −g: 9.81 m/s² UP. 'Reads zero at rest' is the guide's named trap; zero is the free-fall reading.",
+    "source": "Study guide · Week 6 traps"
+  },
+  {
+    "id": "ch6-009",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Accelerometer readings",
+    "kind": "calc",
+    "q": "Practice Q16: an accelerometer at rest reads (0, 0, 9.81). The robot is dropped. What does it read during the fall?",
+    "choices": [
+      "(0, 0, 0)",
+      "(0, 0, 9.81), unchanged",
+      "(0, 0, −9.81)",
+      "(0, 0, 19.62)"
+    ],
+    "why": "In free fall a = g, so f = a − g = 0: nothing touches the proof mass. It does not keep reading 9.81, and it does not flip sign.",
+    "source": "Study guide · practice Q16"
+  },
+  {
+    "id": "ch6-010",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Accelerometer readings",
+    "kind": "calc",
+    "q": "A lift accelerates upward at 2 m/s² (g ≈ 9.81). What does an accelerometer on its floor read vertically?",
+    "choices": [
+      "About 11.8 m/s² up",
+      "About 7.8 m/s² up",
+      "About 2 m/s² up",
+      "About 9.8 m/s² up"
+    ],
+    "why": "f = a − g = 2 − (−9.81) = 11.81 m/s² up: more than at rest, because the floor pushes harder. 7.8 is the lift accelerating downward.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-011",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Accelerometer readings",
+    "kind": "calc",
+    "q": "A lift accelerates downward at 2 m/s². What does the accelerometer read vertically?",
+    "choices": [
+      "About 7.8 m/s² up",
+      "About 11.8 m/s² up",
+      "About 2 m/s² down",
+      "Zero"
+    ],
+    "why": "f = a − g = −2 − (−9.81) = 7.81 m/s² up: less than at rest, but not zero (that needs full free fall, a = g).",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-012",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Accelerometer readings",
+    "kind": "trap",
+    "q": "'An accelerometer reads zero in free fall.' Is that right?",
+    "choices": [
+      "Yes: a = g, so a − g = 0",
+      "No: it reads 9.81 m/s² down",
+      "No: it reads 9.81 m/s² up, as at rest",
+      "No: it reads 19.62 m/s², twice g"
+    ],
+    "why": "The guide: 'zero at rest' is wrong, 'zero in free fall' is right. Falling, the case and the proof mass accelerate together and the spring is unloaded.",
+    "source": "Study guide · Week 6 traps"
+  },
+  {
+    "id": "ch6-013",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Accelerometer as tilt sensor",
+    "kind": "concept",
+    "q": "Why is an accelerometer a tilt sensor?",
+    "choices": [
+      "At rest its reading points 'up', written in the body's axes",
+      "It integrates its turning rate into an angle over time",
+      "It measures the body's own acceleration, which tilt causes",
+      "Its proof mass swings like a pendulum toward the floor"
+    ],
+    "why": "At rest f = −g, so the reading's direction is 'up' expressed in body axes; tilt the body and 'up' moves among those axes. Integrating a rate is the gyro's job.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-014",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Tilt formula",
+    "kind": "concept",
+    "q": "At rest, the roll angle from the accelerometer is…",
+    "choices": [
+      "φ = atan2(f_y, f_z)",
+      "φ = atan2(f_z, f_y)",
+      "φ = atan2(−f_x, f_z)",
+      "φ = asin(f_y), taking g = 1"
+    ],
+    "why": "At rest f_b = g(−sin θ, sin φ cos θ, cos φ cos θ), so f_y/f_z = tan φ. The argument order is atan2(y, x); −f_x belongs to pitch.",
+    "source": "Study guide · formula sheet"
+  },
+  {
+    "id": "ch6-015",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Tilt formula",
+    "kind": "concept",
+    "q": "At rest, the pitch angle from the accelerometer is…",
+    "choices": [
+      "θ = atan2(−f_x, √(f_y² + f_z²))",
+      "θ = atan2(f_x, f_z)",
+      "θ = atan2(f_y, √(f_x² + f_z²))",
+      "θ = atan2(−f_x, f_y + f_z)"
+    ],
+    "why": "f_x = −g sin θ and √(f_y² + f_z²) = g cos θ, so their ratio gives tan θ. The y and z parts combine as a root of squares, not a sum.",
+    "source": "Study guide · formula sheet"
+  },
+  {
+    "id": "ch6-016",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Tilt formula",
+    "kind": "concept",
+    "q": "Why does the value of g not matter in the accelerometer tilt formulas?",
+    "choices": [
+      "It cancels in the ratio: only the reading's direction matters",
+      "It is fixed at 9.81 everywhere, so it is a known constant",
+      "The chip divides every reading by g before reporting it",
+      "It does matter: g must be known to 1 % for 1° accuracy"
+    ],
+    "why": "Both atan2 arguments carry the same factor g, which cancels. So the estimate uses the direction of f, not its magnitude.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-017",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Tilt formula",
+    "kind": "calc",
+    "q": "At rest the accelerometer reads f = (0, 4.9, 8.5) m/s². What is the roll?",
+    "choices": [
+      "About 30°",
+      "About 60°",
+      "About 0°",
+      "About 45°"
+    ],
+    "why": "φ = atan2(4.9, 8.5): tan φ ≈ 0.58, so φ ≈ 30° (sin 30° · 9.81 = 4.9, cos 30° · 9.81 = 8.5). 60° comes from swapping the arguments.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-018",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Tilt formula",
+    "kind": "calc",
+    "q": "At rest the accelerometer reads f = (−4.9, 0, 8.5) m/s². What is the pitch?",
+    "choices": [
+      "About +30°",
+      "About −30°",
+      "About +60°",
+      "About 0°"
+    ],
+    "why": "θ = atan2(−f_x, √(f_y² + f_z²)) = atan2(4.9, 8.5) ≈ +30°. Forgetting the minus sign on f_x gives −30°.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-019",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Yaw unobservable",
+    "kind": "trap",
+    "q": "Why can no accelerometer reading ever contain heading (yaw)?",
+    "choices": [
+      "Turning about the vertical leaves 'up' unchanged: R_z(ψ)ᵀe_z = e_z",
+      "Yaw changes only the reading's sign, which atan2 then throws away",
+      "Yaw is buried in sensor noise; a better chip would recover it",
+      "Yaw shows up only while moving, and the formula assumes rest"
+    ],
+    "why": "At rest the reading is g·Rᵀe_z, and the yaw rotation leaves e_z untouched, so ψ drops out of the equation entirely. No amount of precision recovers what is not in the signal.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-020",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Yaw unobservable",
+    "kind": "trap",
+    "q": "Practice Q19: is the robot's heading (yaw) observable from the IMU alone?",
+    "choices": [
+      "No: gravity is blind to it, and the gyro's integral drifts",
+      "Yes: atan2(f_x, f_y) of the accelerometer gives it",
+      "Yes: integrating the gyro's ω_z gives it exactly",
+      "Only while standing still, when the accelerometer is clean"
+    ],
+    "why": "The accelerometer cannot see rotation about the vertical at all, and the gyro gives only a rate whose integral grows as b·t. So yaw is privileged; a magnetometer could help but is unreliable near motors indoors.",
+    "source": "Study guide · practice Q19"
+  },
+  {
+    "id": "ch6-021",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Yaw unobservable",
+    "kind": "concept",
+    "q": "A box is held still with the same roll and pitch at yaw 0°, 45° and 170°. What are the three accelerometer readings?",
+    "choices": [
+      "Identical",
+      "Rotated by 0°, 45° and 170° in the x–y plane",
+      "Same direction, scaled by cos(yaw)",
+      "Identical in z, with x and y flipped at 170°"
+    ],
+    "why": "Measured in the deck: the rows that differ only in yaw give the same reading, which is Step 3 of the derivation (yaw drops out).",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-022",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Gravity in body frame",
+    "kind": "concept",
+    "q": "Why do locomotion policies observe gravity in the body frame rather than the full orientation?",
+    "choices": [
+      "It is the largest piece of attitude a real robot can honestly know",
+      "It is cheaper for the network to read than a 4-number quaternion",
+      "It contains the heading (yaw) that the policy needs in order to steer",
+      "It is exact on hardware, so no filter is ever needed to produce it"
+    ],
+    "why": "Roll and pitch are recoverable (gravity plus a filter); yaw is not. So the honest observation is the gravity direction in body axes. On hardware it comes from a filter, with errors.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-023",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Walking breaks the accelerometer",
+    "kind": "concept",
+    "q": "While the robot walks, why does the accelerometer's tilt estimate go wrong?",
+    "choices": [
+      "Sideways acceleration adds into f_y, and atan2 can't tell it from gravity",
+      "The gyro bias leaks into the accelerometer through the shared IMU chip",
+      "The robot's yaw changes as it walks, rotating the gravity reading",
+      "Its noise is far larger than the true tilt signal, even standing"
+    ],
+    "why": "The tilt formula assumed a = 0. Walking, f = a − g picks up the body's own acceleration, and every footfall kicks it (|f| ranged 3.4–19.3 m/s²). Yaw does not enter the reading at all.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-024",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "False roll",
+    "kind": "number",
+    "q": "About how much false roll does 1 m/s² of sideways acceleration produce in the accelerometer tilt?",
+    "choices": [
+      "About 5.8°",
+      "About 0.1°",
+      "About 45°",
+      "About 1°"
+    ],
+    "why": "atan(1/9.81) ≈ 0.10 rad ≈ 5.8°. 0.1 is the angle in radians, not degrees; 45° would need a sideways acceleration equal to g.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-025",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "False roll",
+    "kind": "calc",
+    "q": "An upright robot accelerates sideways at 2 m/s² (take g ≈ 10). Using the small-angle approximation, what false roll does the accelerometer report?",
+    "choices": [
+      "About 0.2 rad, ≈ 11.5°",
+      "About 0.02 rad, ≈ 1.1°",
+      "About 2 rad, ≈ 115°",
+      "About 0.5 rad, ≈ 29°"
+    ],
+    "why": "atan(a/g) ≈ a/g = 2/10 = 0.2 rad, and 0.2 × 57.3 ≈ 11.5°. Every 1 m/s² is about 5.8°, so 2 m/s² is about 11.5°.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-026",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Walking breaks the accelerometer",
+    "kind": "number",
+    "q": "During the G1 walk, over what range did the accelerometer magnitude |f| swing?",
+    "choices": [
+      "3.4–19.3 m/s²",
+      "9.7–9.9 m/s²",
+      "0–9.81 m/s²",
+      "19.3–34 m/s²"
+    ],
+    "why": "At rest |f| would be 9.81; walking it strayed up to about 9.5 m/s² either way, from 3.4 to 19.3. That is the footfall kicking the sensor.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-027",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Gyro drift",
+    "kind": "concept",
+    "q": "A gyro reads ω_k = φ̇_k + b. Integrating it for an angle, how does the error grow?",
+    "choices": [
+      "e(t) = b·t: linearly, for ever",
+      "e(t) = ½·b·t²: as a parabola",
+      "e(t) = b: a constant offset",
+      "e(t) ≈ τ·b: bounded"
+    ],
+    "why": "Each step adds b·Δt to the error and nothing pulls it back, because the gyro never sees 'up'. ½bt² is double integration of an accelerometer bias; τ·b is the filtered case.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-028",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Gyro drift",
+    "kind": "calc",
+    "q": "A gyro has a bias of 0.01 rad/s. After one minute of integration, how far off is the angle?",
+    "choices": [
+      "0.6 rad, about 34°",
+      "0.6 rad, about 0.6°",
+      "18 rad, about 1030°",
+      "0.01 rad, about 0.57°"
+    ],
+    "why": "e = b·t = 0.01 × 60 = 0.6 rad ≈ 34° (0.57°/s for 60 s). 18 rad is ½bt², the double-integration formula, wrongly applied.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-029",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Gyro drift",
+    "kind": "calc",
+    "q": "Practice Q17: a gyro has bias 0.02 rad/s. Roughly how far off is the integrated angle after 10 s?",
+    "choices": [
+      "About 11.5°, and growing",
+      "About 0.2°, and growing",
+      "About 57°, and growing",
+      "About 1.1°, then bounded"
+    ],
+    "why": "b·t = 0.02 × 10 = 0.2 rad, and 0.2 × 57.3 ≈ 11.5°. Forgetting the radian-to-degree conversion gives '0.2°'; a lone gyro is never bounded.",
+    "source": "Study guide · practice Q17"
+  },
+  {
+    "id": "ch6-030",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Gyro drift",
+    "kind": "calc",
+    "q": "A gyro bias of 0.005 rad/s is integrated for 100 s. What is the angle error?",
+    "choices": [
+      "About 29°",
+      "About 0.5°",
+      "About 1430°",
+      "About 2.9°"
+    ],
+    "why": "0.005 × 100 = 0.5 rad ≈ 29°. 1430° is ½bt² (25 rad); 0.5° forgets that the answer is in radians.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-031",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Complementary failure modes",
+    "kind": "concept",
+    "q": "'A gyro is right now and wrong later; the accelerometer is the opposite.' What is this describing?",
+    "choices": [
+      "Complementary failure modes of the two sensors",
+      "The gyro being noisier than the accelerometer",
+      "The accelerometer lagging behind the gyro in time",
+      "The torso and pelvis IMUs disagreeing by 0.7°"
+    ],
+    "why": "The gyro's error starts tiny and grows as b·t; the accelerometer's is large at every footfall but never grows. Each covers the other's weakness, which is what the filter exploits.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-032",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Complementary failure modes",
+    "kind": "concept",
+    "q": "Which description fits the accelerometer used as a tilt sensor on a walking robot?",
+    "choices": [
+      "Error large now (every footfall), never grows",
+      "Error tiny now (smooth), but grows as b·t",
+      "Error large now (footfalls), grows as ½·b·t²",
+      "Error tiny now (smooth), and never grows"
+    ],
+    "why": "It always sees gravity (so no drift) plus the body's acceleration (so footfall spikes). 'Tiny now, grows as b·t' is the gyro.",
+    "source": "Week 6 slides"
+  },
+  {
+    "id": "ch6-033",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Double integration",
+    "kind": "concept",
+    "q": "A constant bias b in measured acceleration is integrated twice for position. The position error grows as…",
+    "choices": [
+      "½·b·t², a parabola",
+      "b·t, a straight line",
+      "b·t², with no half",
+      "τ·b, bounded"
+    ],
+    "why": "Once: velocity error ∫b dt = b·t. Twice: ∫b·s ds = ½bt². Dropping the ½ is the usual slip.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-034",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Double integration",
+    "kind": "calc",
+    "q": "An accelerometer bias of 0.01 m/s² is double-integrated for 20 s of standing still. Position error?",
+    "choices": [
+      "2 m",
+      "0.2 m",
+      "4 m",
+      "0.1 m"
+    ],
+    "why": "½·b·t² = 0.5 × 0.01 × 400 = 2 m. 0.2 m is the velocity-style b·t; 4 m is bt² without the ½.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-035",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Double integration",
+    "kind": "calc",
+    "q": "A bias of 0.1 m/s² is double-integrated for 10 s. Position error?",
+    "choices": [
+      "5 m",
+      "10 m",
+      "1 m",
+      "0.5 m"
+    ],
+    "why": "½ × 0.1 × 10² = 5 m. 10 m forgets the ½; 1 m is b·t, the velocity error in m/s mistaken for position.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-036",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Double integration",
+    "kind": "concept",
+    "q": "Why is gravity itself the worst accelerometer bias for double integration?",
+    "choices": [
+      "A tilt error δ leaves g·sin δ of gravity uncancelled as fake acceleration",
+      "Gravity varies with height, so the bias drifts as the robot moves",
+      "The chip cannot measure gravity at all, so it has to be guessed",
+      "Gravity adds random noise, not bias, which grows as the square root of t"
+    ],
+    "why": "To subtract g you need R, i.e. the tilt. Get it wrong by δ and g·sin δ is left over: 1° leaves about 0.17 m/s², far bigger than a typical chip bias.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-037",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Double integration",
+    "kind": "calc",
+    "q": "A 1° tilt error leaves g·sin 1° ≈ 0.17 m/s² uncancelled while the robot stands still. Position error after 10 s and after 20 s?",
+    "choices": [
+      "About 8.6 m and 34 m",
+      "About 1.7 m and 3.4 m",
+      "About 17 m and 68 m",
+      "About 0.86 m and 1.7 m"
+    ],
+    "why": "½ × 0.17 × 100 ≈ 8.6 m, and ½ × 0.17 × 400 ≈ 34 m: doubling t quadruples the error. 1.7/3.4 m is b·t; 17/68 m drops the ½.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-038",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Position is privileged",
+    "kind": "trap",
+    "q": "To know where the G1 is in the room, a student double-integrates its accelerometer. Verdict?",
+    "choices": [
+      "It diverges as ½bt²; position needs a sensor that sees the world",
+      "It works once the accelerometer is filtered with α ≈ 0.998",
+      "It works while walking, since footfall kicks average out",
+      "It works for about an hour, and then needs one reset"
+    ],
+    "why": "Any bias (gravity from a 1° tilt is enough) grows as a parabola: 34 m after 20 s of standing. Cameras, GPS or contact with known ground are needed; the G1 has none, so position is privileged.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-039",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Complementary filter",
+    "kind": "concept",
+    "q": "Which is the complementary filter's update?",
+    "choices": [
+      "θ̂_k = α(θ̂_{k−1} + ω_k·Δt) + (1 − α)·θ_acc,k",
+      "θ̂_k = α·θ_acc,k + (1 − α)(θ̂_{k−1} + ω_k·Δt)",
+      "θ̂_k = α(θ̂_{k−1} + θ_acc,k·Δt) + (1 − α)·ω_k",
+      "θ̂_k = θ̂_{k−1} + α·ω_k·Δt + (1 − α)·θ_acc,k"
+    ],
+    "why": "Predict with the gyro (θ̂_{k−1} + ω_k·Δt), then blend in a small share (1 − α) of the accelerometer angle. The swapped version puts the big weight α on the accelerometer.",
+    "source": "Study guide · formula sheet"
+  },
+  {
+    "id": "ch6-040",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Complementary filter",
+    "kind": "concept",
+    "q": "In words, what does the complementary filter do?",
+    "choices": [
+      "Trust the gyro over short intervals; let gravity correct it slowly",
+      "Trust the accelerometer over short intervals; let the gyro correct it",
+      "Average the gyro and accelerometer angles with equal weights",
+      "Use the gyro while walking and the accelerometer while standing"
+    ],
+    "why": "The gyro is right now and wrong later, the accelerometer the opposite, so the gyro handles fast changes and gravity slowly removes its drift. Equal weighting would let every footfall straight in.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-041",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Complementary filter",
+    "kind": "concept",
+    "q": "What do α = 1 and α = 0 turn the complementary filter into?",
+    "choices": [
+      "A pure gyro (drifts) and a pure accelerometer (kicked every step)",
+      "A pure accelerometer (kicked) and a pure gyro (drifts)",
+      "A filter frozen at its start value, and an exact copy of the truth",
+      "The best filter for standing, and the best filter for walking"
+    ],
+    "why": "With α = 1 the accelerometer term vanishes and the gyro is integrated alone; with α = 0 only θ_acc remains. Neither extreme is useful on a walk.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-042",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Complementary filter",
+    "kind": "concept",
+    "q": "At α = 0.995, why does a footfall spike lasting a few ticks barely move the estimate?",
+    "choices": [
+      "Each tick moves only 0.5 % of the way toward the accelerometer angle",
+      "Each tick moves 99.5 % of the way toward the accelerometer angle",
+      "The gyro detects the spike and the filter rejects that sample",
+      "The second (pelvis) IMU averages out the torso IMU's spike"
+    ],
+    "why": "1 − α = 0.005, so a brief kick contributes almost nothing, while a bias that pushes the same way for seconds is steadily pulled back. The filter has no spike detector.",
+    "source": "Week 6 slides"
+  },
+  {
+    "id": "ch6-043",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Low-pass plus high-pass",
+    "kind": "concept",
+    "q": "As transfer functions, the complementary filter's estimate is…",
+    "choices": [
+      "A low-pass of the accelerometer angle plus a high-pass of the gyro angle",
+      "A high-pass of the accelerometer angle plus a low-pass of the gyro angle",
+      "A low-pass of both angles, averaged together with the weight α",
+      "A band-pass of the gyro rate, centred on the stride frequency"
+    ],
+    "why": "L = (1 − α)/(1 − αz⁻¹) passes slow signals (the accelerometer's trustworthy part); H = 1 − L passes fast ones (the gyro's trustworthy part) and blocks its constant bias.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-044",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Low-pass plus high-pass",
+    "kind": "concept",
+    "q": "The filter's two paths satisfy L(z) + H(z) = 1. What does that guarantee?",
+    "choices": [
+      "With perfect sensors, the estimate equals the true angle",
+      "The estimate's error always stays below one degree",
+      "The filter is stable for any α, including α > 1",
+      "The gyro bias is removed exactly, not merely bounded"
+    ],
+    "why": "If both sensors were exact, θ̂ = L·θ + H·θ = θ. It says nothing about error size with real sensors, and the bias is only bounded (≈ τ·b), not removed.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-045",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Time constant",
+    "kind": "concept",
+    "q": "What is the complementary filter's time constant τ?",
+    "choices": [
+      "τ = −Δt/ln α ≈ Δt/(1 − α)",
+      "τ = Δt·(1 − α)",
+      "τ = −ln α/Δt ≈ (1 − α)/Δt",
+      "τ = α·Δt/(1 + α)"
+    ],
+    "why": "The low-pass memory decays as α^k = e^(k ln α) = e^(−t/τ) with k = t/Δt, so τ = −Δt/ln α, and ln α ≈ α − 1 near 1. Multiplying by (1 − α) instead of dividing is the classic slip.",
+    "source": "Study guide · formula sheet"
+  },
+  {
+    "id": "ch6-046",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Time constant",
+    "kind": "calc",
+    "q": "Practice Q18: with Δt = 0.001 s and α = 0.999, what is τ?",
+    "choices": [
+      "About 1 s",
+      "About 1 µs",
+      "About 0.001 s",
+      "About 1000 s"
+    ],
+    "why": "τ ≈ Δt/(1 − α) = 0.001/0.001 = 1 s. Δt·(1 − α) would give 10⁻⁶ s, which is the slip.",
+    "source": "Study guide · practice Q18"
+  },
+  {
+    "id": "ch6-047",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Time constant",
+    "kind": "calc",
+    "q": "Δt = 0.002 s (500 Hz) and α = 0.998. What is τ?",
+    "choices": [
+      "About 1 s",
+      "About 0.5 s",
+      "About 0.002 s",
+      "About 4 µs"
+    ],
+    "why": "0.002/(1 − 0.998) = 0.002/0.002 = 1 s, the optimum on the course's walk. 4 µs is Δt·(1 − α).",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-048",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Time constant",
+    "kind": "calc",
+    "q": "Δt = 0.01 s (100 Hz) and α = 0.99. What is τ?",
+    "choices": [
+      "About 1 s",
+      "About 0.1 s",
+      "About 100 s",
+      "About 0.0001 s"
+    ],
+    "why": "0.01/0.01 = 1 s. The same τ can come from different (Δt, α) pairs: α must change with the sample rate to keep the same memory.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-049",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Time constant",
+    "kind": "calc",
+    "q": "Δt = 0.002 s and α = 0.99. What is τ?",
+    "choices": [
+      "About 0.2 s",
+      "About 2 s",
+      "About 0.02 s",
+      "About 20 µs"
+    ],
+    "why": "0.002/0.01 = 0.2 s. A smaller α means a shorter memory: more trust in the accelerometer.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-050",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Time constant",
+    "kind": "number",
+    "q": "At Δt = 0.002 s and α = 0.995, what are τ and the crossover frequency f_c?",
+    "choices": [
+      "τ ≈ 0.4 s, f_c ≈ 0.4 Hz",
+      "τ ≈ 4 s, f_c ≈ 0.04 Hz",
+      "τ ≈ 0.4 s, f_c ≈ 2.5 Hz",
+      "τ ≈ 0.01 s, f_c ≈ 16 Hz"
+    ],
+    "why": "τ ≈ 0.002/0.005 = 0.4 s and f_c = 1/(2πτ) ≈ 0.4 Hz. 2.5 Hz is 1/τ without the 2π.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-051",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Crossover frequency",
+    "kind": "calc",
+    "q": "A complementary filter has τ = 1 s. What is its crossover frequency f_c?",
+    "choices": [
+      "About 0.16 Hz",
+      "About 1 Hz",
+      "About 6.3 Hz",
+      "About 0.5 Hz"
+    ],
+    "why": "f_c = 1/(2πτ) = 1/6.28 ≈ 0.16 Hz. 1 Hz forgets the 2π; 6.3 Hz multiplies by it.",
+    "source": "Study guide · formula sheet"
+  },
+  {
+    "id": "ch6-052",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Crossover frequency",
+    "kind": "concept",
+    "q": "Below and above the crossover frequency f_c, which sensor's angle does the filter follow?",
+    "choices": [
+      "Below f_c the accelerometer; above it the gyro",
+      "Below f_c the gyro; above it the accelerometer",
+      "The gyro at every frequency once α > 0.99",
+      "The accelerometer at every frequency while standing"
+    ],
+    "why": "The accelerometer goes through the low-pass (slow trends, gravity), the gyro through the high-pass (fast motion). That is why the bias (0 Hz) is removed and footfalls (0.77 Hz and up) are cut.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-053",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Bounded bias error",
+    "kind": "trap",
+    "q": "What does a gyro bias b cost inside the complementary filter, compared with integrating the gyro alone?",
+    "choices": [
+      "A bounded error, e_∞ ≈ τ·b, instead of b·t",
+      "Still b·t, but slower by a factor α",
+      "Nothing: the high-pass removes it exactly",
+      "A bounded error, e_∞ ≈ b/τ, smaller for larger τ"
+    ],
+    "why": "Standing still, the error settles at α·Δt·b/(1 − α) ≈ τ·b. 'Trust the gyro for τ seconds and you inherit τ seconds' worth of its bias, never more.' Larger τ means MORE bias error, not less.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-054",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Bounded bias error",
+    "kind": "calc",
+    "q": "A filter with τ = 1 s runs on a gyro biased by 0.01 rad/s. What is the steady error?",
+    "choices": [
+      "About 0.01 rad, ≈ 0.57°",
+      "About 0.6 rad, ≈ 34°",
+      "About 0.0001 rad, ≈ 0.006°",
+      "About 1 rad, ≈ 57°"
+    ],
+    "why": "e_∞ ≈ τ·b = 1 × 0.01 = 0.01 rad ≈ 0.57°. 34° is the unfiltered gyro after a minute (b·t), which the filter avoids.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-055",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Bounded bias error",
+    "kind": "calc",
+    "q": "Δt = 0.002 s, α = 0.995, gyro bias 0.01 rad/s. Roughly what steady error does the filter settle at?",
+    "choices": [
+      "About 0.004 rad, a quarter of a degree",
+      "About 0.04 rad, over two degrees",
+      "About 0.00002 rad, effectively zero",
+      "About 0.025 rad, about 1.4 degrees"
+    ],
+    "why": "τ ≈ 0.4 s, so τ·b ≈ 0.004 rad ≈ 0.23°. 0.025 rad would be b/τ, the inverted relation.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-056",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Choosing α",
+    "kind": "concept",
+    "q": "Moving α closer to 1 (larger τ, lower f_c) does what?",
+    "choices": [
+      "Lets less footfall through, but pays more bias error τ·b",
+      "Lets more footfall through, but pays less bias error τ·b",
+      "Lowers both the footfall leak and the bias error",
+      "Changes nothing on a walk; only the noise level matters"
+    ],
+    "why": "A lower f_c cuts more of the footfall band but trusts the gyro longer, so τ·b grows. That trade is why there is an optimum.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-057",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Choosing α",
+    "kind": "concept",
+    "q": "'α is not a constant, it is a claim about your sensors.' A worse gyro bias pushes the best α toward…",
+    "choices": [
+      "Smaller τ: α further from 1",
+      "Larger τ: α closer to 1",
+      "Exactly 0.998, whatever the sensors",
+      "α = 1, a pure gyro"
+    ],
+    "why": "The bias cost is τ·b, so a bigger b favours a shorter memory. A rougher gait does the opposite: it pushes toward larger τ.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-058",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Choosing α",
+    "kind": "concept",
+    "q": "A rougher gait (bigger footfall kicks) pushes the best filter time constant τ…",
+    "choices": [
+      "Larger: lean longer on the gyro",
+      "Smaller: lean more on the accelerometer",
+      "To zero: use the accelerometer alone",
+      "Nowhere: τ depends only on Δt"
+    ],
+    "why": "Rougher footfalls make the accelerometer worse, so you trust it less, which means a lower f_c and a larger τ. A worse bias pushes the other way.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-059",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Choosing α",
+    "kind": "number",
+    "q": "Where is the best α on the course's biased-gyro walk (Δt = 0.002 s)?",
+    "choices": [
+      "About 0.998, τ ≈ 1 s",
+      "About 0.9, τ ≈ 0.02 s",
+      "About 0.995, τ ≈ 0.4 s",
+      "Exactly 1, a pure gyro"
+    ],
+    "why": "The sweep's optimum is around α ≈ 0.998 (mean and final error both bottom out there). 0.995 is the deck's default setting, not the optimum.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-060",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Choosing α",
+    "kind": "number",
+    "q": "How much of the 0.77 Hz stride component of the accelerometer error gets through the low-pass at α = 0.995, and at α = 0.998?",
+    "choices": [
+      "About 46 % and about 20 %",
+      "About 20 % and about 46 %",
+      "None at either, since the low-pass blocks it",
+      "All of it at 0.995, about 46 % at 0.998"
+    ],
+    "why": "At α = 0.995, f_c = 0.40 Hz sits too close to 0.77 Hz and almost half the stride error leaks; α = 0.998 (f_c 0.16 Hz) cuts it to 20 %, at the price of τ·b rising from 0.23° to 0.57°.",
+    "source": "Week 6 slides"
+  },
+  {
+    "id": "ch6-061",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Choosing α",
+    "kind": "calc",
+    "q": "The gait's step time is 0.65 s and one stride is two steps. What is the stride frequency?",
+    "choices": [
+      "About 0.77 Hz",
+      "About 1.54 Hz",
+      "About 0.65 Hz",
+      "About 0.33 Hz"
+    ],
+    "why": "1/(2 × 0.65) = 1/1.3 ≈ 0.77 Hz. 1.54 Hz is the step frequency, 1/0.65.",
+    "source": "Week 6 slides"
+  },
+  {
+    "id": "ch6-062",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Choosing α",
+    "kind": "concept",
+    "q": "Why does the complementary filter work at all?",
+    "choices": [
+      "The two sensors' errors sit in different frequency bands",
+      "The two sensors' errors have opposite signs and cancel",
+      "The gyro's bias vanishes once the robot starts walking",
+      "The accelerometer's noise is filtered inside the chip"
+    ],
+    "why": "The gyro's error is the bias, at 0 Hz, removed by the high-pass; the accelerometer's is footfalls, from 0.77 Hz up, cut by the low-pass. Nothing cancels by sign.",
+    "source": "Week 6 slides"
+  },
+  {
+    "id": "ch6-063",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Estimator comparison",
+    "kind": "number",
+    "q": "On the biased-gyro walk, what were the MEAN errors of accelerometer only, gyro only, and the filter at α = 0.995?",
+    "choices": [
+      "About 6°, 1.35°, 1.43°",
+      "About 1.35°, 6°, 1.43°",
+      "About 6°, 1.43°, 1.35°",
+      "About 21°, 2.5°, 1.02°"
+    ],
+    "why": "Accelerometer ~6°, gyro 1.35°, filter 1.43°: the gyro's mean is slightly LOWER than the filter's. 21°, 2.5° and 1.02° are the worst/final-error numbers.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-064",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Estimator comparison",
+    "kind": "number",
+    "q": "On the same walk, what were the FINAL errors?",
+    "choices": [
+      "Accel ~4.5° (worst 21°); gyro 2.50° and growing; filter 1.02°",
+      "Accel ~1.02°; gyro 2.50° and growing; filter ~4.5° (worst 21°)",
+      "Accel ~4.5°; gyro 1.35° and steady; filter 1.43° and steady",
+      "Accel ~21°; gyro 0.57° and steady; filter 0.23° and steady"
+    ],
+    "why": "The filter ends lowest (1.02°); the gyro ends at 2.5×that and is still growing as b·t; the accelerometer is noisy, worst 21°.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-065",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Choosing α",
+    "kind": "trap",
+    "q": "On the walk, a student sets α = 0.90 'to trust the accelerometer more, since it never drifts'. Result?",
+    "choices": [
+      "Footfalls leak straight through: several degrees of error",
+      "The best estimate of all, since drift is fully removed",
+      "Identical to α = 0.995, since the gyro bias is small",
+      "A pure gyro estimate that drifts away as b·t"
+    ],
+    "why": "At α = 0.90 (τ ≈ 0.02 s) the filter trusts the accelerometer too much, so every footfall kick appears as tilt, and the error is several degrees. Not drifting is not the same as being accurate.",
+    "source": "Week 6 slides"
+  },
+  {
+    "id": "ch6-066",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Choosing α",
+    "kind": "trap",
+    "q": "'Filtering more is always better, so push α all the way to 1.' Why is this wrong?",
+    "choices": [
+      "At α = 1 the filter is a pure gyro and drifts as b·t",
+      "At α = 1 the filter is a pure accelerometer and is kicked",
+      "At α = 1 the filter divides by zero and cannot run",
+      "It is right: α = 1 gives the lowest error on any walk"
+    ],
+    "why": "α = 1 removes the accelerometer term entirely, so nothing corrects the gyro's bias and the error grows for ever. The optimum on the walk was about 0.998, not 1.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-067",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Gyro drift",
+    "kind": "trap",
+    "q": "'Over a long walk, a gyro's bias errors average out.' Is that right?",
+    "choices": [
+      "No: a constant bias pushes one way, so e = b·t only grows",
+      "Yes: positive and negative bias cancel over many strides",
+      "Yes: the footfalls shake the bias out of the gyro",
+      "No: the error grows as ½·b·t², a parabola, for a gyro"
+    ],
+    "why": "A bias is a constant offset, so integration adds b·Δt with the same sign every step: 'drift only goes one way'. ½bt² is the double-integrated accelerometer, not the gyro.",
+    "source": "Week 6 slides"
+  },
+  {
+    "id": "ch6-068",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Estimator comparison",
+    "kind": "trap",
+    "q": "Pure gyro: mean error 1.35°. Filter: 1.43°. For a robot that will run for an hour, which do you choose?",
+    "choices": [
+      "The filter: the gyro's error keeps growing (final 2.5° vs 1.02°)",
+      "The gyro: its mean error is lower, so it is more accurate",
+      "Either: a 0.08° difference in mean error is negligible",
+      "The accelerometer: its error is the only one that never grows"
+    ],
+    "why": "Mean error is the wrong judge for a long run: the gyro starts exact and walks away as b·t, so its mean hides a final error that keeps growing. The accelerometer is bounded but ~6° on average.",
+    "source": "Study guide · Week 6 traps"
+  },
+  {
+    "id": "ch6-069",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Observable vs privileged",
+    "kind": "concept",
+    "q": "With o = h(s) + noise, what does 'privileged' mean?",
+    "choices": [
+      "In s, but not recoverable from any function of o",
+      "In o, but too noisy to use without a filter",
+      "Computable from o, but only through a filter",
+      "Measured by sensors that only the trainer owns"
+    ],
+    "why": "Observable = computable from o, perhaps through a filter (like tilt). Privileged = in the simulator state s but unrecoverable from o: world position, yaw, height above floor, contact forces, friction.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-070",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Observable vs privileged",
+    "kind": "concept",
+    "q": "Which of these is OBSERVABLE on the G1?",
+    "choices": [
+      "Gravity in the body frame, via IMU and filter",
+      "Body height above the floor, from qpos[2]",
+      "Heading (yaw) in the world, from the gyro",
+      "Foot contact forces, from the ankle motors"
+    ],
+    "why": "Roll/pitch (as the gravity direction) come from the IMU through a filter. Height has no sensor, yaw is blind to gravity and drifts on the gyro, and the G1 has no foot force sensors.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-071",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Observable vs privileged",
+    "kind": "concept",
+    "q": "Which of these is PRIVILEGED on the G1?",
+    "choices": [
+      "Foot contact forces",
+      "Joint velocities qvel[6:]",
+      "Angular velocity",
+      "The previous action"
+    ],
+    "why": "The G1 has no foot contact or force sensors. Joint velocities come from differentiated encoders, angular velocity from the gyro, and the previous action is what the robot itself commanded.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-072",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Observable vs privileged",
+    "kind": "concept",
+    "q": "How does a real G1 obtain its joint velocities qvel[6:]?",
+    "choices": [
+      "By differentiating the encoder angles",
+      "From the gyroscope's three axes",
+      "By integrating the accelerometer once",
+      "It can't: joint velocities are privileged"
+    ],
+    "why": "Encoders give angles; their rate of change is the joint velocity, so it is observable. The gyro measures the body's turning rate, not individual joints.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-073",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Observable vs privileged",
+    "kind": "concept",
+    "q": "Why may a policy include its previous action in its observation?",
+    "choices": [
+      "The robot commanded it, so it knows it exactly",
+      "The IMU measures it through the motors' reaction",
+      "The encoders record it at the physics rate",
+      "It is privileged, but allowed because it is small"
+    ],
+    "why": "Nothing needs to be sensed: the controller itself sent that command, so it is genuinely known on hardware.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-074",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Observable vs privileged",
+    "kind": "concept",
+    "q": "Why is world position qpos[:2] excluded from the observation?",
+    "choices": [
+      "No sensor sees it, and double integration diverges",
+      "It is too large a number for the network to use",
+      "The encoders measure it, but only at 50 Hz",
+      "It is observable, but redundant with the yaw"
+    ],
+    "why": "Position needs a sensor that sees the world; the IMU route grows as ½bt². So it is privileged, and a policy trained on it could not leave the simulator.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-075",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Observation size",
+    "kind": "number",
+    "q": "Gravity in body frame + gyro + all joint angles + all joint velocities: how many numbers, all measurable?",
+    "choices": [
+      "64",
+      "42",
+      "71",
+      "36"
+    ],
+    "why": "3 + 3 + 29 + 29 = 64. 42 is week 7's leg-only input; 71 = 36 + 35 is the full qpos + qvel state.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-076",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Observation size",
+    "kind": "number",
+    "q": "Week 7's leg-only walking environment: how many inputs and outputs?",
+    "choices": [
+      "42 in, 12 leg targets out",
+      "64 in, 29 joint targets out",
+      "36 in (qpos), 29 targets out",
+      "42 in, 29 joint targets out"
+    ],
+    "why": "Gravity 3 + angular velocity 3 + 12 leg angles + 12 leg velocities + the previous 12-number action = 42 in, and 12 leg targets out.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-077",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Observation size",
+    "kind": "number",
+    "q": "How large is the G1's full simulator state s, counting qpos and qvel?",
+    "choices": [
+      "36 + 35 numbers, plus contacts, friction, terrain, masses",
+      "29 + 29 numbers, one angle and one rate per actuator only",
+      "7 + 6 numbers, just the floating base pose and its twist",
+      "64 + 42 numbers, the two observation vectors put together"
+    ],
+    "why": "qpos has 36 numbers (7 free-joint + 29 hinges) and qvel 35 (6 + 29). The state also includes contacts, friction, terrain and masses, none of which the robot measures.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-078",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Asymmetric actor-critic",
+    "kind": "concept",
+    "q": "In asymmetric actor-critic, which network sees what?",
+    "choices": [
+      "The actor sees only o; the critic may see all of s",
+      "The actor sees all of s; the critic sees only o",
+      "Both see only o, since both are deployed",
+      "Both see all of s; only the actor is trained"
+    ],
+    "why": "The actor (policy) runs on the robot, so it may use only what the robot measures. The critic (value function) is used only in training and then thrown away, so it may use privileged state.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-079",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "Asymmetric actor-critic",
+    "kind": "concept",
+    "q": "Why may the critic in asymmetric actor-critic use privileged information?",
+    "choices": [
+      "It is used only during training, then discarded",
+      "It runs on the robot's computer, which holds s",
+      "Its inputs are filtered, which makes them observable",
+      "It only scores falls, which the robot can sense"
+    ],
+    "why": "Privileged information is used where it is legal: in simulation, during training. Its better view makes its scores more accurate, which helps the actor learn; the deployed actor stays honest.",
+    "source": "Study guide · Week 6 maths"
+  },
+  {
+    "id": "ch6-080",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "IMU-site truth",
+    "kind": "trap",
+    "q": "To score a tilt filter on the walking G1, what should the 'true' orientation be?",
+    "choices": [
+      "The IMU site's own orientation, which differs from the pelvis by up to 0.7°",
+      "The pelvis orientation from qpos[3:7], since the IMU is bolted near it",
+      "The accelerometer tilt measured at rest, before the walk begins",
+      "The bias-free gyro integral, since a perfect gyro is nearly exact"
+    ],
+    "why": "The torso IMU and the pelvis are different bodies; while walking they differ by up to 0.7°, which is the size of the filter errors themselves. Scoring against the pelvis would hide or invent errors.",
+    "source": "Study guide · Week 6 traps"
+  },
+  {
+    "id": "ch6-081",
+    "chapter": "Week 6 · Sensing and estimation",
+    "topic": "IMU-site truth",
+    "kind": "number",
+    "q": "While walking, how much do the torso IMU site's orientation and the pelvis orientation differ?",
+    "choices": [
+      "Up to about 0.7°, the size of the filter errors",
+      "Up to about 7°, far above the filter errors",
+      "Up to about 0.007°, negligible for scoring",
+      "Exactly 0°: the two are rigidly joined"
+    ],
+    "why": "They differ by up to 0.7° (the waist joints sit between them), as big as the 1.02°–1.43° filter errors being measured. That is why the truth must come from site_xmat of the IMU site.",
+    "source": "Study guide · Week 6 traps"
+  }
+]

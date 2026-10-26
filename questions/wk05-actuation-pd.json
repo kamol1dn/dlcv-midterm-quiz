@@ -1,0 +1,1217 @@
+[
+  {
+    "id": "ch5-001",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Actuator as PD controller",
+    "kind": "concept",
+    "q": "On the G1, what torque does MuJoCo's position actuator actually compute?",
+    "choices": [
+      "τ = k_p(q_ref − q) − k_v·q̇, a PD law",
+      "τ = k_p(q_ref − q) + k_i∫e dt, a PI law",
+      "τ = k_p(q_ref − q) alone, a pure spring",
+      "none: it sets q = q_ref exactly each step"
+    ],
+    "why": "The 'position actuator' is a PD controller written into the model file: a spring toward the command plus a damper on velocity. It is not an ideal servo that teleports the joint, and it has no integral term.",
+    "source": "Study guide · Week 5 ideas"
+  },
+  {
+    "id": "ch5-002",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Actuator as PD controller",
+    "kind": "concept",
+    "q": "The position actuator sits on a seam between two layers of the stack. Which?",
+    "choices": [
+      "Declared in Layer 2 (robot model), doing Layer 4's (control) job",
+      "Declared in Layer 4 (control), doing Layer 1's (physics) job",
+      "Declared in Layer 5 (AI), doing Layer 4's (control) job",
+      "Declared in Layer 1 (physics), doing Layer 2's (model) job"
+    ],
+    "why": "The actuator is written in the MJCF (Layer 2), but what it declares is a feedback controller, which is Layer 4's job. That is why the guide calls it 'a controller in disguise'.",
+    "source": "Study guide · Week 5 ideas"
+  },
+  {
+    "id": "ch5-003",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "P and D terms",
+    "kind": "trap",
+    "q": "In τ = k_p(q_ref − q) − k_v·q̇, what does the D term do while the joint is moving TOWARD its target?",
+    "choices": [
+      "Brakes it anyway: it opposes motion in either direction",
+      "Speeds it up, adding torque toward the target",
+      "Nothing: it acts only when moving away from the target",
+      "Reverses sign so that it helps the P term pull"
+    ],
+    "why": "−k_v·q̇ depends only on the velocity, not on the error, so it resists any motion, even motion toward the target. Thinking D 'helps' the joint arrive is the common slip.",
+    "source": "Study guide · Week 5 ideas"
+  },
+  {
+    "id": "ch5-004",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "P and D terms",
+    "kind": "concept",
+    "q": "In the spring–damper picture of the servo, what are the spring and the damper attached to?",
+    "choices": [
+      "Spring to the command; damper to the ground",
+      "Spring to the ground; damper to the command",
+      "Both to the command, so both move with ctrl",
+      "Both to the ground, so neither moves with ctrl"
+    ],
+    "why": "Moving ctrl drags the spring's end (the P term pulls toward the command), while the damper is fixed to the ground, so it brakes all motion. Swapping them would make the damper oppose only motion relative to the command.",
+    "source": "Study guide · Week 5 ideas"
+  },
+  {
+    "id": "ch5-005",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "MuJoCo actuator parameters",
+    "kind": "concept",
+    "q": "MuJoCo's general actuator is τ = g0·ctrl + b0 + b1·q + b2·q̇. Which settings make it the PD position servo?",
+    "choices": [
+      "g0 = k_p, b0 = 0, b1 = −k_p, b2 = −k_v",
+      "g0 = k_p, b0 = 0, b1 = 0, b2 = −k_v",
+      "g0 = 1, b0 = 0, b1 = −k_p, b2 = −k_v",
+      "g0 = k_p, b0 = −k_p, b1 = 0, b2 = +k_v"
+    ],
+    "why": "Collecting terms gives k_p·ctrl − k_p·q − k_v·q̇ = k_p(ctrl − q) − k_v·q̇. So k_p appears twice (gain and bias); leaving b1 = 0 would give a torque that does not depend on q at all.",
+    "source": "Study guide · Week 5 ideas"
+  },
+  {
+    "id": "ch5-006",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "MuJoCo actuator parameters",
+    "kind": "trap",
+    "q": "To make a servo stiffer you change only gainprm[0] (g0) from 500 to 1000 and leave biasprm alone. What happens?",
+    "choices": [
+      "It now pulls toward a different angle than ctrl",
+      "It is twice as stiff and still pulls toward ctrl",
+      "Nothing: only biasprm sets the stiffness",
+      "The damping doubles; the stiffness is unchanged"
+    ],
+    "why": "k_p appears twice (g0 and b1 = −k_p). With g0 = 1000 and b1 = −500 the torque is zero at q = 2·ctrl, so the servo aims at the wrong angle. That is why scale_gains writes three numbers.",
+    "source": "Study guide · Week 5 ideas"
+  },
+  {
+    "id": "ch5-007",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "MuJoCo actuator parameters",
+    "kind": "calc",
+    "q": "An actuator has g0 = 1000, b1 = −500, b0 = b2 = 0 (gravity off). With ctrl = 0.1 rad, where does the joint come to rest?",
+    "choices": [
+      "q = 0.2 rad",
+      "q = 0.1 rad",
+      "q = 0.05 rad",
+      "q = 0.4 rad"
+    ],
+    "why": "At rest τ = 0: 1000·0.1 − 500·q = 0, so q = 100/500 = 0.2 rad. It would be 0.1 rad only if g0 and −b1 were equal, as in a real position actuator.",
+    "source": "Study guide · Week 5 ideas"
+  },
+  {
+    "id": "ch5-008",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "G1 gain design",
+    "kind": "number",
+    "q": "How do the G1's servo gains vary across its joints?",
+    "choices": [
+      "k_p = 500 everywhere; k_v ranges about 4.55 to 43",
+      "k_v = 500 everywhere; k_p ranges about 4.55 to 43",
+      "k_p = 500 on the legs, 100 on the arms; k_v fixed",
+      "k_p ranges 250 to 1000; k_v = 15.85 everywhere"
+    ],
+    "why": "Stiffness is uniform (500) and damping is not: k_v spans roughly tenfold, 4.55 to 43. 15.85 is the knee's k_v alone, and 250/1000 are the sweep values that fall.",
+    "source": "Study guide · Week 5 ideas"
+  },
+  {
+    "id": "ch5-009",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Mass–spring–damper",
+    "kind": "concept",
+    "q": "One servoed joint, gravity off, other joints held still. Which equation does it obey?",
+    "choices": [
+      "M·q̈ + k_v·q̇ + k_p·q = k_p·q_ref",
+      "M·q̈ + k_p·q̇ + k_v·q = k_v·q_ref",
+      "M·q̇ + k_v·q = k_p·q_ref",
+      "M·q̈ = k_p·q_ref − k_v·q"
+    ],
+    "why": "Newton for rotation (M·q̈ = τ) with the PD torque, unknowns moved left: the mass–spring–damper equation. It is second order, with damping on q̇ and stiffness on q; the swapped version mixes up k_p and k_v.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-010",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Mass–spring–damper",
+    "kind": "concept",
+    "q": "In the one-joint model M·q̈ + k_v·q̇ + k_p·q = k_p·q_ref, what is M for the knee?",
+    "choices": [
+      "Inertia of everything beyond the joint about its axis, plus armature",
+      "The total mass of the robot, about 33 kg, felt equally by every joint",
+      "The rotor inertia of the knee motor alone, read from its datasheet",
+      "The inertia of the bodies on the pelvis side of the knee, thigh up"
+    ],
+    "why": "M is the joint's diagonal entry of the mass matrix (mj_fullM): what the knee must swing (shin and foot), plus the motor's armature (0.01 kg·m² on G1 leg joints). It is not the whole robot's mass and not the bodies on the pelvis side.",
+    "source": "Week 5 slides"
+  },
+  {
+    "id": "ch5-011",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Characteristic equation",
+    "kind": "concept",
+    "q": "Substituting e = e^(rt) into M·ë + k_v·ė + k_p·e = 0 gives which characteristic equation?",
+    "choices": [
+      "M·r² + k_v·r + k_p = 0",
+      "k_p·r² + k_v·r + M = 0",
+      "M·r² + k_p·r + k_v = 0",
+      "r² + k_v·r + k_p·M = 0"
+    ],
+    "why": "Each derivative brings down one r: M·r²·e^(rt) + k_v·r·e^(rt) + k_p·e^(rt) = 0, then cancel e^(rt). The inertia goes with r², the damping with r, the stiffness alone.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-012",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Natural frequency and damping ratio",
+    "kind": "concept",
+    "q": "Matching M·r² + k_v·r + k_p = 0 to r² + 2ζω_n·r + ω_n² = 0 gives which ω_n and ζ?",
+    "choices": [
+      "ω_n = √(k_p/M), ζ = k_v/(2√(k_p·M))",
+      "ω_n = k_p/M, ζ = k_v/(2·k_p·M)",
+      "ω_n = √(k_p·M), ζ = k_v/√(k_p/M)",
+      "ω_n = √(M/k_p), ζ = 2k_v/√(k_p·M)"
+    ],
+    "why": "Divide by M: ω_n² = k_p/M and 2ζω_n = k_v/M, so ζ = k_v/(2Mω_n) = k_v/(2√(k_p·M)). Forgetting the square root or the 2 are the usual slips.",
+    "source": "Study guide · formula sheet"
+  },
+  {
+    "id": "ch5-013",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Natural frequency and damping ratio",
+    "kind": "calc",
+    "q": "k_p = 400 N·m/rad, M = 1 kg·m², k_v = 40 N·m·s/rad. What are ω_n and ζ?",
+    "choices": [
+      "ω_n = 20 rad/s, ζ = 1.0",
+      "ω_n = 400 rad/s, ζ = 1.0",
+      "ω_n = 20 rad/s, ζ = 2.0",
+      "ω_n = 20 rad/s, ζ = 0.5"
+    ],
+    "why": "ω_n = √(400/1) = 20; ζ = 40/(2·√400) = 40/40 = 1.0, critically damped. Dropping the 2 gives ζ = 2; skipping the root gives ω_n = 400.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-014",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Natural frequency and damping ratio",
+    "kind": "calc",
+    "q": "k_p = 100, M = 4 kg·m², k_v = 10. What are ω_n and ζ?",
+    "choices": [
+      "ω_n = 5 rad/s, ζ = 0.25",
+      "ω_n = 25 rad/s, ζ = 0.25",
+      "ω_n = 5 rad/s, ζ = 0.5",
+      "ω_n = 20 rad/s, ζ = 0.25"
+    ],
+    "why": "ω_n = √(100/4) = 5; ζ = 10/(2·√400) = 10/40 = 0.25, so it rings (about 44 % overshoot). ζ = 0.5 comes from forgetting the 2; ω_n = 20 is √(k_p·M) instead of √(k_p/M).",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-015",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Natural frequency and damping ratio",
+    "kind": "calc",
+    "q": "Practice Q14: k_p = 900, M = 1 kg·m², k_v = 30. What are ω_n and ζ, and does it overshoot?",
+    "choices": [
+      "ω_n = 30 rad/s, ζ = 0.5; yes, about 16 %",
+      "ω_n = 30 rad/s, ζ = 1.0; no overshoot",
+      "ω_n = 900 rad/s, ζ = 0.5; yes, about 16 %",
+      "ω_n = 30 rad/s, ζ = 0.5; yes, about 44 %"
+    ],
+    "why": "ω_n = √900 = 30; ζ = 30/(2·30) = 0.5, under-damped, overshoot exp(−π·0.5/√0.75) ≈ 16 %. 44 % belongs to ζ = 0.25; ζ = 1.0 forgets the 2.",
+    "source": "Study guide · practice Q14"
+  },
+  {
+    "id": "ch5-016",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Critical damping",
+    "kind": "calc",
+    "q": "k_p = 400, M = 0.25 kg·m². Which k_v makes the joint critically damped (ζ = 1)?",
+    "choices": [
+      "20 N·m·s/rad",
+      "10 N·m·s/rad",
+      "40 N·m·s/rad",
+      "100 N·m·s/rad"
+    ],
+    "why": "ζ = 1 means k_v = 2√(k_p·M) = 2√100 = 20. 10 forgets the 2; 100 is k_p·M without the root.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-017",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Critical damping",
+    "kind": "calc",
+    "q": "k_p = 200, M = 2 kg·m². Which k_v gives ζ = 1?",
+    "choices": [
+      "40 N·m·s/rad",
+      "20 N·m·s/rad",
+      "400 N·m·s/rad",
+      "10 N·m·s/rad"
+    ],
+    "why": "k_v = 2√(k_p·M) = 2√400 = 2·20 = 40. 20 is √(k_p·M) without the 2; 400 is k_p·M with no root; 10 would be 2√(k_p/M).",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-018",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Damping regimes",
+    "kind": "concept",
+    "q": "For ζ < 1, what are the characteristic roots and what does the joint do?",
+    "choices": [
+      "A complex pair −ζω_n ± iω_d: it overshoots and rings",
+      "A double real root −ω_n: fastest arrival with no overshoot",
+      "Two different negative real roots: it creeps in slowly",
+      "A pair with positive real part: the joint diverges"
+    ],
+    "why": "Below ζ = 1 the square root √(ζ² − 1) is imaginary, so the roots are complex: decay times oscillation, i.e. ringing. The double root is ζ = 1 and two real roots is ζ > 1; with k_v > 0 nothing diverges.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-019",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Damping regimes",
+    "kind": "concept",
+    "q": "What does critical damping (ζ = 1) give a joint's step response?",
+    "choices": [
+      "The fastest arrival without any overshoot",
+      "The fastest arrival of any ζ, with slight overshoot",
+      "Zero steady-state sag under a gravity load",
+      "The slowest arrival, but with the least torque"
+    ],
+    "why": "ζ = 1 is the double root −ω_n: the quickest response that never passes the target. Lower ζ can get near the target sooner but overshoots; ζ says nothing about sag, which is τ_g/k_p.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-020",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Damping regimes",
+    "kind": "concept",
+    "q": "An over-damped joint (ζ > 1) has two real negative roots. Which one decides how long you wait?",
+    "choices": [
+      "The slow root, the one nearer zero",
+      "The fast root, the one farther from zero",
+      "Their average, which is −ζω_n",
+      "Neither: it always arrives in 1/ω_n"
+    ],
+    "why": "e(t) is a sum of two decaying exponentials; the fast one dies in milliseconds and the slow one is what you wait for. At ζ = 4 on the knee that slow root is −8 /s, five times slower than critical.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-021",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Damping regimes",
+    "kind": "concept",
+    "q": "With k_v > 0 and k_p > 0, what is guaranteed about a joint's step response?",
+    "choices": [
+      "It always arrives; only the way it arrives changes",
+      "It arrives only if ζ ≥ 1; below that it rings for ever",
+      "It arrives only if ζ ≤ 1; above that it stalls short",
+      "It arrives only if k_p is larger than k_v"
+    ],
+    "why": "With k_v > 0 both roots have negative real part, so every term decays: 'the joint always arrives; the question is how'. Ringing decays, and over-damped creeping still converges.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-022",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Root geometry",
+    "kind": "concept",
+    "q": "For an under-damped joint, what is the magnitude of each complex root?",
+    "choices": [
+      "Exactly ω_n",
+      "Exactly ζ·ω_n",
+      "Exactly ω_d = ω_n√(1 − ζ²)",
+      "Exactly 2ζ·ω_n"
+    ],
+    "why": "|r|² = (ζω_n)² + ω_d² = ω_n²(ζ² + 1 − ζ²) = ω_n². So damping slides the pair around a circle of radius ω_n; ζω_n is only the real part and ω_d only the imaginary part.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-023",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Root geometry",
+    "kind": "calc",
+    "q": "ω_n = 10 rad/s and ζ = 0.6. What are the characteristic roots?",
+    "choices": [
+      "−6 ± 8i",
+      "−8 ± 6i",
+      "−6 ± 10i",
+      "−0.6 ± 8i"
+    ],
+    "why": "Real part −ζω_n = −6; imaginary part ω_d = ω_n√(1 − 0.36) = 10·0.8 = 8. Check: |−6 + 8i| = 10 = ω_n. Using ω_n itself as the imaginary part gives −6 ± 10i.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-024",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Overshoot",
+    "kind": "trap",
+    "q": "The one-joint step response's overshoot, exp(−πζ/√(1 − ζ²)), depends on what?",
+    "choices": [
+      "ζ only",
+      "ω_n only: quicker joints overshoot more",
+      "The step size: bigger steps overshoot more",
+      "k_p alone, whatever the damping"
+    ],
+    "why": "The formula contains nothing but ζ, so two joints with very different speeds but the same ζ overshoot by the same fraction. Stiffness changes the overshoot only through ζ.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-025",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Overshoot",
+    "kind": "number",
+    "q": "What overshoot does exp(−πζ/√(1 − ζ²)) give at ζ = 0.25, 0.5 and 1?",
+    "choices": [
+      "44 %, 16 %, none",
+      "16 %, 4 %, none",
+      "56 %, 20 %, 2 %",
+      "25 %, 50 %, 100 %"
+    ],
+    "why": "ζ = 0.25 gives 44 %, ζ = 0.5 gives 16 %, and at ζ = 1 the peak time is infinite, so there is no overshoot. 56 % is the measured P-only knee, a different experiment.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-026",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Stiffness vs damping",
+    "kind": "concept",
+    "q": "Complete the professor's line: 'Stiffness sets the ___; the damping ratio sets the ___.'",
+    "choices": [
+      "speed; shape",
+      "shape; speed",
+      "sag; speed",
+      "torque; sag"
+    ],
+    "why": "ω_n = √(k_p/M) sets how fast the joint responds; ζ alone sets whether it overshoots (the shape). The reversed version is the tempting misremembering.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-027",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Stiffness vs damping",
+    "kind": "calc",
+    "q": "A joint has ω_n = 10 rad/s and ζ = 1. You quadruple k_p, keeping M and k_v. What are the new ω_n and ζ?",
+    "choices": [
+      "ω_n = 20 rad/s, ζ = 0.5",
+      "ω_n = 40 rad/s, ζ = 0.25",
+      "ω_n = 20 rad/s, ζ = 1.0",
+      "ω_n = 20 rad/s, ζ = 2.0"
+    ],
+    "why": "ω_n ∝ √k_p doubles to 20, and ζ = k_v/(2√(k_p·M)) ∝ 1/√k_p halves to 0.5. Scaling linearly (×4, ÷4) or assuming ζ is unchanged are the slips.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-028",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Stiffness vs damping",
+    "kind": "trap",
+    "q": "A critically damped joint is made 4× stiffer (k_p × 4, k_v unchanged) to respond faster. What happens to its shape?",
+    "choices": [
+      "ζ halves to 0.5, so it now overshoots (≈16 % by formula)",
+      "ζ stays 1.0, because ζ depends only on k_v and M",
+      "ζ doubles to 2, so it becomes sluggish and creeps in",
+      "ζ drops to 0.25, so it overshoots by about 44 %"
+    ],
+    "why": "ζ = k_v/(2√(k_p·M)) contains k_p under a root, so ×4 stiffness halves ζ. Quadrupling k_p doubles the speed AND halves ζ; to keep ζ = 1 you would have to double k_v too.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-029",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Stiffness vs damping",
+    "kind": "number",
+    "q": "On the lifted G1 knee (0.5 rad step), what did k_p × 4 do compared with the shipped gains?",
+    "choices": [
+      "1 % in 0.032 s vs 0.110 s; 4 % overshoot; 1000 N·m peak",
+      "1 % in 0.220 s vs 0.110 s; no overshoot; 250 N·m peak",
+      "1 % in 0.032 s vs 0.110 s; no overshoot; 250 N·m peak",
+      "Never within 1 % in 0.5 s: it became over-damped"
+    ],
+    "why": "×4 stiffness doubles ω_n and halves ζ to 0.5, so it arrives about 3.4× sooner, pays a 4.0 % overshoot, and draws 4× the torque (k_p × 0.5 rad = 1000 N·m). Over-damped is what k_p ÷ 4 does.",
+    "source": "Week 5 slides"
+  },
+  {
+    "id": "ch5-030",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Stiffness vs damping",
+    "kind": "calc",
+    "q": "Just after a 0.5 rad step, the error is the whole step. What is the initial torque at k_p = 500, and at k_p = 2000?",
+    "choices": [
+      "250 N·m and 1000 N·m",
+      "250 N·m and 500 N·m",
+      "500 N·m and 2000 N·m",
+      "1000 N·m and 4000 N·m"
+    ],
+    "why": "τ = k_p·e at q̇ = 0: 500·0.5 = 250 N·m and 2000·0.5 = 1000 N·m. Torque scales linearly with k_p, not with √k_p, so a 4× stiffer servo draws 4× the torque.",
+    "source": "Week 5 slides"
+  },
+  {
+    "id": "ch5-031",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "G1 gain design",
+    "kind": "concept",
+    "q": "Why does the G1's k_v vary about tenfold across the leg joints while k_p is 500 on all of them?",
+    "choices": [
+      "Each leg joint is set to ζ = 1, so k_v = 2√(k_p·M) tracks M",
+      "Each leg joint is set to the same ω_n, so k_v must cancel M",
+      "k_v was hand-tuned per joint to minimise sag during the walk",
+      "Heavier joints need more stiffness, and k_v is what supplies it"
+    ],
+    "why": "Solving ζ = 1 for the damping gives k_v = 2√(k_p·M): same k_p, different M, different k_v. So the heavy hip and the light ankle respond with the same shape. Damping has no effect on sag.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-032",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "G1 gain design",
+    "kind": "number",
+    "q": "What damping ratio do the G1's twelve leg joints have, and its arm joints?",
+    "choices": [
+      "Legs all ζ = 1.00; arms looser, 0.7–1.9",
+      "Legs all ζ = 0.5; arms all ζ = 1.00",
+      "Legs spread 0.7–1.9; arms all ζ = 1.00",
+      "Legs all ζ = 0.25; arms all ζ = 4"
+    ],
+    "why": "Read M off the mass matrix and compute ζ: every leg joint is exactly critically damped, while the arms spread 0.7–1.9. The legs got the design rule; the arms did not.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-033",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Knee numbers",
+    "kind": "number",
+    "q": "For the G1 knee (M ≈ 0.126 kg·m², k_p = 500), what is ω_n?",
+    "choices": [
+      "About 63 rad/s, roughly 10 Hz",
+      "About 4000 rad/s, roughly 630 Hz",
+      "About 10 rad/s, roughly 1.6 Hz",
+      "About 63 Hz, roughly 400 rad/s"
+    ],
+    "why": "√(500/0.126) ≈ √4000 ≈ 63 rad/s, and 63/(2π) ≈ 10 Hz: an undamped knee would ring ten times a second. 4000 is ω_n² (forgot the root); '63 Hz' confuses rad/s with Hz.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-034",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Knee numbers",
+    "kind": "number",
+    "q": "For the G1 knee, what are its basic time unit 1/ω_n and the time critical damping takes to get within 1 %?",
+    "choices": [
+      "About 16 ms; about 0.1 s (≈ 6.6/ω_n)",
+      "About 0.1 s; about 0.6 s (≈ 6.6/ω_n)",
+      "About 16 ms; about 16 ms (one time unit)",
+      "About 1.6 ms; about 10 ms (≈ 6.6/ω_n)"
+    ],
+    "why": "1/63 ≈ 16 ms, and (1 + x)e^(−x) = 0.01 at x ≈ 6.6, so critical damping needs about seven time units ≈ 0.105 s. It does not arrive in one time unit.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-035",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Critical damping",
+    "kind": "calc",
+    "q": "A critically damped joint gets within 1 % after about 6.6/ω_n. For ω_n = 20 rad/s, how long is that?",
+    "choices": [
+      "About 0.33 s",
+      "About 0.05 s",
+      "About 1.05 s",
+      "About 3.0 s"
+    ],
+    "why": "6.6/20 = 0.33 s. 0.05 s is one time unit 1/ω_n; 1.05 s would come from dividing by 2π instead of ω_n.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-036",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Damping regimes",
+    "kind": "number",
+    "q": "The knee with k_v × 4 (ζ = 4): what are its roots, and how long to reach 1 %?",
+    "choices": [
+      "−8 and −497 /s; about 0.58 s, set by the slow root",
+      "−63 and −63 /s; about 0.1 s, as fast as critical",
+      "−16 ± 61i /s; about 0.03 s, with 44 % overshoot",
+      "−8 and −497 /s; about 0.02 s, set by the fast root"
+    ],
+    "why": "Over-damped: two real roots whose product is ω_n² (8 × 497 ≈ 63²). The fast one dies in milliseconds; the slow e^(−8t) is what you wait for, about 0.577 s.",
+    "source": "Week 5 slides"
+  },
+  {
+    "id": "ch5-037",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "One-joint model vs real robot",
+    "kind": "concept",
+    "q": "On the G1 lifted clear of the floor, k_v/4 on the knee overshot 16.9 %, but the one-joint formula predicts 44 %. Why?",
+    "choices": [
+      "The other joints and the floating pelvis move back; nothing is a wall",
+      "MuJoCo's integrator adds numerical damping that eats the ringing",
+      "The formula is wrong: overshoot really depends on ω_n as well",
+      "The 0.3 N·m joint friction absorbs most of the swing energy"
+    ],
+    "why": "The one-joint model assumes every other joint is welded still; in a floating robot the knee pushes against a body that gives way, so less inertia and relatively more damping. The formula is right about direction and design rule, only approximate in numbers.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-038",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "One-joint model vs real robot",
+    "kind": "concept",
+    "q": "What does the guide say to do with the one-joint formula on a whole robot?",
+    "choices": [
+      "Use it to choose gains; measure to know what you got",
+      "Trust it over measurement, since simulation is approximate",
+      "Use it only on the arms; legs need the full mass matrix",
+      "Discard it on a humanoid and tune gains by trial alone"
+    ],
+    "why": "It over-predicts ringing (44 % vs 16.9 %) but its design rule (ζ = 1, no overshoot) holds. The course's thread is 'measure, do not believe', so the formula guides and the measurement decides.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-039",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "One-joint model vs real robot",
+    "kind": "trap",
+    "q": "With k_v/4 on the knee of the lifted G1, the one-joint formula predicts 44 % overshoot. What did the real robot do?",
+    "choices": [
+      "Rang less, 16.9 %: the rest of the body gives way",
+      "Exactly 44 %, just as the one-joint formula predicts",
+      "Rang more, about 56 %: the pelvis adds extra inertia",
+      "No overshoot at all, since the legs are critically damped"
+    ],
+    "why": "The formula OVER-predicts ringing on the real robot (16.9 % measured vs 44 %), because the other joints and the floating pelvis move back. k_v/4 makes ζ = 0.25, so the joint is no longer critically damped.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-040",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Gravity sag",
+    "kind": "concept",
+    "q": "At rest under a gravity torque τ_g, the servo balances 0 = k_p(q_ref − q) + τ_g. What is the sag?",
+    "choices": [
+      "q − q_ref = τ_g/k_p",
+      "q − q_ref = τ_g·k_p",
+      "q − q_ref = τ_g/k_v",
+      "q − q_ref = τ_g/(k_p + k_v)"
+    ],
+    "why": "At rest q̇ = 0, so the damper contributes nothing and the spring alone holds the load: deflection = load ÷ stiffness. Damping cannot appear in it.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-041",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Gravity sag",
+    "kind": "calc",
+    "q": "A servo with k_p = 300 N·m/rad holds a 6 N·m gravity load. How large is the steady sag?",
+    "choices": [
+      "0.02 rad",
+      "0.2 rad",
+      "0.002 rad",
+      "0.05 rad"
+    ],
+    "why": "τ_g/k_p = 6/300 = 0.02 rad (about 1.1°). The sag shrinks as k_p grows; multiplying instead of dividing is the classic slip.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-042",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Gravity sag",
+    "kind": "calc",
+    "q": "Practice Q3: k_p = 400 holds a joint against 8 N·m of gravity. What is the steady error, and what if k_p is doubled?",
+    "choices": [
+      "0.02 rad, then 0.01 rad",
+      "0.02 rad, then 0.04 rad",
+      "0.02 rad, then exactly zero",
+      "0.05 rad, then 0.025 rad"
+    ],
+    "why": "8/400 = 0.02 rad; doubling k_p halves it to 0.01 rad, never zero, because a PD spring needs an error to make the holding torque.",
+    "source": "Study guide · practice Q3"
+  },
+  {
+    "id": "ch5-043",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Gravity sag",
+    "kind": "trap",
+    "q": "Which change removes the steady gravity sag of a servo completely?",
+    "choices": [
+      "Adding an integral (I) term",
+      "Raising k_p as high as possible",
+      "Raising k_v until it is over-damped",
+      "Setting the damping ratio to exactly 1"
+    ],
+    "why": "Only the I term remembers the past and keeps growing until the error is zero; on the knee it ended up carrying the whole 10 N·m. A finite k_p only shrinks the sag, and damping changes how it arrives, not where.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-044",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Gravity sag",
+    "kind": "trap",
+    "q": "'With a stiff enough PD servo, the sag goes to zero.' Why is this wrong?",
+    "choices": [
+      "Sag is τ_g/k_p: halved by doubling k_p, but never zero",
+      "Sag is τ_g/k_v: only the damper sets it, not k_p",
+      "Sag grows with k_p, since a stiffer spring takes more load",
+      "Sag is fixed by ζ, so stiffness changes the shape only"
+    ],
+    "why": "The error is what produces the holding torque, so a finite spring must deflect. 'A spring at rest is a spring under load, and load means deflection.'",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-045",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Gravity sag",
+    "kind": "concept",
+    "q": "'A spring at rest is a spring under load, and load means deflection.' What does this line explain?",
+    "choices": [
+      "Why a PD servo holding a weight sits off its command",
+      "Why a joint overshoots when its damping is too low",
+      "Why the hand-written servo blows up at 500 Hz",
+      "Why the CPG falls despite a plausible step pattern"
+    ],
+    "why": "The servo is a spring, and a spring only pushes when stretched; holding gravity therefore needs a steady error τ_g/k_p. That is the sag, not ringing or numerical instability.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-046",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Gravity sag",
+    "kind": "number",
+    "q": "How much steady pelvis sag does the whole walking G1 have at k_p = 500?",
+    "choices": [
+      "About 11 mm",
+      "About 11 cm",
+      "About 0.11 mm",
+      "Exactly zero"
+    ],
+    "why": "Each leg joint sags by its own τ_g/k_p and those small angles add up along the leg to about 11 mm. Not a bug: the necessary deflection of finite springs holding up a 33 kg robot.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-047",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Gravity sag",
+    "kind": "number",
+    "q": "The G1's arm held straight out loads its shoulder with 4.7 N·m at k_p = 500. How much does it sag?",
+    "choices": [
+      "About 9.5 mrad, half a degree",
+      "About 95 mrad, over 5 degrees",
+      "About 0.95 mrad, a twentieth of a degree",
+      "About 20 mrad, over a degree"
+    ],
+    "why": "4.7/500 ≈ 9.4 mrad, and the measured 9.5 mrad lands on τ_g/k_p within 0.05 mrad (about 3.6 mm at the wrist). 20 mrad is the knee experiment's 10 N·m load.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-048",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Gravity sag",
+    "kind": "concept",
+    "q": "The G1's joints have frictionloss 0.3 N·m. What does that do to the sag at k_p = 500?",
+    "choices": [
+      "A dead band: rest may be up to 0.6 mrad either side of τ_g/k_p",
+      "It removes the sag, since friction holds the load instead",
+      "It doubles the sag, since friction adds to the gravity torque",
+      "Nothing: friction acts only when the joint moves fast"
+    ],
+    "why": "Friction can hold up to 0.3 N·m either way, so the spring may rest anywhere within ±0.3/k_p = ±0.6 mrad of the prediction. It neither removes nor doubles the sag.",
+    "source": "Week 5 slides"
+  },
+  {
+    "id": "ch5-049",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "P, PD, PI, PID",
+    "kind": "concept",
+    "q": "In τ = k_p·e + k_i∫e dt + k_d·ė, which term reacts to what?",
+    "choices": [
+      "P to the present, I to the past, D to the trend",
+      "P to the past, I to the trend, D to the present",
+      "P to the trend, I to the present, D to the past",
+      "P to the present, I to the trend, D to the past"
+    ],
+    "why": "P uses the error now, I accumulates error over time (it remembers), D uses how fast the error changes (it brakes before the target).",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-050",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "P, PD, PI, PID",
+    "kind": "number",
+    "q": "One knee, 0.5 rad step, 10 N·m load: rise time and overshoot of P vs PD?",
+    "choices": [
+      "P 19 ms, 56 % overshoot; PD 78 ms, 0 %",
+      "P 78 ms, 0 %; PD 19 ms, 56 % overshoot",
+      "P 19 ms, 0 %; PD 19 ms, 0 %",
+      "P 72 ms, 57 % overshoot; PD 19 ms, 16 %"
+    ],
+    "why": "P is quick (19 ms) only because it rings (56 %); PD brakes (0 %) and is slower (78 ms). The swapped pair is what the textbook table leads you to expect.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-051",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "P, PD, PI, PID",
+    "kind": "number",
+    "q": "Same knee test: final error of P, PD, PI and PID?",
+    "choices": [
+      "20, 20, 1.7, 0.8 mrad",
+      "20, 0, 1.7, 0 mrad",
+      "20, 10, 1.7, 0.8 mrad",
+      "0, 0, 20, 20 mrad"
+    ],
+    "why": "P and PD keep the full sag 10/500 = 20 mrad; only the laws with an I term head toward zero (1.7 and 0.8 mrad after 4 s). Adding D does not move the final value.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-052",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "P, PD, PI, PID",
+    "kind": "trap",
+    "q": "The textbook table calls PD 'fast'. On the G1 knee, which rose faster, and why?",
+    "choices": [
+      "P (19 vs 78 ms): it is quick only because it rings",
+      "PD (19 vs 78 ms): the D term speeds the arrival",
+      "Neither: D changes the overshoot, not the rise",
+      "PD, because D removes the sag that slows P down"
+    ],
+    "why": "Measured, PD rose SLOWER than P. P is under-damped, so it races past the target: 'the quickness is the ringing'. D is a brake, and it never removes sag.",
+    "source": "Study guide · Week 5 traps"
+  },
+  {
+    "id": "ch5-053",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "P, PD, PI, PID",
+    "kind": "trap",
+    "q": "Adding a D term to a P servo on the loaded knee changes the final error from 20 mrad to what?",
+    "choices": [
+      "20 mrad: D changes how it arrives, not where",
+      "0 mrad: the D term removes the steady error",
+      "10 mrad: the D term halves the steady error",
+      "40 mrad: the D term adds to the gravity sag"
+    ],
+    "why": "At rest q̇ = 0, so the D term is zero and the spring alone holds the load at τ_g/k_p = 20 mrad. D only shapes the approach (0 % overshoot instead of 56 %).",
+    "source": "Study guide · Week 5 traps"
+  },
+  {
+    "id": "ch5-054",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "P, PD, PI, PID",
+    "kind": "concept",
+    "q": "In the PID knee run, who carries the 10 N·m load after 4 s?",
+    "choices": [
+      "The I term, about 9.6 N·m; P is down to 0.4 N·m",
+      "The P term, 10 N·m, at a 20 mrad error",
+      "The D term, since the joint still creeps slowly",
+      "P and D equally, about 5 N·m each"
+    ],
+    "why": "The integral has 'remembered' the sag and supplies almost all the holding torque, so P needs almost no error. In PD there is no memory, so P must keep 10 N·m and therefore 20 mrad of error for ever.",
+    "source": "Week 5 slides"
+  },
+  {
+    "id": "ch5-055",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "P, PD, PI, PID",
+    "kind": "concept",
+    "q": "What does the I term cost, as seen in PI on the knee?",
+    "choices": [
+      "Ringing and slow settling: 57 % overshoot, 1.0 s to 2 %",
+      "Extra sag: the final error grows from 20 to 40 mrad",
+      "Nothing: PI matched PID in every column of the table",
+      "Rise time only: it rises in 78 ms instead of 19 ms"
+    ],
+    "why": "The integral keeps pushing after the error crosses zero, so PI overshoots as much as P and settles slowly. PID tames it with D: 0 % overshoot, inside 2 % after 0.17 s.",
+    "source": "Week 5 slides"
+  },
+  {
+    "id": "ch5-056",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "P, PD, PI, PID",
+    "kind": "concept",
+    "q": "Which member of the family is the G1's servo (MuJoCo's position actuator)?",
+    "choices": [
+      "PD: it has no integral term, so it sags",
+      "PID: the I term sits in biasprm[0]",
+      "PI: the joint friction supplies the damping",
+      "P: k_v is only the joint's passive damping"
+    ],
+    "why": "τ = g0·ctrl + b0 + b1·q + b2·q̇ has nothing that integrates the past, so it is PD, and that is why the robot sags. b0 is a constant offset, not an integral.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-057",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Torque saturation",
+    "kind": "concept",
+    "q": "With a torque limit, τ = clip(k_p·e − k_v·q̇, −τmax, τmax). At rest, the law stays linear only while…",
+    "choices": [
+      "|e| ≤ τmax/k_p",
+      "|e| ≤ k_p/τmax",
+      "|e| ≤ τmax·k_p",
+      "|e| ≤ τmax/k_v"
+    ],
+    "why": "At rest the torque is k_p·e, which stays inside the clip while |k_p·e| ≤ τmax. Beyond that band the torque is stuck at the limit.",
+    "source": "Study guide · formula sheet"
+  },
+  {
+    "id": "ch5-058",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Torque saturation",
+    "kind": "calc",
+    "q": "Practice Q15: a motor's limit is 30 N·m and k_p = 600. Over what error range is the servo linear?",
+    "choices": [
+      "|e| ≤ 0.05 rad",
+      "|e| ≤ 20 rad",
+      "|e| ≤ 0.5 rad",
+      "|e| ≤ 0.005 rad"
+    ],
+    "why": "τmax/k_p = 30/600 = 0.05 rad (about 2.9°). 20 rad is k_p/τmax, the inverted ratio.",
+    "source": "Study guide · practice Q15"
+  },
+  {
+    "id": "ch5-059",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Torque saturation",
+    "kind": "calc",
+    "q": "With a 50 N·m limit and k_p = 500, how wide is the saturation band?",
+    "choices": [
+      "0.1 rad, about 5.7°",
+      "0.1 rad, about 0.1°",
+      "10 rad, about 573°",
+      "0.01 rad, about 0.57°"
+    ],
+    "why": "50/500 = 0.1 rad, and 0.1 rad × 57.3 °/rad ≈ 5.7°. Outside ±5.7° of error the knee stops being a spring.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-060",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Torque saturation",
+    "kind": "trap",
+    "q": "Outside the saturation band, what is the servo's effective stiffness?",
+    "choices": [
+      "Zero: more error buys no more torque",
+      "Still k_p: torque keeps growing with error",
+      "Doubled: the motor switches to a high-gain mode",
+      "Negative: torque reverses to protect the motor"
+    ],
+    "why": "Once k_p·e exceeds τmax the output is stuck at τmax, so extra bending meets no extra torque. Everything derived before (ω_n, ζ, sag) assumed the linear band.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-061",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Torque saturation",
+    "kind": "trap",
+    "q": "Gravity asks a joint for 8 N·m but its motor saturates at 6 N·m. What makes it hold?",
+    "choices": [
+      "No k_p will: it gives way until the load falls to 6 N·m",
+      "Doubling k_p, so the servo pushes twice as hard",
+      "Raising k_v, so the joint resists the falling motion",
+      "Setting ζ = 1, so it settles without any overshoot"
+    ],
+    "why": "Past saturation the torque is τmax whatever k_p is; an arm, for example, sinks until its lever arm is short enough that gravity's torque has dropped to the limit. Stiffness never enters.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-062",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Torque limit on the walk",
+    "kind": "trap",
+    "q": "What torque limits do the G1's motors have in the shipped MJCF model?",
+    "choices": [
+      "None: the model limits the commanded angle, not the torque",
+      "50 N·m on every joint, matching the real G1's motors",
+      "124 N·m, which is the walker's measured peak torque",
+      "k_p × 1 rad = 500 N·m, set by the servo stiffness"
+    ],
+    "why": "The motors in the model are infinitely strong: ctrlrange clips the commanded angle to the joint range, but nothing bounds the torque. 124 N·m is what the walker drew, and nothing objected.",
+    "source": "Study guide · Week 5 numbers"
+  },
+  {
+    "id": "ch5-063",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Torque limit on the walk",
+    "kind": "number",
+    "q": "What peak torque did the week-4 walker draw in the unlimited model?",
+    "choices": [
+      "About 124 N·m",
+      "About 12 N·m",
+      "About 50 N·m",
+      "About 1000 N·m"
+    ],
+    "why": "The walker peaked at about 124 N·m (at landing from its start pose) and nothing objected. 50 N·m is the limit at which it falls; 1000 N·m was the ×4-stiff step.",
+    "source": "Study guide · Week 5 numbers"
+  },
+  {
+    "id": "ch5-064",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Torque limit on the walk",
+    "kind": "number",
+    "q": "With a torque limit added to every motor, where is the walking threshold?",
+    "choices": [
+      "50 N·m falls, 55 N·m walks",
+      "124 N·m falls, 150 N·m walks",
+      "25 N·m falls, 30 N·m walks",
+      "5 N·m falls, 6 N·m walks"
+    ],
+    "why": "A crisp threshold: the gait needs more than 50 N·m and survives at 55. 6 N·m is the weak-shoulder arm experiment, not the walk.",
+    "source": "Study guide · Week 5 numbers"
+  },
+  {
+    "id": "ch5-065",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Torque limit on the walk",
+    "kind": "number",
+    "q": "With a 50 N·m limit, how much of the walk does the knee spend above 50 N·m, and with what result?",
+    "choices": [
+      "About 4 %, and that is enough to drop the robot",
+      "About 40 %, so the fall is no surprise",
+      "About 4 %, too little to matter; it walks fine",
+      "None; the fall comes from the hip instead"
+    ],
+    "why": "The knee exceeds 50 N·m only at support exchanges, about 4 % of the walk, but in those moments it is outside its linear band and has zero effective stiffness, so the robot goes down.",
+    "source": "Study guide · Week 5 numbers"
+  },
+  {
+    "id": "ch5-066",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Torque limit on the walk",
+    "kind": "concept",
+    "q": "Why is the missing torque limit called a sim-to-real gap 'in plain sight'?",
+    "choices": [
+      "No real motor is unbounded, and closing it costs one line in the model",
+      "Real motors are stronger than the model's, so sim under-uses them",
+      "The limit is hidden in MuJoCo's C code, where students cannot see it",
+      "Real motors are limited in angle only, exactly like the model's"
+    ],
+    "why": "Every real actuator has a stall torque, thermal limit and gearbox; the model has none, which is visible right in the MJCF and fixable with one attribute. The direction is: sim is too strong, not too weak.",
+    "source": "Week 5 slides"
+  },
+  {
+    "id": "ch5-067",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Gain sweep",
+    "kind": "number",
+    "q": "Scaling every k_p on the walker to 250, 500 or 1000: which walk?",
+    "choices": [
+      "Only 500; 250 collapses and 1000 throws it over",
+      "All three walk; only the amount of sag changes",
+      "500 and 1000 walk; only the soft 250 collapses",
+      "Only 1000 walks; the stiffest servo tracks best"
+    ],
+    "why": "Only the nominal gain walks: halve it and the legs collapse, double it and the servos overpower the gait's timing. Stiffer is not simply better.",
+    "source": "Study guide · Week 5 numbers"
+  },
+  {
+    "id": "ch5-068",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Gain sweep",
+    "kind": "trap",
+    "q": "If k_v is rescaled to keep ζ = 1 at k_p = 250 and k_p = 1000, does the walker survive?",
+    "choices": [
+      "No: ζ keeps the shape, but the speed and sag the gait was tuned for change",
+      "Yes: ζ = 1 is the only thing the walking gait needs from the servos",
+      "Only at 1000: a stiffer servo with ζ = 1 is better in every respect",
+      "No: ζ = 1 cannot be reached at those k_p values with positive k_v"
+    ],
+    "why": "Holding ζ fixes the shape, but ω_n ∝ √k_p and sag ∝ 1/k_p still change, and the gait's timing was tuned against this one plant. Still only the nominal gain survives.",
+    "source": "Study guide · Week 5 numbers"
+  },
+  {
+    "id": "ch5-069",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "CPG coupling",
+    "kind": "concept",
+    "q": "Two CPG legs: φ̇_L = ω_L + w·sin(φ_R − φ_L − π), and symmetrically for R. The phase error e = φ_R − φ_L − π obeys…",
+    "choices": [
+      "ė = (ω_R − ω_L) − 2w·sin e",
+      "ė = (ω_R − ω_L) − w·sin e",
+      "ė = (ω_R + ω_L) − 2w·cos e",
+      "ė = −2w·(ω_R − ω_L)·e"
+    ],
+    "why": "Subtracting the two phase equations, each leg's coupling term contributes −w·sin e, giving the factor 2. The rates enter as a difference, not a sum.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-070",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "CPG coupling",
+    "kind": "concept",
+    "q": "With equal stepping rates, what do the coupled CPG legs settle into?",
+    "choices": [
+      "Anti-phase, with e → 0 as e^(−2wt)",
+      "In phase (a hop), with e → π as e^(−wt)",
+      "Anti-phase, with e falling linearly at 2w",
+      "No fixed relation: they drift for ever"
+    ],
+    "why": "ė = −2w·sin e ≈ −2w·e near 0, so the error decays exponentially and the legs lock half a stride apart. e = π (a hop) is also a rest point, but an unstable one.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-071",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "CPG coupling",
+    "kind": "concept",
+    "q": "Two CPG legs have unequal rates, Δω = ω_R − ω_L. When do they lock?",
+    "choices": [
+      "Only if |Δω| ≤ 2w; then with a small constant lag",
+      "Only if |Δω| ≤ w/2; then exactly in anti-phase",
+      "Always, for any w > 0, given enough time",
+      "Never: unequal rates always drift apart"
+    ],
+    "why": "Locking needs ė = 0, i.e. sin e* = Δω/(2w), which has a solution only if |Δω| ≤ 2w. Then the faster leg is held back with a small lag e*; weaker coupling drifts for ever.",
+    "source": "Study guide · formula sheet"
+  },
+  {
+    "id": "ch5-072",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "CPG coupling",
+    "kind": "calc",
+    "q": "Two CPG legs differ in rate by Δω = 2 rad/s. What is the weakest coupling w that still locks them?",
+    "choices": [
+      "w = 1 /s",
+      "w = 2 /s",
+      "w = 4 /s",
+      "w = 0.5 /s"
+    ],
+    "why": "Lock condition |Δω| ≤ 2w, so w ≥ 2/2 = 1 /s. Using |Δω| ≤ w would wrongly demand 2 /s.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-073",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "CPG coupling",
+    "kind": "calc",
+    "q": "Δω = 0.6 rad/s and coupling w = 0.2 /s. What do the two legs do?",
+    "choices": [
+      "Drift apart for ever, since 2w = 0.4 < 0.6",
+      "Lock with a small lag, since any w > 0 locks",
+      "Lock exactly in anti-phase after about 1/(2w)",
+      "Lock in phase (a hop), the other rest point"
+    ],
+    "why": "Locking needs |Δω| ≤ 2w; here 2w = 0.4 rad/s is less than 0.6, so sin e* = 1.5 has no solution and the error wraps round and round.",
+    "source": "Study guide · Week 5 maths"
+  },
+  {
+    "id": "ch5-074",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "CPG coupling",
+    "kind": "calc",
+    "q": "Equal rates, coupling w = 5 /s. The anti-phase error shrinks by a factor e ≈ 2.72 every…",
+    "choices": [
+      "0.1 s",
+      "0.2 s",
+      "10 s",
+      "0.05 s"
+    ],
+    "why": "e(t) = e0·e^(−2wt), so the time constant is 1/(2w) = 1/10 = 0.1 s. 0.2 s forgets the 2.",
+    "source": "Week 5 slides"
+  },
+  {
+    "id": "ch5-075",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "CPG gait results",
+    "kind": "number",
+    "q": "The CPG was run at nine frequency × amplitude settings for 8 s each. What happened?",
+    "choices": [
+      "All nine fell within about 2–3 s",
+      "All nine walked but drifted sideways",
+      "Three walked: the slowest rate at each amplitude",
+      "All nine fell within about 0.2–0.3 s"
+    ],
+    "why": "Every setting produced a good-looking stepping pattern and every one fell, 1.9–3.2 s in, because nothing in the CPG reasons about balance.",
+    "source": "Study guide · Week 5 numbers"
+  },
+  {
+    "id": "ch5-076",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "CPG gait results",
+    "kind": "trap",
+    "q": "A CPG produces a perfectly plausible stepping pattern. Why does the robot still fall?",
+    "choices": [
+      "Rhythm is not balance: nothing keeps the CoM over the support polygon",
+      "Its legs drift out of anti-phase unless the coupling w is very strong",
+      "Its stepping rate is faster than the servos' natural frequency ω_n",
+      "Its joint targets ask the knee for more than the 50 N·m torque limit"
+    ],
+    "why": "The CPG 'has no idea where the floor is': it is a clock, with no model of the CoM. That is week 4's LIPM value stated negatively. The model has no torque limit, and the package CPG runs locked phases.",
+    "source": "Study guide · Week 5 traps"
+  },
+  {
+    "id": "ch5-077",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "CPG gait results",
+    "kind": "concept",
+    "q": "'An open-loop oscillator is a CPG with its spinal cord cut off from its body.' What do biological CPGs have that ours lacks?",
+    "choices": [
+      "Sensory feedback that entrains the rhythm step by step",
+      "Stronger coupling between the left and right oscillators",
+      "A faster stepping frequency matched to the muscles",
+      "A balance model of the floor, planned before each step"
+    ],
+    "why": "Real CPGs are continuously entrained by load, joint-angle and skin feedback through reflexes: one more term in φ̇. Ours reads no sensor at all, so it is open loop.",
+    "source": "Study guide · Week 5 traps"
+  },
+  {
+    "id": "ch5-078",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Open loop",
+    "kind": "trap",
+    "q": "What do the week-4 LIPM walker and the week-5 CPG have in common?",
+    "choices": [
+      "Both are open loop: neither reads a single sensor",
+      "Both read the IMU to keep the CoM over the feet",
+      "Both walk about 1 m before they eventually fall",
+      "Both are closed loop, since their PD servos use feedback"
+    ],
+    "why": "Neither controller looks at the robot: one follows a precomputed plan, the other a timer. One walks because a human did the balance reasoning in advance; the CPG does not walk. Every later week closes that loop.",
+    "source": "Study guide · Week 5 traps"
+  },
+  {
+    "id": "ch5-079",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Explicit vs implicit servo",
+    "kind": "trap",
+    "q": "The PD law written by hand through qfrc_applied, compared with MuJoCo's own actuator, at 500 Hz?",
+    "choices": [
+      "Hand-written blows up at 500 Hz, fine at 1 kHz; MuJoCo's survives 500 Hz",
+      "Both blow up at 500 Hz, and both need 1 kHz before the robot can walk",
+      "Hand-written is fine at 500 Hz, while MuJoCo's own one needs 1 kHz",
+      "Both walk at 500 Hz, so the smaller timestep is never actually needed"
+    ],
+    "why": "An explicit spring this stiff is unstable at dt = 0.002 (BADQACC after a few steps) and fine at 1 kHz. MuJoCo's actuator survives 500 Hz because the engine treats it implicitly.",
+    "source": "Study guide · Week 5 traps"
+  },
+  {
+    "id": "ch5-080",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "Explicit vs implicit servo",
+    "kind": "concept",
+    "q": "Why does MuJoCo's own position actuator survive a 500 Hz timestep when the hand-written law does not?",
+    "choices": [
+      "The engine treats the actuator's spring and damper implicitly",
+      "It clips the torque at 50 N·m, which keeps the step stable",
+      "It uses a smaller internal k_p than the hand-written law",
+      "It runs its own control loop at 10 kHz inside each step"
+    ],
+    "why": "Same law, different integration: MuJoCo folds the actuator's stiffness and damping into the implicit update, while qfrc_applied is an explicit force computed from the old state. The model has no torque limit.",
+    "source": "Study guide · Week 5 traps"
+  },
+  {
+    "id": "ch5-081",
+    "chapter": "Week 5 · Actuation and PD control",
+    "topic": "CPG commands",
+    "kind": "concept",
+    "q": "The package CPG sets θ_knee = A_k·max(0, sin φ) while the hip uses A_h·sin φ. Why the max(0, ·)?",
+    "choices": [
+      "A knee cannot bend backward, so the negative half is cut",
+      "It removes the hop, the unstable rest point at e = π",
+      "It keeps the knee torque below the 50 N·m limit",
+      "It makes the two legs lock into anti-phase faster"
+    ],
+    "why": "The knee bends only on the forward half of the cycle; max(0, ·) drops the half that would ask for backward bending. The anti-phase comes from φ_R = φ_L + π, not from the knee shape.",
+    "source": "Week 5 slides"
+  }
+]

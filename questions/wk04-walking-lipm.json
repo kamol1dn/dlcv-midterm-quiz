@@ -1,0 +1,1247 @@
+[
+ {
+  "id": "ch4-001",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Underactuation",
+  "kind": "number",
+  "q": "The G1 has nv = 35 and nu = 29. What do the six missing motors correspond to?",
+  "choices": [
+   "The floating pelvis: no motor to the world",
+   "The two ankles, which are passive springs",
+   "The six arm joints that are left unpowered",
+   "The quaternion's extra numbers stored in qpos"
+  ],
+  "why": "35 − 29 = 6 freedoms with no motor: exactly the pelvis's free joint. The quaternion explains nq = 36 vs nv = 35, a different count.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-002",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Underactuation",
+  "kind": "calc",
+  "q": "A robot has one free joint and 12 hinges, and a motor on every hinge. How many of its freedoms have no motor?",
+  "choices": [
+   "6",
+   "0",
+   "7",
+   "1"
+  ],
+  "why": "nv = 6 + 12 = 18 and nu = 12, so 6 are unactuated: the free joint's three translations and three rotations. 7 is the free joint's qpos count (quaternion), not its freedoms.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-003",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Internal forces",
+  "kind": "concept",
+  "q": "Why can't the G1's 29 motors, on their own, move the robot as a whole?",
+  "choices": [
+   "Internal forces come in equal and opposite pairs",
+   "They are position servos, and a position servo cannot produce any force",
+   "They are too slow, at 500 Hz, to move the whole robot's mass",
+   "They can, but only while both feet are off the ground"
+  ],
+  "why": "Every motor pushes one link against another inside the robot; summed over the body, those pairs cancel. Only an external force, the floor's, changes the CoM's motion.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-004",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Newton for the whole robot",
+  "kind": "concept",
+  "q": "Summing F = ma over every link, which equation is left for the centre of mass c?",
+  "choices": [
+   "m c̈ = f_floor + m g",
+   "m c̈ = Σ motor forces + m g",
+   "m c̈ = f_floor − Σ motor forces",
+   "m c̈ = m g only"
+  ],
+  "why": "Internal motor forces cancel in pairs, leaving only the floor's contact force and gravity. That is why the floor is the only thing that can move the body horizontally.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-005",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Newton for the whole robot",
+  "kind": "trap",
+  "q": "Which statement about moving the G1's body horizontally is correct?",
+  "choices": [
+   "Only the floor; motors just change how it pushes",
+   "The hip motors push the CoM forward directly, as hard as they like",
+   "Gravity alone moves it, since gravity is the only external force",
+   "The free joint carries a motor that moves the pelvis forward"
+  ],
+  "why": "m c̈ = f_floor + m g: gravity is purely vertical, motors are internal. The robot can only move its legs so that the floor pushes the body where it wants.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-006",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "The floor pushes, never pulls",
+  "kind": "trap",
+  "q": "A foot stands on the floor. Which force can the floor exert on it?",
+  "choices": [
+   "A push only, where the foot touches, within friction",
+   "A push or a pull, whichever the ankle servo commands",
+   "Any force at all, as long as the foot is flat on the ground",
+   "A downward pull whenever the robot starts to lean too far"
+  ],
+  "why": "The floor can push, never pull, only where a foot touches it, and sideways only as hard as friction allows. These rules are what make the CoP stay inside the support polygon.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-007",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Walking as controlled falling",
+  "kind": "concept",
+  "q": "How does the course describe walking?",
+  "choices": [
+   "Deliberately falling and catching yourself",
+   "Holding the CoM still while the legs move",
+   "Pushing the body forward with the hip motors",
+   "Keeping the CoM over a foot at every instant"
+  ],
+  "why": "Lean so gravity carries the body forward, let the stance foot's force steer it, then put the next foot where it catches the fall. Keeping the CoM over a foot at all times is static walking.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-008",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Static vs dynamic walking",
+  "kind": "concept",
+  "q": "Which describes static walking?",
+  "choices": [
+   "CoM over each foot before the other lifts; slow but stable frozen",
+   "CoM between the feet, falling toward the next one; fast, and frozen it falls",
+   "CoM held at the midline the whole time; both feet always on the ground",
+   "CoM swinging outside both feet; stable only at high speed"
+  ],
+  "why": "Static walking keeps the robot balanced at every instant by parking the CoM over the stance foot. The second option is dynamic walking.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-009",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Static vs dynamic walking",
+  "kind": "trap",
+  "q": "A dynamically walking robot is frozen mid-step. What happens?",
+  "choices": [
+   "It falls: its CoM is between the feet, over no foot",
+   "It stays up: the ZMP plan was inside the polygon",
+   "It stays up as long as the servos hold the pose",
+   "It falls only if double support was removed"
+  ],
+  "why": "Dynamic walking spends most of its time with the CoM over no foot, falling toward the next one. It is fast and efficient precisely because it uses the fall; frozen, nothing catches it.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-010",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Centre of pressure",
+  "kind": "concept",
+  "q": "What is the centre of pressure (CoP)?",
+  "choices": [
+   "The force-weighted mean of the contact points",
+   "The plain, unweighted average of the contact points",
+   "The point directly below the centre of mass",
+   "The contact point carrying the largest force"
+  ],
+  "why": "p = Σ fᵢxᵢ / Σ fᵢ: many small upward forces act like one force of size Σ fᵢ at p. It is below the CoM only when the robot is not accelerating horizontally.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-011",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Centre of pressure",
+  "kind": "calc",
+  "q": "Two contacts: 300 N at x = 0 and 100 N at x = 0.2 m. Where is the CoP?",
+  "choices": [
+   "x = 0.05 m",
+   "x = 0.10 m",
+   "x = 0.15 m",
+   "x = 0.20 m"
+  ],
+  "why": "p = (300·0 + 100·0.2)/400 = 0.05 m, pulled toward the heavier contact. 0.10 m is the unweighted midpoint; 0.15 m swaps the weights.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-012",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Centre of pressure",
+  "kind": "calc",
+  "q": "Three contacts: 100 N at x = 0, 100 N at x = 0.1 m, 200 N at x = 0.2 m. Where is the CoP?",
+  "choices": [
+   "x = 0.125 m",
+   "x = 0.100 m",
+   "x = 0.150 m",
+   "x = 0.200 m"
+  ],
+  "why": "Σfx = 0 + 10 + 40 = 50 N·m over Σf = 400 N gives 0.125 m. 0.100 m is the unweighted mean of the three positions.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-013",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Centre of pressure",
+  "kind": "calc",
+  "q": "Feet at y = −0.12 m and y = +0.12 m. All weight is on the right foot (y = −0.12), the left carries 0 N. Where is the CoP?",
+  "choices": [
+   "y = −0.12 m, at the loaded foot",
+   "y = 0, at the midline",
+   "y = −0.06 m, halfway",
+   "y = +0.12 m, at the unloaded foot"
+  ],
+  "why": "With weight 1 on one contact and 0 on the other, the weighted average is that contact. The midline answer ignores the forces.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-014",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Centre of pressure",
+  "kind": "trap",
+  "q": "Can the CoP leave the convex hull of the contact points if one contact pushes very hard?",
+  "choices": [
+   "No: non-negative weights summing to 1 keep it inside",
+   "Yes: a large enough force drags the CoP beyond that contact point",
+   "Yes, but only in single support, when there are fewer contacts",
+   "No, but only because the controller clips it back inside"
+  ],
+  "why": "However big one force gets, its weight approaches 1 and the CoP approaches that contact, never past it. Leaving the hull would need a negative weight: a floor that pulls.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-015",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "ZMP and the balance rule",
+  "kind": "concept",
+  "q": "What is the zero moment point (ZMP)?",
+  "choices": [
+   "Where gravity plus inertia give no tipping moment",
+   "The point on the floor directly below the centre of mass",
+   "The point where the ankle servo torque is exactly zero",
+   "The floor point where the vertical contact force is zero"
+  ],
+  "why": "It is defined by zero moment about horizontal axes from gravity plus the body's inertia. It is below the CoM only when the CoM is not accelerating.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-016",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "ZMP and the balance rule",
+  "kind": "concept",
+  "q": "How are the ZMP and the CoP related on flat ground?",
+  "choices": [
+   "The same point, computed from motion or from forces",
+   "The ZMP is always ahead of the CoP by the step length",
+   "The CoP is the ZMP projected onto the support polygon",
+   "They coincide only when the robot is standing still"
+  ],
+  "why": "On flat ground ZMP = CoP: the ZMP comes from the motion, the CoP from the contact forces. That is what lets the walker measure its ZMP from MuJoCo's contact forces.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-017",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "ZMP and the balance rule",
+  "kind": "concept",
+  "q": "What is the balance rule for flat feet?",
+  "choices": [
+   "The ZMP must be inside the support polygon",
+   "The CoM must be inside the support polygon",
+   "The capture point must be at the midline",
+   "The ZMP must be outside the stance foot"
+  ],
+  "why": "A motion that needs the ZMP outside the polygon cannot happen with flat feet. The CoM itself may be outside (dynamic walking); it is the ZMP that is constrained.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-018",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "ZMP and the balance rule",
+  "kind": "trap",
+  "q": "A planned motion would need the ZMP outside the support polygon. What happens with flat feet?",
+  "choices": [
+   "The foot rolls on its edge; no ankle torque stops it",
+   "The ZMP moves outside and the robot balances anyway",
+   "The floor pulls down on the heel to keep the foot flat",
+   "Friction holds the foot flat as long as μ > 0.2"
+  ],
+  "why": "The ZMP cannot leave the polygon, since the floor only pushes. If the motion needs it outside, the foot tips about its edge instead.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-019",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Support polygon",
+  "kind": "concept",
+  "q": "What is the support polygon in single support and in double support?",
+  "choices": [
+   "One foot's outline; the convex hull of both feet",
+   "Both feet's outline; the stance foot only",
+   "A circle under the CoM; the line joining both ankles",
+   "The stance foot's heel; the two toes only"
+  ],
+  "why": "Support polygon = convex hull of the contact points. In single support that is one small foot; in double support the hull around both feet.",
+  "source": "Study guide · Week 4 ideas"
+ },
+ {
+  "id": "ch4-020",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Support polygon",
+  "kind": "number",
+  "q": "How big is one G1 foot's support polygon?",
+  "choices": [
+   "About 17 × 6 cm",
+   "About 30 × 12 cm",
+   "About 10 × 10 cm",
+   "About 24 × 4 cm"
+  ],
+  "why": "Four contact spheres at x ∈ {−0.05, +0.12} m and y ≈ ±0.025 to 0.03 m: 17 cm by about 6 cm, to balance a 33.3 kg robot.",
+  "source": "Study guide · Week 4 numbers"
+ },
+ {
+  "id": "ch4-021",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "LIPM assumptions",
+  "kind": "concept",
+  "q": "Which assumptions define the linear inverted pendulum model (LIPM)?",
+  "choices": [
+   "Point mass at the CoM, massless leg to p, constant CoM height z_c",
+   "Rigid body with full inertia, massless feet, constant leg length",
+   "Point mass at the CoM, massive legs, CoM height that bobs freely",
+   "Two point masses, one per leg, joined by a spring at the hip"
+  ],
+  "why": "All mass in one point, a massless leg from it to the floor at p, and constant height. Constant height is what makes the model linear; a constant leg length would give the ordinary nonlinear pendulum.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-022",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "LIPM derivation",
+  "kind": "concept",
+  "q": "In the LIPM derivation, what does constant CoM height give?",
+  "choices": [
+   "f_z = m g: the vertical floor force equals the weight",
+   "f_x = m g: the horizontal force equals the weight",
+   "f_z = 0: the floor carries no vertical force",
+   "ẍ = 0: the CoM cannot accelerate horizontally"
+  ],
+  "why": "Constant height means z̈ = 0, so Newton vertically gives f_z − m g = 0. The horizontal force is what drives ẍ.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-023",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "LIPM derivation",
+  "kind": "concept",
+  "q": "Why must the floor force point along the massless leg, so that f_x/f_z = (x − p)/z_c?",
+  "choices": [
+   "A massless leg cannot carry a moment",
+   "Friction is zero, so only normal forces act",
+   "The servos hold the leg at a fixed angle",
+   "Gravity acts along the leg's direction"
+  ],
+  "why": "A massless link transmitting a moment would get infinite angular acceleration, so the force runs along it, from p to the mass. Its components are then in the ratio of the leg's sides.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-024",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "LIPM derivation",
+  "kind": "calc",
+  "q": "LIPM with m = 30 kg, g = 10 m/s², z_c = 0.6 m, and the CoM 0.06 m ahead of the ZMP. What is the horizontal floor force?",
+  "choices": [
+   "30 N",
+   "300 N",
+   "18 N",
+   "3 N"
+  ],
+  "why": "f_x = m g (x − p)/z_c = 300 × 0.06/0.6 = 30 N. 300 N is the vertical force; 18 N forgets to divide by z_c.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-025",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "LIPM equation",
+  "kind": "concept",
+  "q": "What is the LIPM's equation of motion for the CoM's horizontal position x?",
+  "choices": [
+   "ẍ = ω²(x − p), with ω = √(g/z_c)",
+   "ẍ = −ω²(x − p), with ω = √(g/z_c)",
+   "ẍ = ω²(x − p), with ω = g/z_c",
+   "ẍ = ω(x − p), with ω = √(z_c/g)"
+  ],
+  "why": "m ẍ = m g (x − p)/z_c. The minus sign would make it a spring (a valley); ω = g/z_c forgets the root and has the wrong units.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-026",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "LIPM equation",
+  "kind": "trap",
+  "q": "The LIPM is ẍ = ω²(x − p). Which picture fits it?",
+  "choices": [
+   "A hill: it accelerates away from p, more when further",
+   "A valley: the CoM is pulled back toward p and settles there",
+   "A spring: the CoM oscillates about p at frequency ω",
+   "A ramp: the CoM accelerates at a constant g regardless of x"
+  ],
+  "why": "The acceleration has the same sign as x − p, so any offset grows: an inverted pendulum. Reading it as a spring is the sign error the professor warns about.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-027",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "LIPM equation",
+  "kind": "concept",
+  "q": "Why is the ZMP called the \"zero moment\" point in the LIPM?",
+  "choices": [
+   "m z_c ẍ = m g (x − p) says the net moment about p is zero",
+   "The ankle servo applies zero torque at the stance foot",
+   "The CoM has zero angular momentum about the hip",
+   "Gravity's moment about the CoM is always zero"
+  ],
+  "why": "Multiply m ẍ = m g (x − p)/z_c by z_c: gravity's moment about p equals the inertial force's moment. It is an equation of motion from a moment balance, not a torque.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-028",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "LIPM equation",
+  "kind": "concept",
+  "q": "What are the units of ω = √(g/z_c)?",
+  "choices": [
+   "1/s",
+   "m/s",
+   "s",
+   "m/s²"
+  ],
+  "why": "g/z_c is (m/s²)/m = 1/s², so ω is in 1/s and 1/ω is a time.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-029",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "LIPM equation",
+  "kind": "calc",
+  "q": "LIPM with ω = 5 /s and the CoM 0.04 m ahead of the ZMP. What is ẍ?",
+  "choices": [
+   "1 m/s², away from the ZMP",
+   "1 m/s², toward the ZMP",
+   "0.2 m/s², away from the ZMP",
+   "25 m/s², away from the ZMP"
+  ],
+  "why": "ẍ = ω²(x − p) = 25 × 0.04 = 1 m/s², with the sign of x − p: away. 0.2 forgets to square ω; \"toward\" is the valley misconception.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-030",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "ω and the time constant",
+  "kind": "calc",
+  "q": "A LIPM has z_c = 0.4 m (take g = 10 m/s²). What are ω and the time constant 1/ω?",
+  "choices": [
+   "ω = 5 /s, time constant 0.2 s",
+   "ω = 25 /s, time constant 0.04 s",
+   "ω = 0.2 /s, time constant 5 s",
+   "ω = 5 /s, time constant 5 s"
+  ],
+  "why": "ω = √(10/0.4) = √25 = 5 /s and 1/ω = 0.2 s. 25 forgets the square root; 0.2 /s inverts the ratio.",
+  "source": "Study guide · Practice questions"
+ },
+ {
+  "id": "ch4-031",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "ω and the time constant",
+  "kind": "calc",
+  "q": "A robot's CoM height is multiplied by four. What happens to ω?",
+  "choices": [
+   "It halves",
+   "It quarters",
+   "It doubles",
+   "It is unchanged"
+  ],
+  "why": "ω = √(g/z_c) ∝ 1/√z_c, and 1/√4 = 1/2. \"Quarters\" forgets the square root. A taller robot falls more slowly.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-032",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "ω and the time constant",
+  "kind": "calc",
+  "q": "On a world with g = 1.6 m/s² and z_c = 0.4 m, what are ω and the time constant?",
+  "choices": [
+   "ω = 2 /s, time constant 0.5 s",
+   "ω = 4 /s, time constant 0.25 s",
+   "ω = 0.5 /s, time constant 2 s",
+   "ω = 5 /s, time constant 0.2 s"
+  ],
+  "why": "√(1.6/0.4) = √4 = 2 /s, so 1/ω = 0.5 s: weaker gravity, slower fall. 5 /s is the Earth value for this height.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-033",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "ω and the time constant",
+  "kind": "number",
+  "q": "For the G1's LIPM with z_c = 0.60 m, what are ω and the time constant?",
+  "choices": [
+   "ω = 4.04 /s, time constant 0.247 s",
+   "ω = 16.4 /s, time constant 0.061 s",
+   "ω = 1.64 /s, time constant 0.61 s",
+   "ω = 4.04 /s, time constant 0.65 s"
+  ],
+  "why": "√(9.81/0.6) = 4.04 /s, 1/ω = 0.247 s. 1.64 /s is the Moon value; 0.65 s is the step duration, not the time constant.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-034",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "LIPM closed-form solution",
+  "kind": "concept",
+  "q": "With p fixed, x(0) = x0 and ẋ(0) = v0, what is the LIPM solution?",
+  "choices": [
+   "x(t) = p + (x0 − p) cosh ωt + (v0/ω) sinh ωt",
+   "x(t) = p + (x0 − p) cos ωt + (v0/ω) sin ωt",
+   "x(t) = p + (x0 − p) cosh ωt + v0 ω sinh ωt",
+   "x(t) = p + (x0 − p) sinh ωt + (v0/ω) cosh ωt"
+  ],
+  "why": "Trying e^(rt) gives r = ±ω, and the two initial conditions fix the cosh and sinh coefficients. cos/sin would be the spring (valley) solution; v0·ω has the wrong units.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-035",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "LIPM closed-form solution",
+  "kind": "concept",
+  "q": "How does the walking controller compute the LIPM CoM trajectory at 500 Hz?",
+  "choices": [
+   "It evaluates the cosh/sinh closed form directly",
+   "It integrates ẍ = ω²(x − p) numerically with small steps",
+   "It looks the trajectory up in a table learned from data",
+   "It runs MuJoCo forward to predict where the CoM will go"
+  ],
+  "why": "The LIPM has an exact solution, so the controller just evaluates it at time sT. No numerical integration is needed anywhere.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-036",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "LIPM closed-form solution",
+  "kind": "concept",
+  "q": "In the LIPM, the CoM is released at rest exactly above the ZMP (x0 = p, v0 = 0). What happens?",
+  "choices": [
+   "It stays put, but any offset would grow",
+   "It slides toward the nearer foot and stops there",
+   "It oscillates about p with period 2π/ω",
+   "It falls forward at once with acceleration g"
+  ],
+  "why": "x(t) = p for all t: an equilibrium, but on top of a hill. Any offset x0 − p grows like cosh ωt.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-037",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "LIPM closed-form solution",
+  "kind": "calc",
+  "q": "Released at rest with the CoM 2 cm from p, after a time where cosh ωt ≈ 7, how far is it from p?",
+  "choices": [
+   "About 14 cm",
+   "About 2 cm",
+   "About 0.3 cm",
+   "About 9 cm"
+  ],
+  "why": "With v0 = 0, x − p = (x0 − p) cosh ωt = 0.02 × 7 = 0.14 m. The error multiplies; it does not add (9 cm would be 2 + 7).",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-038",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "ω and the time constant",
+  "kind": "calc",
+  "q": "A step lasts 0.6 s and ω = 5 /s. How many time constants long is the step?",
+  "choices": [
+   "3",
+   "0.12",
+   "8.3",
+   "15"
+  ],
+  "why": "1/ω = 0.2 s, and 0.6/0.2 = 3 (= ωT). 0.12 is T/ω and 8.3 is ω/T, both upside down; 15 multiplies by ω².",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-039",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Errors grow every step",
+  "kind": "number",
+  "q": "With z_c = 0.6 m, a 0.65 s step is 2.6 time constants. By roughly how much does a starting error grow in one step?",
+  "choices": [
+   "About ×7 (cosh 2.6)",
+   "About ×2.6 (one per τ)",
+   "About ×1.3 (2.6 / 2)",
+   "About ×13 (e^2.6)"
+  ],
+  "why": "Released at rest, the distance from p grows like cosh ωT, and cosh 2.6 ≈ 7. 2.6 is the number of time constants, not the growth; e^2.6 ≈ 13 forgets that cosh is half of e^ωT plus a vanishing term.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-040",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Errors grow every step",
+  "kind": "trap",
+  "q": "A starting error grows about ×7 over each 0.65 s step. What does the professor conclude?",
+  "choices": [
+   "That is why a walker must act every step",
+   "So errors average out if you take many steps",
+   "So longer steps let the error settle down",
+   "So the LIPM is of no use for real walking"
+  ],
+  "why": "Errors multiply, never settle: left alone for a step or two, any mistake is ×7, ×49. Longer steps make it worse, since growth is cosh ωT.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-041",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Phase portrait",
+  "kind": "concept",
+  "q": "In the (x − p, ẋ) phase portrait, what happens on the line ẋ = −ω(x − p)?",
+  "choices": [
+   "The CoM comes to rest exactly over p",
+   "The CoM runs away from p fastest",
+   "The CoM oscillates around p forever",
+   "The CoM crosses p and falls the other way"
+  ],
+  "why": "On that line only the e^(−ωt) part is present, so the CoM moves toward p at exactly the speed that stops it on top. ẋ = +ω(x − p) is the runaway line.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-042",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Phase portrait",
+  "kind": "concept",
+  "q": "Starting anywhere off the rest line ẋ = −ω(x − p), what eventually happens to the LIPM?",
+  "choices": [
+   "It runs away, to its side of the rest line",
+   "It settles back onto the rest line by itself",
+   "It runs away, always in the direction it was moving",
+   "It circles the origin of the phase plane forever"
+  ],
+  "why": "Every motion is a mix, and the e^(+ωt) part eventually wins. The side of the green line decides the direction of the fall, not the current velocity alone.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-043",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Capture point",
+  "kind": "concept",
+  "q": "What is the capture point ξ?",
+  "choices": [
+   "ξ = x + ẋ/ω: where to step to come to rest in one step",
+   "ξ = x − ẋ/ω: where to step to come to rest in one step",
+   "ξ = x + ẋ ω: where the CoM will be one step from now",
+   "ξ = p + ẋ/ω: how far the ZMP moves per time constant"
+  ],
+  "why": "ξ = x + ẋ/ω measures how far the state is from the rest line. x − ẋ/ω is the other combination η, which settles by itself.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-044",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Capture point",
+  "kind": "calc",
+  "q": "The CoM is at x = 0, moving at 0.2 m/s, with ω = 4 /s. Where is the capture point?",
+  "choices": [
+   "0.05 m ahead",
+   "0.05 m behind",
+   "0.8 m ahead",
+   "0.2 m ahead"
+  ],
+  "why": "ξ = 0 + 0.2/4 = 0.05 m. Subtracting gives −0.05; multiplying by ω gives 0.8.",
+  "source": "Study guide · Practice questions"
+ },
+ {
+  "id": "ch4-045",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Capture point",
+  "kind": "calc",
+  "q": "The CoM is at x = 0.1 m, moving at 0.5 m/s, with ω = 5 /s. Where is the capture point?",
+  "choices": [
+   "x = 0.2 m",
+   "x = 0",
+   "x = 2.6 m",
+   "x = 0.6 m"
+  ],
+  "why": "ξ = 0.1 + 0.5/5 = 0.2 m. x − ẋ/ω gives 0; x + ẋω gives 2.6; x + ẋ gives 0.6.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-046",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Capture point",
+  "kind": "calc",
+  "q": "z_c = 0.4 m, g = 10 m/s², and the CoM moves at 0.3 m/s. How far ahead of the CoM is the capture point?",
+  "choices": [
+   "6 cm ahead",
+   "1.2 cm ahead",
+   "1.5 m ahead",
+   "6 cm behind"
+  ],
+  "why": "ω = √(10/0.4) = 5, so ẋ/ω = 0.3/5 = 0.06 m ahead. 1.2 cm uses ω = 25 (no root); 1.5 m multiplies by ω; behind is the x − ẋ/ω sign slip.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-047",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Capture point",
+  "kind": "calc",
+  "q": "At one speed the capture point is 7.4 cm ahead of the CoM. The robot doubles its speed (same ω). Where is it now?",
+  "choices": [
+   "About 15 cm ahead",
+   "About 7.4 cm ahead",
+   "About 30 cm ahead",
+   "About 10.5 cm ahead"
+  ],
+  "why": "ξ − x = ẋ/ω is linear in ẋ, so doubling the speed doubles it. 30 cm would be quadratic; 10.5 cm (×√2) has no basis.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-048",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Capture point",
+  "kind": "concept",
+  "q": "The capture point obeys ξ̇ = ω(ξ − p). What does that mean?",
+  "choices": [
+   "First order, and ξ − p grows like e^(ωt)",
+   "A second-order equation: ξ oscillates about p at frequency ω",
+   "A first-order equation: ξ decays onto p on its own",
+   "No dynamics at all: ξ is a constant of the motion"
+  ],
+  "why": "ξ(t) − p = (ξ0 − p)e^(ωt): the unstable part of the LIPM isolated in one variable. The combination that decays by itself is η = x − ẋ/ω.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-049",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Capture point",
+  "kind": "calc",
+  "q": "ξ0 − p = 1 cm with p held fixed. After one time constant 1/ω, how far is ξ from p?",
+  "choices": [
+   "About 2.7 cm",
+   "About 2 cm",
+   "About 1 cm",
+   "About 7 cm"
+  ],
+  "why": "ξ − p = (ξ0 − p)e^(ωt), and at t = 1/ω that is e ≈ 2.7 times. 7 is cosh 2.6, the per-step growth, not per time constant.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-050",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Capture point",
+  "kind": "concept",
+  "q": "The foot (the ZMP) is put exactly on the capture point ξ. What happens?",
+  "choices": [
+   "ξ stays put, and the CoM slides onto it and stops",
+   "The CoM stops at once, wherever it happens to be",
+   "The CoM runs away from ξ as fast as possible",
+   "The CoM oscillates around ξ until damping stops it"
+  ],
+  "why": "With p = ξ, ξ̇ = ω(ξ − p) = 0, so ξ is fixed and the state lies on the rest line. The CoM coasts onto the foot and comes to rest.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-051",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Capture point",
+  "kind": "trap",
+  "q": "A robot steps well beyond its capture point. What happens, according to the LIPM?",
+  "choices": [
+   "It is pushed back: the CoM stops short",
+   "It is safest: stepping further is always better",
+   "It stops exactly over the new foot",
+   "It keeps falling forward past the foot"
+  ],
+  "why": "Step short and you keep falling forward; step beyond and you are pushed back. Only stepping on ξ brings the CoM to rest in one step.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-052",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Capture point",
+  "kind": "number",
+  "q": "At 0.3 m/s with ω = 4.04 /s, where is the capture point, and what changes at twice the speed?",
+  "choices": [
+   "7.4 cm ahead; at twice the speed ~15 cm, more than the foot reaches",
+   "15 cm ahead; at twice the speed ~30 cm, more than the foot reaches",
+   "7.4 cm ahead; at twice the speed still within the 17 cm foot",
+   "1.2 cm ahead; at twice the speed 2.4 cm, inside the foot"
+  ],
+  "why": "0.3/4.04 = 7.4 cm. Twice the speed needs ~15 cm, beyond the ~12 cm the foot reaches ahead of the ankle, so you must take a step.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-053",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "One step is a BVP",
+  "kind": "concept",
+  "q": "How does the walker choose a step's initial CoM velocity v0?",
+  "choices": [
+   "Solve a BVP so x(T) = x_T: exactly one answer",
+   "Integrate the LIPM backwards in time from the end of the step",
+   "Try several v0 values on the robot and keep the best one",
+   "Set v0 to the capture point so the step ends at rest"
+  ],
+  "why": "x_T = p + (x0 − p) cosh ωT + (v0/ω) sinh ωT is linear in v0, so it has one solution. No search or trial and error is needed.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-054",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "One step is a BVP",
+  "kind": "trap",
+  "q": "The professor says to \"run it backwards\" to plan a step. What does that mean?",
+  "choices": [
+   "Reason from the end you want to the start you need",
+   "Integrate the LIPM equation backwards in time",
+   "Play the recorded motion in reverse to check it",
+   "Walk the robot backwards to test its stability"
+  ],
+  "why": "It means the boundary value problem: fix x(T) and solve for v0. It is not integrating backwards in time.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-055",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "One step is a BVP",
+  "kind": "number",
+  "q": "With z_c = 0.6 m, the CoM must go from −0.07 m to +0.07 m in 0.65 s over a fixed ZMP. What v0 did the BVP give?",
+  "choices": [
+   "0.327 m/s",
+   "0.215 m/s",
+   "0.416 m/s",
+   "0.110 m/s"
+  ],
+  "why": "0.14 m in 0.65 s averages 0.215 m/s, but the pendulum slows the CoM until it passes the foot, so it must start faster: 0.327 m/s. 0.416 m/s is the sideways v0.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-056",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Chaining the BVPs",
+  "kind": "concept",
+  "q": "How are the per-step boundary value problems combined into a gait?",
+  "choices": [
+   "Chained: each step starts exactly where the last one ended",
+   "Solved independently, each from the robot's starting point",
+   "Averaged, so that every step uses the same v0",
+   "Solved once for the first step and then repeated"
+  ],
+  "why": "Each step's CoM trajectory must start where the previous one ended. Computing them absolutely breaks the continuity at every support exchange.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-057",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Chaining the BVPs",
+  "kind": "trap",
+  "q": "The robot falls at every support exchange, and the commanded pelvis jumps back half a stride there. What is the cause?",
+  "choices": [
+   "Bookkeeping: steps computed absolutely, not chained",
+   "A balance problem: the ZMP leaves the support polygon at exchange",
+   "A damping problem: λ in the leg IK is too small",
+   "A gravity problem: ω is too large for this CoM height"
+  ],
+  "why": "Computing each step's trajectory absolutely teleports the body back half a stride. It looks like a balance failure and is bookkeeping.",
+  "source": "Study guide · Week 4 traps"
+ },
+ {
+  "id": "ch4-058",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "The sideways problem",
+  "kind": "concept",
+  "q": "For mirrored sideways steps (stance foot at ±w), where is the CoM at each support exchange?",
+  "choices": [
+   "Exactly on the midline, y0 = 0",
+   "Directly over the new stance foot",
+   "Directly over the old stance foot",
+   "Halfway between midline and foot"
+  ],
+  "why": "Solving the periodic boundary problem forces y0 = −y0, so y0 = 0: the CoM crosses the midline at each support exchange, moving toward the new stance foot.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-059",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "The sideways problem",
+  "kind": "number",
+  "q": "For the G1's sideways sway (w = 0.119 m), what are v0 at exchange and the sway's peak?",
+  "choices": [
+   "v0 = 0.416 m/s, peak 5.9 cm",
+   "v0 = 0.327 m/s, peak 11.9 cm",
+   "v0 = 0.416 m/s, peak 11.9 cm",
+   "v0 = 0.110 m/s, peak 2.5 cm"
+  ],
+  "why": "v0 = ω w tanh(ωT/2) = 0.416 m/s, and the sway peaks at 5.9 cm. 0.327 m/s is the forward BVP's v0.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-060",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "The sideways problem",
+  "kind": "trap",
+  "q": "In the G1's periodic sway, does the CoM reach the foot it leans toward?",
+  "choices": [
+   "No: it peaks at 5.9 cm against the foot at 11.9 cm",
+   "Yes: it must be over the foot to be balanced",
+   "Yes, but only during double support",
+   "No: it never leaves the midline at all"
+  ],
+  "why": "It never reaches the foot. Requiring the CoM over the foot is static walking; the dynamic gait only needs the ZMP there.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-061",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Swing leg",
+  "kind": "concept",
+  "q": "The swing foot follows x = x_A + (x_B − x_A)(σ − sin 2πσ / 2π). Why that shape?",
+  "choices": [
+   "Its speed factor 1 − cos 2πσ is 0 at both ends",
+   "It is the shortest path from x_A to x_B",
+   "It keeps the foot speed constant all the way",
+   "It makes the foot accelerate fastest at landing"
+  ],
+  "why": "Zero velocity at σ = 0 and σ = 1: the foot leaves gently and lands at rest. A straight line would jump to full speed at once.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-062",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Swing leg",
+  "kind": "trap",
+  "q": "Why not swing the foot along a straight line, x_A + (x_B − x_A)σ?",
+  "choices": [
+   "It starts at full speed and lands still sliding",
+   "It is just as good; the cycloid only looks nicer",
+   "It is too slow to finish within one step",
+   "It makes the foot rise too high at mid-swing"
+  ],
+  "why": "A linear blend has constant speed from the first instant: a jolt the servos cannot follow and a foot still moving when it lands.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-063",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Swing leg",
+  "kind": "calc",
+  "q": "Swing height z = z0 + h(1 − cos 2πσ)/2 with h = 0.10 m. How high above z0 is the foot at σ = 0.25?",
+  "choices": [
+   "0.05 m",
+   "0.10 m",
+   "0.025 m",
+   "0 m"
+  ],
+  "why": "cos(π/2) = 0, so z − z0 = 0.10 × (1 − 0)/2 = 0.05 m. The peak 0.10 m is at σ = 0.5.",
+  "source": "Study guide · Week 4 maths"
+ },
+ {
+  "id": "ch4-064",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Swing leg",
+  "kind": "calc",
+  "q": "Double-support fraction d = 0.20 at each end, swing fraction σ = (s − d)/(1 − 2d). What is σ at step fraction s = 0.35?",
+  "choices": [
+   "0.25",
+   "0.35",
+   "0.15",
+   "0.58"
+  ],
+  "why": "(0.35 − 0.20)/(1 − 0.40) = 0.15/0.60 = 0.25. 0.15 forgets to divide by 1 − 2d; 0.58 forgets to subtract d (0.35/0.60).",
+  "source": "Week 4 slides"
+ },
+ {
+  "id": "ch4-065",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Open-loop controller",
+  "kind": "concept",
+  "q": "Which is the walker's pipeline, run every cycle at 500 Hz?",
+  "choices": [
+   "Time → step → LIPM CoM target → foot targets → DLS IK → 29 servos → physics",
+   "IMU → state estimate → LIPM CoM target → foot targets → DLS IK → servos",
+   "Time → DLS IK → LIPM CoM target → foot targets → 29 servos → physics",
+   "Contact forces → ZMP → capture point → foot targets → 29 servos → physics"
+  ],
+  "why": "It is open loop: nothing comes back from the physics, no IMU, no measured ZMP. The IK comes after the CoM and foot targets, since it turns them into angles.",
+  "source": "Study guide · Week 4 controller"
+ },
+ {
+  "id": "ch4-066",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Open-loop controller",
+  "kind": "number",
+  "q": "What are the walker's default gait parameters?",
+  "choices": [
+   "Step 0.14 m, 0.65 s, clearance 0.10 m, 20 % double support",
+   "Step 0.65 m, 0.14 s, clearance 0.20 m, 10 % double support",
+   "Step 0.14 m, 0.45 s, clearance 0.10 m, no double support",
+   "Step 0.30 m, 0.65 s, clearance 0.05 m, 50 % double support"
+  ],
+  "why": "0.14 m strides, 0.65 s per step, 10 cm swing clearance, 20 % double support at each end. 0.45 s steps are the rushed gait that falls.",
+  "source": "Study guide · Week 4 controller"
+ },
+ {
+  "id": "ch4-067",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Open-loop controller",
+  "kind": "concept",
+  "q": "Why is the walker's first step only a half stride?",
+  "choices": [
+   "Both feet start level, so a full stride would over-reach",
+   "The LIPM needs one half step to measure ω",
+   "The servos must warm up before full strides",
+   "The capture point starts behind the heels"
+  ],
+  "why": "Each later forward BVP runs from half a stride behind the stance foot to half ahead. Starting with feet level, the first step only needs to cover half.",
+  "source": "Study guide · Week 4 controller"
+ },
+ {
+  "id": "ch4-068",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Open-loop controller",
+  "kind": "trap",
+  "q": "Someone pushes the walking G1 sideways mid-walk. What does the analytic walker do?",
+  "choices": [
+   "Nothing different: it is open loop and never reads the IMU",
+   "It steps onto its new capture point to catch itself",
+   "It shifts its ZMP with ankle torque to recover",
+   "It slows its gait until the sway dies away"
+  ],
+  "why": "The walker never measures where the body is; it cannot see the push, so it cannot react. Catching it would need feedback, e.g. capture-point stepping.",
+  "source": "Study guide · Week 4 traps"
+ },
+ {
+  "id": "ch4-069",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Open-loop controller",
+  "kind": "concept",
+  "q": "Which list gives the open-loop walker's limitations?",
+  "choices": [
+   "Drifts sideways, no push recovery, flat ground, fixed gait",
+   "Slips on ice, needs learning, cannot turn, drains the battery",
+   "Too slow to compute, singular at the crouch, falls on the Moon",
+   "Needs an IMU, needs a camera, needs 150 million steps"
+  ],
+  "why": "Nothing pulls it back, nothing reacts to disturbances, and the gait is fixed at design time. Ice (friction 0.2) actually changes nothing for this gait.",
+  "source": "Study guide · Week 4 traps"
+ },
+ {
+  "id": "ch4-070",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Open-loop controller",
+  "kind": "concept",
+  "q": "Why did the field move from planned walkers like this one to feedback?",
+  "choices": [
+   "A plan made in advance is brittle outside its conditions",
+   "Because the LIPM mathematics turned out to be wrong",
+   "Because analytic walkers cannot walk at all in practice",
+   "Because learned policies need far fewer simulation steps"
+  ],
+  "why": "The maths works, as the walker shows; but an open-loop plan cannot respond to pushes, drift or terrain. Learned policies need far more steps (~150 million), not fewer.",
+  "source": "Week 4 slides"
+ },
+ {
+  "id": "ch4-071",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Double support",
+  "kind": "concept",
+  "q": "Why can the ZMP not jump instantly from one foot to the other?",
+  "choices": [
+   "Non-negative weighted average: between feet only while both touch",
+   "The servos are too slow to shift the weight from one foot to the other in a single cycle",
+   "The LIPM forbids any change of p within a step, since p is held fixed in the solution",
+   "The CoM must first pass over the new foot, and that takes one whole time constant"
+  ],
+  "why": "With only one foot touching, all the weight is there; the ZMP can travel between the feet only during double support. That is why the gait spends 20 % of each step there.",
+  "source": "Study guide · Practice questions"
+ },
+ {
+  "id": "ch4-072",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Double support",
+  "kind": "trap",
+  "q": "Is double support essential for the G1 walker, or just a nicety?",
+  "choices": [
+   "Essential: with double_support = 0 it falls at 2.0 s",
+   "A nicety: it only makes the gait look smoother",
+   "Harmful: removing it makes the gait more stable",
+   "Irrelevant: the ZMP can switch feet instantly"
+  ],
+  "why": "Without it the ZMP must switch feet in an instant, the step starts with an error, and errors grow ×7 per step. Measured: a fall at 2.0 s.",
+  "source": "Study guide · Week 4 controller"
+ },
+ {
+  "id": "ch4-073",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Walker results",
+  "kind": "number",
+  "q": "How far and how fast did the analytic G1 walker go?",
+  "choices": [
+   "0.99 m in 8.8 s, about 0.11 m/s",
+   "8.8 m in 0.99 s, about 9 m/s",
+   "0.65 m in 8.8 s, about 0.07 m/s",
+   "0.99 m in 2.0 s, about 0.5 m/s"
+  ],
+  "why": "Walked 0.99 m in 8.8 s with no learning and ~200 lines of code: 0.99/8.8 ≈ 0.11 m/s. 2.0 s is when the no-double-support gait falls.",
+  "source": "Study guide · Week 4 numbers"
+ },
+ {
+  "id": "ch4-074",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Walker results",
+  "kind": "concept",
+  "q": "What made the week 4 G1 walk?",
+  "choices": [
+   "One linear ODE, its exact solution, a cycloid and IK",
+   "A neural network policy trained for 150 million simulation steps",
+   "A reward function tuned by search in MuJoCo over many runs",
+   "Motion-capture data from human walkers, replayed through IK"
+  ],
+  "why": "No training, no data, no reward function: roughly two hundred lines of analytic control (Layer 4) doing the whole job.",
+  "source": "Study guide · Week 4 numbers"
+ },
+ {
+  "id": "ch4-075",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Walker results",
+  "kind": "number",
+  "q": "Within what band did the G1's pelvis height stay during the walk?",
+  "choices": [
+   "0.69 to 0.74 m",
+   "0.79 to 0.80 m",
+   "0.40 to 0.60 m",
+   "0.13 to 0.74 m"
+  ],
+  "why": "The crouched gait kept the pelvis in 0.69–0.74 m throughout, and it ended upright at 0.716 m. A lower band would mean a deep squat; the 0.13 m figure is a collapsed robot.",
+  "source": "Study guide · Week 4 numbers"
+ },
+ {
+  "id": "ch4-076",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Failure cases",
+  "kind": "number",
+  "q": "When did the failure variants of the walker fall?",
+  "choices": [
+   "No double support 2.0 s; rushed 3.2 s; Moon 5.3 s; ice never",
+   "No double support 5.3 s; rushed 2.0 s; Moon 3.2 s; ice 8.8 s",
+   "No double support 3.2 s; rushed 5.3 s; Moon 2.0 s; ice never",
+   "All four fell at the first support exchange, about 1.0 s"
+  ],
+  "why": "Measured with walk.py: double_support = 0 at 2.0 s, 0.45 s steps at 3.2 s, Moon gravity at 5.3 s; ice (friction 0.2) changes nothing for this gait.",
+  "source": "Study guide · Week 4 numbers"
+ },
+ {
+  "id": "ch4-077",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Failure cases",
+  "kind": "number",
+  "q": "The walker is put on ice (friction 0.2) without telling the controller. What happens?",
+  "choices": [
+   "Nothing changes for this gait",
+   "It slips and falls at the first step",
+   "It falls at 2.0 s, like no double support",
+   "It walks, but only half as far"
+  ],
+  "why": "Measured: ice (friction 0.2) changes nothing for this gait. Friction only caps how hard the floor can push sideways, and this gait stays within that cap.",
+  "source": "Study guide · Week 4 numbers"
+ },
+ {
+  "id": "ch4-078",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Failure cases",
+  "kind": "calc",
+  "q": "On the Moon (g = 1.62 m/s², z_c = 0.6 m), ω ≈ 1.6 /s instead of 4.04 /s. How does the time constant change?",
+  "choices": [
+   "About 2.5 times longer: ~0.6 s instead of 0.25 s",
+   "About 2.5 times shorter: ~0.1 s instead of 0.25 s",
+   "About 6 times longer: ~1.5 s instead of 0.25 s",
+   "Unchanged: the time constant depends only on z_c"
+  ],
+  "why": "1/ω goes from 0.247 s to about 0.61 s, a ratio of √(9.81/1.62) ≈ 2.5. 6 is the ratio of the g values, which forgets the square root.",
+  "source": "Study guide · Week 4 numbers"
+ },
+ {
+  "id": "ch4-079",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Where the LIPM breaks",
+  "kind": "trap",
+  "q": "The measured ZMP leaves the support polygon while the G1 walks. What does the course conclude?",
+  "choices": [
+   "The ZMP criterion is right; the LIPM's assumptions failed",
+   "The ZMP criterion is wrong for real humanoid robots",
+   "The contact-force measurement must have a bug in it",
+   "The robot is about to fall, since the ZMP is outside"
+  ],
+  "why": "Theory says flat feet cannot put the ZMP outside; the real robot breaks the model's assumptions (swinging leg, bobbing CoM, heavy legs, rolling feet, sagging servos). Teach it; do not \"fix\" it.",
+  "source": "Study guide · Week 4 traps"
+ },
+ {
+  "id": "ch4-080",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Where the LIPM breaks",
+  "kind": "number",
+  "q": "Over the walk, where did the measured ZMP y range, against stance feet at ±0.119 m?",
+  "choices": [
+   "−0.23 to +0.11 m",
+   "−0.12 to +0.12 m",
+   "−0.06 to +0.06 m",
+   "−0.12 to +0.10 m"
+  ],
+  "why": "From about −0.23 to +0.11 m, beyond the −0.119 m foot on one side. −0.12 to +0.10 m is just one early step's row from the printout.",
+  "source": "Study guide · Week 4 traps"
+ },
+ {
+  "id": "ch4-081",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Where the LIPM breaks",
+  "kind": "concept",
+  "q": "Which real-robot fact breaks the LIPM's massless-leg assumption?",
+  "choices": [
+   "About 30 % of the G1's mass is below the hips",
+   "The servos have finite stiffness and sag",
+   "The CoM bobs as the stance leg compresses",
+   "The weight rolls across a finite-size foot"
+  ],
+  "why": "All four are listed failures, but only the heavy legs contradict \"massless legs\". Sagging servos break rigid control, bobbing breaks constant height, rolling breaks instant exchange.",
+  "source": "Study guide · Week 4 traps"
+ },
+ {
+  "id": "ch4-082",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Where the LIPM breaks",
+  "kind": "concept",
+  "q": "Complete the professor's line: \"A model does not have to be true to be useful, only …\"",
+  "choices": [
+   "… wrong in ways that do not matter yet.",
+   "… simple enough to solve by hand.",
+   "… right on average over many steps.",
+   "… tuned on the real robot's data."
+  ],
+  "why": "The LIPM is wrong about the G1 in five ways and the robot still walks. Weeks 11 and 12 are where those errors start to matter.",
+  "source": "Study guide · Week 4 traps"
+ },
+ {
+  "id": "ch4-083",
+  "chapter": "Week 4 · Balance and LIPM walking",
+  "topic": "Learning vs analytic walking",
+  "kind": "trap",
+  "q": "A learned walking policy may need 150 million simulation steps. What does the course say learning buys?",
+  "choices": [
+   "Robustness, not the gait itself",
+   "The gait itself, which analytic control cannot produce",
+   "Speed: learned gaits are always faster to compute",
+   "Nothing that analytic control cannot match"
+  ],
+  "why": "An analytic controller already walks in ~200 lines with no data. \"Learning buys robustness, not the gait itself.\"",
+  "source": "Study guide · Week 4 traps"
+ }
+]

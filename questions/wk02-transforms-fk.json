@@ -1,0 +1,1397 @@
+[
+ {
+  "id": "ch2-001",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Forward kinematics",
+  "kind": "concept",
+  "q": "What question does forward kinematics (FK) answer?",
+  "choices": [
+   "Given the joint angles, where is the foot?",
+   "Given a desired foot position, which joint angles reach it?",
+   "Given the joint torques, how will the robot accelerate?",
+   "Given the foot contacts, where is the centre of pressure?"
+  ],
+  "why": "FK goes angles → foot. Foot → angles is inverse kinematics (week 3); torques → accelerations is dynamics.",
+  "source": "Study guide · Week 2 ideas"
+ },
+ {
+  "id": "ch2-002",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Forward kinematics",
+  "kind": "concept",
+  "q": "Why does a real robot need forward kinematics at all?",
+  "choices": [
+   "Encoders report only joint angles; no sensor reports the foot position",
+   "Encoders report foot positions, but only in the pelvis frame",
+   "Its IMU drifts, so FK must integrate the accelerometer into a position",
+   "Its servos accept only foot positions, so angles must be converted first"
+  ],
+  "why": "Six leg encoders give six angles and no position. FK is the function that turns those angles into 'the foot is here'.",
+  "source": "Study guide · Week 2 ideas"
+ },
+ {
+  "id": "ch2-003",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "MuJoCo naming",
+  "kind": "concept",
+  "q": "In MuJoCo, what does an x prefix on an array (xpos, site_xpos, xmat) tell you?",
+  "choices": [
+   "Computed by mj_forward, in world coordinates",
+   "Declared in the MJCF, relative to the parent body",
+   "Measured along the body's own x axis only",
+   "Stored as a homogeneous 4-vector with a trailing 1"
+  ],
+  "why": "The naming rule: x = computed, world frame; no x = declared in the model, relative to the parent (body_pos vs xpos, site_pos vs site_xpos).",
+  "source": "Study guide · Week 2 ideas"
+ },
+ {
+  "id": "ch2-004",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "mj_forward",
+  "kind": "concept",
+  "q": "In week 2's terms, what is mujoco.mj_forward(model, data)?",
+  "choices": [
+   "MuJoCo's own forward kinematics: qpos in, every x quantity out",
+   "One 2 ms physics step that integrates qvel into qpos and time",
+   "A converter that turns the qpos quaternion into Euler angles",
+   "A solver that finds qpos from a desired foot position"
+  ],
+  "why": "mj_forward IS forward kinematics, which is why you can write your own FK and demand agreement to the last decimal. Stepping time is mj_step.",
+  "source": "Study guide · Week 2 ideas"
+ },
+ {
+  "id": "ch2-005",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Frames",
+  "kind": "concept",
+  "q": "Complete the professor's line: \"Most robotics bugs are …\"",
+  "choices": [
+   "one number used in the wrong frame",
+   "a sign error inside a rotation matrix",
+   "an off-by-one in a joint index",
+   "a quaternion read scalar-last"
+  ],
+  "why": "The others are real bugs too, but the quoted line is about frames: a position is only true in a stated frame, and wrong-frame bugs look like a robot that is slightly, confusingly wrong.",
+  "source": "Study guide · Week 2 ideas"
+ },
+ {
+  "id": "ch2-006",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Frames",
+  "kind": "concept",
+  "q": "At stand, the same left foot is at z = 0.033 in the world frame, z = −0.757 in the pelvis frame and z = −0.654 relative to the hip. Which statement is right?",
+  "choices": [
+   "All three are correct, each in its own stated frame",
+   "Only the world value is a position; the others are offsets",
+   "Only the pelvis value is right, because the robot measures from its body",
+   "None are usable until mj_forward converts them to one frame"
+  ],
+  "why": "A frame is an origin plus three axes, and a position is true only relative to one. Same physical point, three legitimate answers, none usable without its label.",
+  "source": "Study guide · Week 2 ideas"
+ },
+ {
+  "id": "ch2-007",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Frames",
+  "kind": "calc",
+  "q": "A robot's pelvis stands upright (R = I) at height 0.80 m. Its foot site is at world z = 0.03 m. What is the foot's z in the pelvis frame?",
+  "choices": [
+   "−0.77 m",
+   "+0.77 m",
+   "+0.83 m",
+   "−0.83 m"
+  ],
+  "why": "p_pelvis = Rᵀ(p_world − t) = 0.03 − 0.80 = −0.77 m: the foot is below the pelvis. Adding the height (0.83) instead of subtracting is the usual slip.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-008",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Rotation matrices",
+  "kind": "concept",
+  "q": "What are the three columns of a rotation matrix R?",
+  "choices": [
+   "Where the x, y and z axes land after the rotation",
+   "Where the axes came from before the rotation",
+   "The rotation axis scaled by cos θ, sin θ and 1",
+   "The roll, pitch and yaw angles as unit vectors"
+  ],
+  "why": "R = [R e_x | R e_y | R e_z]: column 1 is where x ends up, and so on. 'Where they came from' would be the rows (the inverse, Rᵀ).",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-009",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Rotation matrices",
+  "kind": "calc",
+  "q": "Rotate the vector (2, 1, 0) by Rz(90°). Result?",
+  "choices": [
+   "(−1, 2, 0)",
+   "(1, −2, 0)",
+   "(−1, −2, 0)",
+   "(2, −1, 0)"
+  ],
+  "why": "Rz(90°) = [[0,−1,0],[1,0,0],[0,0,1]], so (0·2 − 1·1, 1·2 + 0·1, 0) = (−1, 2, 0). (1, −2, 0) is what Rᵀ (a −90° turn) gives.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-010",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "The Ry sign",
+  "kind": "calc",
+  "q": "Which matrix is Ry(90°), written as rows?",
+  "choices": [
+   "[[0,0,1],[0,1,0],[−1,0,0]]",
+   "[[0,0,−1],[0,1,0],[1,0,0]]",
+   "[[0,−1,0],[1,0,0],[0,0,1]]",
+   "[[1,0,0],[0,0,−1],[0,1,0]]"
+  ],
+  "why": "Ry(θ) = [[c,0,s],[0,1,0],[−s,0,c]]: the minus is bottom-left. The 'tidied' version with the minus top-right is Ry(−90°).",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-011",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "The Ry sign",
+  "kind": "calc",
+  "q": "Rotate (1, 0, 0) by Ry(90°). Result?",
+  "choices": [
+   "(0, 0, −1)",
+   "(0, 0, 1)",
+   "(−1, 0, 0)",
+   "(0, 1, 0)"
+  ],
+  "why": "Column 1 of Ry(90°) is (c, 0, −s) = (0, 0, −1): x dips down. With +y pointing away from you, a positive turn about y looks clockwise in the xz view.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-012",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "The Ry sign",
+  "kind": "trap",
+  "q": "A student 'fixes' Ry(θ) by moving its minus sign to the top-right corner so it looks like Rx and Rz. What has she actually written?",
+  "choices": [
+   "Ry(−θ): every positive pitch now swings the leg forward",
+   "The same Ry(θ): the sign position is only a convention",
+   "A mirror with det = −1 that is no longer a rotation",
+   "A matrix that is now wrong only in its bottom (z) row"
+  ],
+  "why": "[[c,0,−s],[0,1,0],[s,0,c]] is exactly Ry(−θ), still a rotation (det +1). Ry's minus sign looks misplaced and is not; moving it flips the sense of every pitch.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-013",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "The Ry sign",
+  "kind": "calc",
+  "q": "A link of length 0.4 m hangs from a pivot to (0, 0, −0.4). It is turned by Ry(90°). Where is its tip, as (x, z)?",
+  "choices": [
+   "(−0.4, 0)",
+   "(+0.4, 0)",
+   "(0, −0.4)",
+   "(0, +0.4)"
+  ],
+  "why": "tip = (−L sin θ, −L cos θ) = (−0.4, 0): horizontal and behind the pivot. A positive pitch swings the leg backwards, not forwards.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-014",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "The Ry sign",
+  "kind": "calc",
+  "q": "The same 0.4 m hanging link is turned by Ry(30°). Where is its tip, as (x, z)?",
+  "choices": [
+   "(−0.20, −0.35)",
+   "(+0.20, −0.35)",
+   "(−0.35, −0.20)",
+   "(−0.20, +0.35)"
+  ],
+  "why": "x = −0.4 sin 30° = −0.20 and z = −0.4 cos 30° ≈ −0.35. Swapping sin and cos, or dropping the minus on x, are the usual slips.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-015",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "The Ry sign",
+  "kind": "concept",
+  "q": "On the G1, which way does a positive hip pitch swing the leg, and what follows?",
+  "choices": [
+   "Backwards, so the week-4 crouch commands hip pitch −0.35",
+   "Forwards, so the week-4 crouch commands hip pitch +0.35",
+   "Toward +y, so the left leg crouch uses hip roll −0.35",
+   "Backwards, so the week-4 crouch commands knee −0.70"
+  ],
+  "why": "Ry's signs make positive pitch swing the leg back, so a knee-forward crouch needs negative hip pitch. The crouch is (−0.35, 0, 0, +0.70, −0.35, 0): the knee is positive.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-016",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Subscripts",
+  "kind": "concept",
+  "q": "What do R_ab and t_ab describe?",
+  "choices": [
+   "Frame b as seen from a: they take b-coordinates into a-coordinates",
+   "Frame a as seen from b: they take a-coordinates into b-coordinates",
+   "The turn from a to b, applied after the shift from b to a",
+   "The difference between the two frames' world positions"
+  ],
+  "why": "Subscripts read right to left: R_ab p_b turns a point written in b into a's coordinates. The inner letters (b, b) match and cancel, leaving a.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-017",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Subscripts",
+  "kind": "trap",
+  "q": "Which expression is wrong on sight, from the subscripts alone?",
+  "choices": [
+   "R_ab p_a",
+   "R_ab p_b",
+   "R_ab R_bc",
+   "T_ab T_bc p_c"
+  ],
+  "why": "In a valid product the inner letters match and cancel (ab·b, ab·bc). R_ab expects a point written in b, so feeding it p_a is a frame bug.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-018",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Transforms",
+  "kind": "concept",
+  "q": "In p_a = R_ab p_b + t_ab, what is t_ab?",
+  "choices": [
+   "Where frame b's origin sits, in a's coordinates",
+   "Where frame a's origin sits, in b's coordinates",
+   "The point p after it has been turned into frame a",
+   "The scalar distance between the two frames' origins"
+  ],
+  "why": "t_ab is the arrow from a's origin to b's origin, written along a's axes. Adding it turns 'an arrow from b's origin' into 'an arrow from a's origin'.",
+  "source": "Week 2 slides"
+ },
+ {
+  "id": "ch2-019",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Transforms",
+  "kind": "calc",
+  "q": "Frame b is turned by R_ab = Rz(90°) and its origin is at t_ab = (2, 0, 0). A point is at p_b = (1, 0, 0). What is p_a?",
+  "choices": [
+   "(2, 1, 0)",
+   "(0, 3, 0)",
+   "(3, 0, 0)",
+   "(2, −1, 0)"
+  ],
+  "why": "Turn, then shift: Rz(90°)(1, 0, 0) = (0, 1, 0), plus (2, 0, 0) gives (2, 1, 0). Shifting first and then turning gives (0, 3, 0); forgetting R gives (3, 0, 0).",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-020",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Chaining transforms",
+  "kind": "concept",
+  "q": "Practice Q5: write t_ac in terms of R_ab, t_ab and t_bc.",
+  "choices": [
+   "t_ac = R_ab t_bc + t_ab",
+   "t_ac = t_ab + t_bc",
+   "t_ac = R_ab t_ab + t_bc",
+   "t_ac = R_ab (t_ab + t_bc)"
+  ],
+  "why": "Substitute p_b = R_bc p_c + t_bc into p_a = R_ab p_b + t_ab: the shift part is R_ab t_bc + t_ab. The parent's rotation acts on the child's offset; plain addition forgets it.",
+  "source": "Study guide · Practice Q5"
+ },
+ {
+  "id": "ch2-021",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Chaining transforms",
+  "kind": "calc",
+  "q": "R_ab = Rz(90°), t_ab = (1, 0, 0), t_bc = (2, 0, 0). What is t_ac?",
+  "choices": [
+   "(1, 2, 0)",
+   "(3, 0, 0)",
+   "(2, 1, 0)",
+   "(1, −2, 0)"
+  ],
+  "why": "t_ac = R_ab t_bc + t_ab = (0, 2, 0) + (1, 0, 0) = (1, 2, 0). (3, 0, 0) forgets to turn the child's offset; (2, 1, 0) turns the wrong offset.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-022",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Chaining transforms",
+  "kind": "concept",
+  "q": "What is R_ac when chaining a ← b ← c?",
+  "choices": [
+   "R_ab R_bc",
+   "R_bc R_ab",
+   "R_abᵀ R_bc",
+   "R_ab + R_bc"
+  ],
+  "why": "p_a = R_ab(R_bc p_c + t_bc) + t_ab, so the rotation part is R_ab R_bc. The subscripts confirm it: the inner b's cancel.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-023",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Chaining transforms",
+  "kind": "trap",
+  "q": "A student's FK loop writes pos = pos + body_pos[b] instead of pos = pos + rot @ body_pos[b]. What happens?",
+  "choices": [
+   "Child offsets are added unturned: the leg swings from the wrong place",
+   "Nothing on the G1, because every G1 joint has jnt_pos = 0",
+   "Only the foot's orientation is wrong; its position is still correct",
+   "A constant 2 µm error appears, just like the paper model's"
+  ],
+  "why": "\"The parent's rotation acts on the child's offset. Forget it and the leg swings from the wrong place.\" The jnt_pos = 0 fact is about the anchor term, a different line.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-024",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Homogeneous transforms",
+  "kind": "concept",
+  "q": "In a 4×4 homogeneous transform, why is a 1 appended to a point?",
+  "choices": [
+   "So the multiplication picks up the translation column",
+   "So the bottom row keeps the 4×4 matrix invertible",
+   "To mark the point as having been normalised to unit length",
+   "So the rotation block is applied once per frame"
+  ],
+  "why": "T p̃ = [R p + t·1; 1]: the appended 1 multiplies t. A direction gets a 0 instead, so it turns but does not shift.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-025",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Homogeneous transforms",
+  "kind": "calc",
+  "q": "T has R = I and t = (5, 0, 0). Apply it to the direction (1, 0, 0, 0) and to the point (1, 0, 0, 1). Results (first three numbers)?",
+  "choices": [
+   "Direction (1, 0, 0); point (6, 0, 0)",
+   "Direction (6, 0, 0); point (6, 0, 0)",
+   "Direction (1, 0, 0); point (1, 0, 0)",
+   "Direction (5, 0, 0); point (6, 0, 0)"
+  ],
+  "why": "A direction's 0 ignores the translation column, so it is unchanged; the point's 1 picks up t. Directions turn but do not shift.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-026",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Homogeneous transforms",
+  "kind": "trap",
+  "q": "Code transforms a joint axis (a direction) with a 1 appended, like a point. What goes wrong?",
+  "choices": [
+   "The translation gets added, so the axis is shifted like a point",
+   "Nothing: the fourth component is ignored for unit vectors",
+   "The axis is turned twice by R and comes out reversed",
+   "The result has five components and the multiply raises"
+  ],
+  "why": "Directions get a 0 so they turn without shifting. With a 1, the axis is moved by t and is no longer a direction at all.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-027",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Homogeneous transforms",
+  "kind": "concept",
+  "q": "With homogeneous transforms, how is a six-joint leg written?",
+  "choices": [
+   "T1 T2 ⋯ T6, read left to right from root to tip",
+   "T1 + T2 + ⋯ + T6, one term per link",
+   "T6 T5 ⋯ T1, read from the foot up to the pelvis",
+   "The six rotation blocks multiplied, translations added after"
+  ],
+  "why": "Chaining is plain multiplication, root on the left. The 4×4 product does the 'multiply rotations, turn-and-add translations' bookkeeping automatically.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-028",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Inverse transform",
+  "kind": "calc",
+  "q": "p_a = R p_b + t with R = Rz(90°) and t = (1, 0, 0). Given p_a = (1, 1, 0), what is p_b?",
+  "choices": [
+   "(1, 0, 0)",
+   "(−1, 0, 0)",
+   "(0, −1, 0)",
+   "(1, −1, 0)"
+  ],
+  "why": "p_b = Rᵀ(p_a − t) = Rᵀ(0, 1, 0) = (1, 0, 0). Using R instead of Rᵀ gives (−1, 0, 0); turning before subtracting (Rᵀp_a − t) gives (0, −1, 0).",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-029",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Inverse transform",
+  "kind": "concept",
+  "q": "Why is the inverse transform p_b = Rᵀ(p_a − t) and not a general matrix inverse?",
+  "choices": [
+   "A rotation's columns are perpendicular unit vectors, so R⁻¹ = Rᵀ",
+   "For a rotation t is always zero, so only R needs undoing",
+   "Every rotation matrix is symmetric, so Rᵀ = R = R⁻¹ always",
+   "3×3 matrices have no general inverse, only a transpose"
+  ],
+  "why": "RRᵀ = I is the defining property of a rotation, so one transpose replaces a general inversion. Rotations are not symmetric in general (Rᵀ is the reverse turn).",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-030",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Order matters",
+  "kind": "calc",
+  "q": "Turn (1, 0, 0) by Rz(90°) first, then by Rx(90°): compute Rx(90°) Rz(90°) (1, 0, 0). Result?",
+  "choices": [
+   "(0, 0, 1)",
+   "(0, 1, 0)",
+   "(1, 0, 0)",
+   "(0, 0, −1)"
+  ],
+  "why": "Rz(90°) sends x to (0, 1, 0); Rx(90°) then sends that to (0, 0, 1). The other order, Rz Rx (1, 0, 0), gives (0, 1, 0): matrix products do not commute.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-031",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Order matters",
+  "kind": "concept",
+  "q": "my_fk writes rot = rot @ Rj, with the joint on the right. Why?",
+  "choices": [
+   "The joint turns about the link's own, already-moved axis",
+   "Products of rotations commute, so either side gives the same answer",
+   "On the left it would turn about the link's own axis instead",
+   "The right side is where world-axis rotations are applied"
+  ],
+  "why": "Read a product left to right, root to tip: each factor acts in the frame its left neighbours produced. Rj on the left would turn about a world axis, building a different machine.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-032",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Order matters",
+  "kind": "trap",
+  "q": "A teammate says \"roll 10°, pitch 20°, yaw 5°\" fully specifies the foot's orientation. What is missing?",
+  "choices": [
+   "The order (convention) in which the three turns are applied",
+   "Nothing: three angles always fix a rotation uniquely",
+   "The units, since MuJoCo expects every angle in radians",
+   "The quaternion sign, since q and −q are different"
+  ],
+  "why": "Turning a book about vertical then tipping it differs from the reverse. Three angles mean nothing until the order is stated, which is why the chain composes matrices instead.",
+  "source": "Week 2 slides"
+ },
+ {
+  "id": "ch2-033",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Two-link planar FK",
+  "kind": "concept",
+  "q": "In the paper leg, the ankle uses sin(θ1 + θ2) and cos(θ1 + θ2). Why do the angles add?",
+  "choices": [
+   "The knee angle is measured from the thigh, which has already turned by θ1",
+   "Because sin θ1 + sin θ2 equals sin(θ1 + θ2) for small enough angles",
+   "The knee angle is measured from vertical, so θ1 must be added back",
+   "The knee motor is mounted on the pelvis, next to the hip pitch motor"
+  ],
+  "why": "Each dashed 'zero' line follows the previous link, so the shin's direction is θ1 + θ2 from vertical. That is chaining rotations, in 2-D.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-034",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Two-link planar FK",
+  "kind": "calc",
+  "q": "Paper leg: hip at z = 0.8, L1 = 0.35, L2 = 0.30, θ1 = 90°, θ2 = −90°. Where is the ankle (x, z)?",
+  "choices": [
+   "(−0.35, 0.50)",
+   "(−0.05, 0.80)",
+   "(+0.35, 0.50)",
+   "(−0.65, 0.80)"
+  ],
+  "why": "knee = (−0.35 sin 90°, 0.8 − 0.35 cos 90°) = (−0.35, 0.8); shin angle θ1 + θ2 = 0, so ankle = (−0.35, 0.8 − 0.30) = (−0.35, 0.50). (−0.05, 0.8) forgets to add θ1; (−0.65, 0.8) forgets θ2.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-035",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Two-link planar FK",
+  "kind": "calc",
+  "q": "Paper leg: hip at z = 1, L1 = 0.4, L2 = 0.3, θ1 = −30°, θ2 = +60°. What is the ankle's x?",
+  "choices": [
+   "+0.05 m",
+   "−0.06 m",
+   "−0.05 m",
+   "+0.35 m"
+  ],
+  "why": "knee_x = −0.4 sin(−30°) = +0.20; ankle_x = 0.20 − 0.3 sin(30°) = 0.05. Using θ2 alone (sin 60°) gives about −0.06; flipping the sign gives −0.05 or +0.35.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-036",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Two-link planar FK",
+  "kind": "concept",
+  "q": "The crouch is hip −0.35, knee +0.70, ankle −0.35. Why does the foot stay level?",
+  "choices": [
+   "The three pitch angles sum to zero",
+   "The knee angle is exactly twice the hip angle",
+   "The hip and knee angles have opposite signs",
+   "The ankle roll is held at zero"
+  ],
+  "why": "Pitch angles add down the chain, so the foot's pitch is −0.35 + 0.70 − 0.35 = 0. A foot that lands tilted trips.",
+  "source": "Week 2 slides"
+ },
+ {
+  "id": "ch2-037",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Two-link planar FK",
+  "kind": "number",
+  "q": "How closely does the paper two-link model match MuJoCo's foot, and why not better?",
+  "choices": [
+   "About 2 µm, a constant offset, because it is a model of the leg",
+   "About 10⁻¹⁶ m, because it is the same floating-point computation",
+   "About 2 mm, random noise from the contact solver",
+   "About 4 mm, because it uses the true 3-D thigh length"
+  ],
+  "why": "The flat model reaches ~2 µm and the residual is constant (at the zero pose the foot sits 2.3 µm behind the hip). The full 3-D chain reaches 10⁻¹⁶.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-038",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Two-link planar FK",
+  "kind": "number",
+  "q": "Composing the full 3-D chain body by body, how well does your FK match site_xpos?",
+  "choices": [
+   "About 10⁻¹⁶ m: machine precision",
+   "About 2 µm: same as the paper model",
+   "About 1 mm: limited by the meshes",
+   "About 10⁻⁸ m: limited by ε = √u"
+  ],
+  "why": "The 3-D chain is the same computation MuJoCo does, so it agrees to ~10⁻¹⁶, a hundred million times tighter than the paper model's 2 µm.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-039",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Leg lengths",
+  "kind": "number",
+  "q": "Which thigh length does the planar (x, z) formula need?",
+  "choices": [
+   "0.3366 m, the in-plane projection",
+   "0.3409 m, the true 3-D length",
+   "0.3000 m, the same as the shin",
+   "0.6409 m, the thigh plus the shin"
+  ],
+  "why": "The hip→knee vector splays 5.4 cm sideways, so a flat picture needs its xz projection, 0.3366 m. The true 0.3409 m is what week 3's law of cosines uses; both are correct for their job.",
+  "source": "Study guide · Week 2 numbers"
+ },
+ {
+  "id": "ch2-040",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Leg lengths",
+  "kind": "number",
+  "q": "On the G1 leg, which set of lengths is right?",
+  "choices": [
+   "Shin 0.3000 m; ankle to foot site 0.0176 m",
+   "Shin 0.3366 m; ankle to foot site 0.0350 m",
+   "Shin 0.3409 m; ankle to foot site 0.0176 m",
+   "Shin 0.3000 m; ankle to foot site 0.0540 m"
+  ],
+  "why": "Shin 0.3000 m, ankle-pitch anchor to the foot site 0.0176 m. 0.035 m is the site's height above the contact spheres; 0.054 m is the thigh's sideways splay.",
+  "source": "Study guide · Week 2 numbers"
+ },
+ {
+  "id": "ch2-041",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Foot site",
+  "kind": "trap",
+  "q": "Where is the left_foot site?",
+  "choices": [
+   "At the ankle-roll link origin, 3.5 cm above the contact spheres",
+   "On the sole, at the centre of the four 5 mm contact spheres",
+   "At the toe tip, about 12 cm ahead of the ankle-roll axis",
+   "At the ankle-pitch joint, 1.76 cm above the foot's sole"
+  ],
+  "why": "The left_foot site is not the sole. FK reports where that frame is; touching the ground is a separate question (at stand the site reads z = 0.033 while the sole is on the floor).",
+  "source": "Study guide · Week 2 traps"
+ },
+ {
+  "id": "ch2-042",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Pinned pelvis",
+  "kind": "trap",
+  "q": "A crouch figure keeps the pelvis at standing height and shows the foot 3.7 cm above the floor. Diagnosis?",
+  "choices": [
+   "Correct: kinematics places a pose; it does not settle a robot",
+   "A bug: the FK loop forgot to rotate the knee's offset",
+   "A bug: the foot site is being drawn 3.5 cm too high",
+   "Correct only because gravity was switched off in the model"
+  ],
+  "why": "Bending the knee with the pelvis held shortens the leg, so the foot rises. Nothing is simulated in FK; gravity never enters. It must be annotated, not 'fixed'.",
+  "source": "Study guide · Week 2 traps"
+ },
+ {
+  "id": "ch2-043",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Pinned pelvis",
+  "kind": "number",
+  "q": "Two week-2 gaps: how far is the crouched foot off the floor (pelvis pinned), and how high is the foot site above the contact spheres?",
+  "choices": [
+   "3.7 cm off the floor; site 3.5 cm above the spheres",
+   "3.5 cm off the floor; site 3.7 cm above the spheres",
+   "11.1 cm off the floor; site 1.76 cm above the spheres",
+   "0 cm off the floor; site 3.5 cm above the spheres"
+  ],
+  "why": "Bending one knee with the pelvis held lifts the foot 3.7 cm (week 2b's symmetric squat: 11.1 cm). Separately, the left_foot site sits 3.5 cm above the spheres even when standing.",
+  "source": "Study guide · Week 2 traps"
+ },
+ {
+  "id": "ch2-044",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Rotation representations",
+  "kind": "concept",
+  "q": "Which pairing of representation and job is right?",
+  "choices": [
+   "Euler angles: saying a rotation out loud",
+   "Quaternion: reading a rotation at a glance",
+   "Axis-angle: composing many rotations",
+   "Rotation matrix: compact storage"
+  ],
+  "why": "Matrix: acting on vectors, composing. Quaternion: storing, interpolating (bad at reading). Axis-angle: angular velocity and error (bad at composing). Euler: saying out loud (gimbal lock).",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-045",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Rotation representations",
+  "kind": "number",
+  "q": "Numbers and constraints: which row is right?",
+  "choices": [
+   "Matrix 9 / 6; quaternion 4 / 1; axis-angle 3 / 0; Euler 3 / 0",
+   "Matrix 9 / 3; quaternion 4 / 1; axis-angle 3 / 0; Euler 3 / 0",
+   "Matrix 9 / 6; quaternion 4 / 0; axis-angle 3 / 1; Euler 3 / 0",
+   "Matrix 9 / 6; quaternion 4 / 1; axis-angle 3 / 0; Euler 3 / 1"
+  ],
+  "why": "All have 3 freedoms: 9 − 6 = 4 − 1 = 3 − 0 = 3. The matrix's 6 rules are unit columns (3) and perpendicular columns (3); the quaternion's one is ‖q‖ = 1.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-046",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Rotation representations",
+  "kind": "concept",
+  "q": "All four rotation representations have 3 freedoms. What does the guide say makes them behave differently?",
+  "choices": [
+   "Their constraint count (6, 1, 0, 0)",
+   "Their number count (9, 4, 3, 3)",
+   "Whether they are in degrees or radians",
+   "Whether MuJoCo can convert them to R"
+  ],
+  "why": "\"The constraint count is the reason they differ\": six rules to keep true drift; one is easy to restore (q /= ‖q‖); zero means any numbers are valid.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-047",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Rotation representations",
+  "kind": "concept",
+  "q": "Why does qpos store the floating base's orientation as 4 numbers rather than 9?",
+  "choices": [
+   "A quaternion has one constraint to keep true, a matrix has six",
+   "A rotation has four freedoms, one more than a position",
+   "Euler angles need a fourth number to fix their order",
+   "The fourth number stores the pelvis height above the floor"
+  ],
+  "why": "A matrix you keep composing drifts off SO(3) and needs re-orthonormalising against six rules; a quaternion needs only q /= norm(q).",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-048",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Valid rotations",
+  "kind": "concept",
+  "q": "A 3×3 matrix R is a rotation if and only if…",
+  "choices": [
+   "RRᵀ = I and det R = +1",
+   "RRᵀ = I, with no further condition",
+   "det R = +1, with no further condition",
+   "every entry lies between −1 and +1"
+  ],
+  "why": "RRᵀ = I gives orthonormal columns; det = +1 excludes mirrors. det = −1 with RRᵀ = I is a reflection: a mirrored robot, not a turned one.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-049",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Valid rotations",
+  "kind": "trap",
+  "q": "M = diag(1, −1, 1) satisfies MMᵀ = I. Is it a rotation?",
+  "choices": [
+   "No: det M = −1, so it is a mirror",
+   "Yes: MMᵀ = I is all a rotation needs",
+   "Yes: it is a 180° turn about the y axis",
+   "No: a rotation cannot have a negative entry"
+  ],
+  "why": "det = 1·(−1)·1 = −1, a reflection (the left↔right mirror of week 2b). A 180° turn about y is diag(−1, 1, −1), with det +1.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-050",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Rodrigues",
+  "kind": "concept",
+  "q": "What does Rodrigues' formula R = I cos θ + (1 − cos θ) uuᵀ + [u]× sin θ require of u?",
+  "choices": [
+   "It must be a unit vector",
+   "It must be one of the coordinate axes",
+   "It must be perpendicular to the vector being turned",
+   "It must have a positive z component"
+  ],
+  "why": "The derivation splits v into parts along and across a unit axis; the code normalises u first. Any direction works once normalised.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-051",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Rodrigues",
+  "kind": "trap",
+  "q": "Rodrigues is fed the axis (1, 1, 1) without normalising it, with θ = 120°. What comes out?",
+  "choices": [
+   "A matrix that is not a rotation (RRᵀ ≠ I)",
+   "The same rotation, since only the axis direction matters",
+   "The same axis with the angle scaled by √3",
+   "An error raised by the formula"
+  ],
+  "why": "uuᵀ and [u]× scale with |u| and |u|², so the pieces no longer combine into an orthonormal matrix. Nothing raises: the formula silently returns garbage.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-052",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Rodrigues",
+  "kind": "calc",
+  "q": "Rodrigues with u = (0, 0, 1) and θ = 180°: what is R?",
+  "choices": [
+   "diag(−1, −1, 1)",
+   "diag(1, 1, −1)",
+   "diag(−1, −1, −1)",
+   "I"
+  ],
+  "why": "cos θ = −1, sin θ = 0: R = −I + 2uuᵀ = diag(−1, −1, 1). x and y reverse, z stays. diag(−1, −1, −1) has det −1, a reflection.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-053",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Quaternions",
+  "kind": "calc",
+  "q": "What is the MuJoCo quaternion (w, x, y, z) for a 180° turn about z?",
+  "choices": [
+   "(0, 0, 0, 1)",
+   "(−1, 0, 0, 0)",
+   "(0, 0, 1, 0)",
+   "(0.707, 0, 0, 0.707)"
+  ],
+  "why": "q = (cos θ/2, n sin θ/2) = (cos 90°, 0, 0, sin 90°) = (0, 0, 0, 1). Using the full angle gives (−1, 0, 0, 0), which is the identity; (0.707, 0, 0, 0.707) is only 90°.",
+  "source": "Study guide · Formula sheet"
+ },
+ {
+  "id": "ch2-054",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Quaternions",
+  "kind": "calc",
+  "q": "What is the MuJoCo quaternion (w, x, y, z) for a 90° turn about z?",
+  "choices": [
+   "(0.707, 0, 0, 0.707)",
+   "(0, 0, 0, 1)",
+   "(0.707, 0.707, 0, 0)",
+   "(0.5, 0, 0, 0.5)"
+  ],
+  "why": "Half angle: (cos 45°, 0, 0, sin 45°). Plugging in the full 90° gives (0, 0, 0, 1), which is a 180° turn. (0.5, 0, 0, 0.5) is not even unit length.",
+  "source": "Study guide · Formula sheet"
+ },
+ {
+  "id": "ch2-055",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "The 120° example",
+  "kind": "calc",
+  "q": "Turn 120° about the unit axis (1, 1, 1)/√3. What is the quaternion (w, x, y, z)?",
+  "choices": [
+   "(½, ½, ½, ½)",
+   "(−½, ½, ½, ½)",
+   "(0.866, 0.289, 0.289, 0.289)",
+   "(½, 0.577, 0.577, 0.577)"
+  ],
+  "why": "w = cos 60° = ½; each vector part = sin 60°/√3 = (√3/2)/√3 = ½. The full-angle slip gives cos 120° = −½; (0.866, …) is a 60° turn.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-056",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "The 120° example",
+  "kind": "calc",
+  "q": "The 120° turn about (1, 1, 1)/√3 is the permutation matrix [[0,0,1],[1,0,0],[0,1,0]]. Apply it to (1, 2, 3).",
+  "choices": [
+   "(3, 1, 2)",
+   "(2, 3, 1)",
+   "(1, 2, 3)",
+   "(3, 2, 1)"
+  ],
+  "why": "Rv = (z, x, y): row 1 copies z, row 2 copies x, row 3 copies y. That is the x → y → z → x cycle as arithmetic.",
+  "source": "Week 2 slides"
+ },
+ {
+  "id": "ch2-057",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Quaternion pitfalls",
+  "kind": "concept",
+  "q": "Why do q and −q give exactly the same rotation matrix?",
+  "choices": [
+   "Every entry of R is quadratic in (w, x, y, z), so the signs cancel",
+   "MuJoCo normalises every quaternion so that w is positive",
+   "−q is the inverse rotation, and the inverse has the same R",
+   "Only w appears squared in R, so its sign cancels out"
+  ],
+  "why": "Each term of the quaternion→R formula has two factors, so flipping all four signs changes nothing. (The inverse would be (w, −x, −y, −z), a different R.)",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-058",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Quaternion pitfalls",
+  "kind": "trap",
+  "q": "Practice Q6: two foot quaternions have every component different. Can you conclude the feet are oriented differently?",
+  "choices": [
+   "No: one could be the negative of the other, the same rotation",
+   "Yes: unit quaternions map one-to-one onto rotations",
+   "Yes, provided both have been normalised to unit length",
+   "No, but only because floating-point rounding blurs them"
+  ],
+  "why": "q and −q are the same rotation (and conventions differ: scalar first vs last), so never compare orientations number by number.",
+  "source": "Study guide · Practice Q6"
+ },
+ {
+  "id": "ch2-059",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Quaternion pitfalls",
+  "kind": "trap",
+  "q": "MuJoCo stores (w, x, y, z). What happens if your code reads it as scalar-last (x, y, z, w), as SciPy and ROS do?",
+  "choices": [
+   "Silently wrong but legal: a 7.6° tilt reads as 174.8°",
+   "A ValueError, since the quaternion stops being unit length",
+   "The inverse rotation, which shows up clearly as a sign flip",
+   "A small error only, since w is close to 1 for small tilts"
+  ],
+  "why": "A reordered unit quaternion is still unit length and legal, so nothing raises; the foot simply turns upside down. That plausibility is what makes the bug nasty.",
+  "source": "Study guide · Week 2 traps"
+ },
+ {
+  "id": "ch2-060",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Quaternion pitfalls",
+  "kind": "number",
+  "q": "Which quaternion convention does MuJoCo use?",
+  "choices": [
+   "(w, x, y, z): scalar first",
+   "(x, y, z, w): scalar last, like SciPy",
+   "(w, x, y, z): scalar first, like ROS",
+   "(x, y, z, w): scalar last, like qpos[3:7]"
+  ],
+  "why": "MuJoCo is scalar first (qpos[3:7] = w, x, y, z). SciPy and ROS are scalar last, which is why mixing libraries flips feet.",
+  "source": "Study guide · Week 2 traps"
+ },
+ {
+  "id": "ch2-061",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Euler angles",
+  "kind": "concept",
+  "q": "MuJoCo's lowercase 'xyz' Euler sequence means…",
+  "choices": [
+   "Intrinsic: R = Rx(roll) Ry(pitch) Rz(yaw)",
+   "Extrinsic: R = Rz(yaw) Ry(pitch) Rx(roll)",
+   "Intrinsic: R = Rz(yaw) Ry(pitch) Rx(roll)",
+   "Extrinsic: R = Rx(roll) Ry(pitch) Rz(yaw)"
+  ],
+  "why": "Lowercase 'xyz' is intrinsic and composes left to right, Rx Ry Rz. Uppercase 'XYZ' (extrinsic) equals Rz Ry Rx. The order of the product is the convention.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-062",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Euler angles",
+  "kind": "calc",
+  "q": "Euler 'xyz' with roll 90°, pitch 90°, yaw 0: R = Rx(90°) Ry(90°). Where does R send (1, 0, 0)?",
+  "choices": [
+   "(0, 1, 0)",
+   "(0, 0, −1)",
+   "(0, 0, 1)",
+   "(1, 0, 0)"
+  ],
+  "why": "Ry(90°)(1, 0, 0) = (0, 0, −1); Rx(90°)(0, 0, −1) = (0, 1, 0). Same as the 120° turn: x → y. Multiplying in the reversed order, Ry Rx, gives (0, 0, −1).",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-063",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Gimbal lock",
+  "kind": "trap",
+  "q": "Euler 'xyz' with pitch at exactly 90°: what happens to roll and yaw?",
+  "choices": [
+   "They stop being independent; only their sum survives",
+   "They swap roles but both stay fully independent",
+   "Both are forced to zero by the conversion",
+   "Only their difference survives, not their sum"
+  ],
+  "why": "At pitch 90°, (roll 30, yaw 0), (0, 30), (15, 15) and (45, −15) give a bit-identical quaternion: one knob does nothing. That is gimbal lock.",
+  "source": "Study guide · Week 2 traps"
+ },
+ {
+  "id": "ch2-064",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Gimbal lock",
+  "kind": "calc",
+  "q": "Pitch is exactly 90° (Euler 'xyz'). Which (roll, yaw) gives the same rotation as roll 40°, yaw 10°?",
+  "choices": [
+   "Roll 25°, yaw 25°",
+   "Roll 40°, yaw −10°",
+   "Roll 30°, yaw 30°",
+   "Roll 30°, yaw −20°"
+  ],
+  "why": "At pitch 90° only roll + yaw survives: 40 + 10 = 50 = 25 + 25. The others sum to 30, 60 and 10.",
+  "source": "Study guide · Week 2 traps"
+ },
+ {
+  "id": "ch2-065",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Gimbal lock",
+  "kind": "number",
+  "q": "How quickly does gimbal lock fade as pitch moves away from 90°?",
+  "choices": [
+   "Slowly: swapped roll/yaw differ by 0.5° at pitch 89° and 5° at 80°",
+   "Instantly: at 89° the two angles are fully independent again",
+   "Not at all: below 90° the degeneracy stays identical",
+   "Linearly: exactly 1° of separation per degree from 90°"
+  ],
+  "why": "It is not a knife edge: near 90° one knob does almost nothing. This is why we never hand a controller three Euler angles.",
+  "source": "Study guide · Week 2 traps"
+ },
+ {
+  "id": "ch2-066",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Orientation error",
+  "kind": "concept",
+  "q": "\"Compress to store, expand to act, compress again to correct.\" Which form does the acting?",
+  "choices": [
+   "The rotation matrix",
+   "The quaternion",
+   "The axis-angle vector",
+   "The Euler triple"
+  ],
+  "why": "Store as a quaternion, expand to a matrix to act on vectors (only the matrix multiplies a vector), compress to axis-angle to express an error.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-067",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Orientation error",
+  "kind": "trap",
+  "q": "An IK step wants to apply half of an orientation error E, a rotation matrix. What is wrong with using 0.5·E?",
+  "choices": [
+   "0.5·E is not a rotation; halve an axis-angle vector instead",
+   "Nothing: 0.5·E is simply the rotation by half the angle",
+   "It is the inverse rotation, so the step goes backwards",
+   "It works only if E was built from a scalar-first quaternion"
+  ],
+  "why": "Scaling a matrix breaks RRᵀ = I. The axis-angle error is a plain 3-vector, so scaling and adding it is legal.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-068",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Orientation error",
+  "kind": "calc",
+  "q": "pose_error is asked for a 2 cm move along x and a 10° turn about y. Which 6-vector (position, rotation) comes back?",
+  "choices": [
+   "[0.02, 0, 0, 0, 0.1745, 0]",
+   "[0.02, 0, 0, 0, 0.0873, 0]",
+   "[0.02, 0, 0, 0, 10, 0]",
+   "[2, 0, 0, 0, 0.1745, 0]"
+  ],
+  "why": "Metres and radians: 2 cm = 0.02, 10° = π/18 ≈ 0.1745 about y (slot 5). 0.0873 is half the angle, the quaternion's number, not the axis-angle error.",
+  "source": "Week 2 slides"
+ },
+ {
+  "id": "ch2-069",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Jacobian",
+  "kind": "concept",
+  "q": "For the leg's position Jacobian J = ∂x/∂q, what are its rows, columns and units?",
+  "choices": [
+   "Rows: foot coordinates; columns: joints; units m/rad",
+   "Rows: joints; columns: foot coordinates; units rad/m",
+   "Rows: foot coordinates; columns: joints; units m",
+   "Rows: joints; columns: joints; units rad/s"
+  ],
+  "why": "J_ij = metres of x_i per radian of q_j. The leg's position part is 3 × 6; with orientation rows it is 6 × 6.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-070",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Jacobian",
+  "kind": "concept",
+  "q": "A column of the Jacobian is…",
+  "choices": [
+   "A velocity: how the foot moves per unit speed of that joint",
+   "A place: where the foot is when that joint is at 1 rad",
+   "The lever arm from the joint's anchor to the foot",
+   "The foot's position written in that joint's frame"
+  ],
+  "why": "ẋ = J q̇: turn joint j at 1 rad/s and the foot sets off along column j. That is why columns are drawn from a common origin, never on the leg.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-071",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Jacobian columns",
+  "kind": "calc",
+  "q": "A hinge has axis a = (0, 1, 0) through o = (0, 0, 1). The foot is at p = (0, 0, 0.5). What is its position-Jacobian column a × (p − o)?",
+  "choices": [
+   "(−0.5, 0, 0)",
+   "(+0.5, 0, 0)",
+   "(0, 0, −0.5)",
+   "(0, −0.5, 0)"
+  ],
+  "why": "p − o = (0, 0, −0.5); (0, 1, 0) × (0, 0, −0.5) = (1·(−0.5) − 0, 0, 0) = (−0.5, 0, 0): positive pitch drives the foot backwards. (p − o) × a, the wrong order, gives +0.5.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-072",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Jacobian columns",
+  "kind": "calc",
+  "q": "A hinge turns about the z axis through the origin. The foot is at p = (0.3, 0, −0.6). What is its position column a × (p − o)?",
+  "choices": [
+   "(0, 0.3, 0)",
+   "(0, −0.3, 0)",
+   "(0, 0.67, 0)",
+   "(0.3, 0, 0)"
+  ],
+  "why": "(0, 0, 1) × (0.3, 0, −0.6) = (0·(−0.6) − 1·0, 1·0.3 − 0·(−0.6), 0) = (0, 0.3, 0). Its size is the distance from the axis line (0.3), not |p − o| ≈ 0.67.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-073",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Jacobian columns",
+  "kind": "calc",
+  "q": "A hinge has axis a = (1, 0, 0) through o = (0, 0.1, 0). The foot site is at p = (0.2, 0.1, 0). What is its position column?",
+  "choices": [
+   "(0, 0, 0)",
+   "(0, 0, 0.2)",
+   "(0, −0.2, 0)",
+   "(0.2, 0, 0)"
+  ],
+  "why": "p − o = (0.2, 0, 0) lies along the axis, so the cross product is zero: the point is on the axis line. That is the ankle-roll situation: it rotates the foot but cannot move it.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-074",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Jacobian columns",
+  "kind": "trap",
+  "q": "The length of a hinge's position column |a × (p − o)| measures…",
+  "choices": [
+   "The foot's distance from the axis line",
+   "The foot's distance from the anchor point o",
+   "The angle between the axis and the lever",
+   "The joint's angular speed in rad/s"
+  ],
+  "why": "|a||r| sin φ with |a| = 1 keeps only the lever's across-axis part. Hip pitch's lever is 0.618 m but its column is 0.616, because 5 cm of the lever lies along y.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-075",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Jacobian columns",
+  "kind": "concept",
+  "q": "For a hinge, what is the rotation part of its Jacobian column?",
+  "choices": [
+   "Its unit axis a_j",
+   "a_j × (p − o_j)",
+   "The lever p − o_j",
+   "Zero: hinges only translate the foot"
+  ],
+  "why": "J_rot,j = a_j: spinning the joint at 1 rad/s spins everything below about a_j. The position part is the cross product.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-076",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Jacobian",
+  "kind": "calc",
+  "q": "A two-joint arm has position columns J1 = (−0.6, 0, 0) and J2 = (−0.3, 0, 0.1). The joints turn at q̇ = (1, 2) rad/s. What is the hand's velocity ẋ = J q̇?",
+  "choices": [
+   "(−1.2, 0, 0.2) m/s",
+   "(−0.9, 0, 0.1) m/s",
+   "(−0.6, 0, 0.2) m/s",
+   "(−1.5, 0, 0.1) m/s"
+  ],
+  "why": "ẋ = 1·J1 + 2·J2 = (−0.6 − 0.6, 0, 0 + 0.2) = (−1.2, 0, 0.2). (−0.9, 0, 0.1) ignores the joint speeds (adds columns).",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-077",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Jacobian columns",
+  "kind": "number",
+  "q": "Crouched, how long are the leg's position columns (m/rad)?",
+  "choices": [
+   "Hip pitch 0.62, knee 0.32, ankle pitch 0.018, ankle roll 0",
+   "Hip pitch 0.32, knee 0.62, ankle pitch 0.018, ankle roll 0",
+   "Hip pitch 0.62, knee 0.32, ankle pitch 0, ankle roll 0.018",
+   "All about 0.30, the shin length, for every joint"
+  ],
+  "why": "The hip is far from the foot (long lever), the ankle pitch is right above the foot site (a stub) and ankle roll's axis passes through it (zero).",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-078",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Finite differences",
+  "kind": "concept",
+  "q": "How is column j of J estimated by finite differences?",
+  "choices": [
+   "[f(q + ε e_j) − f(q)] / ε",
+   "[f(q + ε e_j) + f(q)] / ε",
+   "[f(q + ε e_j) − f(q)] · ε",
+   "f(ε e_j) / ε"
+  ],
+  "why": "Nudge only joint j by ε, measure the foot, subtract, divide by the nudge. Seven FK calls build the whole 3×6 matrix.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-079",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Finite differences",
+  "kind": "concept",
+  "q": "In error ≈ Cε + u/ε, where does the u/ε term come from?",
+  "choices": [
+   "Round-off: nearly equal values are subtracted, then divided by ε",
+   "Truncation: the Taylor series is cut after the first term",
+   "The curvature of f, which grows larger as ε shrinks",
+   "The contact solver's tolerance, added on every call"
+  ],
+  "why": "Each stored f is off by about u|f|; the difference keeps that error and dividing by ε magnifies it. Cε is the truncation term, with C ≈ ½|f″|.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-080",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Finite differences",
+  "kind": "calc",
+  "q": "error ≈ Cε + u/ε with C ≈ 1 and u ≈ 10⁻¹⁶. Which ε minimises it?",
+  "choices": [
+   "10⁻⁸",
+   "10⁻¹⁶",
+   "10⁻⁴",
+   "10⁻¹²"
+  ],
+  "why": "d/dε = C − u/ε² = 0 gives ε = √(u/C) = √(10⁻¹⁶) = 10⁻⁸. Smaller ε lets round-off take over.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-081",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Finite differences",
+  "kind": "trap",
+  "q": "To get the most accurate finite-difference Jacobian in double precision, choose ε…",
+  "choices": [
+   "Near √u ≈ 1.5×10⁻⁸; 10⁻¹² is worse than 10⁻⁴",
+   "As small as possible, around 10⁻¹⁶",
+   "As large as possible, around 10⁻¹, to beat round-off",
+   "Around 10⁻¹², since error falls 10× per decade forever"
+  ],
+  "why": "\"As small as possible\" is the wrong ε. The error falls 10× per decade down to 10⁻⁸, then round-off climbs: 10⁻¹² (6.6e-5) is worse than 10⁻⁴ (3.1e-5).",
+  "source": "Study guide · Week 2 traps"
+ },
+ {
+  "id": "ch2-082",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Finite differences",
+  "kind": "calc",
+  "q": "In the first-order regime, a finite-difference Jacobian has error 3×10⁻⁴ at ε = 10⁻⁴. Roughly what at ε = 10⁻⁶?",
+  "choices": [
+   "3×10⁻⁶",
+   "3×10⁻⁸",
+   "3×10⁻⁴",
+   "3×10⁻²"
+  ],
+  "why": "First order: error ∝ ε, so 100× smaller ε gives 100× smaller error. 3×10⁻⁸ would be second order (ε²). Below ~10⁻⁸ this stops and round-off wins.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-083",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Finite differences",
+  "kind": "concept",
+  "q": "Why does real code use MuJoCo's mj_jacSite rather than finite differences?",
+  "choices": [
+   "It differentiates analytically, so there is no ε to trade off",
+   "It is the only way to obtain the Jacobian's rotation rows",
+   "Finite differences cannot be computed through MuJoCo calls",
+   "It picks the best ε = √u automatically for each joint"
+  ],
+  "why": "The ε sweep is the argument: any ε trades truncation for round-off. mj_jacSite computes a × (p − o) exactly; it matches the cross product to the last bit.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-084",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "mj_jacSite",
+  "kind": "trap",
+  "q": "How does mj_jacSite(model, data, jac_p, jac_r, site) deliver its result?",
+  "choices": [
+   "It writes into the 3 × nv arrays you pass and returns nothing",
+   "It returns a new 3 × 6 array for the leg's own joints",
+   "It returns a 6 × nv array, position stacked over rotation",
+   "It fills 3 × nq arrays, one column per qpos slot of the robot"
+  ],
+  "why": "mj_jacSite writes into the arrays you pass, and they are 3 × nv: a column for every DoF in the robot. Pick the leg's columns with the dof (qvel) indices.",
+  "source": "Study guide · Week 2 numbers"
+ },
+ {
+  "id": "ch2-085",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "mj_jacSite",
+  "kind": "trap",
+  "q": "jac_p (3 × 35) is filled by mj_jacSite. Which slice is the left leg's six columns?",
+  "choices": [
+   "jac_p[:, 6:12]",
+   "jac_p[:, 7:13]",
+   "jac_p[:, 0:6]",
+   "jac_p[:, 12:18]"
+  ],
+  "why": "Jacobian columns are velocity space, so use leg_dof_indices 6..11. 7..12 are the qpos slots: the right joints off by one, silently. 0:6 is the floating base.",
+  "source": "Study guide · Week 2 numbers"
+ },
+ {
+  "id": "ch2-086",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "nq vs nv",
+  "kind": "number",
+  "q": "For the G1's left leg, leg_qpos_indices and leg_dof_indices return…",
+  "choices": [
+   "7..12 and 6..11: the same joints, off by one",
+   "6..11 and 7..12: the same joints, off by one",
+   "7..12 and 7..12: positions and velocities line up",
+   "0..5 and 0..5: the leg is the first chain"
+  ],
+  "why": "The floating base spends 7 numbers on position (3 + quaternion 4) and 6 on velocity, so every hinge sits one lower in qvel.",
+  "source": "Study guide · Week 2 numbers"
+ },
+ {
+  "id": "ch2-087",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "nq vs nv",
+  "kind": "trap",
+  "q": "Why is qpos += qvel * dt wrong for the G1?",
+  "choices": [
+   "36 vs 35: the shapes differ; use mj_integratePos to rotate q",
+   "It is correct but slow; mj_integratePos is the vectorised version",
+   "dt must be squared, since qvel holds joint accelerations",
+   "It fails only for the arms, whose shoulders are ball joints"
+  ],
+  "why": "nq = 36, nv = 35: you cannot add them, and a quaternion is not advanced by adding. mj_integratePos knows to rotate it. The G1 has no ball joints.",
+  "source": "Study guide · Week 2 traps"
+ },
+ {
+  "id": "ch2-088",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Singularity",
+  "kind": "number",
+  "q": "Smallest singular value of the 6×6 leg Jacobian: crouched vs at stand?",
+  "choices": [
+   "0.089 crouched; 9×10⁻⁷ at stand, about 100,000× smaller",
+   "9×10⁻⁷ crouched; 0.089 at stand, about 100,000× larger",
+   "0.089 crouched; 0.0089 at stand, about 10× smaller",
+   "0.62 crouched; 0.089 at stand, about 7× smaller"
+  ],
+  "why": "Straightening the leg collapses one direction of response: σ_min drops from 0.0887 to 8.96×10⁻⁷ (~99,000×). That is a singularity, and why the walker crouches.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-089",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Singularity",
+  "kind": "concept",
+  "q": "What is a singularity of the leg Jacobian?",
+  "choices": [
+   "σ_min nears zero: one direction stops responding",
+   "A pose where some joint sits exactly at its range limit",
+   "A pose where the Jacobian contains a column of zeros",
+   "A pose where two joints happen to have equal angles"
+  ],
+  "why": "Singular values measure response along six independent directions; σ_min ≈ 0 means a lost rank. A zero position column (ankle roll) does not make the crouched 6×6 singular.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-090",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Singularity",
+  "kind": "concept",
+  "q": "Which G1 leg pose is singular, and why?",
+  "choices": [
+   "stand: all leg joints zero, a straight leg that cannot shorten",
+   "The crouch, because its pitch angles sum to zero",
+   "Any pose with ankle roll at zero, since its column vanishes",
+   "Pitch 90°, where roll and yaw lock together into one"
+  ],
+  "why": "At the stand keyframe the straight leg has no direction that shortens it. The crouch is the well-conditioned pose (σ_min 0.089); pitch-90° is Euler gimbal lock, a different thing.",
+  "source": "Study guide · Week 2 maths"
+ },
+ {
+  "id": "ch2-091",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Condition number",
+  "kind": "calc",
+  "q": "A Jacobian has σ_max = 0.9 and σ_min = 0.009. What is its condition number κ, and about how many decimal digits does solving with it lose?",
+  "choices": [
+   "κ = 100, about 2 digits",
+   "κ = 100, about 100 digits",
+   "κ = 0.01, about 2 digits",
+   "κ = 10, about 1 digit"
+  ],
+  "why": "κ = σ_max/σ_min = 0.9/0.009 = 100, and digits lost ≈ log10 κ = 2. Dividing the other way gives 0.01, which is never a condition number (κ ≥ 1).",
+  "source": "Study guide · Formula sheet"
+ },
+ {
+  "id": "ch2-092",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Joint anchor",
+  "kind": "trap",
+  "q": "Deleting pos = pos + rot @ (a − Rj @ a) from my_fk on the G1 does what?",
+  "choices": [
+   "Nothing here (all G1 jnt_pos = 0), though it matters in general",
+   "Moves the foot about 21 cm, exactly as on the toy model",
+   "Breaks the foot's orientation but leaves its position right",
+   "Adds the paper model's constant 2 µm offset to the foot"
+  ],
+  "why": "Every G1 (and Menagerie humanoid) joint sits at its body origin, so a = 0 and the term is dead code here. On a toy hinge at 0.3 m, dropping it moves the tip 21 cm.",
+  "source": "Study guide · Week 2 traps"
+ },
+ {
+  "id": "ch2-093",
+  "chapter": "Week 2 · Transforms and FK",
+  "topic": "Joint anchor",
+  "kind": "number",
+  "q": "On the toy MJCF with the hinge at pos = 0.3 m and the site on the hinge, how far does dropping the anchor term move the tip at q = 0.8 rad?",
+  "choices": [
+   "About 21 cm",
+   "Exactly 0 cm",
+   "About 2 µm",
+   "About 3.5 cm"
+  ],
+  "why": "Without the anchor the link pivots about the body origin instead of the hinge, carrying the tip 0.215 m away; MuJoCo holds it still because it sits on the axis.",
+  "source": "Study guide · Week 2 traps"
+ }
+]

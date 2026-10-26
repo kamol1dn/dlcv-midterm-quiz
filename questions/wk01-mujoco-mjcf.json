@@ -1,0 +1,1292 @@
+[
+ {
+  "id": "ch1-001",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Why simulate",
+  "kind": "concept",
+  "q": "Which is a reason the course gives for simulating instead of experimenting on a real humanoid?",
+  "choices": [
+   "Learning needs millions of trials, impossible on hardware",
+   "Simulation is exact, so policies transfer to hardware unchanged",
+   "Simulated sensors are realistically noisy by default",
+   "Contact and friction are easiest to get right in sim"
+  ],
+  "why": "A real humanoid is expensive, fragile and slow to reset, and learning needs millions of trials; sim is repeatable, faster than real time and parallel. It is not exact, and its sensors are noiseless.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-002",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Why simulate",
+  "kind": "concept",
+  "q": "Which is listed as a cost of simulating rather than an advantage?",
+  "choices": [
+   "Sensors are noiseless in sim, never in reality",
+   "Simulation runs slower than real time",
+   "Simulated experiments can never be repeated exactly",
+   "Simulation cannot run robots in parallel"
+  ],
+  "why": "Costs: contact and friction are hard, actuator limits and delays are often ignored, sensors are noiseless. Speed, repeatability and parallelism are the advantages. The total gap is the sim-to-real gap.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-003",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "MuJoCo",
+  "kind": "concept",
+  "q": "What does the name MuJoCo stand for?",
+  "choices": [
+   "Multi-Joint dynamics with Contact",
+   "Multi-Joint Controller for robots",
+   "Muscle–Joint Coordination model",
+   "Multi-body Joint Computation"
+  ],
+  "why": "Mu-lti Jo-int dynamics with Co-ntact: an engine built for many joints and contact with the ground. Its XML model format is MJCF.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-004",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "MJCF sections",
+  "kind": "concept",
+  "q": "Which MJCF section holds named poses such as the G1's stand?",
+  "choices": [
+   "<keyframe>",
+   "<default>",
+   "<asset>",
+   "<option>"
+  ],
+  "why": "<keyframe> stores named poses (qpos, and ctrl too). <default> holds inherited attribute values, <asset> meshes and materials, <option> how the world behaves.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-005",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "MJCF sections",
+  "kind": "concept",
+  "q": "What happens if an MJCF file contains nothing but a <worldbody>?",
+  "choices": [
+   "It compiles; the other seven sections make it a robot",
+   "It fails: <option> must be present to set a timestep",
+   "It fails: every model needs at least one actuator",
+   "It compiles but cannot step without a <keyframe>"
+  ],
+  "why": "A worldbody-only file compiles happily, since everything left out takes MuJoCo's defaults. \"The other seven sections are the difference between a shape and a robot.\"",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-006",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Body, joint, geom, site",
+  "kind": "concept",
+  "q": "A <body>'s pos attribute is measured from where?",
+  "choices": [
+   "From its parent body's frame",
+   "From the world origin",
+   "From the robot's centre of mass",
+   "From the nearest floor contact"
+  ],
+  "why": "pos is measured from the parent, not the world. That is why moving the thigh moves the shin with it, and why you never recompute a child's position by hand.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-007",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Body, joint, geom, site",
+  "kind": "concept",
+  "q": "What is true of a <body> that contains no <joint>?",
+  "choices": [
+   "It is welded to its parent and adds no freedom",
+   "It falls freely under gravity as a loose part",
+   "It can rotate about its parent but not slide",
+   "It is skipped by the compiler as having no use"
+  ],
+  "why": "A joint says how a body may move relative to its parent; with none, the body is welded to its parent. A free-floating body needs a <freejoint>.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-008",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Body, joint, geom, site",
+  "kind": "concept",
+  "q": "What is a <site> in MJCF?",
+  "choices": [
+   "A named point with no physics, where sensors attach",
+   "A collision shape used only under the robot's feet",
+   "A body that has mass but carries no geometry",
+   "A joint that allows no motion relative to its parent"
+  ],
+  "why": "A site is a named frame with no physics. Every sensor names a site; move the site in the XML and the readings change, exactly as remounting a real IMU would.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-009",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Kinematic chain",
+  "kind": "concept",
+  "q": "Why can the G1's knee never move its hand?",
+  "choices": [
+   "A body moves only with the joints on its path to the root",
+   "The knee servo's gain is far too low to reach that far up the body",
+   "The hands are welded directly to the world frame",
+   "The knee and hand geoms are in different groups"
+  ],
+  "why": "Nesting <body> tags is the kinematic chain. The path from a hand to the pelvis passes through the waist and never through a leg, so no leg joint can move it.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-010",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "MJCF is a diff",
+  "kind": "trap",
+  "q": "The G1's <option> sets only integrator=\"implicitfast\". Where do its 0.002 s timestep and its gravity come from?",
+  "choices": [
+   "MuJoCo's built-in defaults",
+   "The scene file's own <option> line",
+   "The stand keyframe's values",
+   "The <default class=\"g1\"> block"
+  ],
+  "why": "An MJCF is a diff against a default robot: every attribute you leave out still has a value. \"A number you never wrote is shaping your results.\"",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-011",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Default classes",
+  "kind": "concept",
+  "q": "None of the G1's 29 actuator lines contains a gain. Where does k_p = 500 come from?",
+  "choices": [
+   "<default class=\"g1\">, inherited via childclass=\"g1\" on the pelvis",
+   "MuJoCo's built-in default gain, applied to every position actuator",
+   "The stand keyframe, which stores one gain per actuator",
+   "The <option> section, next to the integrator setting"
+  ],
+  "why": "<default class=\"g1\"> holds kp = 500 and the pelvis carries childclass=\"g1\", so every tag beneath inherits it. Classes nest: foot inherits from collision, which inherits from g1.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-012",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Default classes",
+  "kind": "concept",
+  "q": "What does inheritrange=\"1\" do on the G1's position actuators?",
+  "choices": [
+   "Copies each joint's range onto its actuator's control range",
+   "Copies the parent body's mass and inertia onto its child",
+   "Makes each actuator inherit k_p from its joint's stiffness",
+   "Lets ctrl exceed the joint's travel by a safety margin"
+  ],
+  "why": "The joint range becomes the actuator's ctrlrange, so a command outside the joint's travel cannot even be expressed.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-013",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Visual vs collision geoms",
+  "kind": "concept",
+  "q": "The G1's group-2 geoms have contype=\"0\" conaffinity=\"0\". What does that mean?",
+  "choices": [
+   "They are drawn but invisible to physics",
+   "They collide but are never drawn at all",
+   "They collide only with the floor plane",
+   "They carry the link's mass and inertia"
+  ],
+  "why": "Group 2 is the pretty mesh, excluded from collision. Group 3 holds what actually touches the world. One link is drawn one way and collided another.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-014",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Visual vs collision geoms",
+  "kind": "number",
+  "q": "How are the G1's 72 geoms split?",
+  "choices": [
+   "1 floor, 35 visual in group 2, 36 collision in group 3",
+   "1 floor, 36 visual in group 3, 35 collision in group 2",
+   "72 collision meshes, each drawn exactly as it collides",
+   "29 visual, 29 collision and 14 contact sites"
+  ],
+  "why": "72 = 1 floor + 35 visual meshes (group 2, contype = conaffinity = 0) + 36 collision geoms (group 3). Group 2 is drawn, group 3 collides.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-015",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Foot contact",
+  "kind": "concept",
+  "q": "Why does each G1 foot touch the floor through small spheres rather than through its mesh?",
+  "choices": [
+   "Sphere contacts are cheap and stable; mesh-on-mesh is neither",
+   "Meshes cannot carry mass or inertia inside a MuJoCo model at all",
+   "Spheres render better than meshes in the viewer",
+   "A mesh foot would need its own extra actuator"
+  ],
+  "why": "Choices like this keep a 29-joint humanoid fast enough to learn in. Mesh-on-mesh contact is expensive and jittery.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-016",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Foot contact",
+  "kind": "number",
+  "q": "Each G1 foot touches the floor through what?",
+  "choices": [
+   "Four spheres of 5 mm radius",
+   "Eight spheres of 2 mm radius",
+   "One box the size of the sole",
+   "Its STL mesh, exactly as drawn"
+  ],
+  "why": "Four 5 mm spheres per foot, so 8 contacts when standing. They carry friction 0.6; everything else uses MuJoCo's default 1.0.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-017",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Conventions",
+  "kind": "concept",
+  "q": "In the G1's frame, which axis points to the robot's left?",
+  "choices": [
+   "+y",
+   "+x",
+   "−y",
+   "+z"
+  ],
+  "why": "+z is up (gravity along −z), +y is the robot's left (left hip at y = +0.064 m), and +x is forward.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-018",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Roll, pitch, yaw",
+  "kind": "concept",
+  "q": "Nodding your head \"yes\" is a rotation about which axis, and what is it called?",
+  "choices": [
+   "About y (left): pitch",
+   "About x (forward): roll",
+   "About z (up): yaw",
+   "About y (left): roll"
+  ],
+  "why": "Roll is about x (ear to shoulder), pitch about y (nod \"yes\"), yaw about z (shake \"no\").",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-019",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Roll, pitch, yaw",
+  "kind": "concept",
+  "q": "A robot tipping over sideways is rotating about which axis?",
+  "choices": [
+   "x (forward): roll",
+   "y (left): pitch",
+   "z (up): yaw",
+   "x (forward): yaw"
+  ],
+  "why": "Tipping sideways turns about the forward axis x, which is roll. Leaning forward or back is pitch (y); turning to face a new way is yaw (z).",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-020",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Hip and knee",
+  "kind": "concept",
+  "q": "Why does the G1 hip need three joints?",
+  "choices": [
+   "Pitch to step, roll to shift weight, yaw to turn",
+   "Pitch to step, roll to turn, yaw to shift weight",
+   "Three motors are needed to share the leg's weight",
+   "One for each of the knee's three rotation axes"
+  ],
+  "why": "A leg does three independent things: swing forward (pitch), spread sideways and shift weight (roll), and turn (yaw). The knee needs only pitch.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-021",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Hip and knee",
+  "kind": "number",
+  "q": "The G1 knee's range is [−0.087, 2.880] rad. What does that tell you?",
+  "choices": [
+   "It bends one way and barely straightens past zero",
+   "It bends equally far forwards and backwards from straight",
+   "It can turn through more than a full circle",
+   "It is a yaw joint with a stop at each end"
+  ],
+  "why": "The knee is a single pitch hinge that bends one way (up to ~165°) and stops just 5° past straight. That one-sided knee is why week 3's reachable set has a hole.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-022",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "model vs data",
+  "kind": "concept",
+  "q": "Which quantities belong to data rather than model?",
+  "choices": [
+   "qpos, qvel, ctrl and time",
+   "body_pos and jnt_range",
+   "actuator_gainprm and body_mass",
+   "opt.timestep and opt.gravity"
+  ],
+  "why": "model is the robot, compiled from XML and constant while simulating (body_pos, jnt_range, actuator_gainprm, opt). data is \"one robot, at one instant\": qpos, qvel, ctrl, xpos, time.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-023",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "model vs data",
+  "kind": "trap",
+  "q": "While a simulation runs, which of the two objects changes at every step?",
+  "choices": [
+   "data changes; model stays constant",
+   "model changes; data stays constant",
+   "Both change at every single step",
+   "Neither: only the viewer updates"
+  ],
+  "why": "model is the blueprint and does not change while you simulate; data is the moment. Confusing them is called the most common MuJoCo mistake.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-024",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "model vs data",
+  "kind": "concept",
+  "q": "How does week 10 run thousands of robots at once?",
+  "choices": [
+   "One model serves many data",
+   "One data serves many models",
+   "Each robot recompiles its own MJCF",
+   "The model is copied into data per step"
+  ],
+  "why": "One description, thousands of moments: a single compiled model can drive any number of independent data objects.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-025",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "mj_step vs mj_forward",
+  "kind": "concept",
+  "q": "What does mj_forward do?",
+  "choices": [
+   "Computes positions from qpos without advancing time",
+   "Advances time by exactly one timestep, just like mj_step",
+   "Advances ten steps, one policy decision",
+   "Resets data back to the keyframe pose"
+  ],
+  "why": "mj_step advances time; mj_forward fills in positions (xpos, site_xpos) from qpos without moving the clock. That is how a pose is drawn without the robot falling over.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-026",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "nq and nv",
+  "kind": "calc",
+  "q": "A robot has one free joint, one ball joint and twelve hinges. What are nq and nv?",
+  "choices": [
+   "nq = 23, nv = 21",
+   "nq = 21, nv = 21",
+   "nq = 23, nv = 23",
+   "nq = 20, nv = 21"
+  ],
+  "why": "Free 7/6, ball 4/3, hinge 1/1: nq = 7 + 4 + 12 = 23, nv = 6 + 3 + 12 = 21 (practice Q1). nq = 21 forgets both quaternions' extra number.",
+  "source": "Study guide · Practice questions"
+ },
+ {
+  "id": "ch1-027",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "nq and nv",
+  "kind": "calc",
+  "q": "A robot has one free joint, two ball joints and six hinges. What are nq and nv?",
+  "choices": [
+   "nq = 21, nv = 18",
+   "nq = 18, nv = 18",
+   "nq = 19, nv = 18",
+   "nq = 21, nv = 21"
+  ],
+  "why": "nq = 7 + 2×4 + 6 = 21, nv = 6 + 2×3 + 6 = 18. 19 counts the free joint's quaternion but forgets the balls' extra numbers.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-028",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "nq and nv",
+  "kind": "calc",
+  "q": "A fixed-base arm (no free joint) has seven hinges. What are nq and nv?",
+  "choices": [
+   "nq = 7, nv = 7",
+   "nq = 14, nv = 13",
+   "nq = 8, nv = 7",
+   "nq = 7, nv = 6"
+  ],
+  "why": "Hinges are 1/1, and with no free joint there is no base quaternion, so nq = nv = 7. Only free and ball joints have nq > nv.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-029",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "nq and nv",
+  "kind": "calc",
+  "q": "The week-1 two-link leg (hip and knee hinges) is wrapped in a parent body that carries a free joint. What are nq and nv?",
+  "choices": [
+   "nq = 9, nv = 8",
+   "nq = 8, nv = 8",
+   "nq = 9, nv = 9",
+   "nq = 2, nv = 2"
+  ],
+  "why": "nq = 7 + 2 = 9, nv = 6 + 2 = 8. Without the free joint it was nq = nv = 2: bolted to the sky, able to swing but not fall.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-030",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "nq and nv",
+  "kind": "number",
+  "q": "The G1 is one free joint plus 29 hinges. Which line is right?",
+  "choices": [
+   "nq = 36, nv = 35, nu = 29",
+   "nq = 35, nv = 36, nu = 29",
+   "nq = 36, nv = 36, nu = 30",
+   "nq = 30, nv = 29, nu = 29"
+  ],
+  "why": "nq = 7 + 29 = 36, nv = 6 + 29 = 35, and 29 actuators, one per hinge.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-031",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "nq and nv",
+  "kind": "concept",
+  "q": "Why are free and ball joints the only joints with nq > nv?",
+  "choices": [
+   "A quaternion uses 4 numbers for 3 rotational freedoms",
+   "They store one extra number for the joint's own mass",
+   "Their velocity comes from an IMU, not from qvel",
+   "They are the only joint types that have limits"
+  ],
+  "why": "Orientation is stored as a unit quaternion (4 numbers, 1 constraint), but there are only 3 ways to turn, so qvel uses 3 angular-velocity numbers.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-032",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Free joint",
+  "kind": "trap",
+  "q": "You add <freejoint/> to the upper_leg body, which already has a hip hinge. What happens?",
+  "choices": [
+   "It fails, \"more than 6 dofs in body\"; wrap it in a parent body",
+   "It works, and nq rises by 7 while the hinge is kept exactly as it is",
+   "It works, but the compiler silently ignores the hinge",
+   "It fails, because free joints must be declared in <option>"
+  ],
+  "why": "A free joint is a body's entire freedom, so it cannot share a body with a hinge. The fix is a parent body that carries the free joint.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-033",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Underactuation",
+  "kind": "concept",
+  "q": "The G1 has 29 actuators but 35 degrees of freedom. What are the missing six?",
+  "choices": [
+   "The floating base: only the floor pushes it around",
+   "Six joints locked in place by the stand keyframe",
+   "Six sensors that stand in for missing motors",
+   "The fingers, which hang passively from the wrists"
+  ],
+  "why": "The free joint's 6 dofs have no motor; the robot moves its base only by pushing on the floor. Fewer motors than dofs is what \"underactuated\" means.",
+  "source": "Week 1 slides"
+ },
+ {
+  "id": "ch1-034",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "qpos and qvel indices",
+  "kind": "calc",
+  "q": "A G1 hinge's angle sits at qpos[20]. Where is its velocity in qvel?",
+  "choices": [
+   "qvel[19]",
+   "qvel[20]",
+   "qvel[21]",
+   "qvel[14]"
+  ],
+  "why": "The base uses 7 qpos numbers but only 6 qvel numbers, so every hinge sits one slot earlier in qvel. Look addresses up with jnt_qposadr / jnt_dofadr; never reuse one index on the other array.",
+  "source": "Week 1 slides"
+ },
+ {
+  "id": "ch1-035",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Keyframe",
+  "kind": "number",
+  "q": "The G1's stand keyframe has 36 numbers. What are they?",
+  "choices": [
+   "3 position + 4 quaternion + 29 joint angles",
+   "3 position + 3 rotation + 30 joint angles",
+   "6 base velocities + 30 joint angles",
+   "7 base numbers + 29 actuator torques"
+  ],
+  "why": "A keyframe's qpos is exactly qpos: pelvis position (3), quaternion (4), then one angle per hinge (29). <key> also sets ctrl so the servos hold the starting pose.",
+  "source": "Study guide · Week 1 ideas"
+ },
+ {
+  "id": "ch1-036",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Quaternion",
+  "kind": "concept",
+  "q": "In MuJoCo, what does a base quaternion of (1, 0, 0, 0) mean?",
+  "choices": [
+   "Not turned at all (scalar w first)",
+   "Turned 90° about the x axis",
+   "Turned 180° about the x axis",
+   "Invalid: its length is not equal to 1"
+  ],
+  "why": "u = (w, x, y, z) = (cos θ/2, n sin θ/2), scalar first. θ = 0 gives (1, 0, 0, 0), and its length is 1, so it is valid.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-037",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Quaternion",
+  "kind": "calc",
+  "q": "What is the MuJoCo quaternion for a 90° turn about the x axis?",
+  "choices": [
+   "(0.707, 0.707, 0, 0)",
+   "(0, 1, 0, 0)",
+   "(0.707, 0, 0.707, 0)",
+   "(0.5, 0.866, 0, 0)"
+  ],
+  "why": "Half the angle: θ/2 = 45°, so w = cos 45° = 0.707 and x = sin 45° = 0.707. (0, 1, 0, 0) uses the full angle (that is 180°).",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-038",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Quaternion",
+  "kind": "calc",
+  "q": "What is the MuJoCo quaternion for a 120° turn about the z axis?",
+  "choices": [
+   "(0.5, 0, 0, 0.866)",
+   "(−0.5, 0, 0, 0.866)",
+   "(0.866, 0, 0, 0.5)",
+   "(0.5, 0.866, 0, 0)"
+  ],
+  "why": "θ/2 = 60°: w = cos 60° = 0.5, z = sin 60° = 0.866. Using cos 120° = −0.5 forgets the half angle; (0.866, …, 0.5) is a 60° turn; the last is about x.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-039",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Quaternion",
+  "kind": "trap",
+  "q": "A base quaternion reads (0, 1, 0, 0). How far is the base turned?",
+  "choices": [
+   "180° about x",
+   "90° about x",
+   "0°: not turned",
+   "360° about x"
+  ],
+  "why": "w = cos(θ/2) = 0 means θ/2 = 90°, so θ = 180°. Reading w as the angle itself gives 90°. A quaternion holds half the angle.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-040",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Quaternion",
+  "kind": "calc",
+  "q": "Which of these could be a valid MuJoCo orientation quaternion?",
+  "choices": [
+   "(0.6, 0, 0.8, 0)",
+   "(0.6, 0.8, 0.8, 0)",
+   "(1, 1, 0, 0)",
+   "(0.5, 0.5, 0, 0)"
+  ],
+  "why": "It must have unit length: 0.36 + 0.64 = 1. The others give 1.64, 2 and 0.5. One constraint on four numbers leaves three freedoms.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-041",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Quaternion",
+  "kind": "trap",
+  "q": "How does MuJoCo's integrator update the base quaternion at each step?",
+  "choices": [
+   "It turns it by angle h|ω| about the axis of ω",
+   "It adds h × ω to the four quaternion numbers",
+   "It adds h × ω to x, y, z and leaves w alone",
+   "It re-reads the orientation from the keyframe"
+  ],
+  "why": "qvel has 3 angular-velocity numbers and the quaternion has 4, so \"quaternion + h × velocity\" does not even match in size. The integrator rotates it instead, keeping it unit length.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-042",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Frames",
+  "kind": "calc",
+  "q": "A parent body sits at world (0, 0, 1), not rotated. Its child has pos=\"0 0 -0.4\". Where is the child's origin in the world?",
+  "choices": [
+   "(0, 0, 0.6)",
+   "(0, 0, −0.4)",
+   "(0, 0, 1.4)",
+   "(0, 0, 0.4)"
+  ],
+  "why": "p_child = p_parent + R_parent · pos_child = (0, 0, 1) + (0, 0, −0.4) = (0, 0, 0.6). (0, 0, −0.4) treats pos as a world position.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-043",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Frames",
+  "kind": "calc",
+  "q": "A parent at world (1, 0, 0) is turned 90° about z, so its own x axis points along world +y. A child has pos=\"0.2 0 0\". World position of the child?",
+  "choices": [
+   "(1, 0.2, 0)",
+   "(1.2, 0, 0)",
+   "(0.2, 0, 0)",
+   "(1, −0.2, 0)"
+  ],
+  "why": "Walk the typed offset along the parent's own axes: 0.2 along the parent's x, which now points along world +y, so (1, 0, 0) + (0, 0.2, 0). (1.2, 0, 0) ignores the rotation.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-044",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Servo droop",
+  "kind": "concept",
+  "q": "Why can a proportional servo holding a leg against gravity never reach its target exactly?",
+  "choices": [
+   "It makes torque only by being wrong: a load needs an error",
+   "The damper k_v·q̇ cancels the spring at rest",
+   "MuJoCo adds a little random noise to every single servo's torque",
+   "The integrator loses a little energy every step"
+  ],
+  "why": "At rest q̇ = 0, so τ = k_p(ctrl − q) must equal gravity's torque: q − ctrl = −τ_g/k_p. \"A non-zero load needs a non-zero error.\" At rest the damper does nothing.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-045",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Servo droop",
+  "kind": "calc",
+  "q": "A servo with k_p = 400 N·m/rad holds a joint against 8 N·m of gravity. What is the steady error, and what if k_p is doubled?",
+  "choices": [
+   "0.02 rad; doubling k_p halves it to 0.01 rad",
+   "0.02 rad; doubling k_p removes it entirely",
+   "3,200 rad; doubling k_p halves it",
+   "0.02 rad; doubling k_p doubles it to 0.04 rad"
+  ],
+  "why": "|q − ctrl| = τ_g / k_p = 8 / 400 = 0.02 rad (practice Q3). Droop ∝ 1/k_p, so doubling halves it to 0.01 rad: smaller, never zero. 3,200 multiplies instead of dividing.",
+  "source": "Study guide · Practice questions"
+ },
+ {
+  "id": "ch1-046",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Servo droop",
+  "kind": "calc",
+  "q": "A joint carries 30 N·m of gravity torque and its droop must be at most 0.01 rad. What is the smallest k_p that achieves this?",
+  "choices": [
+   "3,000 N·m/rad",
+   "300 N·m/rad",
+   "0.3 N·m/rad",
+   "30,000 N·m/rad"
+  ],
+  "why": "|droop| = τ_g / k_p ≤ 0.01 ⇒ k_p ≥ 30 / 0.01 = 3000 N·m/rad. 0.3 multiplies 30 × 0.01.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-047",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Servo droop",
+  "kind": "trap",
+  "q": "What actually removes the steady-state droop of a P servo?",
+  "choices": [
+   "An integral term, or gravity feedforward",
+   "Raising k_p high enough that the droop reaches zero",
+   "Raising the damping gain k_v",
+   "A smaller physics timestep"
+  ],
+  "why": "Raising k_p only shrinks the error (∝ 1/k_p) and never zeroes it; k_v does nothing at rest; the timestep is not the cause. A term that remembers (I) or one that knows gravity in advance (feedforward) does it (week 5).",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-048",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Servo droop",
+  "kind": "number",
+  "q": "The week-1 two-link leg's hip droop at k_p = 200 and at k_p = 5?",
+  "choices": [
+   "−0.080 rad and −0.858 rad",
+   "−0.858 rad and −0.080 rad",
+   "−0.080 rad and exactly 0 rad",
+   "−0.008 rad and −0.080 rad"
+  ],
+  "why": "Measured: −0.080 rad at k_p = 200 and −0.858 rad at k_p = 5. Lower gain, more sag, and never zero at any gain.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-049",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Servo droop",
+  "kind": "trap",
+  "q": "Why does the droop demo command a bent pose (hip 1.2, knee −0.8) rather than ctrl = 0?",
+  "choices": [
+   "Zero is a hanging leg's rest, so any gain would \"succeed\"",
+   "Zero is outside the hip joint's allowed range of travel",
+   "Commanding zero triggers BADQACC at every timestep",
+   "A position servo cannot be commanded to exactly zero"
+  ],
+  "why": "For a leg hanging down, zero is also gravity's rest position, so a k_p sweep from there shows no droop and proves nothing. A bent pose makes gravity fight the servo.",
+  "source": "Week 1 slides"
+ },
+ {
+  "id": "ch1-050",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Inside mj_step",
+  "kind": "concept",
+  "q": "In M(q)·v̇ + c(q, v) = τ + τ_contact, what is c?",
+  "choices": [
+   "Gravity plus Coriolis and centrifugal terms (qfrc_bias)",
+   "The floor's push and the joint-limit forces (qfrc_constraint)",
+   "The torques the actuators push with (qfrc_actuator)",
+   "The diagonal of the mass matrix, one per joint"
+  ],
+  "why": "c is the bias force: gravity plus the forces that come from moving. τ is the actuators, τ_contact the floor and limits, and M the 35×35 mass matrix, which changes with the pose.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-051",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Inside mj_step",
+  "kind": "concept",
+  "q": "What does one call of mj_step do, in order?",
+  "choices": [
+   "Solves for the accelerations, then integrates q and v by h",
+   "Integrates q and v by h, then solves for the accelerations",
+   "Reads the sensors, then runs your policy to choose ctrl",
+   "Solves for contacts only; integration is a separate call"
+  ],
+  "why": "(1) Solve M v̇ + c = τ + τ_contact for v̇, then (2) integrate q and v forward by one timestep h. Your controller writes ctrl before the call.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-052",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Integrators",
+  "kind": "calc",
+  "q": "Explicit Euler is first order. A run with h = 0.004 s has an error of 8 mm. Roughly what error at h = 0.001 s?",
+  "choices": [
+   "2 mm",
+   "0.5 mm",
+   "8 mm",
+   "32 mm"
+  ],
+  "why": "First order: error ∝ h, so a 4× smaller step gives a 4× smaller error, 2 mm. 0.5 mm would be second order (∝ h²).",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-053",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Integrators",
+  "kind": "concept",
+  "q": "What is MuJoCo's \"Euler\" integrator?",
+  "choices": [
+   "Semi-implicit: velocity first, then position with the new velocity",
+   "Explicit: position and velocity both from the old values",
+   "Fully implicit: it solves a nonlinear system of equations at every step",
+   "Fourth-order Runge–Kutta with an adaptive step size"
+  ],
+  "why": "v_{n+1} = v_n + h·v̇_n, then q_{n+1} = q_n + h·v_{n+1}. One swapped line versus explicit Euler, and it is the difference between a spring that works and one that explodes.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-054",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Integrator stability",
+  "kind": "concept",
+  "q": "For an undamped spring ẍ = −ω²x, how does explicit Euler behave?",
+  "choices": [
+   "It grows at every h > 0: |λ| = √(1 + h²ω²) > 1",
+   "It is stable whenever h < 2/ω, like MuJoCo's",
+   "It is stable whenever h < 1/ω, half the bound",
+   "It decays slowly to zero at every h > 0"
+  ],
+  "why": "The step matrix has eigenvalues 1 ± ihω, of size √(1 + h²ω²) > 1 for every h > 0. It cannot hold an undamped spring at any timestep.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-055",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Integrator stability",
+  "kind": "trap",
+  "q": "An explicit-Euler spring simulation keeps growing. A student halves h. What happens?",
+  "choices": [
+   "It still grows, only more slowly",
+   "It becomes stable once h < 2/ω",
+   "It becomes exactly accurate",
+   "It grows faster than before"
+  ],
+  "why": "|λ| = √(1 + h²ω²) is above 1 for every h > 0, so a smaller step only slows the growth. The h < 2/ω bound belongs to semi-implicit Euler.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-056",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Integrator stability",
+  "kind": "calc",
+  "q": "Explicit Euler on an undamped spring with hω = 0.75. By what factor does the swing grow each step?",
+  "choices": [
+   "1.25",
+   "0.75",
+   "1.5625",
+   "1.00"
+  ],
+  "why": "|λ| = √(1 + h²ω²) = √(1 + 0.5625) = √1.5625 = 1.25. 1.5625 forgets the square root; 1.00 would be the semi-implicit eigenvalue size.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-057",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Integrator stability",
+  "kind": "calc",
+  "q": "A spring–mass system has ω = 50 rad/s. What is the largest stable timestep for semi-implicit Euler?",
+  "choices": [
+   "0.04 s",
+   "0.02 s",
+   "0.08 s",
+   "0.004 s"
+  ],
+  "why": "h < 2/ω = 2/50 = 0.04 s (practice Q4). 0.02 s is 1/ω, the common slip of forgetting the 2.",
+  "source": "Study guide · Practice questions"
+ },
+ {
+  "id": "ch1-058",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Integrator stability",
+  "kind": "calc",
+  "q": "A 4 kg mass sits on a spring of k = 10,000 N/m. Largest stable semi-implicit step?",
+  "choices": [
+   "0.04 s",
+   "0.02 s",
+   "0.01 s",
+   "0.0008 s"
+  ],
+  "why": "ω = √(10,000/4) = √2500 = 50 rad/s, so h < 2/50 = 0.04 s. 0.02 s ignores the 4 kg (that is the 1 kg example from the guide); 0.0008 s is 2m/k with no root.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-059",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Integrator stability",
+  "kind": "calc",
+  "q": "A servo spring is stable up to h = 0.02 s. Its stiffness is raised four times. What is the new largest stable step?",
+  "choices": [
+   "0.01 s",
+   "0.005 s",
+   "0.04 s",
+   "0.02 s"
+  ],
+  "why": "h < 2√(m/k): four times k doubles ω, so the bound halves to 0.01 s. Dividing by 4 (0.005 s) forgets the square root.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-060",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Integrator stability",
+  "kind": "calc",
+  "q": "A spring is stable up to h = 0.01 s. The mass on it is made four times heavier. New largest stable step?",
+  "choices": [
+   "0.02 s",
+   "0.005 s",
+   "0.04 s",
+   "0.01 s"
+  ],
+  "why": "h < 2√(m/k): four times m halves ω, so the bound doubles to 0.02 s. \"The stiffer the spring or the lighter the thing on it, the smaller the step.\"",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-061",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Integrator stability",
+  "kind": "calc",
+  "q": "Semi-implicit Euler, ω = 100 rad/s, h = 0.03 s. What happens?",
+  "choices": [
+   "It explodes: hω = 3 is past the bound of 2",
+   "It is bounded: hω = 3 is still under π",
+   "It is bounded but inaccurate, just under 2",
+   "It is exact: semi-implicit has no bound"
+  ],
+  "why": "Stability needs |tr A| = |2 − h²ω²| ≤ 2, i.e. hω ≤ 2. Here hω = 3, tr A = −7, so one eigenvalue exceeds 1. π is the steps-per-oscillation count, not the bound on hω.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-062",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Integrator stability",
+  "kind": "concept",
+  "q": "The bound h < 2/ω, read as samples of the spring's oscillation, says what?",
+  "choices": [
+   "Take more than π ≈ 3 steps per oscillation",
+   "Take more than 2 steps per oscillation",
+   "Take at least 100 steps per oscillation",
+   "Take more than 2π ≈ 6 steps per oscillation"
+  ],
+  "why": "The period is 2π/ω, and h < 2/ω means period/h > π. Below about three snapshots per swing the simulation cannot see the oscillation.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-063",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Stable vs accurate",
+  "kind": "trap",
+  "q": "Semi-implicit Euler at hω = 1.99 releases a spring from 1 cm. What does it do?",
+  "choices": [
+   "Stays bounded but swings to about 10 cm: wrong",
+   "Matches the true 1 cm swing, being under the bound",
+   "Explodes, because it is so close to the limit of 2",
+   "Is reset to zero by BADQACC with a warning"
+  ],
+  "why": "Just below the bound the motion is bounded but badly wrong (3.2 cm at hω = 1.9, 10 cm at 1.99). \"Stable is not the same as accurate.\"",
+  "source": "Study guide · Week 1 traps"
+ },
+ {
+  "id": "ch1-064",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Damping and stability",
+  "kind": "concept",
+  "q": "With the damper computed at the old velocity (MuJoCo's Euler), what does ζ = 1 do to the stability bound on hω?",
+  "choices": [
+   "Shrinks it from 2 to about 0.83: less stable",
+   "Raises it from 2 to about 4.83: more stable",
+   "Leaves it at 2: damping never moves the bound",
+   "Removes it: any step is stable when damped"
+  ],
+  "why": "Explicit damper: hω < 2(√(1 + ζ²) − ζ) = 2(√2 − 1) ≈ 0.83 at ζ = 1. An explicitly computed damper makes the stiff spring less stable, the opposite of intuition.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-065",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Damping and stability",
+  "kind": "number",
+  "q": "With the damper computed at the new velocity (implicitfast), ζ = 1 gives which bound on hω?",
+  "choices": [
+   "About 4.83",
+   "About 0.83",
+   "Exactly 2",
+   "About 3.14"
+  ],
+  "why": "Implicit damper: hω < 2(√(1 + ζ²) + ζ) = 2(√2 + 1) ≈ 4.83. 0.83 is the explicit-damper (Euler) bound; 2 is the undamped bound.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-066",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Damping and stability",
+  "kind": "calc",
+  "q": "A critically damped servo (ζ = 1) has ω = 100 rad/s. Using the explicit-damper bound hω < 0.83, what is the largest stable step under Euler?",
+  "choices": [
+   "About 0.008 s",
+   "About 0.02 s",
+   "About 0.048 s",
+   "About 0.083 s"
+  ],
+  "why": "h < 0.83/100 ≈ 0.0083 s. 0.02 s is the undamped 2/ω; 0.048 s is the implicitfast bound 4.83/ω.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-067",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Why implicitfast",
+  "kind": "calc",
+  "q": "At h = 0.002 s the G1's stiffest servo sits at hω ≈ 0.44. What is hω at h = 0.004 s, and how does Euler fare against its ζ ≈ 1 bound of 0.83?",
+  "choices": [
+   "0.88: past 0.83, so Euler fails",
+   "0.22: well inside, Euler holds",
+   "0.88: inside 4.83, so Euler holds",
+   "1.76: past 2, both integrators fail"
+  ],
+  "why": "Doubling h doubles hω to 0.88 > 0.83, so plain Euler shakes the G1 to the floor at 0.004 s, while implicitfast (bound 4.83) stands. 4.83 is implicitfast's bound, not Euler's.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-068",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Why implicitfast",
+  "kind": "number",
+  "q": "What happens to the standing G1 at h = 0.004 s under each integrator?",
+  "choices": [
+   "Euler shakes it to the floor; implicitfast stands",
+   "Euler stands; implicitfast shakes it to the floor",
+   "Both stand: the bound is far away at that step",
+   "Both raise BADQACC on the very first step"
+  ],
+  "why": "Measured in the guide. \"The integrator line in the file is a safety margin\": at 500 Hz both hold, at 0.004 s only implicitfast does.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-069",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Silent failure (BADQACC)",
+  "kind": "trap",
+  "q": "At dt = 0.02 s with the servos on, the two-link leg's qpos comes back as [0, 0]. What happened?",
+  "choices": [
+   "BADQACC: accelerations blew up and the state was reset",
+   "The servos held the commanded pose perfectly, with no droop at all",
+   "The leg settled at gravity's rest, hanging straight",
+   "The simulation ended early because it was so fast"
+  ],
+  "why": "Past the stability bound MuJoCo raises mjWARN_BADQACC and resets the state to zero, which reads like success. Always check data.warning.",
+  "source": "Study guide · Week 1 traps"
+ },
+ {
+  "id": "ch1-070",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Silent failure (BADQACC)",
+  "kind": "trap",
+  "q": "At dt = 0.02 s with the servos off, the passive swing gives different final angles but no warning at all. What is this?",
+  "choices": [
+   "A silent approximation: wrong, with no warning",
+   "A silent failure: BADQACC reset the state",
+   "Correct: a passive swing ignores the timestep",
+   "A crash: the simulation stops with an error"
+  ],
+  "why": "Exercise 14: servos off is merely different and wrong (silent approximation); servos on blows up and resets (silent failure). Neither stops the program.",
+  "source": "Study guide · Week 1 traps"
+ },
+ {
+  "id": "ch1-071",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Contact forces",
+  "kind": "concept",
+  "q": "Why must the G1's standing contact normal forces sum to its weight?",
+  "choices": [
+   "Its CoM does not accelerate, so ΣF_n − mg = 0",
+   "The servos are tuned to push down with exactly mg",
+   "MuJoCo clamps every contact force to the weight",
+   "Each of the 8 spheres carries exactly mg / 8"
+  ],
+  "why": "Newton vertically: m·z̈ = ΣF_n − mg, and standing still z̈ = 0. A free physics check that needs no ground truth. The 8 spheres do not share equally.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-072",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Contact forces",
+  "kind": "trap",
+  "q": "A standing robot's controller stiffens every servo. What happens to the sum of the contact normal forces?",
+  "choices": [
+   "Nothing: motors push the robot against itself",
+   "It rises along with the larger servo torques in the legs",
+   "It falls as the legs become stiffer",
+   "It doubles while the servos saturate"
+  ],
+  "why": "Internal forces cannot change the total ground reaction; only acceleration of the CoM can. Standing still, ΣF_n = mg whatever the motors do.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-073",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Contact forces",
+  "kind": "calc",
+  "q": "A 400 N robot stands with its CoM at x = 0, heel spheres at x = −5 cm and toe spheres at x = +15 cm. How is the load split?",
+  "choices": [
+   "Heels 300 N, toes 100 N",
+   "Heels 100 N, toes 300 N",
+   "Heels 200 N, toes 200 N",
+   "Heels 400 N, toes 0 N"
+  ],
+  "why": "Moments about the CoM balance: F_heel × 5 = F_toe × 15, so heels carry 3×: 300 N and 100 N. The nearer contact carries more; swapping them is the usual slip.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-074",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Contact forces",
+  "kind": "number",
+  "q": "Standing G1: how many contacts, and how is its 327 N shared?",
+  "choices": [
+   "8 contacts; heels ~225 N, toes ~102 N",
+   "8 contacts; heels ~102 N, toes ~225 N",
+   "2 contacts; ~164 N under each sole mesh",
+   "36 contacts; one per collision geom"
+  ],
+  "why": "Four spheres per foot give 8 contacts summing to 327.1 N. The CoM (x = +0.3 cm) is nearer the heels (−5 cm) than the toes (+12 cm), so heels carry ~225 N.",
+  "source": "Study guide · Week 1 maths"
+ },
+ {
+  "id": "ch1-075",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Contact forces",
+  "kind": "concept",
+  "q": "Where are the G1's eight standing contacts declared in the MJCF?",
+  "choices": [
+   "Nowhere: MuJoCo finds contacts every step",
+   "In <sensor>, one entry per foot sphere",
+   "In <keyframe>, together with stand",
+   "In <actuator>, as ground-reaction motors"
+  ],
+  "why": "Contacts are not declared; the engine detects them each step from the collision geoms, and you can read them with mj_contactForce.",
+  "source": "Week 1 slides"
+ },
+ {
+  "id": "ch1-076",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Contact forces",
+  "kind": "number",
+  "q": "After one mj_step from the stand keyframe, what does the pelvis do, and why?",
+  "choices": [
+   "Rises 0.018 mm: the foot spheres start ~2 mm inside the floor",
+   "Drops 0.018 mm: gravity acts before the contacts form",
+   "Stays exactly still: the stand pose is perfectly balanced already",
+   "Drops 2 mm until the foot spheres first touch the floor"
+  ],
+  "why": "The keyframe leaves the 8 foot spheres ~2 mm inside the floor. MuJoCo's contacts are slightly soft (penetration makes force), so the floor pushes the robot up first.",
+  "source": "Study guide · Week 1 numbers"
+ },
+ {
+  "id": "ch1-077",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "stand keyframe",
+  "kind": "number",
+  "q": "Which describes the G1's stand keyframe?",
+  "choices": [
+   "Pelvis 0.79 m, quaternion (1,0,0,0), only the arms bent",
+   "Pelvis 0.79 m, quaternion (1,0,0,0), knees bent 1.28 rad",
+   "Pelvis 0.134 m, quaternion (0,0,0,1), every joint at zero",
+   "Pelvis 0.79 m, quaternion (0,1,0,0), arms straight down"
+  ],
+  "why": "Pelvis at 0.79 m, not turned, elbows at 1.28 rad; every leg joint is exactly zero, a perfectly straight leg. 0.134 m is where the limp robot ends up.",
+  "source": "Study guide · Week 1 numbers"
+ },
+ {
+  "id": "ch1-078",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "stand keyframe",
+  "kind": "trap",
+  "q": "Every leg joint in stand is exactly zero. Is a perfectly straight leg a good starting point for inverse kinematics?",
+  "choices": [
+   "No: a perfectly straight leg is a singularity",
+   "Yes: zero is the most neutral possible seed",
+   "Yes: zero is gravity's own rest for the leg",
+   "No: zero is outside the knee's joint range"
+  ],
+  "why": "The straight leg is the worst IK seed: the Jacobian has no direction that shortens the leg. The knee range [−0.087, 2.880] does include zero.",
+  "source": "Study guide · Week 1 numbers"
+ },
+ {
+  "id": "ch1-079",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Faster than real time",
+  "kind": "number",
+  "q": "How fast does the G1 simulate on one CPU core?",
+  "choices": [
+   "~15,000–16,000 steps/s, about 30× real time",
+   "~500 steps/s, exactly real time",
+   "~1,500 steps/s, about 3× faster than real time",
+   "~150 million steps/s, 300,000× real time"
+  ],
+  "why": "Roughly 15–16 thousand physics steps per second at 500 Hz is about 30× real time (machine dependent). Week 10 wants 150 million steps, so this number decides afternoon versus month.",
+  "source": "Study guide · Week 1 numbers"
+ },
+ {
+  "id": "ch1-080",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Faster than real time",
+  "kind": "calc",
+  "q": "A simulation runs 20,000 physics steps per second at a 0.002 s timestep. How many times faster than real time?",
+  "choices": [
+   "40×",
+   "4×",
+   "400×",
+   "10×"
+  ],
+  "why": "Each second of compute advances 20,000 × 0.002 = 40 s of robot time: 40× real time.",
+  "source": "Study guide · Week 1 numbers"
+ },
+ {
+  "id": "ch1-081",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Determinism vs chaos",
+  "kind": "concept",
+  "q": "Two runs of the same G1 fall, same code, same machine. How much do their final states differ?",
+  "choices": [
+   "Exactly 0.0: bit-identical",
+   "About 1e-12, round-off noise",
+   "About 1 cm, contact chaos",
+   "It varies: MuJoCo seeds randomly"
+  ],
+  "why": "On one machine the simulator is exactly deterministic: same input, same arithmetic, same answer, a hard zero.",
+  "source": "Study guide · Week 1 traps"
+ },
+ {
+  "id": "ch1-082",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Determinism vs chaos",
+  "kind": "trap",
+  "q": "The same limp fall ends at 0.134 m on a laptop and 0.142 m on Colab. Why?",
+  "choices": [
+   "The arithmetic is reordered and the fall amplifies it",
+   "MuJoCo injects fresh random noise into each new run of a fall",
+   "Colab runs with a different default gravity",
+   "One of the two installs must be broken"
+  ],
+  "why": "Not randomness: different hardware reorders floating-point operations, and a falling robot amplifies tiny differences exponentially. Stable equilibria (0.792 m) reproduce exactly.",
+  "source": "Study guide · Week 1 traps"
+ },
+ {
+  "id": "ch1-083",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Determinism vs chaos",
+  "kind": "trap",
+  "q": "How should a lab test check the result of a falling robot?",
+  "choices": [
+   "Assert direction and size, e.g. \"dropped more than 0.5 m\"",
+   "Assert the final torso height equals 0.134 m exactly",
+   "Assert the height to within 1e-6, after fixing the random seed",
+   "Assert nothing at all: falls can never be tested"
+  ],
+  "why": "\"Never assert or grade an exact number from a fall; assert direction and size.\" A seed makes a run repeatable on one machine, not identical across machines.",
+  "source": "Study guide · Week 1 traps"
+ },
+ {
+  "id": "ch1-084",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Determinism vs chaos",
+  "kind": "trap",
+  "q": "To test for chaos, a student nudges the G1's base x position by 1e-12 before the fall and sees the gap stay 1×. What can they conclude?",
+  "choices": [
+   "Nothing: a shift on a flat floor is a symmetry; nudge a joint",
+   "The fall is not chaotic, since the nudge did not grow at all in 3 s",
+   "MuJoCo ignores any perturbation smaller than 1e-9",
+   "The fall is chaotic only in the vertical z direction"
+  ],
+  "why": "Translating along an infinite flat floor is an exact symmetry: the same trajectory, shifted. Test sensitivity along a direction that is not a symmetry, such as a knee angle (grows ~10⁵× in 3 s).",
+  "source": "Study guide · Week 1 traps"
+ },
+ {
+  "id": "ch1-085",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Determinism vs chaos",
+  "kind": "calc",
+  "q": "The gap between two runs grows as δ ≈ δ₀·e^{λt}, here a factor of 10 every second. If δ₀ = 1e-9 rad, what is δ after 3 s?",
+  "choices": [
+   "1e-6 rad",
+   "3e-9 rad",
+   "1e-8 rad",
+   "1e-12 rad"
+  ],
+  "why": "×10 per second for 3 s is ×1000: 1e-9 × 10³ = 1e-6. 3e-9 treats the growth as linear; 1e-8 counts only one second.",
+  "source": "Study guide · Week 1 traps"
+ },
+ {
+  "id": "ch1-086",
+  "chapter": "Week 1 · MuJoCo and MJCF",
+  "topic": "Determinism vs chaos",
+  "kind": "number",
+  "q": "What growth rate was measured for the falling G1's run-to-run gap?",
+  "choices": [
+   "λ ≈ 3.7/s: about ×40 per second, ~10⁵ in 3 s",
+   "λ ≈ 0.37/s: about ×1.4 per second, ~3 in 3 s",
+   "λ ≈ 37/s: about ×10¹⁶ per second, overflow",
+   "λ = 0: runs are bit-identical, so no growth"
+  ],
+  "why": "A 10⁻¹² rad knee nudge grows about 10⁵-fold in 3 s, λ ≈ 3.7/s. λ = 0 confuses determinism (same input, same output) with insensitivity (nearby inputs stay nearby).",
+  "source": "Study guide · Week 1 traps"
+ }
+]

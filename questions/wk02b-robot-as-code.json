@@ -1,0 +1,752 @@
+[
+ {
+  "id": "ch2-b001",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Body tree",
+  "kind": "concept",
+  "q": "Why can the G1's whole skeleton be stored as one integer array, body_parentid?",
+  "choices": [
+   "Every body has exactly one parent, so one integer per body suffices",
+   "Every body has exactly one child, so the array lists the children",
+   "Body ids are given in depth order, so the ids encode the tree",
+   "Only the five chains are stored, one integer per chain"
+  ],
+  "why": "That is the definition of a tree. Ancestors, depth and children all follow by repeating π(b) = parent of b.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b002",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Body tree",
+  "kind": "concept",
+  "q": "In body_parentid, π(0) = 0. What does that mean?",
+  "choices": [
+   "Body 0 is the world, and it is its own parent",
+   "Body 0 is the pelvis, which has no parent",
+   "Body 0 is a leaf, with no children of its own",
+   "The tree has not been compiled from the MJCF yet"
+  ],
+  "why": "The world is body 0 and the root of the tree. Following parents from any body ends at 0; the pelvis hangs off it through the free joint.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b003",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Body tree",
+  "kind": "number",
+  "q": "How many bodies and leaves does the G1 tree have?",
+  "choices": [
+   "31 bodies (one is the world); 4 leaves: feet and hands",
+   "30 bodies, 5 leaves: two feet, two hands and the head",
+   "31 bodies and 2 leaves: only the two feet",
+   "36 bodies, one per qpos slot, with 4 leaves"
+  ],
+  "why": "nbody = 31 including the world. The four leaves are the ankle-roll links and wrist-yaw links; the head is welded to the torso, not a body with its own branch.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b004",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Body tree",
+  "kind": "calc",
+  "q": "A toy robot has body_parentid = [0, 0, 1, 2, 1, 4]. Which bodies are leaves?",
+  "choices": [
+   "Bodies 3 and 5",
+   "Bodies 0 and 1",
+   "Bodies 2 and 4",
+   "Body 5 only"
+  ],
+  "why": "A leaf is a body nobody names as parent. The parents listed are 0, 1, 2, 1, 4, so 3 and 5 never appear. Body 1 has two children (2 and 4).",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b005",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "What a joint moves",
+  "kind": "calc",
+  "q": "Same toy tree, body_parentid = [0, 0, 1, 2, 1, 4], one hinge per body 1..5. Which bodies' joints can move body 5?",
+  "choices": [
+   "Bodies 1, 4 and 5",
+   "Bodies 1, 2, 3, 4 and 5",
+   "Bodies 4 and 5 only",
+   "Bodies 2 and 3"
+  ],
+  "why": "Ancestors of 5: π(5) = 4, π(4) = 1, π(1) = 0. A joint moves body k iff its body is k or an ancestor of k, so 1, 4, 5. Bodies 2 and 3 are on another branch.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b006",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Five chains",
+  "kind": "number",
+  "q": "Which sum gives the G1's 29 hinges (= nu)?",
+  "choices": [
+   "6 + 6 + 3 + 7 + 7: two legs, waist, two arms",
+   "7 + 7 + 3 + 6 + 6: two legs, waist, two arms",
+   "6 + 6 + 3 + 7 + 7 + 1: plus one head joint",
+   "6 + 6 + 5 + 6 + 6: legs, waist, arms"
+  ],
+  "why": "Legs have 6 each, the waist 3, arms 7 each: 29 = nu. There is no head, neck or hand joint.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b007",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Five chains",
+  "kind": "number",
+  "q": "Where does the left arm live in qpos and qvel?",
+  "choices": [
+   "qpos 22..28, qvel 21..27",
+   "qpos 21..27, qvel 22..28",
+   "qpos 22..28, qvel 22..28",
+   "qpos 29..35, qvel 28..34"
+  ],
+  "why": "Chain table: left leg 7..12/6..11, right leg 13..18/12..17, waist 19..21/18..20, left arm 22..28/21..27, right arm 29..35/28..34. qvel is always one lower.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b008",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Five chains",
+  "kind": "concept",
+  "q": "Where do the G1's arms attach to the tree?",
+  "choices": [
+   "To the torso, three waist joints above the pelvis",
+   "To the pelvis, alongside the two legs",
+   "To the waist-yaw link, one joint above the pelvis",
+   "To the head, which hangs off the torso"
+  ],
+  "why": "The legs hang off the pelvis; the arms hang off the torso, three waist joints up. So the waist moves both arms and neither leg.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b009",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Five chains",
+  "kind": "concept",
+  "q": "How is each chain laid out in qpos?",
+  "choices": [
+   "Contiguous, in root-to-tip order",
+   "Contiguous, but in tip-to-root order",
+   "Interleaved left and right, joint by joint",
+   "Scattered in id order, with gaps between chains"
+  ],
+  "why": "Each chain occupies one slice root to tip, and together they cover slots 7..35. That is why set_pose can take a whole chain as a list.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b010",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Five chains",
+  "kind": "calc",
+  "q": "Which Python slice of data.qpos is the right arm?",
+  "choices": [
+   "qpos[29:36]",
+   "qpos[29:35]",
+   "qpos[28:35]",
+   "qpos[22:29]"
+  ],
+  "why": "Right arm = slots 29..35, and a slice's end is exclusive, so 29:36. 28:35 is its qvel range; 22:29 is the left arm.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b011",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "What a joint moves",
+  "kind": "concept",
+  "q": "When can joint j move landmark k? (β(j) = the body joint j turns, A(k) = ancestors of k.)",
+  "choices": [
+   "When β(j) = k or β(j) ∈ A(k)",
+   "When k ∈ A(β(j))",
+   "When β(j) and k are in the same chain",
+   "When j's qpos index is below k's body id"
+  ],
+  "why": "A joint turns its own body and everything downstream. k ∈ A(β(j)) is the reverse: k upstream of the joint, which it can never move.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b012",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "What a joint moves",
+  "kind": "calc",
+  "q": "Practice Q8, first half: which of the five landmarks (two hands, two feet, torso IMU) does right_hip_yaw move?",
+  "choices": [
+   "Only the right foot",
+   "Both feet, through the pelvis",
+   "The right foot and the torso IMU",
+   "The right foot and the right hand"
+  ],
+  "why": "The right leg hangs off the pelvis and is its own branch; the only landmark downstream of right_hip_yaw is the right foot. A leg joint moves one foot and nothing else.",
+  "source": "Study guide · Practice Q8"
+ },
+ {
+  "id": "ch2-b013",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "What a joint moves",
+  "kind": "calc",
+  "q": "Practice Q8, second half: which landmarks does waist_roll move?",
+  "choices": [
+   "Both hands and the torso IMU, neither foot",
+   "Both feet and the torso IMU, neither hand",
+   "Every landmark, since the waist is central",
+   "Only the torso IMU, which rides on torso_link"
+  ],
+  "why": "The torso and both arms are downstream of the waist; the legs hang off the pelvis below it. A waist joint moves both hands and neither foot.",
+  "source": "Study guide · Practice Q8"
+ },
+ {
+  "id": "ch2-b014",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "What a joint moves",
+  "kind": "calc",
+  "q": "Of the 29 hinges, which can move the torso IMU site?",
+  "choices": [
+   "Only the three waist joints",
+   "The waist joints and both shoulder pitches",
+   "All 29, since everything hangs off the pelvis",
+   "Only waist_pitch"
+  ],
+  "why": "The IMU is on torso_link, whose ancestors (besides the pelvis) are the three waist links. Leg and arm joints are on other branches or downstream.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b015",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Root loud, tip quiet",
+  "kind": "number",
+  "q": "Nudging one left-leg joint by 0.1 rad from stand, how far does the left foot move?",
+  "choices": [
+   "Hip pitch 65 mm, knee 32 mm, ankle pitch 2 mm",
+   "Hip pitch 2 mm, knee 32 mm, ankle pitch 65 mm",
+   "Hip pitch 32 mm, knee 65 mm, ankle pitch 2 mm",
+   "Hip pitch 65 mm, knee 65 mm, ankle pitch 65 mm"
+  ],
+  "why": "Within a limb the effect falls from root to tip. \"The root of a chain is always the loud one; an ankle is for trimming.\"",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b016",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Root loud, tip quiet",
+  "kind": "concept",
+  "q": "Why does a joint's effect on its landmark fall from root to tip?",
+  "choices": [
+   "A joint carries everything below it, so the root has the longest lever",
+   "Root joints have stronger motors, so they move further per radian",
+   "Tip joints have narrower range limits than the root joints",
+   "The nudge is scaled down at each joint further down the chain"
+  ],
+  "why": "Distance moved ≈ lever × angle, and the hip is farthest from the foot. Motor strength does not enter kinematics at all.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b017",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Root loud, tip quiet",
+  "kind": "calc",
+  "q": "A 0.1 rad nudge of the knee moves the foot 32 mm. Roughly how long is the knee's lever arm?",
+  "choices": [
+   "About 0.32 m",
+   "About 3.2 m",
+   "About 0.032 m",
+   "About 0.0032 m"
+  ],
+  "why": "Arc ≈ r·θ, so r ≈ 0.032 m / 0.1 rad = 0.32 m, matching week 2's knee column of 0.32 m/rad.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b018",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Zero-motion joints",
+  "kind": "concept",
+  "q": "Which three joints move their landmark by exactly zero?",
+  "choices": [
+   "Ankle roll, wrist roll, wrist yaw",
+   "Ankle pitch, wrist pitch, elbow",
+   "Hip yaw, waist yaw, wrist yaw",
+   "Ankle roll, hip roll, shoulder roll"
+  ],
+  "why": "Each landmark sits on that joint's own axis, and spinning a point about a line through itself does not move it.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b019",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Zero-motion joints",
+  "kind": "trap",
+  "q": "ankle_roll moves the foot landmark by exactly 0 mm. What does it still do?",
+  "choices": [
+   "It rotates the foot: orientation changes, position does not",
+   "Nothing at all: it is a modelling artefact of the MJCF",
+   "It moves the other foot instead, through the pelvis",
+   "It moves the foot only once gravity is switched on"
+  ],
+  "why": "Position is only half a pose. The three on-axis joints rotate their landmark (28.6° per 0.5 rad), which is why IK solving both position and orientation needs them.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b020",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "qpos vs qvel",
+  "kind": "calc",
+  "q": "Practice Q7: the left knee is at qpos[10]. Which qvel index holds its velocity?",
+  "choices": [
+   "qvel[9]",
+   "qvel[10]",
+   "qvel[11]",
+   "qvel[4]"
+  ],
+  "why": "For every one of the 29 hinges, qpos index − qvel index = 1, so 10 − 1 = 9. Using 10 would read the left ankle pitch's velocity.",
+  "source": "Study guide · Practice Q7"
+ },
+ {
+  "id": "ch2-b021",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "qpos vs qvel",
+  "kind": "calc",
+  "q": "Where is the right knee in qpos and in qvel?",
+  "choices": [
+   "qpos[16], qvel[15]",
+   "qpos[15], qvel[16]",
+   "qpos[16], qvel[16]",
+   "qpos[10], qvel[9]"
+  ],
+  "why": "Right leg = qpos 13..18 in order hip pitch, hip roll, hip yaw, knee, ankle pitch, ankle roll, so the knee is 16, and qvel one lower, 15. qpos 10 is the left knee.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b022",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "qpos vs qvel",
+  "kind": "calc",
+  "q": "The left arm is qpos 22..28: shoulder pitch, roll, yaw, elbow, wrist roll, pitch, yaw. Where is the left elbow?",
+  "choices": [
+   "qpos[25], qvel[24]",
+   "qpos[24], qvel[25]",
+   "qpos[25], qvel[25]",
+   "qpos[26], qvel[25]"
+  ],
+  "why": "Elbow is the 4th joint: 22 + 3 = 25 in qpos; qvel is always one lower, 24.",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b023",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "qpos vs qvel",
+  "kind": "trap",
+  "q": "Code runs data.qpos[dof_index('left_knee')] = 1.0. What actually happens?",
+  "choices": [
+   "The left hip yaw (qpos[9]) is set, silently",
+   "The left knee is set; both indices work on qpos",
+   "The left ankle pitch (qpos[11]) is set, silently",
+   "MuJoCo raises an IndexError"
+  ],
+  "why": "dof_index gives 9, a valid qpos slot that belongs to the neighbouring joint, left hip yaw. Nothing raises, nothing warns.",
+  "source": "Study guide · Week 2b traps"
+ },
+ {
+  "id": "ch2-b024",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "qpos vs qvel",
+  "kind": "trap",
+  "q": "qvel index 6 is left_hip_pitch's velocity. What does qpos[6] hold?",
+  "choices": [
+   "The z component of the pelvis quaternion",
+   "The left hip pitch angle, same slot as qvel",
+   "The pelvis's height z above the floor",
+   "The left hip roll angle"
+  ],
+  "why": "qpos 0..2 are pelvis position and 3..6 its quaternion (w, x, y, z), so qpos[6] is the quaternion's z. Hip pitch's angle is qpos[7].",
+  "source": "Study guide · Week 2b ideas"
+ },
+ {
+  "id": "ch2-b025",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Counting slots",
+  "kind": "concept",
+  "q": "Why is qpos index − qvel index exactly 1 for every G1 hinge?",
+  "choices": [
+   "Only the free joint, listed first, has nq − nv = 1; hinges add 0",
+   "Each hinge stores its angle plus one extra sign slot in qpos",
+   "qvel starts at index 1, because qvel[0] holds the time",
+   "The quaternion and the position each add one extra slot"
+  ],
+  "why": "i_q(j) − i_v(j) = Σ_{k<j} (n_q(k) − n_v(k)). Hinges cost 1/1; the free joint costs 7/6 and comes first in the file.",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b026",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Counting slots",
+  "kind": "calc",
+  "q": "A robot's MJCF lists a free joint, then a ball joint, then hinges. For a hinge after both, what is its qpos index − qvel index?",
+  "choices": [
+   "2",
+   "1",
+   "0",
+   "3"
+  ],
+  "why": "Free: 7 − 6 = 1. Ball: 4 − 3 = 1. Each hinge: 0. The running total is 2.",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b027",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Counting slots",
+  "kind": "number",
+  "q": "The G1's sizes: nq, nv and nu?",
+  "choices": [
+   "nq 36, nv 35, nu 29",
+   "nq 35, nv 36, nu 29",
+   "nq 36, nv 35, nu 30",
+   "nq 36, nv 36, nu 29"
+  ],
+  "why": "nq = 7 + 29, nv = 6 + 29, nu = 29 actuators, one per hinge. The free joint is not actuated (the robot is underactuated).",
+  "source": "Study guide · Week 2b numbers"
+ },
+ {
+  "id": "ch2-b028",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Counting slots",
+  "kind": "number",
+  "q": "Why is njnt = 30 on the G1?",
+  "choices": [
+   "1 free joint + 29 hinges",
+   "29 hinges + 1 weld for the head",
+   "30 hinges, one of them unactuated",
+   "5 chains × 6 joints each"
+  ],
+  "why": "The floating base is a joint too (type free). The head is welded, which is not a joint.",
+  "source": "Study guide · Week 2b numbers"
+ },
+ {
+  "id": "ch2-b029",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Quaternion rate",
+  "kind": "concept",
+  "q": "q̇ = ½ q ⊗ (0, ω). What does this rule guarantee?",
+  "choices": [
+   "‖q‖ stays 1; the rate is set by the 3 numbers of ω",
+   "q turns at twice the angular speed ω, by the ½",
+   "The scalar part w never changes during the motion",
+   "qpos and qvel end up the same length after integrating"
+  ],
+  "why": "d/dt ‖q‖² = 2 q·q̇ = 0, so it stays unit. One constraint on four numbers leaves three freedoms: why rotation costs 4 in qpos but 3 in qvel.",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b030",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Quaternion rate",
+  "kind": "number",
+  "q": "mj_integratePos spins the base at 0.5 rad/s about z for 1 s. What base quaternion results?",
+  "choices": [
+   "(cos 0.25, 0, 0, sin 0.25)",
+   "(cos 0.5, 0, 0, sin 0.5)",
+   "(cos 0.25, sin 0.25, 0, 0)",
+   "(1, 0, 0, 0.5)"
+  ],
+  "why": "The turn is 0.5 rad, and a quaternion holds half the angle: (cos 0.25, 0, 0, sin 0.25). Just adding qvel·dt to qpos would give the wrong shape.",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b031",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Quaternion rate",
+  "kind": "calc",
+  "q": "The base spins at π/2 rad/s about z for 1 s. What is the resulting base quaternion (w, x, y, z)?",
+  "choices": [
+   "(0.707, 0, 0, 0.707)",
+   "(0, 0, 0, 1)",
+   "(0.707, 0, 0.707, 0)",
+   "(1, 0, 0, 1.571)"
+  ],
+  "why": "Angle = 90°; half angle 45°: (cos 45°, 0, 0, sin 45°). (0, 0, 0, 1) is the full-angle slip (a 180° turn); (1, 0, 0, 1.571) is qpos += qvel·dt.",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b032",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Mirroring",
+  "kind": "concept",
+  "q": "With M = diag(1, −1, 1), what is the mirror image of a rotation R?",
+  "choices": [
+   "M R M",
+   "M R",
+   "Rᵀ, the inverse",
+   "−R, every entry negated"
+  ],
+  "why": "Reflect the point to the other side, turn it there, reflect back: p′ = M R M p. M R alone has det −1, not a rotation.",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b033",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Mirroring",
+  "kind": "concept",
+  "q": "Under the left↔right mirror, what happens to the three kinds of joint angle?",
+  "choices": [
+   "Roll and yaw negate; pitch keeps its sign",
+   "Pitch negates; roll and yaw keep their signs",
+   "All three negate",
+   "Only yaw negates"
+  ],
+  "why": "Entry (i, k) of M R M flips iff exactly one of i, k is y. Rx and Rz have their ±s in a y row/column, so they flip; Ry's ±s sit at (x, z) and (z, x).",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b034",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Mirroring",
+  "kind": "calc",
+  "q": "What is M Rz(30°) M, with M = diag(1, −1, 1)?",
+  "choices": [
+   "Rz(−30°)",
+   "Rz(+30°)",
+   "Ry(−30°)",
+   "−Rz(30°)"
+  ],
+  "why": "The −s and +s of Rz sit at (x, y) and (y, x), each touching the y index once, so both flip: Rz(−30°). Yaw negates under the mirror.",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b035",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Mirroring",
+  "kind": "calc",
+  "q": "Left leg pose: hip_pitch −0.3, hip_roll +0.1, hip_yaw +0.05. What is the mirrored right-leg pose?",
+  "choices": [
+   "hip_pitch −0.3, hip_roll −0.1, hip_yaw −0.05",
+   "hip_pitch +0.3, hip_roll −0.1, hip_yaw −0.05",
+   "hip_pitch +0.3, hip_roll +0.1, hip_yaw +0.05",
+   "hip_pitch −0.3, hip_roll −0.1, hip_yaw +0.05"
+  ],
+  "why": "Negate roll and yaw, keep pitch. soc4180.mirror flips any joint whose name contains roll or yaw.",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b036",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Mirroring",
+  "kind": "calc",
+  "q": "The stand keyframe has left arm [0.2, 0.2, 0, 1.28, …] and right arm [0.2, −0.2, 0, 1.28, …]. Which joint changed sign?",
+  "choices": [
+   "Shoulder roll",
+   "Shoulder pitch",
+   "Elbow",
+   "Shoulder yaw"
+  ],
+  "why": "Arm order is shoulder pitch, roll, yaw, elbow, … The 2nd entry, shoulder roll, flips; pitch (0.2) and elbow (1.28) keep. The model's own keyframe proves the rule.",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b037",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Mirroring",
+  "kind": "concept",
+  "q": "Why does the mirror rule work on joint angles alone, using only each joint's name?",
+  "choices": [
+   "Every right joint turns about the same axis as its left twin",
+   "Every right joint's axis is the negative of its left twin's",
+   "MuJoCo stores the right side's angles already mirrored",
+   "The G1 model is symmetric to machine precision"
+  ],
+  "why": "M R M is a statement about rotations; it becomes 'negate roll and yaw angles' only because both sides share axes. With reversed axes the signs would come out the other way.",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b038",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "mj_forward vs mj_step",
+  "kind": "concept",
+  "q": "Which statement about mj_forward is right?",
+  "choices": [
+   "qpos in, x quantities and subtree CoM out; no time passes",
+   "It advances time by 2 ms using ctrl, qvel and contacts",
+   "It reads ctrl and drives each joint's servo toward it",
+   "It integrates qvel into qpos, then computes xpos"
+  ],
+  "why": "Kinematics: nothing falls, ctrl is ignored. mj_step is dynamics: uses ctrl, qvel, contacts, advances 2 ms, and the robot can fall.",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b039",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "mj_forward vs mj_step",
+  "kind": "number",
+  "q": "How much time does one G1 mj_step advance?",
+  "choices": [
+   "2 ms",
+   "0 ms",
+   "10 ms",
+   "1 ms"
+  ],
+  "why": "The G1 runs at a 500 Hz timestep (0.002 s). mj_forward advances nothing.",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b040",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "mj_forward vs mj_step",
+  "kind": "trap",
+  "q": "In a kinematic script, dragging the viewer's Control sliders does nothing. Why?",
+  "choices": [
+   "The sliders write ctrl, which only acts through mj_step",
+   "The viewer drops key and mouse input in kinematic mode",
+   "ctrl is in degrees while qpos is in radians",
+   "mj_forward resets ctrl to zero on every call"
+  ],
+  "why": "In a kinematic script ctrl does nothing; the sliders look dead until wired onto qpos by hand.",
+  "source": "Study guide · Week 2b maths"
+ },
+ {
+  "id": "ch2-b041",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Sites",
+  "kind": "number",
+  "q": "nsite = 4 on the G1. What are the four sites?",
+  "choices": [
+   "Two feet and two IMUs",
+   "Two feet and two hands",
+   "Four IMUs, two per side",
+   "Two hands and two IMUs"
+  ],
+  "why": "Feet (left_foot, right_foot) and IMUs (imu_in_torso, imu_in_pelvis). There are no hand sites.",
+  "source": "Study guide · Week 2b numbers"
+ },
+ {
+  "id": "ch2-b042",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Sites",
+  "kind": "trap",
+  "q": "How do you read the left hand's position on the G1?",
+  "choices": [
+   "data.xpos of the left_wrist_yaw_link body",
+   "data.site_xpos of the left_hand site",
+   "The torso IMU site plus the arm length",
+   "data.xpos of the left_elbow_link body"
+  ],
+  "why": "nsite = 4 has no hand sites, so a hand is read from xpos of the wrist-yaw body (the arm's leaf).",
+  "source": "Study guide · Week 2b numbers"
+ },
+ {
+  "id": "ch2-b043",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Symmetry",
+  "kind": "number",
+  "q": "How symmetric is the G1 model, left to right?",
+  "choices": [
+   "To 10 µm: shoulder y +0.100220 vs −0.100210",
+   "To machine precision: about 10⁻¹⁶ m everywhere",
+   "To 1 mm: the CAD meshes were rounded on export",
+   "To 10 µm: the two hips differ by that much"
+  ],
+  "why": "The only asymmetric body_pos is the shoulder pitch link. A CAD artefact in the model, not a bug in your code.",
+  "source": "Study guide · Week 2b numbers"
+ },
+ {
+  "id": "ch2-b044",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Symmetry",
+  "kind": "calc",
+  "q": "Left shoulder at y = +0.100220 m, right at y = −0.100210 m. How far is the right one from the exact mirror image of the left?",
+  "choices": [
+   "10 µm",
+   "1 µm",
+   "100 µm",
+   "0.1 µm"
+  ],
+  "why": "Mirror of the left is −0.100220; the difference from −0.100210 is 0.000010 m = 10 µm, one part in ten thousand.",
+  "source": "Study guide · Week 2b numbers"
+ },
+ {
+  "id": "ch2-b045",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Symmetry",
+  "kind": "trap",
+  "q": "Mirrored hand positions agree only to about 10⁻⁵ m, not 10⁻¹⁶. Diagnosis?",
+  "choices": [
+   "A 10 µm asymmetry in the MJCF itself, not a bug",
+   "A bug in mirror(): pitch must be negated as well",
+   "Floating-point round-off growing along the arm",
+   "A quaternion read scalar-last somewhere in the arm"
+  ],
+  "why": "The shoulder body_pos values differ by 10 µm. Do not 'fix' the mirror code chasing it, and never assert 1e-16 near it.",
+  "source": "Study guide · Week 2b numbers"
+ },
+ {
+  "id": "ch2-b046",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "set_pose",
+  "kind": "trap",
+  "q": "set_pose bends both legs into a squat and the feet end 0.111 m off the floor. Diagnosis?",
+  "choices": [
+   "Correct: set_pose pins the pelvis, so bent legs are shorter",
+   "A bug: set_pose forgot to call mj_forward afterwards",
+   "A bug: the squat angles were applied in degrees",
+   "Correct only because the servos were switched off"
+  ],
+  "why": "Kinematics places a pose; it does not settle a robot. A real squat lowers the pelvis by about that amount, which IK and the walker decide.",
+  "source": "Study guide · Week 2b numbers"
+ },
+ {
+  "id": "ch2-b047",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "set_pose",
+  "kind": "concept",
+  "q": "What does soc4180.set_pose do besides writing your angles?",
+  "choices": [
+   "Resets to stand first (unless reset=None), then calls mj_forward",
+   "Steps physics until the robot settles onto the floor",
+   "Lowers the pelvis so the feet stay on the floor",
+   "Copies the angles into ctrl for the servos to track"
+  ],
+  "why": "Each pose is then a complete description, not something accumulated from earlier calls, and the x quantities are ready when it returns. It never lowers the pelvis.",
+  "source": "Week 2b slides"
+ },
+ {
+  "id": "ch2-b048",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "set_pose",
+  "kind": "number",
+  "q": "With the pelvis pinned by set_pose, how far does a symmetric squat lift the feet?",
+  "choices": [
+   "0.111 m",
+   "0.037 m",
+   "0.035 m",
+   "0.79 m"
+  ],
+  "why": "0.111 m for the 2b squat (hip −0.6, knee 1.2, ankle −0.6). 0.037 m is week 2's single-leg crouch; 0.035 m is the foot site's height above the spheres.",
+  "source": "Study guide · Week 2b numbers"
+ },
+ {
+  "id": "ch2-b049",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Names not slots",
+  "kind": "trap",
+  "q": "Why write set_pose(model, data, left_elbow=1.2) rather than data.qpos[25] = 1.2?",
+  "choices": [
+   "Ids move when the MJCF changes, names do not; wrong slots never raise",
+   "qpos[25] raises an IndexError on the G1, whose arm starts at 26",
+   "Indexing qpos by slot is far slower than a name lookup",
+   "qpos[25] is read in degrees, while set_pose takes radians"
+  ],
+  "why": "Write names, not slots. qpos[25] is the left elbow today, but the one bug you cannot catch by reading is a valid index that means the wrong joint.",
+  "source": "Study guide · Week 2b traps"
+ },
+ {
+  "id": "ch2-b050",
+  "chapter": "Week 2b · Robot as code",
+  "topic": "Torso measurement",
+  "kind": "trap",
+  "q": "You want to measure how the torso moves. Which point should you track?",
+  "choices": [
+   "The imu_in_torso site, not the torso_link origin",
+   "The torso_link body origin, the centre of the torso",
+   "The pelvis IMU, which sees everything mounted above it",
+   "The head, which is welded rigidly to the torso"
+  ],
+  "why": "torso_link's origin lies on the waist axes and barely moves (0.4 mm under waist_yaw, 0 under roll and pitch); the IMU site moves 4/15/15 mm.",
+  "source": "Study guide · Week 2b traps"
+ }
+]

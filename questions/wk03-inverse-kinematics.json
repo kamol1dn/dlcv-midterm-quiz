@@ -1,0 +1,977 @@
+[
+ {
+  "id": "ch3-001",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Number of IK solutions",
+  "kind": "concept",
+  "q": "Forward kinematics always gives exactly one foot position. What can inverse kinematics give for a foot target?",
+  "choices": [
+   "None, two, infinitely many, or an exploding one",
+   "Always exactly one solution, just like forward kinematics",
+   "Always exactly two solutions: knee forward or knee back",
+   "At most one solution, because the leg is a single serial chain"
+  ],
+  "why": "IK reverses FK and the question misbehaves: out of reach gives none, the knee gives two, extra joints give infinitely many, and near a singularity the answer explodes. Only FK is guaranteed one answer.",
+  "source": "Study guide · Week 3 ideas"
+ },
+ {
+  "id": "ch3-002",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Number of IK solutions",
+  "kind": "concept",
+  "q": "When does an IK problem have infinitely many solutions?",
+  "choices": [
+   "When the leg has more joints than foot constraints",
+   "When the target lies outside the reachable annulus",
+   "When the knee is bent exactly 90 degrees",
+   "When the Jacobian is square and has full rank"
+  ],
+  "why": "Extra joints leave freedom over: a whole family of joint vectors puts the foot in the same place. Outside the annulus there are none, and a square full-rank Jacobian gives a unique local step.",
+  "source": "Study guide · Week 3 ideas"
+ },
+ {
+  "id": "ch3-003",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "IK is geometry, not balance",
+  "kind": "trap",
+  "q": "A pose that IK solves with zero error is placed on the simulated robot under gravity. What does the course say can happen?",
+  "choices": [
+   "It may still fall over: IK is geometry, not balance",
+   "It cannot fall, because the IK residual is zero",
+   "It falls only if the damping λ was set too small",
+   "It falls only if the target was outside the annulus"
+  ],
+  "why": "IK only places a pose; whether the robot can hold it depends on where its weight is, which IK never checks. A perfectly solved pose can be one the robot cannot hold for a moment.",
+  "source": "Study guide · Week 3 ideas"
+ },
+ {
+  "id": "ch3-004",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Closed-form IK",
+  "kind": "trap",
+  "q": "Closed-form IK for a 6-joint foot pose is possible. Why does the course use differential IK instead?",
+  "choices": [
+   "Robot-specific, brittle to model changes, hard to add limits to",
+   "No closed-form solution exists for any leg with more than two joints",
+   "Closed form needs thousands of iterations, so it is too slow for 500 Hz",
+   "Closed form only works when the leg is perfectly straight"
+  ],
+  "why": "The derivation exists but is tied to one robot, breaks when the model changes, and is hard to extend with joint limits or obstacles. The tempting claim that no closed form exists is false: the guide says it can be solved.",
+  "source": "Study guide · Week 3 ideas"
+ },
+ {
+  "id": "ch3-005",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Law of cosines",
+  "kind": "concept",
+  "q": "In MuJoCo's convention (the one the course uses), what knee angle θ is a perfectly straight leg?",
+  "choices": [
+   "θ = 0",
+   "θ = 90°",
+   "θ = 180°",
+   "θ = −90°"
+  ],
+  "why": "The G1's knee counts from zero when the leg is straight. The 180° answer is the triangle's interior corner, which is π − θ, not the joint angle.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-006",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Law of cosines",
+  "kind": "concept",
+  "q": "With θ the knee joint angle (0 = straight), which formula gives it from the hip-to-foot distance d?",
+  "choices": [
+   "cos θ = (d² − ℓ1² − ℓ2²) / (2ℓ1ℓ2)",
+   "cos θ = (ℓ1² + ℓ2² − d²) / (2ℓ1ℓ2)",
+   "cos θ = (d² − ℓ1² − ℓ2²) / (ℓ1 + ℓ2)",
+   "cos θ = (ℓ1² + d² − ℓ2²) / (2ℓ1d)"
+  ],
+  "why": "For the joint angle the sign is flipped relative to the textbook interior-angle law, since the interior corner is π − θ and cos(π − θ) = −cos θ. The last formula is the hip corner φ, not the knee.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-007",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Law of cosines",
+  "kind": "calc",
+  "q": "Two-link leg, ℓ1 = 0.3 m, ℓ2 = 0.4 m, target at d = 0.5 m. What is the knee angle θ (0 = straight)?",
+  "choices": [
+   "90°",
+   "0°",
+   "180°",
+   "37°"
+  ],
+  "why": "d² = 0.25 = 0.09 + 0.16, so the numerator d² − ℓ1² − ℓ2² is 0 and cos θ = 0, θ = 90°. Whenever d² = ℓ1² + ℓ2² the knee is a right angle.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-008",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Law of cosines",
+  "kind": "calc",
+  "q": "Two-link leg, ℓ1 = 0.4 m, ℓ2 = 0.2 m, target at d = 0.6 m. What is the knee angle θ (0 = straight)?",
+  "choices": [
+   "0°: the leg is straight",
+   "180°: the leg is folded",
+   "90°: a right angle",
+   "60°: an equilateral bend"
+  ],
+  "why": "d = ℓ1 + ℓ2 is full reach: cos θ = (0.36 − 0.16 − 0.04)/(0.16) = 1, so θ = 0. Answering 180° confuses the joint angle with the triangle's interior corner.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-009",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Law of cosines",
+  "kind": "calc",
+  "q": "Two-link leg, ℓ1 = 0.5 m, ℓ2 = 0.3 m, target at d = 0.2 m. What is the knee angle θ (0 = straight)?",
+  "choices": [
+   "180°: folded completely back",
+   "0°: perfectly straight at full reach",
+   "90°: a right angle at the knee",
+   "None: the target is unreachable"
+  ],
+  "why": "cos θ = (0.04 − 0.25 − 0.09)/0.30 = −1, so θ = 180°. d = |ℓ1 − ℓ2| is the inner edge of the annulus: just reachable, with the shin folded onto the thigh.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-010",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Law of cosines",
+  "kind": "calc",
+  "q": "Two-link leg, ℓ1 = ℓ2 = 1 m, target at d = 1 m. What is the knee angle θ (0 = straight)?",
+  "choices": [
+   "120°",
+   "60°",
+   "90°",
+   "150°"
+  ],
+  "why": "cos θ = (1 − 1 − 1)/2 = −0.5, so θ = 120°. 60° is the interior corner of the equilateral triangle (π − θ), the sign slip the formula is written to avoid.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-011",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Two IK solutions",
+  "kind": "trap",
+  "q": "arccos returns one knee angle θ for a reachable target. What is the second solution?",
+  "choices": [
+   "−θ: the knee bent the other way",
+   "π − θ: the interior corner of the triangle",
+   "θ + π: the same leg pointing backwards",
+   "None: arccos is one-to-one, so θ is unique"
+  ],
+  "why": "cos(−θ) = cos θ, so the mirror-image knee also satisfies the law of cosines: knee forward and knee back. π − θ is the triangle's interior angle, not a second joint solution.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-012",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Reach annulus",
+  "kind": "calc",
+  "q": "A two-link leg has ℓ1 = 0.5 m and ℓ2 = 0.3 m. Is a target 0.1 m from the hip reachable?",
+  "choices": [
+   "No: the reachable set starts at |0.5 − 0.3| = 0.2 m",
+   "Yes: every target closer than 0.5 + 0.3 = 0.8 m is reachable",
+   "Yes: close targets are easier, the knee just bends more",
+   "No: the reachable set starts at the shin length, 0.3 m"
+  ],
+  "why": "Reach is an annulus |ℓ1 − ℓ2| ≤ d ≤ ℓ1 + ℓ2, here 0.2 to 0.8 m, and 0.1 m is inside the hole. Forgetting the inner radius is the classic slip.",
+  "source": "Study guide · Practice questions"
+ },
+ {
+  "id": "ch3-013",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Reach annulus",
+  "kind": "calc",
+  "q": "A two-link leg has ℓ1 = 0.4 m and ℓ2 = 0.3 m. Which hip-to-foot distances can it reach?",
+  "choices": [
+   "From 0.1 m to 0.7 m",
+   "From 0 m to 0.7 m",
+   "From 0.3 m to 0.7 m",
+   "From 0.1 m to 0.5 m"
+  ],
+  "why": "Inner radius |0.4 − 0.3| = 0.1 m, outer 0.4 + 0.3 = 0.7 m. 0 to 0.7 m forgets the inner radius; 0.5 m is √(ℓ1² + ℓ2²), the right-angle knee, not the edge.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-014",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Reach annulus",
+  "kind": "calc",
+  "q": "A two-link leg has equal links, ℓ1 = ℓ2 = 0.35 m. Which hip-to-foot distances can it reach?",
+  "choices": [
+   "Any distance from 0 to 0.70 m: no hole",
+   "Only from 0.35 m to 0.70 m: never closer than one link",
+   "Only exactly 0.70 m, at full stretch",
+   "From 0.35 m to 0.49 m, the right-angle reach"
+  ],
+  "why": "|ℓ1 − ℓ2| = 0 when the links are equal, so the annulus becomes a full disc and the foot can even fold back onto the hip. Unequal links are what create the hole.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-015",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Reach annulus",
+  "kind": "trap",
+  "q": "A foot target sits 2 cm from the G1's hip. Why can the IK not reach it?",
+  "choices": [
+   "It is inside the annulus hole, under 0.0409 m",
+   "It can: a closer target is always easier, the knee simply bends more",
+   "Because the Jacobian cannot be computed so close to the hip joint",
+   "Because the damping λ switches off every direction near the hip"
+  ],
+  "why": "Too close is as impossible as too far: the G1 thigh (0.3409 m) and shin (0.3000 m) cannot fold to less than 0.0409 m. The belief that closer is always easier ignores the inner radius.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-016",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Reach annulus",
+  "kind": "number",
+  "q": "What is the reachable hip-to-foot range of the G1's two-link leg model?",
+  "choices": [
+   "0.0409 m to 0.6409 m",
+   "0 m to 0.6409 m",
+   "0.3000 m to 0.6409 m",
+   "0.0409 m to 0.7000 m"
+  ],
+  "why": "Thigh 0.3409 m and shin 0.3000 m give |ℓ1 − ℓ2| = 0.0409 and ℓ1 + ℓ2 = 0.6409. 0.70 m is a distance the lab measured as unreachable.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-017",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Reach annulus",
+  "kind": "number",
+  "q": "The lab tabulated the G1 knee angle against hip-to-foot distance. Which row matches?",
+  "choices": [
+   "144° at 0.20 m, 41° at 0.60 m, 6° at 0.64 m",
+   "6° at 0.20 m, 41° at 0.60 m, 144° at 0.64 m",
+   "36° at 0.20 m, 139° at 0.60 m, 174° at 0.64 m",
+   "90° at 0.20 m, 45° at 0.60 m, 0° at 0.64 m"
+  ],
+  "why": "A short distance needs a deep bend and the knee straightens toward full reach (0.6409 m). The 174° row is the old bug that reported the interior corner instead of the joint angle.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-018",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Reach annulus",
+  "kind": "number",
+  "q": "Which pair of hip-to-foot distances did the lab find unreachable for the G1 leg?",
+  "choices": [
+   "0.02 m and 0.70 m",
+   "0.20 m and 0.60 m",
+   "0.06 m and 0.62 m",
+   "0.10 m and 0.50 m"
+  ],
+  "why": "0.02 m is inside the 0.0409 m hole and 0.70 m is beyond the 0.6409 m outer edge. The other distances all lie in the annulus.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-019",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Sensitivity near straight",
+  "kind": "concept",
+  "q": "The knee's sensitivity is |dθ/dd| = d / (ℓ1ℓ2 sin θ). What happens as the leg straightens (θ → 0)?",
+  "choices": [
+   "It diverges, because sin θ → 0 in the denominator",
+   "It goes to zero, because the knee stops moving",
+   "It stays constant at about 1/ℓ1 rad per metre",
+   "It is largest at θ = 90°, then falls toward zero"
+  ],
+  "why": "sin θ → 0 at full reach, so the knee angle needed per metre of target blows up. That is the two-link picture of the singularity.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-020",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Sensitivity near straight",
+  "kind": "concept",
+  "q": "Near full reach, what does one millimetre of change in the foot target ask of the knee?",
+  "choices": [
+   "Whole degrees of knee motion",
+   "A thousandth of a degree, almost nothing",
+   "Exactly one milliradian per millimetre",
+   "No motion, since the knee is already locked"
+  ],
+  "why": "Because |dθ/dd| diverges as sin θ → 0, a tiny change in d near the straight leg demands a large change in θ: \"one millimetre asks for degrees of knee\".",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-021",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Sensitivity near straight",
+  "kind": "calc",
+  "q": "Same leg, nearly straight in both cases (d ≈ ℓ1 + ℓ2). Compare |dθ/dd| at sin θ = 0.01 with sin θ = 0.1.",
+  "choices": [
+   "About 10 times larger at sin θ = 0.01",
+   "About 10 times smaller at sin θ = 0.01",
+   "About 100 times larger at sin θ = 0.01",
+   "The same, since d hardly changes"
+  ],
+  "why": "|dθ/dd| = d/(ℓ1ℓ2 sin θ) with d nearly fixed, so dividing sin θ by 10 multiplies the sensitivity by 10 (1/sin θ, not 1/sin² θ).",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-022",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Differential IK",
+  "kind": "concept",
+  "q": "What equation does differential IK solve at each iteration?",
+  "choices": [
+   "J Δq = e: a small joint change, then repeat",
+   "J q = x: the joint angles for the target in one shot",
+   "Δq = J e: the error multiplied by the Jacobian",
+   "e = J⁻¹ x: the foot error from the foot position"
+  ],
+  "why": "Differential IK does not solve for the angles; it solves for a small change Δq that moves the foot by e, then repeats. J maps joint motion to foot motion, so it multiplies Δq, not e.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-023",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Plain inverse and SVD",
+  "kind": "concept",
+  "q": "With J = UΣVᵀ, what does the plain inverse Δq = J⁻¹e do to each foot direction?",
+  "choices": [
+   "Divides it by its own singular value σᵢ",
+   "Multiplies it by its own singular value σᵢ",
+   "Divides every direction by σ_max",
+   "Divides it by σᵢ² + λ²"
+  ],
+  "why": "J⁻¹ = VΣ⁻¹Uᵀ, so the component of e along uᵢ is scaled by 1/σᵢ. A direction the leg barely moves (tiny σᵢ) needs an enormous joint motion.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-024",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Plain inverse and SVD",
+  "kind": "calc",
+  "q": "A foot request of 0.05 m lies along a direction with singular value σ = 0.1 m/rad. How much joint motion does the plain inverse ask?",
+  "choices": [
+   "0.5 rad",
+   "0.005 rad",
+   "5 rad",
+   "0.05 rad"
+  ],
+  "why": "Plain inverse divides by σ: 0.05/0.1 = 0.5 rad. Multiplying instead (0.005 rad) is the slip of applying J instead of J⁻¹.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-025",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Plain inverse and SVD",
+  "kind": "calc",
+  "q": "The same 0.05 m request now lies along a direction with σ = 10⁻⁶ m/rad. What does the plain inverse ask?",
+  "choices": [
+   "About 50,000 rad",
+   "About 5 × 10⁻⁸ rad",
+   "About 0.05 rad",
+   "About 500 rad"
+  ],
+  "why": "0.05/10⁻⁶ = 5 × 10⁴ rad. That is the straight-leg story: the algebra returns an exact but absurd answer.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-026",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Plain inverse and SVD",
+  "kind": "number",
+  "q": "Lowering the G1 foot 5 cm with the plain inverse: what does it cost crouched (σ_min 0.089) and at stand (σ_min 9e-7)?",
+  "choices": [
+   "0.56 rad crouched, about 55,000 rad at stand",
+   "About 55,000 rad crouched, 0.56 rad at stand",
+   "0.56 rad in both poses: the request is the same",
+   "0.04 rad crouched, 0.56 rad at stand"
+  ],
+  "why": "Same request, different σ_min: crouched it is half a radian shared by hip, knee and ankle; straight it is tens of thousands of radians. 0.04 rad is what DLS with λ = 10⁻³ gives at stand.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-027",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Zero residual is not sensible",
+  "kind": "trap",
+  "q": "At stand the plain inverse returns Δq ≈ 55,000 rad and the residual ‖JΔq − e‖ is exactly zero. What should you conclude?",
+  "choices": [
+   "The algebra succeeded and commanded the impossible",
+   "The step is exact, so the robot can execute it",
+   "The zero residual proves the target is reachable",
+   "λ should be lowered further to keep it exact"
+  ],
+  "why": "A zero residual only says the linear equation is satisfied; it says nothing about whether the joint motion is sane. Near a singularity the exact answer is enormous.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-028",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Zero residual is not sensible",
+  "kind": "trap",
+  "q": "An IK step reports a residual of 0 to machine precision. Can you conclude the joint motion is sensible?",
+  "choices": [
+   "No: check ‖Δq‖ too; near a singularity exact steps are huge",
+   "Yes: a zero residual is the definition of a perfect IK solution",
+   "Yes, as long as the Jacobian is square (six joints, six constraints)",
+   "No, because a zero residual always means the target was unreachable"
+  ],
+  "why": "A zero residual does not mean a sensible solution: the plain inverse at stand is exact and asks for ~55,000 rad. Squareness only makes J⁻¹ defined, not well behaved.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-029",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Singularity",
+  "kind": "concept",
+  "q": "In SVD terms, what is the singularity at the G1's stand pose?",
+  "choices": [
+   "σ_min ≈ 0: the Jacobian has (almost) lost a rank",
+   "σ_max → ∞: the Jacobian entries blow up",
+   "All singular values equal 1: J is a rotation",
+   "All singular values are equal: κ = 1"
+  ],
+  "why": "A singularity is a pose where J loses a rank, σ_min ≈ 0 (9e-7 at stand, a rank gone up to round-off). The entries of J stay finite; it is the smallest gain that vanishes.",
+  "source": "Study guide · Glossary"
+ },
+ {
+  "id": "ch3-030",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Damped least squares",
+  "kind": "concept",
+  "q": "Which cost does damped least squares minimise?",
+  "choices": [
+   "‖JΔq − e‖² + λ²‖Δq‖²",
+   "‖JΔq − e‖² − λ²‖Δq‖²",
+   "‖Δq‖² + λ²‖e‖²",
+   "‖JΔq − e‖ + λ‖e‖²"
+  ],
+  "why": "Error left over plus joint motion spent, weighted by λ². A minus sign would reward big motion; penalising ‖e‖ makes no sense since e is given, not chosen.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-031",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Damped least squares",
+  "kind": "concept",
+  "q": "Setting the gradient of the DLS cost to zero gives which update?",
+  "choices": [
+   "Δq = (JᵀJ + λ²I)⁻¹ Jᵀ e",
+   "Δq = (JᵀJ − λ²I)⁻¹ Jᵀ e",
+   "Δq = (JJᵀ + λ²I)⁻¹ Jᵀ e",
+   "Δq = Jᵀ (JᵀJ + λ²I)⁻¹ e"
+  ],
+  "why": "The normal equations are (JᵀJ + λ²I)Δq = Jᵀe. The other forms either flip the damping sign or put the matrices in an order whose sizes do not match.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-032",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Damped least squares",
+  "kind": "concept",
+  "q": "Why does the DLS inverse always exist for λ > 0, even at a singularity?",
+  "choices": [
+   "JᵀJ + λ²I is positive definite for any λ > 0",
+   "Because J itself is always invertible once λ is added to it",
+   "Because λ cancels the zero singular values exactly",
+   "Because the identity is invertible, any sum with it is invertible"
+  ],
+  "why": "‖Jv‖² ≥ 0 and λ²‖v‖² > 0 for v ≠ 0, so the matrix is positive definite and invertible. The last option is false in general: I + (−I) is not invertible.",
+  "source": "Week 3 slides"
+ },
+ {
+  "id": "ch3-033",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "DLS two forms",
+  "kind": "concept",
+  "q": "How are (JᵀJ + λ²I)⁻¹Jᵀe and Jᵀ(JJᵀ + λ²I)⁻¹e related?",
+  "choices": [
+   "The same vector, by the push-through identity",
+   "They differ; the second is the more accurate one",
+   "They agree only when λ = 0, the plain inverse",
+   "They agree only when J is square (6 × 6)"
+  ],
+  "why": "Jᵀ(JJᵀ + λ²I) = (JᵀJ + λ²I)Jᵀ, so the two expressions are equal for any J and any λ > 0. They differ only in the size of the matrix inverted.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-034",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "DLS two forms",
+  "kind": "concept",
+  "q": "J is 6 × 12 (six foot constraints, twelve joints). Which DLS form is the cheaper solve?",
+  "choices": [
+   "Jᵀ(JJᵀ + λ²I)⁻¹e, since it inverts a 6 × 6 matrix",
+   "(JᵀJ + λ²I)⁻¹Jᵀe, since it inverts a 6 × 6 matrix",
+   "Jᵀ(JJᵀ + λ²I)⁻¹e, since it inverts a 12 × 12 matrix",
+   "Neither: both forms invert a 12 × 12 matrix"
+  ],
+  "why": "JJᵀ is 6 × 6 and JᵀJ is 12 × 12. With more joints than constraints the right-hand form inverts the smaller matrix; for one G1 leg (6 × 6) they cost the same.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-035",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "λ as a threshold",
+  "kind": "concept",
+  "q": "With J = UΣVᵀ, DLS scales direction i by σᵢ/(σᵢ² + λ²). What does that do?",
+  "choices": [
+   "σᵢ ≫ λ gets the true inverse 1/σᵢ; σᵢ ≪ λ is switched off",
+   "σᵢ ≫ λ is switched off; σᵢ ≪ λ gets the true inverse 1/σᵢ",
+   "Every direction is scaled down by the same factor λ",
+   "Every direction gets 1/σᵢ, plus a constant λ²"
+  ],
+  "why": "For σᵢ ≫ λ the gain ≈ 1/σᵢ; for σᵢ ≪ λ it ≈ σᵢ/λ² → 0. λ is a threshold: weak directions are ignored rather than amplified.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-036",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "λ as a threshold",
+  "kind": "concept",
+  "q": "What does raising the damping λ trade?",
+  "choices": [
+   "Accuracy for stability",
+   "Stability for accuracy",
+   "Speed for memory",
+   "Reach for joint limits"
+  ],
+  "why": "A larger λ keeps steps small near singularities (stable) but delivers less of the requested motion per step (less accurate). It cannot change what the leg can reach.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-037",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "λ as a threshold",
+  "kind": "calc",
+  "q": "DLS gain σ/(σ² + λ²) with σ = 1 and λ = 0.1. About how large is it?",
+  "choices": [
+   "≈ 0.99, almost the true inverse 1/σ = 1",
+   "≈ 0.10, the direction is switched off",
+   "≈ 9.9, amplified about tenfold",
+   "≈ 0.01, which is just λ²"
+  ],
+  "why": "1/(1 + 0.01) ≈ 0.99. Since σ ≫ λ, DLS behaves like the plain inverse here.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-038",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "λ as a threshold",
+  "kind": "calc",
+  "q": "DLS gain σ/(σ² + λ²) with σ = 0.001 and λ = 0.1. About how large is it?",
+  "choices": [
+   "≈ 0.1, nearly switched off",
+   "≈ 1000, the plain inverse 1/σ",
+   "≈ 0.001, equal to σ",
+   "≈ 10, equal to 1/λ"
+  ],
+  "why": "σ ≪ λ, so the gain ≈ σ/λ² = 0.001/0.01 = 0.1, against 1000 for the plain inverse. The weak direction is suppressed instead of amplified.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-039",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "λ as a threshold",
+  "kind": "calc",
+  "q": "DLS gain σ/(σ² + λ²) when σ = λ = 0.1. What is it?",
+  "choices": [
+   "5, half the plain inverse's 10",
+   "10, the plain inverse 1/σ",
+   "0.05, half of σ",
+   "50, five times the plain inverse"
+  ],
+  "why": "0.1/(0.01 + 0.01) = 5, while 1/σ = 10. At σ = λ the gain is exactly 1/(2λ): the crossover between \"true inverse\" and \"switched off\".",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-040",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "λ as a threshold",
+  "kind": "calc",
+  "q": "With λ = 0.01, what is the largest gain σ/(σ² + λ²) any direction can receive?",
+  "choices": [
+   "50, reached at σ = λ",
+   "100, which is 1/λ",
+   "10,000, which is 1/λ²",
+   "Unbounded as σ → 0"
+  ],
+  "why": "The gain peaks at σ = λ with value 1/(2λ) = 50, and falls to 0 for smaller σ. \"Unbounded\" describes the plain inverse 1/σ, which DLS exists to avoid.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-041",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "λ as a threshold",
+  "kind": "calc",
+  "q": "At stand the weak direction has σ ≈ 9 × 10⁻⁷. With λ = 10⁻³, about how much joint motion does a 5 cm request along it cost?",
+  "choices": [
+   "About 0.04 rad",
+   "About 55,000 rad",
+   "About 50 rad",
+   "Exactly 0 rad"
+  ],
+  "why": "σ ≪ λ so the gain ≈ σ/λ² = 9e-7/1e-6 = 0.9, and 0.05 × 0.9 ≈ 0.045 rad (the guide's 0.04 rad). 55,000 rad is the undamped plain inverse.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-042",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Damping cannot add a direction",
+  "kind": "trap",
+  "q": "DLS from the straight-leg stand pose keeps the step small, yet the foot still does not go down. Why?",
+  "choices": [
+   "Damping cannot invent a direction the pose lacks",
+   "λ is still too small; a larger λ would deliver the full 5 cm",
+   "λ is too large; λ → 0 would deliver the full 5 cm safely",
+   "The solver needs more iterations to accumulate the motion"
+  ],
+  "why": "At a straight leg no joint motion shortens it (σ_min ≈ 9e-7). Larger λ switches that direction off; smaller λ asks for absurd motion. No λ creates the missing direction.",
+  "source": "Study guide · Week 3 traps"
+ },
+ {
+  "id": "ch3-043",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Damping cannot add a direction",
+  "kind": "trap",
+  "q": "IK must lower the pelvis but starts from the straight-leg stand keyframe and barely moves. What is the fix?",
+  "choices": [
+   "Start from a crouched seed instead",
+   "Raise λ until the step converges",
+   "Lower λ to recover the exact inverse",
+   "Raise the iteration count tenfold"
+  ],
+  "why": "The fix for a straight leg is a different starting pose, not a different λ or more iterations. That is why every gait in the course starts crouched, and why humans do not walk with locked knees.",
+  "source": "Study guide · Week 3 traps"
+ },
+ {
+  "id": "ch3-044",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Seed matters",
+  "kind": "trap",
+  "q": "IK from a straight leg leaves a residual of 0.79 after 40 iterations and exactly 0.79 after 400. Should you raise λ, raise the iterations, or change the seed?",
+  "choices": [
+   "Change the seed to a crouch: the missing direction is geometry",
+   "Raise the iterations: 400 was still not enough to converge",
+   "Raise λ: the damping is too weak to stabilise the solve",
+   "Lower λ: the damping is hiding the true exact solution"
+  ],
+  "why": "A residual that ignores the iteration count is geometry, and damping cannot add the missing direction. From a crouched seed the same request reaches 2.2e-6.",
+  "source": "Study guide · Practice questions"
+ },
+ {
+  "id": "ch3-045",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Geometry vs solver problem",
+  "kind": "trap",
+  "q": "A tracking residual stays at 2.68e-3 m whether you run 12, 40 or 120 iterations. What kind of problem is this?",
+  "choices": [
+   "A geometry problem: the target is out of reach",
+   "A solver problem: it needs even more iterations",
+   "A damping problem: λ is set far too high",
+   "A precision problem: double precision ran out"
+  ],
+  "why": "A residual that does not shrink with more iterations is geometry (unreachable target). Only a residual that shrinks slowly is a solver problem.",
+  "source": "Study guide · Week 3 traps"
+ },
+ {
+  "id": "ch3-046",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Geometry vs solver problem",
+  "kind": "trap",
+  "q": "When is a large IK residual a solver problem rather than a geometry problem?",
+  "choices": [
+   "When it shrinks slowly as iterations are added",
+   "When it stays exactly the same however many iterations",
+   "Whenever it is larger than one millimetre",
+   "Whenever the Jacobian is non-square"
+  ],
+  "why": "A slowly shrinking residual means the solver is getting there and needs more effort. A residual frozen regardless of iterations means the target itself is unreachable.",
+  "source": "Study guide · Week 3 traps"
+ },
+ {
+  "id": "ch3-047",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Geometry vs solver problem",
+  "kind": "trap",
+  "q": "How does the course say you should check whether a foot target is reachable?",
+  "choices": [
+   "With a ruler: distance against the annulus",
+   "Run the solver for many more iterations and watch",
+   "Lower λ until the residual reaches zero",
+   "Check whether the condition number is below 20"
+  ],
+  "why": "Reachability is a property of the target, not of the solver. You can check it before running anything by measuring the distance against |ℓ1 − ℓ2| ≤ d ≤ ℓ1 + ℓ2.",
+  "source": "Study guide · Week 3 traps"
+ },
+ {
+  "id": "ch3-048",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Geometry vs solver problem",
+  "kind": "number",
+  "q": "A 90-target circle tracked with warm starts, then the same circle stretched 2 cm taller. What were the worst errors?",
+  "choices": [
+   "8.4e-5 m, then 2.68e-3 m at 12, 40 and 120 iterations alike",
+   "8.4e-5 m, then 2.68e-3 m at 12 iterations, 8.4e-5 m at 120",
+   "2.68e-3 m, then 8.4e-5 m once warm starting was on",
+   "2.2e-6 m, then 0.79 m at 12, 40 and 120 iterations alike"
+  ],
+  "why": "The taller circle leaves the reachable set at the bottom, so its error is identical at any iteration count. 2.2e-6 and 0.79 are the crouch-vs-straight seed residuals, a different experiment.",
+  "source": "Study guide · Week 3 numbers"
+ },
+ {
+  "id": "ch3-049",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Condition number",
+  "kind": "concept",
+  "q": "What is the condition number κ = σ_max/σ_min of the leg Jacobian, geometrically?",
+  "choices": [
+   "The aspect ratio of the ellipsoid J maps unit joint motions onto",
+   "The volume of the ellipsoid J maps the unit sphere of joint motions onto",
+   "The number of joints minus the number of foot constraints",
+   "The largest joint angle divided by the smallest joint angle"
+  ],
+  "why": "J sends every unit joint motion to a foot motion; the image is an ellipsoid with semi-axes σᵢ, and κ is its longest-to-shortest ratio. The volume would be the product of the σᵢ, not the ratio.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-050",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Condition number",
+  "kind": "calc",
+  "q": "A Jacobian has σ_max = 2 and σ_min = 0.002. What is κ and roughly how many significant digits can its inverse lose?",
+  "choices": [
+   "κ = 1000, about 3 digits",
+   "κ = 1000, about 1000 digits",
+   "κ = 0.001, about 3 digits",
+   "κ = 100, about 2 digits"
+  ],
+  "why": "κ = 2/0.002 = 1000 and log10 κ = 3 digits lost, not κ digits. 0.001 is the ratio upside down; κ is always at least 1.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-051",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Condition number",
+  "kind": "calc",
+  "q": "A Jacobian has σ_max = 0.5 and σ_min = 0.05. Relative errors in e can be amplified by up to how much in Δq?",
+  "choices": [
+   "10 times (about 1 digit lost)",
+   "0.1 times (errors shrink)",
+   "100 times (about 2 digits)",
+   "0.025 times (σ_max × σ_min)"
+  ],
+  "why": "κ = 0.5/0.05 = 10, so ‖δΔq‖/‖Δq‖ ≤ 10 ‖δe‖/‖e‖ and log10 10 = 1 digit lost. κ ≥ 1 always, so errors are never shrunk by it.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-052",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Condition number",
+  "kind": "calc",
+  "q": "κ = 1000 and the foot request e is known to 0.1 %. In the worst case, how large can the relative error in Δq = J⁻¹e be?",
+  "choices": [
+   "About 100 %",
+   "About 0.1 %",
+   "About 0.0001 %",
+   "About 3 %"
+  ],
+  "why": "Relative error is amplified by up to κ: 1000 × 0.1 % = 100 %, i.e. the answer can be wrong by its own size. 3 % confuses κ with the digits lost (log10 κ = 3).",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-053",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Condition number",
+  "kind": "number",
+  "q": "What condition numbers did the course measure for the G1 leg Jacobian?",
+  "choices": [
+   "Crouch κ ≈ 20 (1 digit lost); stand κ ≈ 2×10⁶ (6 digits lost)",
+   "Crouch κ ≈ 2×10⁶ (6 digits lost); stand κ ≈ 20 (1 digit lost)",
+   "Crouch κ ≈ 1 (no digits lost); stand κ ≈ 20 (1 digit lost)",
+   "Both poses κ ≈ 20: only λ differs between them"
+  ],
+  "why": "The crouch ellipse is squashed about 20:1; at the straight leg it has collapsed toward a line, κ ≈ 2×10⁶. log10 κ gives 1 and 6 digits.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-054",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Condition number",
+  "kind": "concept",
+  "q": "At a perfectly straight leg, what happens to the ellipse the Jacobian draws?",
+  "choices": [
+   "It collapses to a line: no direction shortens the leg",
+   "It becomes a circle: every direction is equally easy",
+   "It grows without bound: every direction is amplified",
+   "It rotates 90°: up and down swap with forward and back"
+  ],
+  "why": "The axis that would shorten the leg is ~10⁻⁶ long. Turning any joint a little swings the foot along an arc, never toward the hip.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-055",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "The weak direction",
+  "kind": "concept",
+  "q": "Which joint combination is the G1 leg's weakest singular direction?",
+  "choices": [
+   "−0.38 hip pitch + 0.81 knee − 0.44 ankle pitch",
+   "Pure hip roll, with every other joint held still",
+   "+0.81 hip yaw − 0.44 hip roll + 0.38 ankle roll",
+   "Equal parts of all six joints, 0.41 each"
+  ],
+  "why": "Bend the knee and pitch hip and ankle back so the foot stays level: the one motion that shortens the leg. It moves the foot straight up or down (pure z).",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-056",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "The weak direction",
+  "kind": "concept",
+  "q": "How does the weak direction differ between the crouch and the straight stand pose?",
+  "choices": [
+   "Same joint mix in both; only its gain changes, 9e-7 to 0.089",
+   "Different joint mix in each; the gain is 0.089 in both",
+   "It involves only the knee at stand, only the hip when crouched",
+   "It exists only when crouched and vanishes at stand"
+  ],
+  "why": "The mix −0.38/+0.81/−0.44 is the same; bending the knee restores its gain by a factor of ~100,000. At stand it still exists as a direction, it just buys almost no foot motion.",
+  "source": "Study guide · Week 3 maths"
+ },
+ {
+  "id": "ch3-057",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "The weak direction",
+  "kind": "number",
+  "q": "By roughly what factor does bending the knee from stand to the crouch raise σ_min of the leg Jacobian?",
+  "choices": [
+   "About 100,000 (9e-7 → 0.089)",
+   "About 20 (the crouch's κ)",
+   "About 1000 (1e-3 → 1)",
+   "About 2 million (stand's κ)"
+  ],
+  "why": "0.089 / 9e-7 ≈ 10⁵. 20 and 2×10⁶ are the condition numbers, not the ratio of σ_min between the poses.",
+  "source": "Study guide · Week 3 numbers"
+ },
+ {
+  "id": "ch3-058",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Seed matters",
+  "kind": "number",
+  "q": "Lower the pelvis 8 cm with both feet held, 40 iterations. What residuals did the two seeds leave?",
+  "choices": [
+   "Straight-leg seed 0.79; crouched seed 2.2e-6",
+   "Straight-leg seed 2.2e-6; crouched seed 0.79",
+   "Straight-leg seed 2.68e-3; crouched seed 8.4e-5",
+   "Both about 2.2e-6 once λ was tuned"
+  ],
+  "why": "Same request, same solver, different seed: the straight leg cannot be lowered, the crouch is solved almost exactly. 2.68e-3 and 8.4e-5 belong to the circle demo.",
+  "source": "Study guide · Week 3 numbers"
+ },
+ {
+  "id": "ch3-059",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Warm starting",
+  "kind": "concept",
+  "q": "What is warm starting in IK, and what does it buy along a path?",
+  "choices": [
+   "Seed each solve from the last answer: faster, and no knee flipping",
+   "Seed each solve from the crouch: slower, but always the same pose",
+   "Raise λ for the first iterations, then lower it to zero",
+   "Solve each target twice and average the two answers"
+  ],
+  "why": "Starting from the previous answer converges in fewer iterations and picks the solution near the last one, so the leg does not jump between knee-forward and knee-back.",
+  "source": "Study guide · Week 3 traps"
+ },
+ {
+  "id": "ch3-060",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Warm starting",
+  "kind": "trap",
+  "q": "Along a path, every IK solve is re-seeded from the same fixed pose instead of the previous answer. What can go wrong?",
+  "choices": [
+   "The leg can flip between knee-forward and knee-back mid-path",
+   "Nothing: re-seeding from a fixed pose is just warm starting",
+   "The residual drops to zero, so joint motion becomes absurd",
+   "The damping λ is reset, so every step becomes singular"
+  ],
+  "why": "Without warm starting each solve may land on either of the two knee solutions, giving jumps in the joint trajectory. Warm starting picks the solution near the last one.",
+  "source": "Study guide · Week 3 traps"
+ },
+ {
+  "id": "ch3-061",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Joint limits",
+  "kind": "concept",
+  "q": "Why does the solver clamp joint limits after every iteration?",
+  "choices": [
+   "Otherwise IK returns a pose the stops forbid",
+   "Clamping is what makes JᵀJ + λ²I invertible",
+   "Clamping replaces damping, so λ can be set to zero",
+   "Clamping is what keeps the robot from falling over"
+  ],
+  "why": "IK cheerfully returns a mathematically perfect pose with a joint beyond its stop unless the limits are enforced inside the loop. Clamping has nothing to do with invertibility or balance.",
+  "source": "Study guide · Week 3 traps"
+ },
+ {
+  "id": "ch3-062",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "IK poses under gravity",
+  "kind": "trap",
+  "q": "The week 3 lab game blends IK poses under real physics. What is its lesson?",
+  "choices": [
+   "Every pose solves frozen; under gravity half of them fall over",
+   "Every pose IK solves can be held, since the residual is zero",
+   "Poses fall only when the IK target was out of reach",
+   "Poses fall only when λ was too small during the solve"
+  ],
+  "why": "IK guarantees geometry, not balance. Under gravity, half the perfectly solved poses topple; the fix is balance-aware posing and ordering.",
+  "source": "Study guide · Week 3 traps"
+ },
+ {
+  "id": "ch3-063",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "IK poses under gravity",
+  "kind": "trap",
+  "q": "In the lab game, raising both arms at once makes the G1 fall on its face. What works?",
+  "choices": [
+   "One arm, then the other: order is part of the answer",
+   "A smaller λ, so the IK puts the arms up more precisely",
+   "More IK iterations, so the final pose is solved exactly",
+   "Nothing: hands-up is unreachable, so the problem has no solution"
+  ],
+  "why": "The final pose is fine; the route to it is what fails. \"Kinematics places a pose; it does not balance a robot. The order of the poses is part of the answer.\"",
+  "source": "Study guide · Week 3 traps"
+ },
+ {
+  "id": "ch3-064",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "IK poses under gravity",
+  "kind": "concept",
+  "q": "Complete the professor's line: \"Kinematics places a pose; it does not …\"",
+  "choices": [
+   "… balance a robot.",
+   "… solve the whole robot.",
+   "… need a Jacobian.",
+   "… repeat itself."
+  ],
+  "why": "IK answers where the joints go, not whether the robot stays up. Balance is the business of weeks 4 and 5.",
+  "source": "Study guide · Week 3 traps"
+ },
+ {
+  "id": "ch3-065",
+  "chapter": "Week 3 · Inverse kinematics",
+  "topic": "Every gait starts crouched",
+  "kind": "concept",
+  "q": "Why does every gait in the course start from a crouch rather than the stand keyframe?",
+  "choices": [
+   "At stand the straight leg is singular: no joint motion lowers the foot",
+   "A crouch lowers the CoM height and makes ω smaller, so it falls slower",
+   "The stand keyframe violates the G1's knee joint limits",
+   "The crouch has a smaller condition number, so λ can be zero"
+  ],
+  "why": "Stand has every leg joint at zero, σ_min ≈ 9e-7; the crouch restores it to 0.089. (A lower CoM actually makes ω = √(g/z_c) larger, not smaller.)",
+  "source": "Study guide · Week 3 traps"
+ }
+]

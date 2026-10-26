@@ -8,6 +8,8 @@
     python quiz.py --mix        new cards in random order, weighted by exam share
                                 (default: course order, week 0 first, as the guide teaches it)
     python quiz.py stats        progress per week + weakest topics
+    python quiz.py --deck embedded       another deck: dl (default), embedded, distinguished;
+                                         combine with the options above, each deck has its own progress
     python quiz.py reset        wipe all progress
 
 Keys on a question:   a-d (or 1-4) answer  ·  Enter = just show me  ·  q = quit
@@ -46,6 +48,15 @@ for _stream in (sys.stdout, sys.stderr):
         _stream.reconfigure(encoding="utf-8", errors="replace")
 
 HERE = Path(__file__).resolve().parent
+
+# deck -> (question folder, progress file, answer log, exam share). Pick one with --deck NAME.
+DECKS = {
+    "dl": ("questions", "progress.json", "answers.jsonl",
+           {(0,): 0.10, (1,): 0.15, (2,): 0.20, (3,): 0.12, (4,): 0.15, (5,): 0.14, (6,): 0.14}),
+    "embedded": ("embedded/questions", "progress-embedded.json", "answers-embedded.jsonl", None),
+    "distinguished": ("distinguished/questions", "progress-distinguished.json", "answers-distinguished.jsonl",
+                      {(5,): 0.30, (1, 6, 10, 12): 0.60, (2, 4, 11): 0.10}),
+}
 BANK = HERE / "questions"
 PROGRESS = HERE / "progress.json"
 ANSWER_LOG = HERE / "answers.jsonl"  # one line per answered card, so mistakes can be reviewed later
@@ -110,7 +121,7 @@ def log_answer(card: dict, chosen_text: str | None, right: bool, typo: bool = Fa
 # Only when this folder is its own git repo (the phone/PC sync repo). Pull on start, push on quit,
 # so progress.json and answers.jsonl follow you between the laptop and Termux.
 
-SYNC_FILES = ["progress.json", "answers.jsonl"]
+SYNC_FILES = [name for _, prog, log, _ in DECKS.values() for name in (prog, log)]
 
 
 def git(*args: str, timeout: int = 30) -> bool:
@@ -143,7 +154,7 @@ def merge_progress(a: dict, b: dict) -> dict:
     tries = lambda s: -1 if s is None else s["right"] + s["wrong"]
     out = {"version": 1, "turn": max(a.get("turn", 0), b.get("turn", 0)),
            "recent": a.get("recent") or b.get("recent") or [], "cards": {}}
-    for cid in set(a.get("cards", {})) | set(b.get("cards", {})):
+    for cid in sorted(set(a.get("cards", {})) | set(b.get("cards", {}))):  # stable order keeps git diffs small
         sa, sb = a.get("cards", {}).get(cid), b.get("cards", {}).get(cid)
         out["cards"][cid] = sa if tries(sa) >= tries(sb) else sb
     return out
@@ -159,20 +170,28 @@ def sync_pull() -> None:
     if not git("fetch", "-q", "origin"):
         print(f"{YELLOW}Couldn't pull (offline?). Using the progress on this device.{RESET}")
         return
-    remote_prog = read_progress_text((git_out("show", "origin/main:progress.json") or b"").decode("utf-8"))
-    remote_ans = answer_lines((git_out("show", "origin/main:answers.jsonl") or b"").decode("utf-8"))
-    local_prog, local_ans = {}, []
-    for name in ("progress.json", "progress.broken.json"):
-        if (HERE / name).exists():
-            local_prog = merge_progress(local_prog, read_progress_text((HERE / name).read_text(encoding="utf-8")))
-    if ANSWER_LOG.exists():
-        local_ans = answer_lines(ANSWER_LOG.read_text(encoding="utf-8"))
-    merged = merge_progress(local_prog, remote_prog)
-    lines = sorted(set(local_ans) | set(remote_ans), key=lambda l: json.loads(l).get("time", ""))
+    merged = {}  # every deck's files, so playing one deck never drops another deck's unpushed progress
+    for _, prog_name, log_name, _ in DECKS.values():
+        broken = Path(prog_name).with_suffix(".broken.json").name
+        remote_prog = read_progress_text((git_out("show", f"origin/main:{prog_name}") or b"").decode("utf-8"))
+        remote_ans = answer_lines((git_out("show", f"origin/main:{log_name}") or b"").decode("utf-8"))
+        local_prog, local_ans = {}, []
+        for name in (prog_name, broken):
+            if (HERE / name).exists():
+                local_prog = merge_progress(local_prog, read_progress_text((HERE / name).read_text(encoding="utf-8")))
+        if (HERE / log_name).exists():
+            local_ans = answer_lines((HERE / log_name).read_text(encoding="utf-8"))
+        prog = merge_progress(local_prog, remote_prog)
+        lines = sorted(set(local_ans) | set(remote_ans), key=lambda l: json.loads(l).get("time", ""))
+        merged[prog_name] = json.dumps(prog, ensure_ascii=False, indent=0) if prog["cards"] else None
+        merged[log_name] = "".join(l + "\n" for l in lines) if lines else None
+        merged[broken] = None
     git("reset", "-q", "--hard", "origin/main")  # code and questions as on GitHub
-    save_progress(merged)
-    ANSWER_LOG.write_text("".join(l + "\n" for l in lines), encoding="utf-8")
-    (HERE / "progress.broken.json").unlink(missing_ok=True)
+    for name, text in merged.items():
+        if text is not None:
+            (HERE / name).write_text(text, encoding="utf-8")
+        elif name.endswith(".broken.json"):
+            (HERE / name).unlink(missing_ok=True)
 
 
 def sync_push() -> None:
@@ -218,6 +237,8 @@ def topic_weights(cards: list[dict], prog: dict) -> dict[str, float]:
 
 def chapter_weights(cards: list[dict]) -> dict[int, float]:
     """Per-card weight that gives each chapter group its exam share; averages 1.0."""
+    if not EXAM_SHARE:
+        return {}
     group_of = {ch: g for g in EXAM_SHARE for ch in g}
     sizes = collections.Counter(group_of.get(c["chnum"]) for c in cards)
     raw = {ch: EXAM_SHARE[g] / sizes[g] for g in EXAM_SHARE for ch in g if sizes[g]}
@@ -492,11 +513,20 @@ def stats(cards: list[dict], prog: dict) -> None:
 
 
 def main(argv: list[str]) -> None:
+    global BANK, PROGRESS, ANSWER_LOG, EXAM_SHARE
+    if "--deck" in argv:
+        i = argv.index("--deck")
+        name = argv[i + 1] if i + 1 < len(argv) else ""
+        if name not in DECKS:
+            sys.exit(f"--deck takes one of: {', '.join(DECKS)}")
+        folder, prog_name, log_name, EXAM_SHARE = DECKS[name]
+        BANK, PROGRESS, ANSWER_LOG = HERE / folder, HERE / prog_name, HERE / log_name
+        argv = argv[:i] + argv[i + 2:]
+    if not (argv and argv[0] == "reset"):
+        sync_pull()
     cards = load_cards()
     if not cards:
         sys.exit(f"No questions found in {BANK}")
-    if not (argv and argv[0] == "reset"):
-        sync_pull()
     prog = load_progress()
 
     if argv and argv[0] == "stats":

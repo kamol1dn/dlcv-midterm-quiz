@@ -179,10 +179,14 @@ def sync_push() -> None:
     if not (HERE / ".git").exists():
         return
     import datetime
+    # A fresh git install (Termux) has no name/email, and then every commit fails.
+    who = [] if git_out("config", "user.email") else ["-c", "user.name=quiz", "-c", "user.email=quiz@localhost"]
     for attempt in range(2):
         git("add", *[f for f in SYNC_FILES if (HERE / f).exists()])
-        if not git("diff", "--cached", "--quiet"):
-            git("commit", "-q", "-m", f"progress {datetime.datetime.now():%Y-%m-%d %H:%M}")
+        if not git("diff", "--cached", "--quiet") and \
+                not git(*who, "commit", "-q", "-m", f"progress {datetime.datetime.now():%Y-%m-%d %H:%M}"):
+            print(f"{YELLOW}Couldn't commit the progress. Saved on this device only.{RESET}")
+            return
         print(f"{DIM}Pushing progress to GitHub…{RESET}", flush=True)
         if git("push", "-q", "origin", "HEAD:main"):
             print(f"{GREEN}Progress pushed.{RESET}")

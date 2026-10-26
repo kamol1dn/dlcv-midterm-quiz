@@ -1,130 +1,64 @@
 {
 "version": 1,
-"turn": 356,
+"turn": 357,
 "recent": [
-"ch6-015",
-"ch5-079",
-"ch3-003",
-"ch0-043",
-"ch6-043",
-"ch5-073",
-"ch3-007",
-"ch1-029",
-"ch0-014",
-"ch0-035",
-"ch5-073",
-"ch0-044",
-"ch1-032",
-"ch5-030",
-"ch1-037",
-"ch0-058",
-"ch0-003",
-"ch5-079",
-"ch5-030",
-"ch1-022",
-"ch1-027",
-"ch0-034",
-"ch3-059",
-"ch5-030",
-"ch3-058",
-"ch0-008",
-"ch0-001",
-"ch3-059",
-"ch5-030",
-"ch3-058",
-"ch1-028",
-"ch0-001",
-"ch1-024",
-"ch3-054",
-"ch3-059",
-"ch3-012",
-"ch3-058",
-"ch2-085",
-"ch1-006",
-"ch0-043",
-"ch3-059",
-"ch2-b037",
-"ch1-063",
+"ch1-014",
+"ch1-008",
 "ch1-009",
-"ch0-010",
-"ch2-013",
-"ch2-018",
+"ch1-010",
+"ch1-015",
+"ch1-011",
+"ch1-086",
+"ch0-054",
+"ch0-018",
+"ch1-013",
+"ch2-085",
+"ch1-016",
+"ch1-018",
+"ch1-014",
+"ch1-008",
+"ch0-050",
+"ch0-056",
+"ch1-016",
+"ch1-019",
+"ch1-018",
+"ch1-020",
+"ch1-021",
+"ch0-013",
+"ch1-022",
+"ch0-019",
+"ch1-020",
+"ch1-021",
+"ch0-031",
+"ch1-023",
+"ch1-022",
+"ch1-020",
+"ch1-024",
+"ch1-025",
+"ch1-027",
+"ch1-028",
+"ch1-029",
+"ch1-024",
+"ch0-052",
+"ch0-054",
+"ch1-030",
+"ch0-003",
+"ch0-007",
+"ch0-002",
+"ch1-029",
+"ch1-014",
+"ch1-031",
+"ch0-007",
+"ch1-032",
 "ch1-034",
-"ch2-b037",
-"ch1-063"
+"ch2-013"
 ],
 "cards": {
-"ch1-019": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 216
-},
-"ch0-058": {
+"ch1-028": {
 "box": 4,
 "right": 2,
 "wrong": 0,
-"last": 322
-},
-"ch1-005": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 189
-},
-"ch1-045": {
-"box": 1,
-"right": 1,
-"wrong": 2,
-"last": 286
-},
-"ch0-032": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 124
-},
-"ch0-010": {
-"box": 2,
-"right": 3,
-"wrong": 2,
-"last": 351
-},
-"ch0-054": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 236
-},
-"ch0-046": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 61
-},
-"ch1-025": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 230
-},
-"ch0-048": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 96
-},
-"ch0-013": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 220
-},
-"ch0-053": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 163
+"last": 337
 },
 "ch1-007": {
 "box": 1,
@@ -132,185 +66,11 @@
 "wrong": 1,
 "last": 305
 },
-"ch0-039": {
-"box": 4,
-"right": 2,
-"wrong": 0,
-"last": 101
-},
-"ch0-001": {
+"ch3-058": {
 "box": 1,
-"right": 2,
-"wrong": 1,
-"last": 338
-},
-"ch0-011": {
-"box": 3,
-"right": 4,
+"right": 1,
 "wrong": 2,
-"last": 274
-},
-"ch0-034": {
-"box": 4,
-"right": 2,
-"wrong": 0,
-"last": 328
-},
-"ch0-047": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 155
-},
-"ch0-021": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 130
-},
-"ch0-008": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 332
-},
-"ch0-051": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 161
-},
-"ch1-015": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 202
-},
-"ch0-018": {
-"box": 4,
-"right": 2,
-"wrong": 0,
-"last": 206
-},
-"ch1-021": {
-"box": 1,
-"right": 1,
-"wrong": 1,
-"last": 224
-},
-"ch0-042": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 141
-},
-"ch0-049": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 25
-},
-"ch0-035": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 316
-},
-"ch0-023": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 111
-},
-"ch0-006": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 62
-},
-"ch0-027": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 169
-},
-"ch0-016": {
-"box": 4,
-"right": 2,
-"wrong": 0,
-"last": 16
-},
-"ch0-037": {
-"box": 4,
-"right": 2,
-"wrong": 0,
-"last": 120
-},
-"ch1-004": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 187
-},
-"ch1-082": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 86
-},
-"ch0-060": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 181
-},
-"ch0-030": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 122
-},
-"ch0-012": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 136
-},
-"ch0-029": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 55
-},
-"ch1-002": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 184
-},
-"ch1-040": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 258
-},
-"ch0-026": {
-"box": 1,
-"right": 1,
-"wrong": 1,
-"last": 121
-},
-"ch1-056": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 146
-},
-"ch0-009": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 200
+"last": 343
 },
 "ch0-045": {
 "box": 3,
@@ -318,137 +78,17 @@
 "wrong": 1,
 "last": 110
 },
-"ch0-044": {
-"box": 2,
-"right": 3,
-"wrong": 3,
-"last": 318
-},
-"ch0-040": {
+"ch1-030": {
 "box": 3,
 "right": 1,
 "wrong": 0,
-"last": 138
+"last": 237
 },
-"ch0-041": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 139
-},
-"ch0-055": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 168
-},
-"ch1-039": {
+"ch0-039": {
 "box": 4,
-"right": 4,
-"wrong": 1,
-"last": 145
-},
-"ch0-050": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 213
-},
-"ch0-025": {
-"box": 2,
 "right": 2,
-"wrong": 1,
-"last": 24
-},
-"ch1-014": {
-"box": 1,
-"right": 2,
-"wrong": 2,
-"last": 248
-},
-"ch0-057": {
-"box": 3,
-"right": 1,
 "wrong": 0,
-"last": 175
-},
-"ch1-086": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 204
-},
-"ch0-002": {
-"box": 3,
-"right": 4,
-"wrong": 3,
-"last": 240
-},
-"ch0-005": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 192
-},
-"ch1-018": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 253
-},
-"ch0-017": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 88
-},
-"ch5-038": {
-"box": 4,
-"right": 4,
-"wrong": 2,
-"last": 188
-},
-"ch1-035": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 268
-},
-"ch0-038": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 135
-},
-"ch0-020": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 171
-},
-"ch1-022": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 326
-},
-"ch1-042": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 262
-},
-"ch1-013": {
-"box": 1,
-"right": 1,
-"wrong": 1,
-"last": 207
-},
-"ch0-024": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 293
+"last": 101
 },
 "ch1-034": {
 "box": 2,
@@ -456,53 +96,17 @@
 "wrong": 1,
 "last": 354
 },
-"ch1-023": {
+"ch3-054": {
 "box": 3,
 "right": 1,
 "wrong": 0,
-"last": 226
+"last": 340
 },
-"ch1-016": {
+"ch1-035": {
 "box": 2,
 "right": 2,
 "wrong": 1,
-"last": 301
-},
-"ch1-024": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 339
-},
-"ch1-009": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 350
-},
-"ch1-038": {
-"box": 1,
-"right": 1,
-"wrong": 1,
-"last": 261
-},
-"ch1-012": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 106
-},
-"ch0-015": {
-"box": 3,
-"right": 3,
-"wrong": 1,
-"last": 166
-},
-"ch0-014": {
-"box": 3,
-"right": 3,
-"wrong": 2,
-"last": 315
+"last": 268
 },
 "ch0-033": {
 "box": 3,
@@ -510,23 +114,107 @@
 "wrong": 0,
 "last": 129
 },
-"ch0-043": {
-"box": 2,
-"right": 4,
-"wrong": 2,
-"last": 346
-},
-"ch0-028": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 148
-},
-"ch1-044": {
+"ch2-072": {
 "box": 1,
 "right": 1,
 "wrong": 1,
-"last": 275
+"last": 291
+},
+"ch1-004": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 187
+},
+"ch1-020": {
+"box": 2,
+"right": 2,
+"wrong": 2,
+"last": 252
+},
+"ch0-038": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 135
+},
+"ch6-016": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 296
+},
+"ch3-042": {
+"box": 1,
+"right": 1,
+"wrong": 1,
+"last": 281
+},
+"ch0-013": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 220
+},
+"ch0-048": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 96
+},
+"ch2-067": {
+"box": 1,
+"right": 1,
+"wrong": 1,
+"last": 298
+},
+"ch0-007": {
+"box": 1,
+"right": 3,
+"wrong": 2,
+"last": 244
+},
+"ch0-002": {
+"box": 3,
+"right": 4,
+"wrong": 3,
+"last": 240
+},
+"ch1-024": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 339
+},
+"ch0-015": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 166
+},
+"ch0-057": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 175
+},
+"ch0-017": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 88
+},
+"ch1-063": {
+"box": 1,
+"right": 1,
+"wrong": 1,
+"last": 356
+},
+"ch1-014": {
+"box": 1,
+"right": 2,
+"wrong": 2,
+"last": 248
 },
 "ch0-004": {
 "box": 2,
@@ -540,167 +228,35 @@
 "wrong": 0,
 "last": 15
 },
-"ch1-006": {
-"box": 4,
-"right": 2,
-"wrong": 0,
-"last": 345
-},
-"ch1-020": {
-"box": 2,
-"right": 2,
-"wrong": 2,
-"last": 252
-},
-"ch0-061": {
-"box": 4,
-"right": 2,
-"wrong": 0,
-"last": 91
-},
-"ch0-019": {
+"ch0-009": {
 "box": 3,
 "right": 3,
 "wrong": 1,
-"last": 222
+"last": 200
 },
-"ch0-031": {
+"ch0-043": {
 "box": 2,
-"right": 2,
-"wrong": 1,
-"last": 225
-},
-"ch1-041": {
-"box": 1,
-"right": 1,
-"wrong": 1,
-"last": 265
-},
-"ch1-030": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 237
-},
-"ch0-003": {
-"box": 5,
-"right": 3,
-"wrong": 0,
-"last": 323
-},
-"ch1-017": {
-"box": 4,
 "right": 4,
-"wrong": 1,
-"last": 104
+"wrong": 2,
+"last": 346
 },
-"ch1-032": {
+"ch0-050": {
 "box": 3,
 "right": 3,
 "wrong": 1,
-"last": 319
+"last": 213
 },
-"ch1-029": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 314
-},
-"ch1-047": {
+"ch0-011": {
 "box": 3,
-"right": 3,
-"wrong": 1,
-"last": 157
-},
-"ch0-036": {
-"box": 5,
-"right": 3,
-"wrong": 0,
-"last": 202
-},
-"ch1-010": {
-"box": 1,
-"right": 1,
-"wrong": 1,
-"last": 203
-},
-"ch1-033": {
-"box": 4,
 "right": 4,
-"wrong": 1,
-"last": 142
-},
-"ch0-007": {
-"box": 1,
-"right": 3,
 "wrong": 2,
-"last": 244
+"last": 274
 },
-"ch1-028": {
-"box": 4,
-"right": 2,
-"wrong": 0,
-"last": 337
-},
-"ch1-043": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 264
-},
-"ch1-001": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 183
-},
-"ch1-037": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 321
-},
-"ch1-027": {
-"box": 4,
-"right": 2,
-"wrong": 0,
-"last": 327
-},
-"ch1-036": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 249
-},
-"ch1-003": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 185
-},
-"ch2-085": {
+"ch1-086": {
 "box": 3,
 "right": 3,
-"wrong": 2,
-"last": 344
-},
-"ch1-026": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 19
-},
-"ch0-056": {
-"box": 2,
-"right": 2,
 "wrong": 1,
-"last": 214
-},
-"ch1-011": {
-"box": 1,
-"right": 1,
-"wrong": 1,
-"last": 203
+"last": 204
 },
 "ch0-022": {
 "box": 5,
@@ -708,101 +264,131 @@
 "wrong": 0,
 "last": 132
 },
-"ch1-008": {
-"box": 1,
-"right": 1,
-"wrong": 2,
-"last": 212
-},
-"ch1-031": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 243
-},
-"ch0-052": {
-"box": 2,
-"right": 2,
-"wrong": 2,
-"last": 235
-},
-"ch0-059": {
-"box": 3,
-"right": 1,
-"wrong": 0,
-"last": 178
-},
-"ch3-042": {
-"box": 1,
-"right": 1,
-"wrong": 1,
-"last": 281
-},
-"ch3-012": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 342
-},
-"ch2-b014": {
-"box": 1,
-"right": 1,
-"wrong": 1,
-"last": 284
-},
-"ch3-003": {
-"box": 2,
-"right": 2,
-"wrong": 1,
-"last": 309
-},
-"ch6-015": {
+"ch5-030": {
 "box": 1,
 "right": 1,
 "wrong": 3,
-"last": 307
+"last": 335
 },
-"ch6-043": {
-"box": 1,
-"right": 1,
-"wrong": 3,
-"last": 311
-},
-"ch2-072": {
-"box": 1,
-"right": 1,
-"wrong": 1,
-"last": 291
-},
-"ch6-062": {
-"box": 1,
-"right": 1,
-"wrong": 1,
-"last": 294
-},
-"ch2-067": {
-"box": 1,
-"right": 1,
-"wrong": 1,
-"last": 298
-},
-"ch6-016": {
+"ch1-043": {
 "box": 3,
 "right": 1,
 "wrong": 0,
-"last": 296
+"last": 264
 },
-"ch6-071": {
-"box": 1,
-"right": 1,
-"wrong": 1,
-"last": 306
+"ch0-044": {
+"box": 2,
+"right": 3,
+"wrong": 3,
+"last": 318
 },
-"ch5-079": {
+"ch1-037": {
 "box": 2,
 "right": 2,
 "wrong": 1,
-"last": 324
+"last": 321
+},
+"ch1-021": {
+"box": 1,
+"right": 1,
+"wrong": 1,
+"last": 224
+},
+"ch1-017": {
+"box": 4,
+"right": 4,
+"wrong": 1,
+"last": 104
+},
+"ch5-038": {
+"box": 4,
+"right": 4,
+"wrong": 2,
+"last": 188
+},
+"ch0-006": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 62
+},
+"ch0-055": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 168
+},
+"ch0-025": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 24
+},
+"ch0-018": {
+"box": 4,
+"right": 2,
+"wrong": 0,
+"last": 206
+},
+"ch0-001": {
+"box": 1,
+"right": 2,
+"wrong": 1,
+"last": 338
+},
+"ch1-033": {
+"box": 4,
+"right": 4,
+"wrong": 1,
+"last": 142
+},
+"ch1-006": {
+"box": 4,
+"right": 2,
+"wrong": 0,
+"last": 345
+},
+"ch1-013": {
+"box": 1,
+"right": 1,
+"wrong": 1,
+"last": 207
+},
+"ch0-003": {
+"box": 5,
+"right": 3,
+"wrong": 0,
+"last": 323
+},
+"ch2-018": {
+"box": 0,
+"right": 0,
+"wrong": 1,
+"last": 353
+},
+"ch1-016": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 301
+},
+"ch1-023": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 226
+},
+"ch0-012": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 136
+},
+"ch0-034": {
+"box": 4,
+"right": 2,
+"wrong": 0,
+"last": 328
 },
 "ch5-073": {
 "box": 1,
@@ -810,17 +396,323 @@
 "wrong": 1,
 "last": 317
 },
-"ch3-007": {
+"ch2-b014": {
+"box": 1,
+"right": 1,
+"wrong": 1,
+"last": 284
+},
+"ch1-026": {
 "box": 3,
 "right": 1,
 "wrong": 0,
-"last": 313
+"last": 19
 },
-"ch5-030": {
+"ch1-005": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 189
+},
+"ch1-022": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 326
+},
+"ch0-060": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 181
+},
+"ch0-028": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 148
+},
+"ch0-016": {
+"box": 4,
+"right": 2,
+"wrong": 0,
+"last": 16
+},
+"ch0-023": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 111
+},
+"ch0-024": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 293
+},
+"ch1-009": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 350
+},
+"ch1-040": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 258
+},
+"ch0-041": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 139
+},
+"ch1-019": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 216
+},
+"ch6-071": {
+"box": 1,
+"right": 1,
+"wrong": 1,
+"last": 306
+},
+"ch6-043": {
 "box": 1,
 "right": 1,
 "wrong": 3,
-"last": 335
+"last": 311
+},
+"ch0-056": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 214
+},
+"ch3-003": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 309
+},
+"ch1-003": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 185
+},
+"ch0-059": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 178
+},
+"ch1-041": {
+"box": 1,
+"right": 1,
+"wrong": 1,
+"last": 265
+},
+"ch0-042": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 141
+},
+"ch0-026": {
+"box": 1,
+"right": 1,
+"wrong": 1,
+"last": 121
+},
+"ch0-037": {
+"box": 4,
+"right": 2,
+"wrong": 0,
+"last": 120
+},
+"ch1-010": {
+"box": 1,
+"right": 1,
+"wrong": 1,
+"last": 201
+},
+"ch0-049": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 25
+},
+"ch2-013": {
+"box": 0,
+"right": 0,
+"wrong": 2,
+"last": 357
+},
+"ch1-025": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 230
+},
+"ch0-036": {
+"box": 5,
+"right": 3,
+"wrong": 0,
+"last": 202
+},
+"ch1-001": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 183
+},
+"ch1-047": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 157
+},
+"ch0-019": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 222
+},
+"ch1-082": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 86
+},
+"ch1-032": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 319
+},
+"ch0-053": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 163
+},
+"ch0-029": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 55
+},
+"ch1-044": {
+"box": 1,
+"right": 1,
+"wrong": 1,
+"last": 275
+},
+"ch1-011": {
+"box": 1,
+"right": 1,
+"wrong": 1,
+"last": 203
+},
+"ch6-062": {
+"box": 1,
+"right": 1,
+"wrong": 1,
+"last": 294
+},
+"ch0-030": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 122
+},
+"ch1-039": {
+"box": 4,
+"right": 4,
+"wrong": 1,
+"last": 145
+},
+"ch1-036": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 249
+},
+"ch1-045": {
+"box": 1,
+"right": 1,
+"wrong": 2,
+"last": 286
+},
+"ch0-005": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 192
+},
+"ch1-027": {
+"box": 4,
+"right": 2,
+"wrong": 0,
+"last": 327
+},
+"ch6-015": {
+"box": 1,
+"right": 1,
+"wrong": 3,
+"last": 307
+},
+"ch0-047": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 155
+},
+"ch0-020": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 171
+},
+"ch1-002": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 184
+},
+"ch1-031": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 243
+},
+"ch0-032": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 124
+},
+"ch1-008": {
+"box": 1,
+"right": 1,
+"wrong": 2,
+"last": 212
+},
+"ch0-054": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 236
+},
+"ch0-051": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 161
 },
 "ch3-059": {
 "box": 1,
@@ -828,17 +720,35 @@
 "wrong": 3,
 "last": 347
 },
-"ch3-058": {
+"ch1-012": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 106
+},
+"ch1-029": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 314
+},
+"ch1-038": {
 "box": 1,
 "right": 1,
-"wrong": 2,
-"last": 343
+"wrong": 1,
+"last": 261
 },
-"ch3-054": {
+"ch3-012": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 342
+},
+"ch1-015": {
 "box": 3,
 "right": 1,
 "wrong": 0,
-"last": 340
+"last": 202
 },
 "ch2-b037": {
 "box": 1,
@@ -846,23 +756,113 @@
 "wrong": 1,
 "last": 355
 },
-"ch1-063": {
-"box": 1,
+"ch1-042": {
+"box": 3,
 "right": 1,
-"wrong": 1,
-"last": 356
+"wrong": 0,
+"last": 262
 },
-"ch2-013": {
-"box": 0,
-"right": 0,
+"ch0-027": {
+"box": 3,
+"right": 3,
 "wrong": 1,
-"last": 352
+"last": 169
 },
-"ch2-018": {
-"box": 0,
-"right": 0,
+"ch0-031": {
+"box": 2,
+"right": 2,
 "wrong": 1,
-"last": 353
+"last": 225
+},
+"ch0-046": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 61
+},
+"ch0-040": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 138
+},
+"ch0-008": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 332
+},
+"ch0-058": {
+"box": 4,
+"right": 2,
+"wrong": 0,
+"last": 322
+},
+"ch0-014": {
+"box": 3,
+"right": 3,
+"wrong": 2,
+"last": 315
+},
+"ch0-035": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 316
+},
+"ch0-010": {
+"box": 2,
+"right": 3,
+"wrong": 2,
+"last": 351
+},
+"ch0-061": {
+"box": 4,
+"right": 2,
+"wrong": 0,
+"last": 91
+},
+"ch1-018": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 253
+},
+"ch0-021": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 130
+},
+"ch1-056": {
+"box": 3,
+"right": 3,
+"wrong": 1,
+"last": 146
+},
+"ch0-052": {
+"box": 2,
+"right": 2,
+"wrong": 2,
+"last": 235
+},
+"ch3-007": {
+"box": 3,
+"right": 1,
+"wrong": 0,
+"last": 313
+},
+"ch2-085": {
+"box": 3,
+"right": 3,
+"wrong": 2,
+"last": 344
+},
+"ch5-079": {
+"box": 2,
+"right": 2,
+"wrong": 1,
+"last": 324
 }
 }
 }

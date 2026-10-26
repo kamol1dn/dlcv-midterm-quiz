@@ -1,0 +1,1247 @@
+[
+ {
+  "id": "ch0-001",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Programmer's model",
+  "kind": "concept",
+  "q": "What is a programmer's model, as the course defines it?",
+  "choices": [
+   "The published contract: state you can inspect and change, and its effects",
+   "A detailed description of the pipeline, bus matrix and silicon that runs your code",
+   "The full list of peripherals in the vendor's reference manual",
+   "The compiler's rules for turning C statements into instructions"
+  ],
+  "why": "It is a deliberately small, documented contract: the state software can name and its effects. The pipeline, bus matrix and silicon are the implementation it hides.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-002",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Programmer's model",
+  "kind": "concept",
+  "q": "Which of these does the programmer's model deliberately leave out?",
+  "choices": [
+   "The pipeline and the bus matrix",
+   "The peripheral registers",
+   "The exception mechanism",
+   "Thread and Handler modes"
+  ],
+  "why": "The model is registers, memory, peripheral registers, modes/stacks and exceptions. The pipeline, bus matrix and silicon are hidden implementation, named by none of your code.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-003",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Programmer's model",
+  "kind": "number",
+  "q": "How many parts does this chip's programmer's model have?",
+  "choices": [
+   "Five",
+   "Three",
+   "Four",
+   "Seven"
+  ],
+  "why": "Registers, memory, peripheral registers, modes and stacks, exceptions. Everything in later lessons is an instance of one of the five.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-004",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Programmer's model",
+  "kind": "concept",
+  "q": "Meeting a new peripheral, what is the first question the course wants you to ask?",
+  "choices": [
+   "Which part of the model is this?",
+   "Which pins does it drive?",
+   "How fast can its clock run?",
+   "Which library function wraps it?"
+  ],
+  "why": "One model, many instances: every peripheral is the same shape wearing different names, so the first job is to place it in the model, then read its control/status/data registers.",
+  "source": "Lesson 00 slides · Slide 2"
+ },
+ {
+  "id": "ch0-005",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Core registers",
+  "kind": "number",
+  "q": "How many core registers does the Cortex-M0+ have, and how wide are they?",
+  "choices": [
+   "16 × 32-bit",
+   "32 × 8-bit",
+   "32 × 32-bit",
+   "8 × 32-bit"
+  ],
+  "why": "Cortex-M has 16 × 32-bit registers (R0–R15). 32 × 8-bit is the AVR you came from; 32 × 32-bit is RISC-V.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-006",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Core registers",
+  "kind": "concept",
+  "q": "R13 (SP) is one name for which two physical registers?",
+  "choices": [
+   "MSP and PSP",
+   "LR and PC",
+   "PSP and PRIMASK",
+   "MSP and CONTROL"
+  ],
+  "why": "SP is one name, two registers: the main stack pointer MSP and the process stack pointer PSP. CONTROL bit 1 (SPSEL) picks which one Thread mode uses.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-007",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Core registers",
+  "kind": "concept",
+  "q": "What is R14 for?",
+  "choices": [
+   "It is LR, holding the return address",
+   "It is SP, the stack pointer",
+   "It is PC, the address of the next instruction to run",
+   "It holds the exception number"
+  ],
+  "why": "R14 = LR, the link register, holds the return address after bl. R13 is SP, R15 is PC; the exception number is in IPSR.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-008",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Core registers",
+  "kind": "concept",
+  "q": "What happens when an instruction writes a new value into R15?",
+  "choices": [
+   "The processor branches to that address",
+   "Nothing until the next interrupt arrives",
+   "The value is saved as a return address",
+   "The CPU faults: PC is read-only"
+  ],
+  "why": "R15 is the PC, an ordinary register: writing it is a branch. That is why pop {…, pc} works as a return.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-009",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Core registers",
+  "kind": "concept",
+  "q": "Which registers carry function arguments in, the result out, and scratch values?",
+  "choices": [
+   "R0–R3",
+   "R4–R7",
+   "R8–R12",
+   "R13–R15"
+  ],
+  "why": "R0–R3 are arguments, result and scratch. R4–R12 hold locals kept out of memory; R13–R15 are SP, LR and PC.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-010",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "xPSR",
+  "kind": "concept",
+  "q": "xPSR is one word with three views. Which list names them correctly?",
+  "choices": [
+   "APSR, EPSR, IPSR",
+   "APSR, CONTROL, PRIMASK",
+   "MSP, PSP, IPSR",
+   "EPSR, BASEPRI, FAULTMASK"
+  ],
+  "why": "xPSR is read as APSR (flags N Z C V), EPSR (Thumb bit) and IPSR (exception number). CONTROL and PRIMASK are separate special registers.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-011",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "xPSR",
+  "kind": "number",
+  "q": "Which bits of xPSR hold the N Z C V flags?",
+  "choices": [
+   "Bits 31:28",
+   "Bits 3:0",
+   "Bits 27:24",
+   "Bits 7:4"
+  ],
+  "why": "The APSR view keeps the flags at the very top, bits 31:28 (N=31, Z=30, C=29, V=28).",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-012",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "xPSR",
+  "kind": "number",
+  "q": "Where in xPSR is the Thumb bit T?",
+  "choices": [
+   "Bit 24, in the EPSR view",
+   "Bit 0, in the IPSR view",
+   "Bit 31, in the APSR view",
+   "Bit 5, in the EPSR view"
+  ],
+  "why": "EPSR's T is bit 24. Bit 0 of code addresses is also called the Thumb bit, but in xPSR the T bit is 24; IPSR uses bits 5:0.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-013",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "xPSR",
+  "kind": "number",
+  "q": "Which bits of xPSR hold the current exception number (IPSR)?",
+  "choices": [
+   "Bits 5:0",
+   "Bits 31:28",
+   "Bit 24",
+   "Bits 15:8"
+  ],
+  "why": "IPSR is the bottom of xPSR, bits 5:0. It is 0 in main() and the exception number inside a handler.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-014",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "xPSR",
+  "kind": "calc",
+  "q": "USART2 is IRQ 28. While USART2_IRQHandler runs, what does IPSR read?",
+  "choices": [
+   "44 (0x2C)",
+   "28 (0x1C)",
+   "45 (0x2D)",
+   "12 (0x0C)"
+  ],
+  "why": "IPSR holds the exception number, which is 16 + IRQ number: 16 + 28 = 44 = 0x2C. Reading back the bare IRQ number (28) forgets ARM's first 16 slots.",
+  "source": "Lesson 00 slides · Slide 9"
+ },
+ {
+  "id": "ch0-015",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "xPSR",
+  "kind": "concept",
+  "q": "While ordinary code in main() runs, what does IPSR read?",
+  "choices": [
+   "0",
+   "1",
+   "16",
+   "The last IRQ number taken"
+  ],
+  "why": "IPSR is 0 in Thread mode code such as main(); it only holds a number while a handler runs.",
+  "source": "Lesson 00 slides · Slide 3b"
+ },
+ {
+  "id": "ch0-016",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "xPSR",
+  "kind": "calc",
+  "q": "xPSR reads 0x60000000 after a compare. Which flags are set?",
+  "choices": [
+   "Z and C",
+   "N and Z",
+   "C and V",
+   "N and V"
+  ],
+  "why": "0x6 in the top nibble is 0110: bit 31 N=0, bit 30 Z=1, bit 29 C=1, bit 28 V=0.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-017",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "xPSR",
+  "kind": "calc",
+  "q": "xPSR reads 0x81000000. What does that tell you?",
+  "choices": [
+   "N is set and the Thumb bit is set",
+   "Z is set and IPSR holds 1",
+   "V is set and the Thumb bit is clear",
+   "C is set and an exception is active"
+  ],
+  "why": "Top nibble 0x8 = 1000: only N (bit 31). 0x01000000 is bit 24, the T bit, which is always 1 here. Bits 5:0 are 0, so no exception is active.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-018",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Special registers",
+  "kind": "number",
+  "q": "What does setting PRIMASK bit 0 to 1 do?",
+  "choices": [
+   "Masks every configurable interrupt",
+   "Selects the process stack PSP",
+   "Drops Thread mode to unprivileged",
+   "Enables the FPU"
+  ],
+  "why": "PRIMASK bit 0 = 1 masks every configurable interrupt. SPSEL and nPRIV are CONTROL bits; the M0+ has no FPU.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-019",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Special registers",
+  "kind": "number",
+  "q": "What do the two used bits of CONTROL select?",
+  "choices": [
+   "Bit 1 SPSEL picks Thread mode's stack; bit 0 nPRIV picks privilege",
+   "Bit 1 masks interrupts; bit 0 selects Thumb state",
+   "Bit 1 picks the system clock source; bit 0 enables the MPU's protection",
+   "Bit 1 selects Handler mode; bit 0 selects MSP"
+  ],
+  "why": "CONTROL bit 1 SPSEL chooses MSP or PSP for Thread mode; bit 0 nPRIV chooses privileged or not. The other thirty bits are reserved.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-020",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Special registers",
+  "kind": "trap",
+  "q": "How does code read or write xPSR, PRIMASK and CONTROL?",
+  "choices": [
+   "Only with mrs and msr; they have no address",
+   "With ldr/str at their address in 0xE000xxxx",
+   "With push and pop to the stack",
+   "Through CMSIS structs in the SCB block"
+  ],
+  "why": "The special registers have no number and no address, so ordinary loads and stores cannot reach them. Only mrs/msr can. The 0xE000xxxx region is the NVIC/SysTick/SCB, which are memory-mapped.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-021",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Special registers",
+  "kind": "trap",
+  "q": "Can code on this Cortex-M0+ use BASEPRI to mask only low-priority interrupts?",
+  "choices": [
+   "No: BASEPRI and FAULTMASK exist only on M3/M4",
+   "Yes: it is bit 1 of PRIMASK",
+   "Yes: BASEPRI is part of xPSR",
+   "Only in unprivileged Thread mode"
+  ],
+  "why": "The M0+ has PRIMASK only. BASEPRI and FAULTMASK are M3/M4 registers; assuming them is a common carry-over mistake.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-022",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Core registers",
+  "kind": "concept",
+  "q": "What does a processor pay for having MORE working registers?",
+  "choices": [
+   "More instruction bits to name one, more state to save per interrupt",
+   "More memory traffic, because the compiler must spill values to RAM more often",
+   "Slower loads and stores from every register",
+   "A larger stack for each function call"
+  ],
+  "why": "Too few registers and the compiler spills to memory; too many and every instruction needs more bits to name one and every interrupt has more state to save.",
+  "source": "Lesson 00 slides · Slide 3"
+ },
+ {
+  "id": "ch0-023",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Memory-mapped I/O",
+  "kind": "concept",
+  "q": "How does Cortex-M software reach a peripheral register?",
+  "choices": [
+   "By ordinary ldr/str to an ordinary address",
+   "By special in/out instructions in a port space",
+   "Through a system call into the vendor library",
+   "Through mrs/msr, like the special registers"
+  ],
+  "why": "This chip uses memory-mapped I/O with no port space at all: peripherals sit at ordinary addresses and ordinary loads and stores reach them.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch0-024",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Memory-mapped I/O",
+  "kind": "concept",
+  "q": "The AVR reached its I/O registers with IN and OUT. What is that style called?",
+  "choices": [
+   "Port-mapped (isolated) I/O",
+   "Memory-mapped I/O",
+   "Vectored I/O",
+   "Direct memory access"
+  ],
+  "why": "A separate I/O address space reached by dedicated instructions is port-mapped, also called isolated, I/O. x86 in/out works the same way.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-025",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Memory-mapped I/O",
+  "kind": "trap",
+  "q": "Which instruction does a Cortex-M use to set a GPIO output register?",
+  "choices": [
+   "str, the same store used for a variable",
+   "out, as on the AVR and x86",
+   "sbi, a single-bit set instruction",
+   "msr, the special-register move"
+  ],
+  "why": "With memory-mapped I/O there are no I/O instructions: the same str writes a variable or a peripheral. out belongs to port-mapped machines; sbi was the AVR's and the M0+ has none.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch0-026",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Memory-mapped I/O",
+  "kind": "concept",
+  "q": "On this chip, what tells a GPIO register apart from a global variable?",
+  "choices": [
+   "Only the address",
+   "The instruction used to reach it",
+   "A tag bit in the pointer",
+   "Which bus instruction the compiler emits"
+  ],
+  "why": "Both are reached by the same ldr/str; the only difference is the address. That uniformity is both the gift and the trap.",
+  "source": "Lesson 00 slides · Slide 4"
+ },
+ {
+  "id": "ch0-027",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Memory-mapped I/O",
+  "kind": "concept",
+  "q": "Why can a stray pointer on this chip silently change a peripheral's behaviour?",
+  "choices": [
+   "Peripherals are ordinary addresses and there is no MMU to stop it",
+   "The compiler ignores volatile on pointers",
+   "The MPU is always configured at reset to allow every access everywhere",
+   "Peripheral registers are cached in SRAM"
+  ],
+  "why": "Memory-mapped I/O plus one real address space with no MMU means any pointer can land on a peripheral; nothing raises a segmentation fault.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch0-028",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Harvard vs von Neumann",
+  "kind": "concept",
+  "q": "What does 'Harvard' mean as a memory organisation?",
+  "choices": [
+   "Code and data live in separate address spaces",
+   "Code and data share one address space",
+   "Instructions are fetched over a cache",
+   "Data is stored big-endian, code little-endian"
+  ],
+  "why": "Harvard keeps code and data in separate address spaces, so the same address means two things. Von Neumann puts both in one space.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-029",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Harvard vs von Neumann",
+  "kind": "trap",
+  "q": "How does code on this chip read a const lookup table stored in flash?",
+  "choices": [
+   "With an ordinary ldr",
+   "With LPM, after marking it PROGMEM",
+   "With a special flash-read instruction",
+   "It must first be copied into SRAM"
+  ],
+  "why": "The Cortex-M address map is von Neumann: one space, so a const array in flash is read by the same ldr as anything else. PROGMEM/LPM existed only because the AVR is Harvard.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch0-030",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Harvard vs von Neumann",
+  "kind": "concept",
+  "q": "Which AVR keyword existed only because the AVR is a Harvard machine?",
+  "choices": [
+   "PROGMEM",
+   "volatile",
+   "const",
+   "ISR"
+  ],
+  "why": "PROGMEM (with the LPM instruction) placed and read constants in program memory, a separate address space. It has no equivalent on Cortex-M.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-031",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Harvard vs von Neumann",
+  "kind": "trap",
+  "q": "Some Cortex-M cores fetch code and data over separate buses. Does that make their programmer's model Harvard?",
+  "choices": [
+   "No: the address map stays single and code cannot tell",
+   "Yes: separate buses mean separate address spaces",
+   "Yes, but only for code stored in SRAM",
+   "Only when the instruction cache is enabled"
+  ],
+  "why": "Separate buses are an implementation choice for speed. The address map is still one space, so the model is von Neumann.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch0-032",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Memory map",
+  "kind": "number",
+  "q": "At what address does this chip's flash really live?",
+  "choices": [
+   "0x08000000",
+   "0x00000000",
+   "0x20000000",
+   "0x40000000"
+  ],
+  "why": "Flash is at 0x08000000. It is aliased to 0x00000000 at reset, but its real home is 0x08000000. SRAM is 0x20000000, ST's peripherals 0x40000000.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-033",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Memory map",
+  "kind": "concept",
+  "q": "How does the CPU find the vector table 'at address zero' after reset?",
+  "choices": [
+   "Flash at 0x08000000 is aliased to 0x00000000 at reset",
+   "A bootloader in system memory copies the vector table to address 0",
+   "SRAM starts at 0 and holds a copy of the table",
+   "The NVIC stores the table in its own registers"
+  ],
+  "why": "At reset the chip aliases flash to 0x00000000, so the two words at zero are the first two words of flash.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-034",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Memory map",
+  "kind": "number",
+  "q": "Where does SRAM start?",
+  "choices": [
+   "0x20000000",
+   "0x08000000",
+   "0x10000000",
+   "0x40000000"
+  ],
+  "why": "SRAM starts at 0x20000000: variables, stack and heap. Flash is 0x08000000 and ST's peripherals start at 0x40000000.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-035",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Memory map",
+  "kind": "trap",
+  "q": "On the STM32C0, at which base do the GPIO ports sit?",
+  "choices": [
+   "0x50000000",
+   "0x40000000",
+   "0x48000000",
+   "0xE0000000"
+  ],
+  "why": "ST's peripherals are mostly at 0x40000000, but on the STM32C0 GPIO is at 0x50000000 (GPIOA 0x50000000, GPIOB 0x50000400). 0xE000xxxx is ARM's.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-036",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Memory map",
+  "kind": "concept",
+  "q": "The NVIC and SysTick are at 0xE000xxxx. Why does that matter when you look something up?",
+  "choices": [
+   "They are ARM's, the same on every Cortex-M: open ARM's manual",
+   "They are ST's, so only ST's datasheet lists them",
+   "They are optional and absent on the M0+",
+   "They are mapped into flash, so the linker script must describe them"
+  ],
+  "why": "0xE0000000 is ARM's private peripheral bus. ARM's Cortex-M Generic User Guide covers NVIC/SysTick; ST's reference manual covers everything else.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-037",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Two manuals",
+  "kind": "concept",
+  "q": "Which manual answers 'which pin does USART2 come out on'?",
+  "choices": [
+   "ST's reference manual",
+   "ARM's Cortex-M Generic User Guide",
+   "The AAPCS document",
+   "The CMSIS core header"
+  ],
+  "why": "USART, GPIO, timers and pin muxing are ST's, so ST's reference manual answers. Interrupt priorities are ARM's NVIC, answered in ARM's guide.",
+  "source": "Lesson 00 slides · Slide 7"
+ },
+ {
+  "id": "ch0-038",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Two manuals",
+  "kind": "concept",
+  "q": "Which of these blocks is ARM's, the same on every Cortex-M from any vendor?",
+  "choices": [
+   "SysTick",
+   "RCC",
+   "USART2",
+   "GPIOA"
+  ],
+  "why": "ARM supplies NVIC, SysTick, SCB and MPU (core_cm0plus.h). ST supplies GPIO, USART, TIM, ADC and RCC (stm32c031xx.h).",
+  "source": "Lesson 00 slides · Slide 7"
+ },
+ {
+  "id": "ch0-039",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Memory map",
+  "kind": "calc",
+  "q": "SRAM is 12 KB starting at 0x20000000. What is the address just past its end (the top of RAM)?",
+  "choices": [
+   "0x20003000",
+   "0x2000C000",
+   "0x20001200",
+   "0x20012000"
+  ],
+  "why": "12 KB = 12 × 1024 = 12288 = 0x3000, so the top is 0x20003000, the initial stack pointer. 0xC000 would be 48 KB; 0x1200 confuses decimal 12 with hex.",
+  "source": "Study guide · Fact sheet"
+ },
+ {
+  "id": "ch0-040",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Memory map",
+  "kind": "calc",
+  "q": "Flash is 32 KB starting at 0x08000000. What is the first address past the end of flash?",
+  "choices": [
+   "0x08008000",
+   "0x08020000",
+   "0x08003200",
+   "0x08032000"
+  ],
+  "why": "32 KB = 32768 = 0x8000, so flash ends just below 0x08008000. 0x20000 would be 128 KB.",
+  "source": "Study guide · Fact sheet"
+ },
+ {
+  "id": "ch0-041",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Memory map",
+  "kind": "calc",
+  "q": "A pointer holds 0x50000014. What is it pointing at?",
+  "choices": [
+   "A GPIO register (ST's, on the STM32C0)",
+   "A variable in SRAM",
+   "A constant in flash",
+   "An NVIC register (ARM's)"
+  ],
+  "why": "0x50000000 is where the STM32C0's GPIO lives, so 0x50000014 is a register inside GPIOA. SRAM is 0x2…, flash 0x08…, NVIC 0xE000E100.",
+  "source": "Lesson 00 slides · Slide 5"
+ },
+ {
+  "id": "ch0-042",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Register vs variable",
+  "kind": "concept",
+  "q": "Which statement is true of a peripheral register but NOT of a RAM variable?",
+  "choices": [
+   "Reading it can clear a flag or consume a byte",
+   "It is reached by an ordinary ldr",
+   "It has a fixed address in the memory map",
+   "It is 32 bits wide"
+  ],
+  "why": "Reading a register can have a side effect (clear a flag, pop a byte). Both are reached by ldr at a fixed address; that is not the difference.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-043",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Register vs variable",
+  "kind": "trap",
+  "q": "Your code reads a status register twice in a row and gets two different values. What does that mean?",
+  "choices": [
+   "Nothing wrong: hardware can change a register between reads",
+   "The bus is faulty or the clock is unstable, so reads are unreliable",
+   "The compiler reordered the two reads",
+   "A second task wrote the register in between"
+  ],
+  "why": "A register is a piece of hardware; reading it twice can give different values. A variable read twice gives the same value; a register need not.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-044",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Register vs variable",
+  "kind": "concept",
+  "q": "Why must every access to a peripheral register happen exactly as written in the source?",
+  "choices": [
+   "Reads and writes have side effects the compiler cannot see",
+   "Registers are slower than RAM, so a cached copy goes stale and corrupts them",
+   "Peripheral addresses change after each access",
+   "The bus rejects back-to-back accesses"
+  ],
+  "why": "Writing makes something happen and reading can clear a flag, so caching, reordering or deleting accesses changes behaviour. That is what volatile forbids.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-045",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Control, status, data",
+  "kind": "concept",
+  "q": "Every peripheral has three kinds of register. Which is written by hardware to report what happened?",
+  "choices": [
+   "Status",
+   "Control",
+   "Data",
+   "Prescaler"
+  ],
+  "why": "Control registers are written by software to configure; status registers are written by hardware to report; data registers carry values in and out.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-046",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Control, status, data",
+  "kind": "trap",
+  "q": "In the course's classification, which role does GPIO's IDR play?",
+  "choices": [
+   "Status: it reports what the pins are",
+   "Data: it carries the payload out",
+   "Control: it configures the pin",
+   "Status and control at once"
+  ],
+  "why": "The guide lists GPIO as MODER (control) / IDR (status) / ODR, BSRR (data). IDR reports pin levels, so it is a status register even though it 'holds input data'.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-047",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Control, status, data",
+  "kind": "trap",
+  "q": "The USART has a register called ISR. What kind of register is it?",
+  "choices": [
+   "A status register reporting events such as 'transmit buffer empty'",
+   "The address of the USART's interrupt service routine",
+   "A data register holding the byte most recently received on the line",
+   "A control register that enables interrupts"
+  ],
+  "why": "USART is CR1 (control) / ISR (status) / TDR, RDR (data). Here ISR means interrupt-and-status register, not a handler function.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-048",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Control, status, data",
+  "kind": "concept",
+  "q": "For a timer, which pair are the data registers?",
+  "choices": [
+   "CNT and CCR",
+   "CR1 and PSC",
+   "SR and ARR",
+   "PSC and ARR"
+  ],
+  "why": "Timer: CR1, PSC, ARR are control; SR is status; CNT and CCR carry the values.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-049",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Two gates",
+  "kind": "trap",
+  "q": "You configure a peripheral and its register reads back as zero. What should you suspect first?",
+  "choices": [
+   "Its clock gate in RCC was never enabled",
+   "The pin multiplexer chose the wrong owner",
+   "The compiler optimised the write away",
+   "Interrupts are masked by PRIMASK"
+  ],
+  "why": "Every peripheral powers up unclocked: writes vanish and reads return 0. It is the most common first-week failure. A wrong pin mux leaves the registers working but the pin silent.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-050",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Two gates",
+  "kind": "concept",
+  "q": "A peripheral works internally, the pin is electrically healthy, yet the pin carries no signal. Likely cause?",
+  "choices": [
+   "The pin multiplexer gave the pin to the wrong owner",
+   "The peripheral's clock gate is off",
+   "The flash wait states are wrong",
+   "The vector table slot is empty"
+  ],
+  "why": "Each pin is shared between peripherals; choose the wrong owner and the pin carries nothing. A clock-gate fault would make the peripheral's registers read 0.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-051",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Two gates",
+  "kind": "trap",
+  "q": "Which of the two gates gives you an error message when you forget to open it?",
+  "choices": [
+   "Neither: both look like correct code that does nothing",
+   "The clock gate raises a HardFault",
+   "The pin mux sets an error flag in RCC that you can read back afterwards",
+   "Both: the compiler warns about each"
+  ],
+  "why": "Both gates fail silently: no fault, no warning, just correct code that does nothing. That is why you suspect them first.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-052",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Two gates",
+  "kind": "concept",
+  "q": "What state is every peripheral's clock in at power-on?",
+  "choices": [
+   "Off, to save energy",
+   "On, at the CPU clock",
+   "On, at the reset 12 MHz clock",
+   "Off for ARM blocks, on for ST blocks"
+  ],
+  "why": "Every peripheral powers up switched off. Opening its clock gate in RCC is your job.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-053",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Clock is yours",
+  "kind": "concept",
+  "q": "A UART's baud-rate divisor must be computed from which clock?",
+  "choices": [
+   "The UART's own bus clock",
+   "The CPU core clock, always",
+   "The SysTick reload value",
+   "A fixed 1 MHz reference"
+  ],
+  "why": "A baud rate is a division of the peripheral's bus clock, not the CPU clock. Get the clock wrong and perfect code prints garbage.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-054",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Clock is yours",
+  "kind": "trap",
+  "q": "Serial output is garbage but the transmit code is correct. Which cause fits this lesson?",
+  "choices": [
+   "The clock the baud divisor assumed is not the real one",
+   "A missing volatile on the data register",
+   "The vector table holds even addresses, so the UART handler never runs",
+   "The .bss section was not zeroed"
+  ],
+  "why": "Garbage characters from perfect code mean a wrong clock or a divisor computed from the wrong clock.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-055",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Clock is yours",
+  "kind": "concept",
+  "q": "How do you wait 1 ms on this chip?",
+  "choices": [
+   "Count a known number of ticks",
+   "Call the OS sleep() function",
+   "Set a delay register to 1",
+   "Execute a single wait instruction"
+  ],
+  "why": "There is no operating system and no sleep(): a delay is a count of ticks of a known clock.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-056",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Clock is yours",
+  "kind": "number",
+  "q": "What does the core run at out of reset, and after the course's clock setup?",
+  "choices": [
+   "12 MHz (HSI48 ÷ 4), then 48 MHz with 1 flash wait state",
+   "48 MHz from reset, no wait states",
+   "8 MHz, then 64 MHz with 2 wait states",
+   "12 MHz, then 48 MHz with no wait states"
+  ],
+  "why": "Reset gives HSI48 ÷ 4 = 12 MHz. Raising to 48 MHz needs one flash wait state, set before the clock is raised.",
+  "source": "Study guide · Fact sheet"
+ },
+ {
+  "id": "ch0-057",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Privilege and MMU",
+  "kind": "concept",
+  "q": "On a desktop a bad pointer causes a segmentation fault. What hardware does that, and what does this chip have?",
+  "choices": [
+   "An MMU; this chip has no MMU, only an optional MPU",
+   "An MPU; this chip has a full MMU",
+   "A cache; this chip uses flash wait states to do the same job instead",
+   "The NVIC; this chip uses SysTick instead"
+  ],
+  "why": "Desktops use an MMU for private virtual address spaces. This chip has two privilege levels, no MMU and optionally an MPU of permission rules over real addresses.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-058",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Privilege and MMU",
+  "kind": "concept",
+  "q": "How does an MPU differ from an MMU?",
+  "choices": [
+   "It applies permission rules to real addresses; no private virtual map",
+   "It translates virtual addresses for each task but cannot enforce any permissions",
+   "It only protects flash, never SRAM",
+   "It is the same thing under ARM's name"
+  ],
+  "why": "An MPU is a set of permission rules over the one real address space. An MMU gives each program a private virtual view of memory.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-059",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Modes and stacks",
+  "kind": "concept",
+  "q": "Where do main() and an interrupt handler run?",
+  "choices": [
+   "main() in Thread mode, handlers in Handler mode",
+   "Both in Thread mode, on different stacks",
+   "main() in Handler mode, handlers in Thread mode",
+   "Both in Handler mode, at different priorities"
+  ],
+  "why": "Your main() runs in Thread mode; every interrupt runs in Handler mode. The processor switches without being asked.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-060",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Modes and stacks",
+  "kind": "trap",
+  "q": "Which stack does Handler mode use?",
+  "choices": [
+   "Always MSP",
+   "Whichever CONTROL.SPSEL selects",
+   "Always PSP",
+   "The stack of the interrupted task"
+  ],
+  "why": "SPSEL only selects Thread mode's stack. Handler mode always uses MSP and is always privileged, so a fault handler still works when task code has wrecked its own stack.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-061",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Modes and stacks",
+  "kind": "concept",
+  "q": "How does an RTOS give each task its own stack?",
+  "choices": [
+   "Tasks run in Thread mode on PSP, each with its own PSP value",
+   "Each task runs in Handler mode on MSP",
+   "The MPU allocates one stack per task automatically at task creation time",
+   "Every task shares MSP but with separate frames"
+  ],
+  "why": "An RTOS points PSP at each task's stack in Thread mode; handlers stay on MSP. Until the RTOS lesson, MSP serves everything.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-062",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Modes and stacks",
+  "kind": "number",
+  "q": "CONTROL reads 0 after reset. What does that mean for Thread mode?",
+  "choices": [
+   "Privileged, using MSP",
+   "Unprivileged, using PSP",
+   "Privileged, using PSP",
+   "Unprivileged, using MSP"
+  ],
+  "why": "Both bits are 0 at reset: SPSEL = 0 (MSP) and nPRIV = 0 (privileged).",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-063",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Vectored interrupts",
+  "kind": "concept",
+  "q": "What is non-vectored interrupt dispatch?",
+  "choices": [
+   "Every interrupt enters at one address and software asks who called",
+   "Each source's number indexes a table that holds the address of its handler",
+   "The CPU polls each peripheral in turn",
+   "Interrupts are queued and handled by main()"
+  ],
+  "why": "Non-vectored: one entry point, then software interrogates the hardware. Vectored: the source's number indexes a table and the hardware goes straight to the handler.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-064",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Vectored interrupts",
+  "kind": "concept",
+  "q": "What does each slot of the Cortex-M vector table hold?",
+  "choices": [
+   "A plain handler address",
+   "A jump instruction to the handler",
+   "A descriptor with privilege bits",
+   "The interrupt's priority"
+  ],
+  "why": "Cortex-M's table holds plain addresses. The AVR's slots hold jump instructions; x86's hold descriptors.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch0-065",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Vectored interrupts",
+  "kind": "trap",
+  "q": "How does your USART2 handler get connected to the USART2 interrupt?",
+  "choices": [
+   "Its name puts its address in the right slot of the table you build",
+   "You call an NVIC registration function for each handler during startup",
+   "The NVIC searches flash for a matching name",
+   "The linker script lists each handler by IRQ"
+  ],
+  "why": "There is no registration call. The table is built by your own code; a handler is connected because its address sits in the right slot.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch0-066",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Vectored interrupts",
+  "kind": "number",
+  "q": "In the vector table, what occupies the first 16 slots?",
+  "choices": [
+   "ARM's exceptions: initial SP, reset and faults",
+   "Vendor interrupts IRQ 0 to IRQ 15",
+   "Sixteen copies of the reset vector",
+   "The handlers for each GPIO pin"
+  ],
+  "why": "The first 16 slots are ARM's (slot 0 initial SP, slot 1 Reset_Handler, faults, SysTick…). Vendor interrupts start at slot 16.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-067",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Vectored interrupts",
+  "kind": "calc",
+  "q": "USART2 is IRQ 28. Which slot of the vector table holds its handler's address?",
+  "choices": [
+   "Slot 44",
+   "Slot 28",
+   "Slot 12",
+   "Slot 29"
+  ],
+  "why": "Vendor interrupts start at 16, so IRQ 28 is in slot 16 + 28 = 44.",
+  "source": "Lesson 00 slides · Slide 9"
+ },
+ {
+  "id": "ch0-068",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Vectored interrupts",
+  "kind": "calc",
+  "q": "The vector table starts at 0x08000000. At which address is the vector for IRQ 3?",
+  "choices": [
+   "0x0800004C",
+   "0x0800000C",
+   "0x08000013",
+   "0x08000040"
+  ],
+  "why": "Slot 16 + 3 = 19, each slot 4 bytes: 19 × 4 = 76 = 0x4C. 0x0C forgets the 16 ARM slots; 0x13 forgets the × 4.",
+  "source": "Study guide · Fact sheet"
+ },
+ {
+  "id": "ch0-069",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Vectored interrupts",
+  "kind": "number",
+  "q": "What do slots [0] and [1] of the vector table hold?",
+  "choices": [
+   "The initial stack pointer and the Reset_Handler address",
+   "The NMI and HardFault handler addresses",
+   "The reset handler and the main() address",
+   "The table's size and its checksum"
+  ],
+  "why": "Slot 0 is the initial SP, slot 1 the reset vector. They are the only two words the hardware reads at reset.",
+  "source": "Lesson 00 slides · Slide 9"
+ },
+ {
+  "id": "ch0-070",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Data model",
+  "kind": "trap",
+  "q": "Coming from AVR, you declare loop counters as uint8_t 'to save cycles'. On this chip that is",
+  "choices": [
+   "often slower: the compiler must mask and shift to 8 bits",
+   "faster, since 8-bit ALU operations take fewer cycles than 32-bit ones",
+   "the same speed but saves a register",
+   "required, as registers are 8 bits wide"
+  ],
+  "why": "The word size is 32 bits; narrower types are emulated on top, so uint8_t is not cheaper and often costs extra masking.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-071",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Data model",
+  "kind": "concept",
+  "q": "What is natural alignment?",
+  "choices": [
+   "An n-byte access uses an address divisible by n",
+   "Every access uses an address divisible by 32",
+   "Structs are padded to the cache line size",
+   "Data is stored most significant byte first"
+  ],
+  "why": "A bus moving 4 bytes at a time moves them between 4-byte boundaries, so an n-byte access wants an address divisible by n.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-072",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Data model",
+  "kind": "trap",
+  "q": "You cast a uint8_t receive buffer to uint32_t* and read a word at an odd offset. What happens on the M0+, and on an M3?",
+  "choices": [
+   "M0+ HardFaults; an M3 performs it, more slowly",
+   "Both HardFault immediately",
+   "Both perform it, the M0+ more slowly",
+   "M0+ reads the aligned word below; an M3 faults"
+  ],
+  "why": "A Cortex-M0+ faults on any unaligned word access. M3/M4 perform ordinary unaligned loads and stores, just slower.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-073",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Data model",
+  "kind": "calc",
+  "q": "Which address is safe for a 32-bit ldr on a Cortex-M0+?",
+  "choices": [
+   "0x20000104",
+   "0x20000102",
+   "0x20000101",
+   "0x20000107"
+  ],
+  "why": "A word access needs an address divisible by 4: 0x104 = 260 is; 0x102, 0x101 and 0x107 are not and would HardFault.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-074",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Data model",
+  "kind": "calc",
+  "q": "Which 16-bit (uint16_t) access faults on a Cortex-M0+?",
+  "choices": [
+   "One at 0x20000103",
+   "One at 0x20000102",
+   "One at 0x20000100",
+   "One at 0x20000106"
+  ],
+  "why": "A halfword needs an even address; 0x…103 is odd. The others are all divisible by 2.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-075",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Data model",
+  "kind": "calc",
+  "q": "The word 0x12345678 is stored at address a. Which byte is at a?",
+  "choices": [
+   "0x78",
+   "0x12",
+   "0x56",
+   "0x34"
+  ],
+  "why": "Little-endian puts the least significant byte first: 0x78 at a, 0x56 at a+1, 0x34 at a+2, 0x12 at a+3.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-076",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Data model",
+  "kind": "calc",
+  "q": "The word 0xCAFE0142 is stored at 0x20000010. Which byte is at 0x20000012?",
+  "choices": [
+   "0xFE",
+   "0x01",
+   "0xCA",
+   "0x42"
+  ],
+  "why": "Little-endian bytes from 0x…10 are 42, 01, FE, CA, so offset 2 holds 0xFE. 0x01 would be the big-endian answer.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-077",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Data model",
+  "kind": "calc",
+  "q": "Memory from address a holds the bytes 10 32 54 76. What does a 32-bit ldr from a return?",
+  "choices": [
+   "0x76543210",
+   "0x10325476",
+   "0x01234567",
+   "0x67452301"
+  ],
+  "why": "The first byte is least significant, so the word reads back as 0x76543210.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-078",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Data model",
+  "kind": "concept",
+  "q": "Internet protocol headers use 'network byte order'. Which order is that?",
+  "choices": [
+   "Big-endian, the opposite of this chip",
+   "Little-endian, the same as this chip",
+   "Whichever order the sender's CPU uses",
+   "Mixed: big-endian words, little-endian halves"
+  ],
+  "why": "Network byte order is big-endian (hence htonl()). Every STM32 is little-endian, so bytes from the network must be swapped.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-079",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Implementation leaks",
+  "kind": "concept",
+  "q": "Which three implementation details leak into code you must write?",
+  "choices": [
+   "Pipelining, two buses (AHB/APB), slow flash wait states",
+   "Caches, branch prediction, out-of-order execution",
+   "Pipelining, the MMU, the FPU",
+   "The bus matrix, DMA, register renaming"
+  ],
+  "why": "The pipeline (PC reads ahead, taken branches cost), the AHB/APB buses with their own clock-enable registers, and flash wait states in FLASH->ACR.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-080",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Implementation leaks",
+  "kind": "trap",
+  "q": "Your clock code raises the core to 48 MHz and then sets the flash wait states. What is wrong?",
+  "choices": [
+   "Wait states must be set first; the compiler cannot catch the order",
+   "Nothing: the order of the two register writes makes no difference at all",
+   "Wait states must be set after; the code is right",
+   "The compiler reorders them anyway, so it works"
+  ],
+  "why": "Flash cannot keep up at 48 MHz with zero wait states, so FLASH->ACR must be set first. The code compiles identically either way; only one order works.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-081",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Implementation leaks",
+  "kind": "concept",
+  "q": "What visible effect does pipelining have?",
+  "choices": [
+   "The PC reads ahead, and a taken branch costs extra cycles",
+   "Every instruction takes exactly one cycle",
+   "Interrupts must wait for the pipeline to empty",
+   "Loads return the data from the previous instruction because of the overlap"
+  ],
+  "why": "Overlapping fetch, decode and execute means the PC reads ahead of the executing instruction, and a taken branch throws away work already started.",
+  "source": "Study guide · Lesson 00 notes"
+ },
+ {
+  "id": "ch0-082",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Implementation leaks",
+  "kind": "concept",
+  "q": "Why does a 32 KB microcontroller use flash wait states instead of a cache?",
+  "choices": [
+   "It cannot spend the transistors on a cache",
+   "Caches do not work with Thumb code",
+   "Wait states are faster than a cache",
+   "Flash on this chip is as fast as the core"
+  ],
+  "why": "The processor–memory speed gap: large machines answer it with caches; a small part answers with wait states and a prefetch buffer.",
+  "source": "Lesson 00 slides · Slide 13"
+ },
+ {
+  "id": "ch0-083",
+  "chapter": "Lesson 00 · The Programmer's Model",
+  "topic": "Implementation leaks",
+  "kind": "concept",
+  "q": "GPIO and DMA hang off the fast bus; USART and timers off the slow one. Which pair?",
+  "choices": [
+   "AHB fast, APB slow",
+   "APB fast, AHB slow",
+   "PPB fast, AHB slow",
+   "AHB fast, PPB slow"
+  ],
+  "why": "AHB is the fast bus (GPIO, DMA, RCC) with RCC->AHBENR; APB is slow (USART, SPI, I2C, TIM, ADC) with RCC->APBENR1. Each has its own clock-enable register.",
+  "source": "Lesson 00 slides · Slides 13–14"
+ }
+]

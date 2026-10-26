@@ -1,0 +1,1157 @@
+[
+  {
+    "id": "ch6-001",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "SysTick registers",
+    "kind": "concept",
+    "q": "Where does SysTick live, and how does that differ from TIM3?",
+    "choices": [
+      "In the ARM core at 0xE000E010, the same on every Cortex-M",
+      "In ST's peripheral space at 0x40000400, right beside TIM3",
+      "In the NVIC block at 0xE000E100, wired as an ordinary IRQ 15",
+      "In ST's RCC block, so its address differs on each STM32 part"
+    ],
+    "why": "SysTick is part of the Cortex-M core, at 0xE000E010 on every Cortex-M. That is why every RTOS uses it as a heartbeat. TIM3 is ST silicon at 0x40000400.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-002",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "SysTick registers",
+    "kind": "number",
+    "q": "Which bit of SysTick CTRL is COUNTFLAG?",
+    "choices": [
+      "Bit 16",
+      "Bit 0",
+      "Bit 2",
+      "Bit 24"
+    ],
+    "why": "CTRL holds ENABLE (bit 0), TICKINT (bit 1), CLKSOURCE (bit 2) and COUNTFLAG (bit 16). Bit 24 is not a CTRL field; LOAD and VAL use bits 23:0.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-003",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "SysTick registers",
+    "kind": "concept",
+    "q": "What does the TICKINT bit of SysTick CTRL do?",
+    "choices": [
+      "Makes each wrap to 0 raise the SysTick exception",
+      "Selects the core clock instead of the external one",
+      "Starts the counter counting down from LOAD",
+      "Records that the counter has wrapped since the last read"
+    ],
+    "why": "TICKINT (bit 1) enables the interrupt. ENABLE (bit 0) starts counting, CLKSOURCE (bit 2) picks the clock, and COUNTFLAG (bit 16) is the wrap flag.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-004",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "SysTick registers",
+    "kind": "concept",
+    "q": "Which way does SysTick's VAL count, and what does writing VAL do?",
+    "choices": [
+      "Down to 0; any write clears it",
+      "Up to LOAD; any write sets it to LOAD",
+      "Down to 0; a write loads the value written",
+      "Up to 2²⁴ − 1; writes are ignored"
+    ],
+    "why": "VAL counts down and any write clears it to 0, whatever value is written. It does not load the written value; LOAD holds the reload value.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-005",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "SysTick registers",
+    "kind": "number",
+    "q": "How wide are SysTick's LOAD and VAL registers?",
+    "choices": [
+      "24 bits",
+      "16 bits",
+      "32 bits",
+      "8 bits"
+    ],
+    "why": "LOAD and VAL use bits 23:0 only, so the longest period is 2²⁴ clocks. The timers TIM3 and TIM14 are the 16-bit ones.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-006",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "SysTick_Config",
+    "kind": "number",
+    "q": "SysTick_Config(SystemCoreClock / 1000) at 48 MHz leaves which value in LOAD?",
+    "choices": [
+      "47999",
+      "48000",
+      "48001",
+      "4799"
+    ],
+    "why": "LOAD holds period − 1: 48 000 000 / 1000 = 48 000 clocks, so LOAD = 47 999. 48000 is the classic forgotten −1.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-007",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "SysTick_Config",
+    "kind": "calc",
+    "q": "A 1 ms SysTick tick on a chip still at its 12 MHz reset clock needs which LOAD?",
+    "choices": [
+      "11999",
+      "12000",
+      "47999",
+      "1199"
+    ],
+    "why": "12 000 000 / 1000 = 12 000 clocks per ms, and LOAD = ticks − 1 = 11 999. 47999 is the 48 MHz value.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch6-008",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "SysTick_Config",
+    "kind": "number",
+    "q": "What is the longest SysTick period at 48 MHz?",
+    "choices": [
+      "About 350 ms",
+      "About 1.4 s",
+      "About 65.5 ms",
+      "About 49.7 days"
+    ],
+    "why": "2²⁴ clocks / 48 MHz ≈ 0.35 s. 1.4 s would be at 12 MHz, 65.5 ms is a 16-bit microsecond timer's wrap, and 49.7 days is the uint32_t millisecond counter's wrap.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-009",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "SysTick_Config",
+    "kind": "number",
+    "q": "What value does SysTick_Config() leave in CTRL?",
+    "choices": [
+      "0x7: core clock, interrupt on, enabled",
+      "0x1: enabled only, interrupt off",
+      "0x3: enabled with interrupt, external clock",
+      "0x10007: enabled, with COUNTFLAG set"
+    ],
+    "why": "CTRL = CLKSOURCE | TICKINT | ENABLE = bits 2, 1, 0 = 0x7. COUNTFLAG is a status bit the hardware sets, not something SysTick_Config writes.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-010",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "SysTick_Config",
+    "kind": "number",
+    "q": "Which NVIC priority does SysTick_Config() give SysTick on this chip?",
+    "choices": [
+      "3, the lowest",
+      "0, the most urgent",
+      "1, just below capture",
+      "15, the CMSIS default"
+    ],
+    "why": "It sets (1 << __NVIC_PRIO_BITS) − 1 = 3 with 2 priority bits: the lowest. Time-keeping is rarely the most urgent thing; a late tick is still counted.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-011",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "SysTick_Config",
+    "kind": "trap",
+    "q": "What must SysTick_Handler do to acknowledge its interrupt?",
+    "choices": [
+      "Nothing: taking the exception acknowledges it",
+      "Write 1 to COUNTFLAG to clear the request",
+      "Write 0 to COUNTFLAG, the timer convention",
+      "Read VAL, which clears the pending request"
+    ],
+    "why": "SysTick_Handler has no flag to clear, unlike every other handler in the course; its request is the wrap itself. Inventing a clear for it is the trap.",
+    "source": "Study guide · Lesson 6 traps"
+  },
+  {
+    "id": "ch6-012",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Interrupt vs poll",
+    "kind": "concept",
+    "q": "Lesson 05 polled COUNTFLAG to count milliseconds. Why did that clock lose time?",
+    "choices": [
+      "COUNTFLAG remembers only one wrap, so the extra wraps vanish",
+      "COUNTFLAG clears itself after 1 µs, before the loop gets to read it",
+      "Polling reads VAL, and every read of VAL restarts the count from LOAD",
+      "The poll ran at a lower NVIC priority than the printf did"
+    ],
+    "why": "COUNTFLAG records only one wrap. While a printf blocks for ~8 ms, seven more wraps happen and only one is remembered. Reading VAL does not reset it; writing does.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-013",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Interrupt vs poll",
+    "kind": "calc",
+    "q": "A polled 1 ms clock is stuck in a printf of 90 characters at 115 200 baud. About how many milliseconds does it lose?",
+    "choices": [
+      "About 7",
+      "About 1",
+      "About 90",
+      "None"
+    ],
+    "why": "90 bytes × 86.8 µs ≈ 7.8 ms. COUNTFLAG keeps one of the ~8 wraps, so about 7 ms vanish. The interrupt-driven ms_ticks++ loses none.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-014",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Wrap-safe time",
+    "kind": "number",
+    "q": "A uint32_t millisecond counter wraps after about how long?",
+    "choices": [
+      "49.7 days",
+      "65.5 seconds",
+      "24.9 days",
+      "136 years"
+    ],
+    "why": "2³² ms ≈ 4.29 × 10⁹ ms ≈ 49.7 days. 65.5 s is a uint16_t millisecond counter; 24.9 days is where a signed int32 turns negative.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch6-015",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Wrap-safe time",
+    "kind": "trap",
+    "q": "Which timeout test is correct even when the millisecond counter wraps?",
+    "choices": [
+      "if (millis() − start >= period)",
+      "if (millis() >= start + period)",
+      "if (millis() >= deadline)",
+      "if ((int)millis() > (int)deadline)"
+    ],
+    "why": "Unsigned subtraction is modulo 2³², so now − start is the true elapsed time even across the wrap. Comparing absolute times, as in the other three, breaks on day 50.",
+    "source": "Study guide · Lesson 6 traps"
+  },
+  {
+    "id": "ch6-016",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Wrap-safe time",
+    "kind": "calc",
+    "q": "start = 0xFFFFFF00 and millis() now returns 0x00000100. What is millis() − start, and has a 500 ms timeout expired?",
+    "choices": [
+      "512 ms; yes",
+      "256 ms; no",
+      "4 294 967 040 ms; yes",
+      "Negative; no"
+    ],
+    "why": "0x100 − 0xFFFFFF00 = 0x200 = 512 modulo 2³², and 512 ≥ 500. Unsigned arithmetic never goes negative.",
+    "source": "Study guide · Practice problems"
+  },
+  {
+    "id": "ch6-017",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Wrap-safe time",
+    "kind": "calc",
+    "q": "start = 0xFFFFFE00, now = 0x00000100. Elapsed time by now − start?",
+    "choices": [
+      "768 ms",
+      "512 ms",
+      "256 ms",
+      "1280 ms"
+    ],
+    "why": "0x100 − 0xFFFFFE00 = 0x300 = 768: 0x200 (512) before the wrap plus 0x100 (256) after it.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-018",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Wrap-safe time",
+    "kind": "trap",
+    "q": "start = 0xFFFFFF00 and the code waits with if (millis() >= start + 500). What goes wrong?",
+    "choices": [
+      "start + 500 wraps to 0xF4, so it fires about 16 ms after start",
+      "start + 500 overflows to 0, so it never fires",
+      "Nothing: it fires at exactly 500 ms",
+      "It fires 500 ms late, after the next wrap"
+    ],
+    "why": "start + 500 = 0x000000F4 after the wrap. When millis() is 0xFFFFFF10, only 16 ms in, it is already ≥ 0xF4, so the timeout fires ~484 ms early. Only the subtraction form is always right.",
+    "source": "Study guide · Practice problems"
+  },
+  {
+    "id": "ch6-019",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Cooperative superloop",
+    "kind": "concept",
+    "q": "In the superloop, a job runs when now − ping_at >= 100. Why update with ping_at += 100 rather than ping_at = now?",
+    "choices": [
+      "+= keeps jobs on a fixed grid so lateness does not pile up",
+      "+= is faster: a single add instead of another call to millis()",
+      "= now would overflow the 32-bit counter once 49.7 days have passed",
+      "= now makes the job run twice whenever the loop arrives late"
+    ],
+    "why": "If a pass runs 3 ms late, = now shifts every later run by 3 ms and the error adds up; += period keeps the 100 ms grid and absorbs the lateness.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-020",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Cooperative superloop",
+    "kind": "calc",
+    "q": "ping_at = 1000 and the loop notices at now = 1003. With ping_at += 100, when is the next ping due?",
+    "choices": [
+      "1100",
+      "1103",
+      "1000",
+      "1203"
+    ],
+    "why": "+= 100 gives 1100: back on the 100 ms grid. ping_at = now would have made it 1103, and the 3 ms would stay forever.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-021",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Cooperative superloop",
+    "kind": "concept",
+    "q": "What is the weakness of lesson 06's cooperative superloop?",
+    "choices": [
+      "One slow job delays every other job",
+      "It cannot run more than three jobs",
+      "It loses ticks whenever printf blocks",
+      "Jobs drift off their grid after 49.7 days"
+    ],
+    "why": "A job stops only when it returns, so one 50 ms job delays all the others by 50 ms; a CPU hog freezes everything. Lesson 07's preemptive kernel removes that limit.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-022",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Timer register groups",
+    "kind": "concept",
+    "q": "Which registers form a timer's time base?",
+    "choices": [
+      "PSC, ARR and CNT",
+      "EGR, DIER and SR",
+      "CCMR1, CCER and CCR1",
+      "CR1, PSC and CCR1"
+    ],
+    "why": "Time base: PSC, ARR, CNT (how fast, how far). Events: EGR, DIER, SR. Channel: CCMR1, CCER, CCR1. Control: CR1.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-023",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Timer register groups",
+    "kind": "number",
+    "q": "Which bits of CR1 start a timer and turn on ARR preloading?",
+    "choices": [
+      "CEN starts it; ARPE turns on ARR preload",
+      "UG starts it; OC1PE turns on ARR preload",
+      "CEN starts it; UIE turns on ARR preload",
+      "UE starts it; ARPE turns on ARR preload"
+    ],
+    "why": "CR1.CEN runs the counter and CR1.ARPE preloads ARR. UG is in EGR, OC1PE preloads CCR1 (in CCMR1), UIE is an interrupt enable, and UE belongs to the USART.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-024",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Timer register groups",
+    "kind": "number",
+    "q": "What are the base addresses of TIM3 and TIM14?",
+    "choices": [
+      "TIM3 0x40000400, TIM14 0x40002000",
+      "TIM3 0x40002000, TIM14 0x40000400",
+      "TIM3 0xE000E010, TIM14 0x40000400",
+      "TIM3 0x40004400, TIM14 0x40002000"
+    ],
+    "why": "TIM3 is at 0x40000400 and TIM14 at 0x40002000. 0xE000E010 is SysTick and 0x40004400 is USART2.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-025",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Time-base formulas",
+    "kind": "concept",
+    "q": "What is a timer's update frequency?",
+    "choices": [
+      "f_clk / ((PSC + 1) × (ARR + 1))",
+      "f_clk / (PSC × ARR)",
+      "f_clk / (PSC + ARR + 2)",
+      "f_clk × (PSC + 1) / (ARR + 1)"
+    ],
+    "why": "The prescaler divides by PSC + 1, then the counter runs 0 … ARR, which is ARR + 1 counts. Both registers hold N − 1.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch6-026",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Time-base formulas",
+    "kind": "calc",
+    "q": "At 48 MHz, which PSC and ARR give 1 MHz counting and a 20 ms period?",
+    "choices": [
+      "PSC = 47, ARR = 19999",
+      "PSC = 48, ARR = 20000",
+      "PSC = 47, ARR = 20000",
+      "PSC = 479, ARR = 1999"
+    ],
+    "why": "48 MHz / 48 = 1 MHz, so PSC = 47; 20 ms = 20 000 counts, so ARR = 19 999. PSC = 479 with ARR = 1999 gives 20 ms too, but counts at 100 kHz, not 1 MHz.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-027",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Time-base formulas",
+    "kind": "calc",
+    "q": "At 48 MHz, choose PSC and ARR for a timer that counts at 1 MHz and updates every 1 ms.",
+    "choices": [
+      "PSC = 47, ARR = 999",
+      "PSC = 48, ARR = 1000",
+      "PSC = 47, ARR = 1000",
+      "PSC = 4799, ARR = 9"
+    ],
+    "why": "48 MHz / (47 + 1) = 1 MHz, and 1000 counts = 1 ms, so ARR = 999. PSC = 4799 with ARR = 9 is 1 kHz too, but counts at 10 kHz.",
+    "source": "Study guide · Practice problems"
+  },
+  {
+    "id": "ch6-028",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Time-base formulas",
+    "kind": "calc",
+    "q": "At 48 MHz, PSC = 47 and ARR = 9999. What is the update rate?",
+    "choices": [
+      "100 Hz",
+      "50 Hz",
+      "1 kHz",
+      "10 kHz"
+    ],
+    "why": "48 000 000 / (48 × 10 000) = 100 Hz: 1 MHz counting, 10 ms per period.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-029",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Time-base formulas",
+    "kind": "calc",
+    "q": "At 48 MHz you want the counter to tick every 100 µs (10 kHz). Which PSC?",
+    "choices": [
+      "4799",
+      "4800",
+      "479",
+      "47999"
+    ],
+    "why": "48 MHz / 10 kHz = 4800, and PSC holds N − 1 = 4799. 479 gives 100 kHz; 47999 gives 1 kHz.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-030",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Time-base formulas",
+    "kind": "calc",
+    "q": "At the 12 MHz reset clock, which PSC makes a timer count at 1 MHz?",
+    "choices": [
+      "11",
+      "12",
+      "47",
+      "23"
+    ],
+    "why": "12 MHz / (11 + 1) = 1 MHz. 47 is the 48 MHz value, and is exactly the bug if the clock is not yet switched up.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-031",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Time-base formulas",
+    "kind": "trap",
+    "q": "Someone writes PSC = 48 and ARR = 19999 at 48 MHz, intending 50 Hz. What happens?",
+    "choices": [
+      "It runs at about 49 Hz, and only a cross-check notices",
+      "It runs at exactly 50 Hz; the extra 1 is absorbed",
+      "It refuses to start, because PSC must be odd",
+      "It runs at 25 Hz, because PSC doubles the period"
+    ],
+    "why": "48 MHz / (49 × 20 000) ≈ 48.98 Hz, about 2 % slow. Nothing complains; only the report line's TIM3-versus-SysTick count notices.",
+    "source": "Study guide · Lesson 6 traps"
+  },
+  {
+    "id": "ch6-032",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Time-base formulas",
+    "kind": "number",
+    "q": "What value is in TIM3's ARR for a 20 ms frame at 1 MHz, in hex?",
+    "choices": [
+      "0x4E1F",
+      "0x4E20",
+      "0x2F",
+      "0xBB7F"
+    ],
+    "why": "19 999 = 0x4E1F. 0x4E20 is 20 000 (forgot the −1), 0x2F is PSC = 47, and 0xBB7F is SysTick's 47 999.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-033",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Shadow registers",
+    "kind": "concept",
+    "q": "TIM3's PSC, ARR and CCR1 are double-buffered. What does that mean for a write?",
+    "choices": [
+      "Writes go to a preload copy and take effect at the next update",
+      "It is written twice, so a glitch on one of the copies is corrected",
+      "It takes effect at once, and the old value is kept aside as a backup",
+      "It is ignored until the timer has been disabled and enabled again"
+    ],
+    "why": "Writes land in a preload register; the counter keeps using the shadow copy until the next update. That is what lets a PWM duty change without a malformed pulse.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-034",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Shadow registers",
+    "kind": "concept",
+    "q": "Why write EGR = UG right after setting PSC and ARR?",
+    "choices": [
+      "To force an update now, so the new values take effect",
+      "To enable the update interrupt for the very first time after reset",
+      "To clear the update flag that was left over from the reset sequence",
+      "To start the counter, which setting CEN on its own cannot do"
+    ],
+    "why": "UG generates an update event by software, copying the preload registers into the shadows. UIE enables the interrupt, CEN starts the counter, and UG actually sets UIF rather than clearing it.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-035",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Shadow registers",
+    "kind": "trap",
+    "q": "After EGR = UG, the code enables UIE without clearing anything. What happens?",
+    "choices": [
+      "A phantom interrupt fires at once, because UG raised UIF",
+      "Nothing: UG clears UIF as part of the update",
+      "The timer stays stopped until UIF is cleared",
+      "The first real update is skipped instead"
+    ],
+    "why": "UG raises UIF like any update. Clear it (SR = ~TIM_SR_UIF) before enabling UIE, or the first interrupt is a phantom.",
+    "source": "Study guide · Lesson 6 traps"
+  },
+  {
+    "id": "ch6-036",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Shadow registers",
+    "kind": "calc",
+    "q": "PSC = 47 is written but EGR = UG is skipped; ARR = 19999 took effect at once. How long is TIM3's first period at 48 MHz?",
+    "choices": [
+      "About 0.42 ms",
+      "20 ms",
+      "About 0.96 s",
+      "40 ms"
+    ],
+    "why": "The prescaler is still 0 for the first period, so 20 000 counts run at 48 MHz: 20 000 / 48 MHz ≈ 0.42 ms instead of 20 ms.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-037",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Timer flag clearing",
+    "kind": "trap",
+    "q": "Which line clears only UIF in TIM3_IRQHandler?",
+    "choices": [
+      "TIM3->SR = ~TIM_SR_UIF;",
+      "TIM3->SR = TIM_SR_UIF;",
+      "TIM3->SR |= TIM_SR_UIF;",
+      "TIM3->EGR = TIM_EGR_UG;"
+    ],
+    "why": "Timer flags clear by writing 0, and writing 1 leaves a flag alone. ~TIM_SR_UIF writes 0 to UIF and 1 to everything else. TIM_SR_UIF is the EXTI style.",
+    "source": "Study guide · Lesson 6 traps"
+  },
+  {
+    "id": "ch6-038",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Timer flag clearing",
+    "kind": "trap",
+    "q": "TIM3_IRQHandler clears its flag with TIM3->SR = TIM_SR_UIF (the EXTI style). What does the board do?",
+    "choices": [
+      "The handler re-enters forever: UIF stays set",
+      "Works normally: writing 1 clears a flag on every STM32 peripheral",
+      "HardFaults, because SR is a read-only register",
+      "The compiler warns that the clearing convention is the wrong one"
+    ],
+    "why": "Writing 1 to UIF leaves it set and writing 0 to every other bit clears them. The handler returns with UIF still pending and runs again forever. It builds with zero warnings.",
+    "source": "Study guide · Lesson 6 traps"
+  },
+  {
+    "id": "ch6-039",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Timer flag clearing",
+    "kind": "calc",
+    "q": "What 32-bit value does TIM3->SR = ~TIM_SR_UIF write (UIF is bit 0)?",
+    "choices": [
+      "0xFFFFFFFE",
+      "0x00000001",
+      "0xFFFFFFFF",
+      "0x7FFFFFFF"
+    ],
+    "why": "~0x00000001 = 0xFFFFFFFE: a 0 in bit 0 clears UIF, 1s everywhere else leave the other flags alone.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-040",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Clearing conventions",
+    "kind": "concept",
+    "q": "By lesson 06, how do the three flags seen so far clear?",
+    "choices": [
+      "EXTI: write 1; TIM SR: write 0; CC1IF: read CCR1",
+      "EXTI: write 0; TIM SR: write 1; CC1IF: read CCR1",
+      "All three clear by writing 1 to the flag",
+      "EXTI: read; TIM SR: write 0; CC1IF: write 1"
+    ],
+    "why": "Same chip, three conventions. The guide's lesson: for every flag, look up how it clears.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-041",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "PWM output compare",
+    "kind": "concept",
+    "q": "In PWM mode 1 (OC1M = 110), when is the pin high?",
+    "choices": [
+      "While CNT < CCR1",
+      "While CNT ≥ CCR1",
+      "While CNT < ARR",
+      "Only at the update event"
+    ],
+    "why": "Mode 1 drives the pin high while the count is below CCR1 and low after, until ARR wraps the counter.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-042",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "PWM output compare",
+    "kind": "concept",
+    "q": "Why is CCR1 the pulse width in microseconds in this lesson?",
+    "choices": [
+      "The counter ticks once per microsecond (1 MHz)",
+      "CCR1 is defined in microseconds by the hardware",
+      "The ISR converts CCR1 to microseconds each frame",
+      "ARR is 19999, which scales CCR1 to microseconds"
+    ],
+    "why": "With PSC = 47 at 48 MHz the counter counts at 1 MHz, so one count is one microsecond and CCR1 = 1500 means 1.5 ms.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-043",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "PWM output compare",
+    "kind": "concept",
+    "q": "How involved is the CPU in each PWM edge on PA6?",
+    "choices": [
+      "Not at all; the ISR only changes CCR1",
+      "It toggles the pin in the update ISR every edge",
+      "It sets the pin at the update and clears it in a compare ISR",
+      "It polls CNT and writes BSRR at CCR1"
+    ],
+    "why": "The timer drives the pin by itself. The CPU is involved in no edge; the update ISR only moves CCR1.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-044",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "PWM output compare",
+    "kind": "concept",
+    "q": "Which four things turn on TIM3 channel 1 PWM output on a pin?",
+    "choices": [
+      "CCMR1 mode + OC1PE, CCER.CC1E, CR1.ARPE, and the pin's AF",
+      "DIER.UIE, SR.UIF, EGR.UG, and the pin's MODER output",
+      "CCMR1 mode, CCR1, PSC, and the NVIC enable",
+      "CCER.CC1P, CCER.CC1NP, CR1.CEN, and the pin's pull-up"
+    ],
+    "why": "Mode and preload in CCMR1, CC1E to connect the channel to the pin, ARPE, and the alternate function on the pin. Interrupts and NVIC are not needed for the waveform.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-045",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "PWM output compare",
+    "kind": "number",
+    "q": "What does OC1PE (CCR1 preload) guarantee when the ISR changes the pulse width?",
+    "choices": [
+      "A pulse is never cut in half: changes wait for the next frame",
+      "The pulse width changes at once, even in the middle of a pulse",
+      "The new value is ignored until software writes EGR = UG again",
+      "The output is forced low for as long as CCR1 is being written"
+    ],
+    "why": "With preload on, every change to CCR1 takes effect at the next update, the frame boundary, so no malformed pulse is produced.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-046",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "PWM output compare",
+    "kind": "calc",
+    "q": "TIM3 counts at 1 MHz with ARR = 19999. CCR1 = 1250. What is on PA6?",
+    "choices": [
+      "A 1.25 ms pulse every 20 ms",
+      "A 12.5 ms pulse every 20 ms",
+      "A 1.25 ms pulse every 1.25 ms",
+      "A 20 ms pulse every 1.25 ms"
+    ],
+    "why": "One count is 1 µs, so CCR1 = 1250 is 1.25 ms high, and ARR + 1 = 20 000 counts is the 20 ms frame.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-047",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "PWM output compare",
+    "kind": "number",
+    "q": "What CCMR1 value sets OC1M = 110 (bits 6:4) and OC1PE (bit 3)?",
+    "choices": [
+      "0x68",
+      "0x60",
+      "0x6C",
+      "0x38"
+    ],
+    "why": "0b110 << 4 = 0x60, plus 1 << 3 = 0x08, gives 0x68. 0x60 forgets the preload.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-048",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Servo signal",
+    "kind": "number",
+    "q": "What does a hobby servo read, nominally?",
+    "choices": [
+      "A pulse every 20 ms: 1.0 ms one end, 1.5 ms centre, 2.0 ms other end",
+      "A pulse every 1 ms: 20 % one end, 50 % centre, 80 % other end",
+      "A pulse every 20 ms: 0 ms one end, 10 ms centre, 20 ms other end",
+      "A voltage: 0 V one end, 1.65 V centre, 3.3 V other end"
+    ],
+    "why": "The pulse width is the whole message; the 50 Hz frame rate is not critical. Real servos differ (Arduino uses 544–2400 µs), so the lab measures it.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-049",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Servo signal",
+    "kind": "calc",
+    "q": "Lab check T9: PSC is changed so TIM3 counts at 2 MHz; ARR = 19999 and CCR1 = 1500 are unchanged. What happens?",
+    "choices": [
+      "100 updates/s, and the pulse shrinks to 0.75 ms",
+      "50 updates/s, and the pulse stays 1.5 ms",
+      "25 updates/s, and the pulse grows to 3 ms",
+      "100 updates/s, and the pulse stays 1.5 ms"
+    ],
+    "why": "At 2 MHz the frame is 20 000 × 0.5 µs = 10 ms, so 100 updates/s, and 1500 counts are only 750 µs. CCR1 still holds the pulse width, now in half-microseconds.",
+    "source": "Lesson 06 Main.c lab check"
+  },
+  {
+    "id": "ch6-050",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "AF numbers",
+    "kind": "number",
+    "q": "TIM3_CH1 is AF1 on PA6. What is it on PB6?",
+    "choices": [
+      "AF12",
+      "AF1",
+      "AF4",
+      "AF0"
+    ],
+    "why": "AF numbers depend on the pin: TIM3_CH1 is AF1 on PA6 (and PB4, PC6) but AF12 on PB6 and AF11 on PB7. The number comes from the datasheet table.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-051",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "AF numbers",
+    "kind": "number",
+    "q": "Which AF connects TIM14_CH1 to PA7?",
+    "choices": [
+      "AF4",
+      "AF1",
+      "AF0",
+      "AF12"
+    ],
+    "why": "TIM14_CH1 is AF4 on PA7 (but AF0 on PB1).",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-052",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "AF numbers",
+    "kind": "trap",
+    "q": "TIM3 is set up correctly but PA6 is given the wrong AF number. What do you see?",
+    "choices": [
+      "The timer counts and interrupts at 50/s, but the servo never moves",
+      "The timer refuses to start counting until the AF number is corrected",
+      "A HardFault occurs the first time the timer tries to drive the pin",
+      "The PWM comes out on a different pin, the one that AF belongs to"
+    ],
+    "why": "With a wrong AF the timer works and the pin doesn't. Everything internal looks fine, including the self-test.",
+    "source": "Study guide · Lesson 6 traps"
+  },
+  {
+    "id": "ch6-053",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "AF numbers",
+    "kind": "calc",
+    "q": "PA6 needs AF1 and PA7 needs AF4. What does GPIOA->AFR[0] hold for just those two pins?",
+    "choices": [
+      "0x41000000",
+      "0x14000000",
+      "0x00000041",
+      "0x01400000"
+    ],
+    "why": "PA6's field is bits 27:24 (1 << 24), PA7's is bits 31:28 (4 << 28): 0x40000000 | 0x01000000 = 0x41000000.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch6-054",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Rate limiter",
+    "kind": "concept",
+    "q": "What does the TIM3 update ISR do with SLEW?",
+    "choices": [
+      "Moves CCR1 toward the target by at most SLEW µs per frame",
+      "Sets CCR1 straight to the target, then waits SLEW µs",
+      "Skips SLEW frames between servo updates",
+      "Adds SLEW µs of dead time between pulses"
+    ],
+    "why": "It is a rate limiter, the smallest control loop: measure, compare, correct, once per period. The servo glides instead of snapping.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-055",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Rate limiter",
+    "kind": "calc",
+    "q": "SLEW = 20 µs per 20 ms frame. How long does the servo take to glide from 1000 µs to 2000 µs?",
+    "choices": [
+      "1 s (50 frames)",
+      "20 ms (1 frame)",
+      "0.5 s (25 frames)",
+      "20 s (1000 frames)"
+    ],
+    "why": "1000 µs / 20 µs = 50 frames, and 50 × 20 ms = 1 s: 1000 µs of travel per second.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-056",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Rate limiter",
+    "kind": "calc",
+    "q": "Lab check T4: SERVO_SLEW_US goes from 20 to 200. How many frames from 1000 µs to 2000 µs now?",
+    "choices": [
+      "5",
+      "50",
+      "10",
+      "200"
+    ],
+    "why": "1000 / 200 = 5 frames, 100 ms: the servo now nearly snaps.",
+    "source": "Lesson 06 Main.c lab check"
+  },
+  {
+    "id": "ch6-057",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Input capture",
+    "kind": "concept",
+    "q": "Why measure the echo with input capture instead of an EXTI interrupt reading the time?",
+    "choices": [
+      "The hardware copies CNT into CCR1 at the edge; latency doesn't matter",
+      "Capture runs from a faster clock than the EXTI block, so it is finer",
+      "EXTI cannot interrupt on both edges of the same pin, only on one",
+      "Capture needs no interrupt at all, so the CPU is never even told"
+    ],
+    "why": "The timestamp is taken before the interrupt is even requested; latency changes when you read it, not what it says. EXTI can do both edges; the ISR still reads CCR1.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-058",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Input capture",
+    "kind": "trap",
+    "q": "How is CC1IF cleared in the capture ISR?",
+    "choices": [
+      "By reading CCR1",
+      "By writing 1 to CC1IF",
+      "By writing 0 to CC1IF with |=",
+      "By writing EGR = CC1G"
+    ],
+    "why": "Reading CCR1 clears CC1IF: the third clearing convention, and the only one needing no write.",
+    "source": "Study guide · Lesson 6 traps"
+  },
+  {
+    "id": "ch6-059",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Input capture",
+    "kind": "calc",
+    "q": "TIM14 counts µs and wraps at 65536. The rising edge is captured at 65000 and the falling at 1000. What width does (uint16_t)(t_fall − t_rise) give?",
+    "choices": [
+      "1536 µs",
+      "64000 µs",
+      "−64000 µs",
+      "536 µs"
+    ],
+    "why": "(1000 − 65000) mod 65536 = 1536: 536 counts to the wrap plus 1000 after. The 16-bit subtraction is right across one wrap, like millis().",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-060",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Input capture",
+    "kind": "number",
+    "q": "How long until a 16-bit TIM14 counting at 1 MHz wraps?",
+    "choices": [
+      "About 65.5 ms",
+      "About 6.55 ms",
+      "About 350 ms",
+      "About 20 ms"
+    ],
+    "why": "2¹⁶ µs = 65.536 ms. The longest HC-SR04 echo, 400 cm, is 23.2 ms, so at most one wrap can happen between edges.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-061",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Input capture",
+    "kind": "trap",
+    "q": "TIM14 capture is configured but only CC1P is set, for rising edges. What does the report show?",
+    "choices": [
+      "No widths, ever: there is no falling edge to subtract",
+      "Widths twice as long as the real echo",
+      "Correct widths, since the fall is implied",
+      "A HardFault at the first echo"
+    ],
+    "why": "From the silent-failure list: capture both edges, or you only ever have rising timestamps and no width.",
+    "source": "Study guide · Lesson 6 traps"
+  },
+  {
+    "id": "ch6-062",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "HC-SR04",
+    "kind": "number",
+    "q": "The guide's figure for the HC-SR04 echo is about how much per centimetre?",
+    "choices": [
+      "58 µs per cm",
+      "29 µs per cm",
+      "340 µs per cm",
+      "5.8 µs per cm"
+    ],
+    "why": "Round-trip at ~340 m/s is ~58 µs per cm. Wokwi's model is actually 58.8 µs per cm.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-063",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "HC-SR04",
+    "kind": "calc",
+    "q": "An echo is 2900 µs wide. At 58 µs per cm, how far is the object?",
+    "choices": [
+      "50 cm",
+      "29 cm",
+      "100 cm",
+      "5 cm"
+    ],
+    "why": "2900 / 58 = 50 cm.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-064",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "HC-SR04",
+    "kind": "calc",
+    "q": "Lab check T3: PING_MS goes from 100 to 50. How fast does the EXTI edge count grow now?",
+    "choices": [
+      "40 per second",
+      "20 per second",
+      "10 per second",
+      "80 per second"
+    ],
+    "why": "20 pings a second, two edges per echo (rise and fall): 40 edges a second, up from 20.",
+    "source": "Lesson 06 Main.c lab check"
+  },
+  {
+    "id": "ch6-065",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "HC-SR04",
+    "kind": "concept",
+    "q": "Wokwi does not implement timer input capture. How does lesson 06 still measure the echo there?",
+    "choices": [
+      "EXTI line 7 interrupts on both edges and reads TIM14->CNT itself",
+      "It polls PA7 in main() and reads millis()",
+      "It uses TIM3's capture channel instead of TIM14's",
+      "It estimates the width from the servo position"
+    ],
+    "why": "The handler reads TIM14->CNT on each edge. Both timestamps are late by about the same latency, so the width is still right while nothing delays one of the two interrupts.",
+    "source": "Lesson 06 slides"
+  },
+  {
+    "id": "ch6-066",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Tearing",
+    "kind": "concept",
+    "q": "The capture ISR writes echo_us and echo_count together. Why does main() read them between __disable_irq() and __enable_irq()?",
+    "choices": [
+      "So a capture between the two loads can't pair a new count with an old width",
+      "Because each variable on its own could tear on a 32-bit core like this one",
+      "So that the capture itself is delayed until main() has finished reading",
+      "Because volatile variables cannot be read while interrupts are enabled"
+    ],
+    "why": "Each word alone is safe, but the pair is one logical value. Masking for two loads keeps the pair consistent. The capture is not delayed: the hardware already took the timestamp; the interrupt just waits pending.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-067",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Tearing",
+    "kind": "trap",
+    "q": "While main() reads the pair with interrupts masked, an echo edge arrives. What happens to the measurement?",
+    "choices": [
+      "It is still exact: CCR1 already holds the time",
+      "It is lost: an edge that arrives while masked is never captured",
+      "It is late by the length of the masked window, a few microseconds",
+      "It is captured twice, once now and once when interrupts are re-enabled"
+    ],
+    "why": "Capture is hardware; the interrupt is merely held pending until __enable_irq(). The window is two loads, a fraction of a microsecond.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-068",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Priorities follow deadlines",
+    "kind": "concept",
+    "q": "Lesson 06 gives TIM14 capture priority 1, TIM3 update 2, SysTick 3. What rule is that?",
+    "choices": [
+      "Deadline-monotonic: the shorter the deadline, the more urgent",
+      "Importance to the user: the servo matters most",
+      "IRQ number order: the lowest number is most urgent",
+      "Rate order: whoever interrupts most often is most urgent"
+    ],
+    "why": "Capture must be read before the next edge, TIM3 has 20 ms of slack, and a late tick is still counted. Importance to the user is not the criterion.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-069",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Priorities follow deadlines",
+    "kind": "trap",
+    "q": "A student argues: 'the servo is what the user sees, so TIM3 should be priority 0.' What is the guide's answer?",
+    "choices": [
+      "Wrong: TIM3 has 20 ms of slack; priority follows deadline",
+      "Right: the output the user can see always gets the top priority",
+      "Right: PWM must be serviced by the CPU on every edge of the pulse",
+      "Wrong: TIM3 must be the least urgent, below SysTick's priority 3"
+    ],
+    "why": "The CPU is in no PWM edge and the update ISR has a whole 20 ms frame. The capture read has the tightest deadline.",
+    "source": "Study guide · Lesson 6 traps"
+  },
+  {
+    "id": "ch6-070",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Priorities follow deadlines",
+    "kind": "concept",
+    "q": "TIM3 (IRQ 16) and TIM14 (IRQ 19) are both pending at the same NVIC priority. What happens?",
+    "choices": [
+      "Neither preempts; TIM3 runs first, then TIM14",
+      "TIM14 preempts TIM3, as the higher IRQ number",
+      "They run interleaved, one instruction each",
+      "The second request is dropped"
+    ],
+    "why": "Equal priorities never preempt each other; they queue, and the lower IRQ number goes first.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-071",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Priorities follow deadlines",
+    "kind": "calc",
+    "q": "NVIC priority bytes hold prio << 6. What byte gives TIM14 priority 1?",
+    "choices": [
+      "0x40",
+      "0x01",
+      "0x80",
+      "0x10"
+    ],
+    "why": "With 2 priority bits at the top of the byte, 1 << 6 = 0x40. Priority 2 is 0x80 and 3 is 0xC0.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch6-072",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Self-test",
+    "kind": "number",
+    "q": "Counting TIM3 updates per SysTick second should give what number?",
+    "choices": [
+      "Exactly 50",
+      "Exactly 1000",
+      "About 49",
+      "Exactly 20"
+    ],
+    "why": "Two independent clock paths from the same 48 MHz must agree: 1 s / 20 ms = 50.",
+    "source": "Study guide · Lesson 6 notes"
+  },
+  {
+    "id": "ch6-073",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Self-test",
+    "kind": "trap",
+    "q": "Lab check T8: REPORT_MS goes from 1000 to 250, and 'TIM3 n/s' now reads about 12. Is TIM3 slower?",
+    "choices": [
+      "No: it counts updates per report, now a quarter second",
+      "Yes: TIM3 shares its clock with the report, so it slows down too",
+      "Yes: the report now preempts TIM3 four times as often as before",
+      "No: SysTick itself slowed down by a factor of four, not TIM3"
+    ],
+    "why": "The number is updates − last_updates per report interval: 50 × 0.25 ≈ 12.5. The timer is unchanged; the label says /s.",
+    "source": "Lesson 06 Main.c lab check"
+  },
+  {
+    "id": "ch6-074",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Timer silent failures",
+    "kind": "trap",
+    "q": "Forgetting the RCC clock gate for TIM3 gives which symptom?",
+    "choices": [
+      "Registers read 0 and nothing counts",
+      "The timer counts at the reset 12 MHz",
+      "The first period is at the wrong rate",
+      "The handler re-enters forever"
+    ],
+    "why": "Without the clock gate the peripheral is unpowered: writes are lost, reads return 0. The wrong-rate first period is the missing UG.",
+    "source": "Study guide · Lesson 6 traps"
+  },
+  {
+    "id": "ch6-075",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Timer silent failures",
+    "kind": "trap",
+    "q": "PWM is configured but CCER.CC1E is never set. What happens?",
+    "choices": [
+      "The timer runs but the pin is dead, as with a wrong AF",
+      "The timer does not count at all",
+      "The pin outputs a constant high",
+      "The update interrupt never fires"
+    ],
+    "why": "CC1E connects the channel to the pin. Without it the counter, the interrupt and the report all look fine and the channel never reaches the pin.",
+    "source": "Study guide · Lesson 6 traps"
+  },
+  {
+    "id": "ch6-076",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Timer silent failures",
+    "kind": "trap",
+    "q": "TIM3_IRQHandler is misspelled as TIM3_IRQhandler. What happens?",
+    "choices": [
+      "The vector stays Default_Handler, and the board hangs",
+      "The linker stops with an undefined-symbol error for TIM3_IRQHandler",
+      "Nothing goes wrong: the compiler matches handler names case-insensitively",
+      "Nothing goes wrong: the NVIC finds the handler by its IRQ number"
+    ],
+    "why": "The handler is found by its exact name: the weak alias stays in the table and the real function is never called. It builds with no error.",
+    "source": "Study guide · Lesson 6 traps"
+  },
+  {
+    "id": "ch6-077",
+    "chapter": "Lesson 06 · Time and Timers",
+    "topic": "Gauge arithmetic",
+    "kind": "calc",
+    "q": "The proximity bar lights (200 − cm) × 8 / 200 LEDs as the mask (1 << lit) − 1. Which mask at 150 cm?",
+    "choices": [
+      "0x03",
+      "0x3F",
+      "0x0F",
+      "0xC0"
+    ],
+    "why": "(200 − 150) × 8 / 200 = 2 LEDs, mask (1 << 2) − 1 = 0x03. 0x3F would be 50 cm.",
+    "source": "Lesson 06 slides"
+  }
+]

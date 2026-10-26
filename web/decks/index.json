@@ -1,5 +1,14 @@
 [
  {
+  "key": "embedded",
+  "title": "Embedded Software",
+  "subtitle": "Lessons 00–08 · 33 MCQ, 60 min",
+  "exam": "Wed 28 Oct, 09:30",
+  "unit": "Lesson",
+  "share": null,
+  "count": 698
+ },
+ {
   "key": "distinguished",
   "title": "Distinguished Lecture",
   "subtitle": "Critical thinking · 30 MCQ, 60 min",

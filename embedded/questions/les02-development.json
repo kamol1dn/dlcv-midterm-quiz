@@ -1,0 +1,902 @@
+[
+ {
+  "id": "ch2-001",
+  "chapter": "Lesson 02 · Development",
+  "topic": "No operating system",
+  "kind": "concept",
+  "q": "On a PC the OS places your program, gives it a stack, zeroes globals and calls main(). Who does this on this chip?",
+  "choices": [
+   "Your own startup code; if it doesn't, nothing does",
+   "The bootloader in ST's system ROM",
+   "The C compiler inserts all of it into main() automatically",
+   "The debugger, when it loads the program"
+  ],
+  "why": "There is no operating system. Every one of those jobs still has to be done, and if you do not arrange it, nothing does.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-002",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Build stages",
+  "kind": "concept",
+  "q": "Which is the correct order of the build stages?",
+  "choices": [
+   "Preprocess, compile, assemble, link and locate",
+   "Compile, preprocess, link, assemble",
+   "Preprocess, assemble, compile, link",
+   "Compile, assemble, locate, link"
+  ],
+  "why": "gcc is a driver that runs preprocess → compile → assemble → link and locate in sequence.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-003",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Build stages",
+  "kind": "concept",
+  "q": "Which build stage is the embedded-specific one?",
+  "choices": [
+   "Locate: giving every name a real address",
+   "Preprocess: expanding the headers",
+   "Assemble: making machine code",
+   "Compile: optimising for size"
+  ],
+  "why": "Stages 1–3 are ordinary. Locate assigns real addresses, such as SystemInit at 0x0800022c, driven by a linker script you write.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-004",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Build stages",
+  "kind": "concept",
+  "q": "What drives the locate stage?",
+  "choices": [
+   "A linker script you write",
+   "The operating system's loader",
+   "The MMU's page tables",
+   "The compiler's optimisation level"
+  ],
+  "why": "No loader or MMU exists to place code later, so you tell the linker where flash and RAM are and which section goes where.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-005",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Build stages",
+  "kind": "concept",
+  "q": "What is gcc, strictly speaking?",
+  "choices": [
+   "A driver that runs several programs in sequence",
+   "A single program that compiles C directly into a flashable image",
+   "The linker that resolves names",
+   "An assembler with a C front end"
+  ],
+  "why": "gcc is not a compiler but a driver that runs four or five programs, and on embedded the last one is the one that bites.",
+  "source": "Lesson 02 slides · Slide 2"
+ },
+ {
+  "id": "ch2-006",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Address binding",
+  "kind": "concept",
+  "q": "When does a name get its address on this chip?",
+  "choices": [
+   "At compile (build) time, burned into the image",
+   "At load time, when a loader picks a base",
+   "At run time, translated by an MMU",
+   "When main() first references it"
+  ],
+  "why": "With no loader and no MMU, binding happens at build time and is fixed in the image, which is why you write the linker script.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch2-007",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Address binding",
+  "kind": "trap",
+  "q": "Why does this chip bind addresses at build time?",
+  "choices": [
+   "It has no loader and no MMU",
+   "Flash cannot be rewritten at run time",
+   "The compiler cannot produce relocatable code",
+   "The vector table must be at address 0"
+  ],
+  "why": "Late binding needs a loader (load time) or an MMU (run time). This chip has neither, so the addresses are decided when you build.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch2-008",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Address binding",
+  "kind": "concept",
+  "q": "Your laptop runs the same binary at a different address on each launch. Which binding is that, and what does it need?",
+  "choices": [
+   "Run time, translated by an MMU",
+   "Load time, translated by the NVIC",
+   "Compile time, with a linker script",
+   "Load time, with no hardware help"
+  ],
+  "why": "Desktops and phones bind at run time, with addresses translated by an MMU, so two programs can both believe they own 0x400000.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-009",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Address binding",
+  "kind": "concept",
+  "q": "What does load-time binding mean?",
+  "choices": [
+   "A loader picks a base address when the program starts",
+   "Addresses are fixed when the image is built",
+   "Addresses move while the program runs",
+   "The linker picks addresses as it loads the shared libraries at start-up"
+  ],
+  "why": "Load time: a loader chooses the base (classic relocatable executables). Compile time is this chip; run time is MMU-based OSes.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-010",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Address binding",
+  "kind": "concept",
+  "q": "Which other system binds addresses at compile time, like this chip?",
+  "choices": [
+   "MS-DOS .com files",
+   "Linux ELF executables",
+   "Android apps",
+   "Windows DLLs"
+  ],
+  "why": "MS-DOS .com files had fixed addresses. Modern OSes bind at load or run time.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-011",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Separate compilation",
+  "kind": "concept",
+  "q": "What does the compiler know about other .c files while compiling main.c?",
+  "choices": [
+   "Nothing: each .c becomes an .o on its own",
+   "Their function bodies, for inlining",
+   "Their global variable addresses",
+   "Everything that the headers include"
+  ],
+  "why": "Each .c is compiled alone into an .o. Where it needs a name it doesn't have, it leaves a hole and a note for the linker.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-012",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Separate compilation",
+  "kind": "concept",
+  "q": "The linker reports 'undefined reference to X'. What happened?",
+  "choices": [
+   "Something uses X and no file defines it",
+   "Two files both define X",
+   "X is defined but never used",
+   "X was declared without volatile"
+  ],
+  "why": "Undefined reference: a 'needs' with no matching 'defines'. Two definitions give 'multiple definition of X' instead.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-013",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Separate compilation",
+  "kind": "concept",
+  "q": "The linker reports 'multiple definition of X'. What happened?",
+  "choices": [
+   "Two files both define X",
+   "Something uses X but nothing defines it",
+   "X is declared in two headers",
+   "X is too large for RAM"
+  ],
+  "why": "The linker matches each need to exactly one definition and will not choose between two.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-014",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Separate compilation",
+  "kind": "trap",
+  "q": "ST's header declares SystemCoreClock and your code uses it, but you don't build ST's system_stm32c0xx.c. What do you get?",
+  "choices": [
+   "undefined reference to SystemCoreClock",
+   "multiple definition of SystemCoreClock",
+   "A compile error in the header",
+   "It links, and SystemCoreClock reads 0"
+  ],
+  "why": "A declaration is not a definition. The header promises it exists; only the .c file defines it, so the link fails.",
+  "source": "Lesson 02 slides · Slide 3"
+ },
+ {
+  "id": "ch2-015",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Sections",
+  "kind": "number",
+  "q": "Which section holds the program's code?",
+  "choices": [
+   ".text, in flash",
+   ".data, in RAM",
+   ".rodata, in RAM",
+   ".bss, in flash"
+  ],
+  "why": ".text is code and lives in flash. .rodata (const) is also flash; .data and .bss are RAM.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-016",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Sections",
+  "kind": "concept",
+  "q": "Where do const data and string literals go?",
+  "choices": [
+   ".rodata, flash only",
+   ".data, RAM and flash",
+   ".bss, RAM only",
+   ".text, RAM only"
+  ],
+  "why": ".rodata lives only in flash and costs no RAM, which is why the guide says prefer const where you can.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-017",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Sections",
+  "kind": "concept",
+  "q": "Where does .data (globals with a non-zero initial value) live?",
+  "choices": [
+   "In RAM, with a copy of the initial values in flash",
+   "Only in flash",
+   "Only in RAM",
+   "In the vector table"
+  ],
+  "why": "It must be writable, so it lives in RAM; its initial value must survive power-off, so a copy is kept in flash. It costs both.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-018",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Sections",
+  "kind": "trap",
+  "q": "Why does 364 bytes of .bss cost nothing in flash while 96 bytes of .data costs 96?",
+  "choices": [
+   ".bss starts at zero, so only its size is recorded",
+   ".bss is compressed in the image",
+   ".bss lives in flash and is copied into RAM for free by the hardware",
+   ".data is stored twice in flash"
+  ],
+  "why": "A global that starts at zero has no value worth storing; the image records only how many bytes to clear. .data needs its initial values kept in flash.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-019",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Sections",
+  "kind": "number",
+  "q": "Where does the .isr_vector section go?",
+  "choices": [
+   "Flash, at 0x08000000",
+   "RAM, at 0x20000000",
+   "Flash, at the end of .text",
+   "RAM, just above .bss"
+  ],
+  "why": "The vector table is the first thing in flash at 0x08000000, the address aliased to 0 at reset.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-020",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Sections",
+  "kind": "calc",
+  "q": "Sort these: const char msg[] = \"hi\";  int total;  int limit = 50;",
+  "choices": [
+   "msg .rodata, total .bss, limit .data",
+   "msg .data, total .bss, limit .rodata",
+   "msg .rodata, total .data, limit .data",
+   "msg .text, total .bss, limit .bss"
+  ],
+  "why": "msg is const (.rodata, flash only). total starts at zero (.bss, RAM only). limit has a non-zero initial value (.data, RAM and flash).",
+  "source": "Study guide · Practice P11"
+ },
+ {
+  "id": "ch2-021",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Sections",
+  "kind": "calc",
+  "q": "How much flash and RAM does the global static uint16_t samples[64]; cost?",
+  "choices": [
+   "0 bytes of flash, 128 bytes of RAM",
+   "128 bytes of flash, 128 bytes of RAM",
+   "128 bytes of flash, 0 bytes of RAM",
+   "0 bytes of flash, 64 bytes of RAM"
+  ],
+  "why": "No initialiser, so it is .bss: RAM only, 64 × 2 = 128 bytes, and only its size is recorded in the image.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-022",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Sections",
+  "kind": "calc",
+  "q": "How much flash and RAM does the global uint32_t gains[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; cost?",
+  "choices": [
+   "40 bytes of flash and 40 bytes of RAM",
+   "40 bytes of RAM only",
+   "40 bytes of flash only",
+   "10 bytes of flash and 40 bytes of RAM"
+  ],
+  "why": "Non-zero initial values make it .data: 10 × 4 = 40 bytes in RAM, plus the 40-byte copy of the values in flash.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-023",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Sections",
+  "kind": "calc",
+  "q": "How much flash and RAM does const uint8_t lut[256] = {…}; cost?",
+  "choices": [
+   "256 bytes of flash, 0 bytes of RAM",
+   "256 bytes of flash and 256 bytes of RAM",
+   "0 bytes of flash, 256 bytes of RAM",
+   "1024 bytes of flash, 0 bytes of RAM"
+  ],
+  "why": "const goes to .rodata, flash only, and the 32-bit chip reads it with ordinary ldr. 256 × 1 byte = 256.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-024",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Sections",
+  "kind": "calc",
+  "q": "A build reports .isr_vector 180, .text 4000, .rodata 200, .data 100, .bss 300 bytes. How much flash is used?",
+  "choices": [
+   "4480 bytes",
+   "4380 bytes",
+   "4780 bytes",
+   "4200 bytes"
+  ],
+  "why": "Flash holds .isr_vector + .text + .rodata + the .data copy: 180 + 4000 + 200 + 100 = 4480. .bss costs no flash.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-025",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Sections",
+  "kind": "calc",
+  "q": "Same build (.data 100, .bss 300). How much RAM do the static variables use, before stack and heap?",
+  "choices": [
+   "400 bytes",
+   "300 bytes",
+   "100 bytes",
+   "4880 bytes"
+  ],
+  "why": ".data and .bss both live in RAM: 100 + 300 = 400 bytes. The stack and heap come on top.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-026",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Sections",
+  "kind": "trap",
+  "q": "Where does the global int count = 0; go?",
+  "choices": [
+   ".bss: it starts at zero",
+   ".data: it has an initialiser",
+   ".rodata: its value is a constant",
+   ".text: it is folded into the code"
+  ],
+  "why": ".bss holds globals that start at zero, whether or not you write = 0. Only a non-zero initial value needs .data.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-027",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Sections",
+  "kind": "concept",
+  "q": "A large table never changes at run time. Which choice saves the most RAM?",
+  "choices": [
+   "Declare it const so it lives in .rodata",
+   "Initialise it with non-zero values",
+   "Leave it uninitialised in .bss",
+   "Make it a local in main()"
+  ],
+  "why": "const puts it in .rodata, flash only. Initialised globals cost RAM and flash; .bss and locals still cost RAM.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-028",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Before main()",
+  "kind": "concept",
+  "q": "What does Reset_Handler do before calling main()?",
+  "choices": [
+   "Copies .data from flash to RAM and zeroes .bss",
+   "Copies .text into RAM and zeroes .data",
+   "Loads the program from the debugger",
+   "Enables the MMU and builds the page tables for the program"
+  ],
+  "why": "Reset_Handler copies .data's initial values to RAM, zeroes .bss, calls SystemInit and the C++ init array, then main().",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-029",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Before main()",
+  "kind": "concept",
+  "q": "What are _sidata, _sdata, _edata, _sbss and _ebss?",
+  "choices": [
+   "Addresses invented by the linker",
+   "Global variables defined in startup.c",
+   "Registers in the RCC block",
+   "Macros from the CMSIS header"
+  ],
+  "why": "The linker creates these symbols; their values are addresses it chose. It is the one place your C reads decisions the linker made.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-030",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Before main()",
+  "kind": "concept",
+  "q": "In the startup copy loop, what does _sidata mark?",
+  "choices": [
+   "Where the initial values of .data sit in flash",
+   "The start of .data in RAM",
+   "The end of .bss in RAM",
+   "The top of the stack"
+  ],
+  "why": "_sidata is the flash source; _sdata to _edata is the RAM destination; _sbss to _ebss is the area to zero.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-031",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Before main()",
+  "kind": "trap",
+  "q": "The .bss-zeroing loop is missing from startup code. What happens?",
+  "choices": [
+   "Works after a cold boot, fails after a reset: intermittent",
+   "The linker reports an undefined reference to the _sbss symbol",
+   "The chip HardFaults before main()",
+   "All globals start at 0xFF"
+  ],
+  "why": "Globals start as whatever RAM held. RAM often happens to be 0 at power-on, but keeps old values across a reset, so the bug comes and goes.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-032",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Before main()",
+  "kind": "calc",
+  "q": "_sdata = 0x20000000 and _edata = 0x20000060. How many bytes does the .data copy loop move?",
+  "choices": [
+   "96",
+   "60",
+   "24",
+   "160"
+  ],
+  "why": "0x60 = 96 bytes (24 words). 60 reads the hex as decimal.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-033",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Before main()",
+  "kind": "calc",
+  "q": "_sbss = 0x20000060 and _ebss = 0x200001CC. How many bytes does the .bss loop clear?",
+  "choices": [
+   "364",
+   "460",
+   "268",
+   "108"
+  ],
+  "why": "0x1CC − 0x60 = 0x16C = 364 bytes.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-034",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Before main()",
+  "kind": "concept",
+  "q": "On a PC, who copies initialised data into memory before main()?",
+  "choices": [
+   "The OS loader",
+   "The C compiler",
+   "The CPU's reset logic",
+   "The MMU"
+  ],
+  "why": "On a PC the loader does it. Here Reset_Handler does, in four lines you can read.",
+  "source": "Lesson 02 slides · Slide 5"
+ },
+ {
+  "id": "ch2-035",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Linker script",
+  "kind": "concept",
+  "q": "Where do ORIGIN and LENGTH in the MEMORY block come from?",
+  "choices": [
+   "The chip's datasheet",
+   "The compiler, automatically",
+   "The size of the build output",
+   "The debugger, at load time"
+  ],
+  "why": "The linker knows nothing about your chip. Flash and RAM start and size come from the datasheet.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-036",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Linker script",
+  "kind": "trap",
+  "q": "RAM's LENGTH in the linker script is set larger than the real RAM. What happens?",
+  "choices": [
+   "The build succeeds; the stack later walks off the end of real memory",
+   "The linker rejects the script because the region overlaps peripherals",
+   "The compiler warns about memory size",
+   "The chip refuses to boot"
+  ],
+  "why": "The linker trusts the numbers. Nothing fails until the stack, placed at the false top, runs into memory that isn't there.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-037",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Linker script",
+  "kind": "calc",
+  "q": "RAM (rw) : ORIGIN = 0x20000000, LENGTH = 12K. What is the first address past RAM?",
+  "choices": [
+   "0x20003000",
+   "0x2000C000",
+   "0x20012000",
+   "0x20001200"
+  ],
+  "why": "12K = 12288 = 0x3000. The initial SP is placed there: the top of 12 KB SRAM.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-038",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Linker script",
+  "kind": "calc",
+  "q": "FLASH : LENGTH = 32K. How many bytes is that, in hex?",
+  "choices": [
+   "0x8000",
+   "0x3200",
+   "0x2000",
+   "0x32000"
+  ],
+  "why": "32 × 1024 = 32768 = 0x8000.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-039",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Linker script",
+  "kind": "calc",
+  "q": "The build log says FLASH used 8192 B of 32 KB. What percentage is used?",
+  "choices": [
+   "25%",
+   "8%",
+   "12.5%",
+   "40%"
+  ],
+  "why": "8192 / 32768 = 0.25. On a 32 KB part this number belongs in every build log.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-040",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Linker script",
+  "kind": "concept",
+  "q": "Why does the course want the memory-usage report in every build log?",
+  "choices": [
+   "It is the only early warning before memory runs out",
+   "The linker needs it to place the stack",
+   "The debugger reads it to find variables",
+   "It proves the code has no bugs"
+  ],
+  "why": "On a 32 KB part, watching Used Size is the only early warning you get.",
+  "source": "Lesson 02 slides · Slide 6"
+ },
+ {
+  "id": "ch2-041",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Output files",
+  "kind": "concept",
+  "q": "Which output file do the debugger and simulator use?",
+  "choices": [
+   ".elf: code, addresses, symbols and debug info",
+   ".bin: raw bytes",
+   ".hex: text records",
+   ".map: the memory map"
+  ],
+  "why": "The .elf is rich, with symbols and debug information. .bin and .hex are stripped-down images for programming.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-042",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Output files",
+  "kind": "concept",
+  "q": "How do .bin and .hex differ?",
+  "choices": [
+   "Same bytes: .bin raw, .hex as printable text records",
+   ".bin holds symbols, .hex does not",
+   ".hex holds only code, .bin holds code and data",
+   ".bin is for RAM, .hex is for flash"
+  ],
+  "why": ".bin is the raw bytes exactly as in flash; .hex is the same bytes as text records with addresses and checksums.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-043",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Intel HEX",
+  "kind": "concept",
+  "q": "In an Intel HEX record :LLAAAATT<data>CC, what is LL?",
+  "choices": [
+   "The number of data bytes",
+   "The record's line number",
+   "The low byte of the address",
+   "The record type"
+  ],
+  "why": "LL is the data byte count, AAAA the 16-bit address offset, TT the type and CC the checksum.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-044",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Intel HEX",
+  "kind": "number",
+  "q": "Which Intel HEX record type sets the upper 16 bits of the address?",
+  "choices": [
+   "04, extended linear address",
+   "00, data",
+   "01, end of file",
+   "02, segment address"
+  ],
+  "why": "Type 00 is data, 01 end of file, 04 extended linear address (upper 16 bits).",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-045",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Intel HEX",
+  "kind": "number",
+  "q": "Which Intel HEX record type marks the end of the file?",
+  "choices": [
+   "01",
+   "00",
+   "04",
+   "FF"
+  ],
+  "why": "00 is data, 01 is end of file, 04 is extended linear address.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-046",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Intel HEX",
+  "kind": "calc",
+  "q": "A hex file begins :020000040800F2. What does this record do?",
+  "choices": [
+   "Sets the upper address to 0x0800, so data goes to 0x0800xxxx",
+   "Writes the two data bytes 08 00 at offset 0x0000 of the current block",
+   "Marks the end of the file",
+   "Sets the start address to 0x000004F2"
+  ],
+  "why": "Type 04 with data 0x0800 sets the upper 16 bits. Following data records land at 0x0800xxxx, i.e. in flash.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-047",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Intel HEX",
+  "kind": "calc",
+  "q": "After an 04 record setting the upper address to 0x0800, a data record has address field 0010. Where do its bytes go?",
+  "choices": [
+   "0x08000010",
+   "0x00000010",
+   "0x08001000",
+   "0x00080010"
+  ],
+  "why": "Absolute address = (0x0800 << 16) + 0x0010 = 0x08000010.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-048",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Intel HEX",
+  "kind": "calc",
+  "q": "A data record starts :0C2000 00… How many data bytes does it carry?",
+  "choices": [
+   "12",
+   "16",
+   "32",
+   "6"
+  ],
+  "why": "LL = 0x0C = 12. (Note the address field here is 2000 and the type 00.)",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-049",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Intel HEX",
+  "kind": "concept",
+  "q": "Why did an 8-bit AVR's hex file never need an 04 record?",
+  "choices": [
+   "Its whole flash fits in 16 bits of address",
+   "AVR hex files have no addresses",
+   "The AVR boots from address 0x0800",
+   "AVR flash is programmed one byte at a time"
+  ],
+  "why": "Only 32-bit address spaces need the upper 16 bits set. This chip's flash at 0x08000000 does.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-050",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Intel HEX",
+  "kind": "concept",
+  "q": "What is the CC field at the end of every hex record?",
+  "choices": [
+   "A checksum over the record",
+   "A count of remaining records",
+   "The record's carriage-return code",
+   "The CPU core it targets"
+  ],
+  "why": "CC is the checksum. :020000040800F2 ends in the checksum F2.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-051",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Intel HEX",
+  "kind": "calc",
+  "q": "The first data record contains 00 30 00 20 C5 06 00 08. What are the initial SP and the reset handler's address?",
+  "choices": [
+   "SP 0x20003000, handler at 0x080006C4",
+   "SP 0x00300020, handler at 0xC5060008",
+   "SP 0x20003000, handler at 0x080006C5",
+   "SP 0x08000620, handler at 0x20003000"
+  ],
+  "why": "Little-endian words: 0x20003000 and 0x080006C5. Bit 0 of the vector is the Thumb bit, so the handler starts at 0x080006C4.",
+  "source": "Study guide · Practice P10"
+ },
+ {
+  "id": "ch2-052",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Intel HEX",
+  "kind": "calc",
+  "q": "The image's first eight bytes are 00 20 00 20 B5 01 00 08. Where does Reset_Handler start?",
+  "choices": [
+   "0x080001B4",
+   "0x080001B5",
+   "0xB5010008",
+   "0x20002000"
+  ],
+  "why": "The second little-endian word is the reset vector 0x080001B5; clear the Thumb bit for the code address 0x080001B4. 0x20002000 is the initial SP.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-053",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Intel HEX",
+  "kind": "trap",
+  "q": "What is the very first word of the flash image?",
+  "choices": [
+   "The initial stack pointer",
+   "The first instruction of Reset_Handler",
+   "The address of main()",
+   "A magic number marking valid firmware"
+  ],
+  "why": "Word 0 is the initial SP and word 1 the reset vector. Code starts later in .text.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-054",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Bootstrapping",
+  "kind": "number",
+  "q": "How many handoffs are in this chip's boot chain, compared with a PC's?",
+  "choices": [
+   "One here; four on a PC",
+   "Four here; one on a PC",
+   "Two on both",
+   "None here; three on a PC"
+  ],
+  "why": "PC: firmware → bootloader → kernel → program. Here the hardware reads two words and starts your code.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-055",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Bootstrapping",
+  "kind": "concept",
+  "q": "What exactly does the hardware do at reset?",
+  "choices": [
+   "Reads two words from address 0: the SP and the reset vector",
+   "Runs a ROM bootloader that copies main() from flash into RAM first",
+   "Copies the image from flash into RAM",
+   "Zeroes RAM, then jumps to 0x08000000"
+  ],
+  "why": "The CPU loads SP from word 0 and PC from word 1 and starts. Everything else, including .data and .bss, is code you can read.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-056",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Bootstrapping",
+  "kind": "number",
+  "q": "How many 32-bit words does the hardware itself read from flash at reset before running your code?",
+  "choices": [
+   "Two",
+   "One",
+   "Four",
+   "Sixteen"
+  ],
+  "why": "Word 0 (initial SP) and word 1 (reset vector). Everything after that is your code.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-057",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Bootstrapping",
+  "kind": "concept",
+  "q": "One of the two reset words is wrong. What catches the mistake?",
+  "choices": [
+   "Nothing: no other layer exists to catch it",
+   "The ST bootloader falls back to a safe image",
+   "The linker checks the vector table",
+   "The NVIC substitutes a default vector"
+  ],
+  "why": "The chain is short enough to read in full, and short enough that nothing else exists to catch an error.",
+  "source": "Lesson 02 slides · Slide 8"
+ },
+ {
+  "id": "ch2-058",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Tools",
+  "kind": "concept",
+  "q": "Which question does Wokwi answer, and which does Renode answer?",
+  "choices": [
+   "Wokwi: does the circuit behave? Renode: does the code behave?",
+   "Wokwi: does it compile? Renode: does it link?",
+   "Wokwi: does the code behave? Renode: does the circuit behave?",
+   "Both: is the hex file valid?"
+  ],
+  "why": "Wokwi shows the board (LEDs, wires); Renode shows serial output, registers and instruction counts.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-059",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Tools",
+  "kind": "trap",
+  "q": "Which tool compiles your firmware: Wokwi or Renode?",
+  "choices": [
+   "Neither: both only run the Main.elf you built",
+   "Wokwi, in the browser",
+   "Renode, in the terminal",
+   "Both, each with its own compiler"
+  ],
+  "why": "The compiler runs on your machine. The simulators only execute the same Main.elf.",
+  "source": "Study guide · Lesson 02 notes"
+ },
+ {
+  "id": "ch2-060",
+  "chapter": "Lesson 02 · Development",
+  "topic": "Tools",
+  "kind": "concept",
+  "q": "The build is clean, the hex is valid and the register dump looks right. Is it working?",
+  "choices": [
+   "Not until you have watched it work",
+   "Yes: all three checks passed",
+   "Yes, if the simulator shows no faults",
+   "Only if the .map shows no warnings"
+  ],
+  "why": "All three have been produced, in this repository's history, by firmware that drove nothing at all.",
+  "source": "Study guide · Lesson 02 notes"
+ }
+]

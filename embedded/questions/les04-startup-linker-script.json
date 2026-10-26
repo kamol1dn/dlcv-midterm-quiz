@@ -1,0 +1,1142 @@
+[
+  {
+    "id": "ch4-001",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Two files",
+    "kind": "concept",
+    "q": "Which pairing of the two startup files and their jobs is correct?",
+    "choices": [
+      "link.ld: where everything goes; startup.c: what runs first",
+      "link.ld: what runs first; startup.c: where everything goes",
+      "link.ld: the clock setup; startup.c: the memory map",
+      "link.ld: the C library; startup.c: the board pins"
+    ],
+    "why": "The linker script decides the layout. startup.c holds the vector table and the code that makes RAM match C's promises before main().",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-002",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Two files",
+    "kind": "concept",
+    "q": "Which file holds the vector table, as a C array?",
+    "choices": [
+      "startup.c",
+      "link.ld",
+      "Main.c",
+      "retarget.c"
+    ],
+    "why": "The table is a C array in startup.c. link.ld only pins its section, .isr_vector, at the start of flash.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-003",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Memory map",
+    "kind": "number",
+    "q": "Where is flash on the STM32C031C6, and how big is it?",
+    "choices": [
+      "32 KB at 0x08000000",
+      "32 KB at 0x00000000",
+      "12 KB at 0x08000000",
+      "64 KB at 0x20000000"
+    ],
+    "why": "Flash is 32 KB at 0x08000000, not at 0. SRAM is the 12 KB region at 0x20000000.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch4-004",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Memory map",
+    "kind": "number",
+    "q": "Where is SRAM on the STM32C031C6, and how big is it?",
+    "choices": [
+      "12 KB at 0x20000000",
+      "32 KB at 0x20000000",
+      "12 KB at 0x40000000",
+      "16 KB at 0x10000000"
+    ],
+    "why": "SRAM is 12 KB at 0x20000000, so its top is 0x20003000. The 0x20000000 base is the same on every Cortex-M.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch4-005",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Memory map",
+    "kind": "trap",
+    "q": "Code copied from an STM32F4 tutorial puts GPIOA in the 0x40000000 peripheral region. What is true on this STM32C0?",
+    "choices": [
+      "GPIO sits at 0x50000000 on its own port, so the copied address is wrong",
+      "GPIOA is at 0x40020000 on every STM32 family",
+      "Both addresses work, because the GPIO block is mirrored into both regions",
+      "The compiler rejects addresses outside the CMSIS header"
+    ],
+    "why": "On the C0 the I/O ports are outside the peripheral region, at 0x50000000. Copied F4 addresses write somewhere else, and the chip gives no error.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-006",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Memory map",
+    "kind": "calc",
+    "q": "GPIO ports are 0x400 apart, starting at GPIOA = 0x50000000. What is GPIOD's base?",
+    "choices": [
+      "0x50000C00",
+      "0x50000400",
+      "0x50000800",
+      "0x50001000"
+    ],
+    "why": "A, B, C, D are ports 0, 1, 2, 3: 0x50000000 + 3 × 0x400 = 0x50000C00. 0x50000800 is GPIOC.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-007",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Memory map",
+    "kind": "calc",
+    "q": "ODR is at offset 0x14 in every GPIO port. What is the address of GPIOB->ODR?",
+    "choices": [
+      "0x50000414",
+      "0x50000014",
+      "0x50000428",
+      "0x40000414"
+    ],
+    "why": "GPIOB's base is 0x50000400, so ODR is at 0x50000400 + 0x14 = 0x50000414. 0x50000014 is GPIOA->ODR.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-008",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Memory map",
+    "kind": "number",
+    "q": "Which base address belongs to USART2?",
+    "choices": [
+      "0x40004400",
+      "0x40021000",
+      "0x40022000",
+      "0x50000400"
+    ],
+    "why": "USART2 is 0x40004400. 0x40021000 is RCC, 0x40022000 is FLASH, and 0x50000400 is GPIOB.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch4-009",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Memory map",
+    "kind": "number",
+    "q": "Which base address belongs to the NVIC?",
+    "choices": [
+      "0xE000E100",
+      "0xE000E010",
+      "0xE000ED00",
+      "0x40021800"
+    ],
+    "why": "The NVIC is at 0xE000E100 in the core region. 0xE000E010 is SysTick, 0xE000ED00 is the SCB, and 0x40021800 is EXTI.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch4-010",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Memory map",
+    "kind": "trap",
+    "q": "Code reads an address in the 4 GB space where nothing is mapped. What happens?",
+    "choices": [
+      "A fault",
+      "It reads 0",
+      "It reads 0xFFFFFFFF",
+      "It reads the nearest RAM word"
+    ],
+    "why": "Addressability is not memory. With only 32 KB and 12 KB inside 4 GB, most addresses are nothing, and reading one is a fault, not a zero.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-011",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Memory map",
+    "kind": "calc",
+    "q": "12 KB of RAM is how many bytes in hex?",
+    "choices": [
+      "0x3000",
+      "0x1200",
+      "0x0C00",
+      "0x2000"
+    ],
+    "why": "12 × 1024 = 12 288 = 0x3000, which is why the top of RAM is 0x20000000 + 0x3000 = 0x20003000. 0x1200 is the decimal-looking mistake.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-012",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "CMSIS",
+    "kind": "concept",
+    "q": "What is CMSIS?",
+    "choices": [
+      "Headers: #defines and structs that name addresses",
+      "ST's HAL library, linked into every build",
+      "A bootloader that runs before Reset_Handler",
+      "A compiled library of driver functions from ARM"
+    ],
+    "why": "CMSIS is headers, not a library: nothing is linked and nothing is called. It is not ST's HAL, which is a real library.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-013",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "CMSIS",
+    "kind": "concept",
+    "q": "Which header comes from ARM and covers the NVIC, SysTick and SCB?",
+    "choices": [
+      "core_cm0plus.h",
+      "stm32c031xx.h",
+      "startup.h",
+      "stm32c0xx_hal.h"
+    ],
+    "why": "core_cm0plus.h is ARM's core header. stm32c031xx.h is ST's device header for every peripheral on this part; the HAL is a separate library.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-014",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "CMSIS",
+    "kind": "trap",
+    "q": "Compared with *(volatile uint32_t *)0x50000014 ^= 1u << 5, what does GPIOA->ODR ^= 1u << 5 compile to?",
+    "choices": [
+      "Smaller code: base in a register, constant offset",
+      "Larger code: CMSIS calls an accessor function for every register access",
+      "The same code, but it runs more slowly",
+      "Larger code: one literal pool entry per register"
+    ],
+    "why": "GPIOA->ODR is base + offset computed at compile time, so one base register serves every register. The raw address needs its own literal: 16 bytes against 14.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-015",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "RCC clock gates",
+    "kind": "concept",
+    "q": "What does a peripheral do if its RCC clock gate is still off?",
+    "choices": [
+      "Reads back zero and ignores writes, with no error",
+      "Raises a HardFault on the first access",
+      "Works, but at the 12 MHz reset clock",
+      "Holds the last values written before reset"
+    ],
+    "why": "An unclocked peripheral is silently deaf: writes vanish and reads return 0. That is why the gate is enabled first, always.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-016",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "RCC clock gates",
+    "kind": "number",
+    "q": "In RCC->IOPENR, which bits are GPIOAEN and GPIOBEN?",
+    "choices": [
+      "Bit 0 and bit 1",
+      "Bit 1 and bit 2",
+      "Bit 17 and bit 18",
+      "Bit 0 and bit 4"
+    ],
+    "why": "IOPENR has one bit per GPIO port, starting with GPIOAEN at bit 0 and GPIOBEN at bit 1.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-017",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "RCC clock gates",
+    "kind": "calc",
+    "q": "Which value, OR-ed into RCC->IOPENR, enables the clocks of GPIOA and GPIOC?",
+    "choices": [
+      "0x5",
+      "0x3",
+      "0x6",
+      "0xA"
+    ],
+    "why": "GPIOA is bit 0 (0x1) and GPIOC is bit 2 (0x4), so 0x1 | 0x4 = 0x5. 0x3 enables A and B.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-018",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "RCC clock gates",
+    "kind": "calc",
+    "q": "USART2EN is bit 17 of RCC->APBENR1. Which value enables it?",
+    "choices": [
+      "0x00020000",
+      "0x00010000",
+      "0x00000011",
+      "0x00200000"
+    ],
+    "why": "1u << 17 = 0x00020000. 0x00010000 is bit 16, and 0x00000011 is 17 written in hex by mistake.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-019",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "RCC clock gates",
+    "kind": "number",
+    "q": "Which RCC register holds the clock gates of USART2, TIM3 and I2C1?",
+    "choices": [
+      "APBENR1",
+      "APBENR2",
+      "IOPENR",
+      "AHBENR"
+    ],
+    "why": "APBENR1 covers USART2, TIM3, I2C1 and others. APBENR2 covers TIM1, SPI1, USART1 and the ADC; IOPENR is the GPIO ports.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-020",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "RCC clock gates",
+    "kind": "calc",
+    "q": "IOPENR is at offset 0x34 in RCC (base 0x40021000). What is its address?",
+    "choices": [
+      "0x40021034",
+      "0x40021340",
+      "0x40020034",
+      "0x40021043"
+    ],
+    "why": "0x40021000 + 0x34 = 0x40021034. The lesson checks this with a _Static_assert against ST's header.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-021",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Reset in hardware",
+    "kind": "concept",
+    "q": "What does the Cortex-M core do at reset, before running any instruction?",
+    "choices": [
+      "Loads word 0 into SP and word 1 into PC",
+      "Jumps to address 0 with SP undefined",
+      "Copies .data to RAM and zeroes .bss",
+      "Calls SystemInit() to start the 48 MHz clock"
+    ],
+    "why": "The hardware reads the first two words of the vector table itself: word 0 is the initial SP, word 1 the reset handler. Copying .data is the reset handler's job.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-022",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Reset in hardware",
+    "kind": "trap",
+    "q": "Why can Reset_Handler be written in C here, when an AVR's reset code has to be assembly?",
+    "choices": [
+      "The core loads SP before the first instruction, so a stack exists",
+      "The Cortex-M compiler has a special 'reset' keyword",
+      "The AVR has no C compiler that is able to emit any startup code at all",
+      "Reset_Handler runs only after main() has set the stack"
+    ],
+    "why": "C needs a stack. On Cortex-M the hardware loads SP from word 0 before anything runs; on AVR reset just jumps to 0 with no stack set up.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-023",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Vector table array",
+    "kind": "concept",
+    "q": "What does section(\".isr_vector\") do for the vector table array?",
+    "choices": [
+      "Lets link.ld pin it at 0x08000000",
+      "Stops the compiler deleting the unused array",
+      "Puts the array in flash instead of RAM",
+      "Marks every entry as a weak symbol"
+    ],
+    "why": "A section of its own lets the linker script place the array at the very start of flash. 'used' stops deletion and 'const' keeps it in flash.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-024",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Vector table array",
+    "kind": "concept",
+    "q": "Why does the vector table carry the 'used' attribute?",
+    "choices": [
+      "No C code reads it, so the compiler would delete it",
+      "It forces the table to be placed at 0x08000000",
+      "It makes each handler entry a strong symbol that overrides the weak alias",
+      "It keeps the table out of the .bss section"
+    ],
+    "why": "Nothing in your program mentions vectors; only the hardware reads it. Without 'used' the compiler may drop it as dead.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-025",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Vector table array",
+    "kind": "trap",
+    "q": "The const is removed from the vector table declaration. What changes?",
+    "choices": [
+      "It lands in RAM, wasting RAM on a table that never changes",
+      "Nothing: arrays of function pointers always go in flash",
+      "The build fails, since handlers cannot be in RAM",
+      "The table moves to address 0x00000000"
+    ],
+    "why": "const is what puts the table in flash. Without it, the 180-byte table takes RAM from your 12 KB for no reason.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-026",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Vector table array",
+    "kind": "concept",
+    "q": "What is entry 0 of the vector table?",
+    "choices": [
+      "The initial stack pointer, cast to look like a function pointer",
+      "The address of Reset_Handler with the Thumb bit set",
+      "The address of Default_Handler, as a fallback",
+      "A checksum of the rest of the table"
+    ],
+    "why": "Entry 0 is &_estack, the initial SP, not a function. The cast lets the whole table be one array. Reset_Handler is entry 1.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-027",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Vector numbering",
+    "kind": "number",
+    "q": "Which vector number is SysTick?",
+    "choices": [
+      "15",
+      "14",
+      "11",
+      "16"
+    ],
+    "why": "Core entries: 0 SP, 1 Reset, 2 NMI, 3 HardFault, 11 SVCall, 14 PendSV, 15 SysTick. 16 is the first peripheral IRQ (IRQ 0).",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-028",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Vector numbering",
+    "kind": "number",
+    "q": "Which vector number is HardFault?",
+    "choices": [
+      "3",
+      "2",
+      "1",
+      "4"
+    ],
+    "why": "0 is the initial SP, 1 Reset, 2 NMI and 3 HardFault.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-029",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Vector numbering",
+    "kind": "calc",
+    "q": "At what address is the vector for peripheral IRQ 10?",
+    "choices": [
+      "0x08000068",
+      "0x08000028",
+      "0x08000064",
+      "0x080000A0"
+    ],
+    "why": "Vector 16 + 10 = 26, so 0x08000000 + 26 × 4 = 0x08000000 + 104 = 0x08000068. 0x08000028 forgets the 16 core entries.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch4-030",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Vector numbering",
+    "kind": "calc",
+    "q": "At what address is the HardFault vector?",
+    "choices": [
+      "0x0800000C",
+      "0x08000003",
+      "0x08000010",
+      "0x0800004C"
+    ],
+    "why": "HardFault is vector 3, and each entry is 4 bytes: 0x08000000 + 3 × 4 = 0x0800000C.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-031",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Vector numbering",
+    "kind": "calc",
+    "q": "A vector sits at 0x08000070. Which peripheral IRQ does it belong to?",
+    "choices": [
+      "IRQ 12",
+      "IRQ 28",
+      "IRQ 112",
+      "IRQ 16"
+    ],
+    "why": "0x70 = 112 bytes, / 4 = vector 28, and 28 − 16 = IRQ 12. 28 is the vector number, not the IRQ.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-032",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Vector numbering",
+    "kind": "calc",
+    "q": "size -A reports .isr_vector as 180 bytes. How many peripheral IRQ entries does the table hold?",
+    "choices": [
+      "29",
+      "45",
+      "180",
+      "16"
+    ],
+    "why": "180 / 4 = 45 entries. Subtract the 16 core entries and 29 are left: IRQ 0 to IRQ 28, which is what the C031 uses.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-033",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Vector numbering",
+    "kind": "calc",
+    "q": "At what address is the SysTick vector?",
+    "choices": [
+      "0x0800003C",
+      "0x0800000F",
+      "0x08000040",
+      "0x0800007C"
+    ],
+    "why": "SysTick is vector 15: 0x08000000 + 15 × 4 = 0x08000000 + 60 = 0x0800003C. 0x08000040 is vector 16, IRQ 0.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-034",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "First words of the image",
+    "kind": "calc",
+    "q": "A hex file's first data record starts 00 30 00 20 C5 06 00 08. What is the initial SP?",
+    "choices": [
+      "0x20003000",
+      "0x00300020",
+      "0x20000030",
+      "0x08000300"
+    ],
+    "why": "ARM is little-endian, so read the four bytes right to left: 20 00 30 00 = 0x20003000, the top of 12 KB RAM.",
+    "source": "Study guide · Practice P10"
+  },
+  {
+    "id": "ch4-035",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "First words of the image",
+    "kind": "calc",
+    "q": "Same record: the reset vector bytes are C5 06 00 08. Where does Reset_Handler actually start?",
+    "choices": [
+      "0x080006C4",
+      "0x080006C5",
+      "0xC5060008",
+      "0x080006C6"
+    ],
+    "why": "Little-endian gives 0x080006C5. Bit 0 is the Thumb bit, not part of the address, so the code is at 0x080006C4.",
+    "source": "Study guide · Practice P10"
+  },
+  {
+    "id": "ch4-036",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "First words of the image",
+    "kind": "calc",
+    "q": "Another board's image begins 00 20 00 20 D9 01 00 08. What are the initial SP and the reset handler's address?",
+    "choices": [
+      "SP 0x20002000, handler at 0x080001D8",
+      "SP 0x20002000, handler at 0x080001D9",
+      "SP 0x00200020, handler at 0xD9010008",
+      "SP 0x20000020, handler at 0x080001DA"
+    ],
+    "why": "Little-endian words: 0x20002000 (top of an 8 KB RAM) and 0x080001D9. Clear the Thumb bit: the handler is at 0x080001D8.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-037",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "First words of the image",
+    "kind": "concept",
+    "q": "Every handler address in the vector table is odd. Why?",
+    "choices": [
+      "Bit 0 is the Thumb bit; the core reads it as 'Thumb code'",
+      "Handlers are aligned to odd addresses for speed",
+      "The linker adds 1 to each entry to mark it as used by the hardware",
+      "Odd addresses point into RAM instead of flash"
+    ],
+    "why": "Bit 0 of every code address on a Cortex-M is the Thumb bit and must be 1. An even entry faults on the first instruction.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-038",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "First words of the image",
+    "kind": "trap",
+    "q": "In the vector table, the NMI and HardFault entries hold the same address. What does this mean?",
+    "choices": [
+      "Both are weak aliases of one Default_Handler",
+      "The linker has merged two identical handlers by mistake",
+      "The table is corrupt and the chip will not boot",
+      "NMI is always routed through the HardFault handler"
+    ],
+    "why": "Neither handler was written, so both entries point at the same weak default. Identical words are the sign that nothing overrode them.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-039",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Weak aliases",
+    "kind": "concept",
+    "q": "How does your own TIM3_IRQHandler get into the vector table?",
+    "choices": [
+      "A strong function of exactly that name replaces the weak alias at link time",
+      "You register it with NVIC_SetVector() at the start of main()",
+      "You add its address to the vector table in link.ld",
+      "The compiler finds it by the ISR attribute on the function"
+    ],
+    "why": "Every handler in startup.c is a weak alias of Default_Handler. An ordinary function with exactly the same name wins at link time: the name is the registration.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-040",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Weak aliases",
+    "kind": "concept",
+    "q": "What does Default_Handler do?",
+    "choices": [
+      "Loops forever",
+      "Returns at once with bx lr",
+      "Resets the chip",
+      "Disables the interrupt and returns"
+    ],
+    "why": "Default_Handler is an infinite loop. An interrupt that reaches it hangs the board, which is why a misspelt handler shows up as a hang.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-041",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Weak aliases",
+    "kind": "trap",
+    "q": "TIM3_IRQHandler is misspelt TIM3_IrqHandler. What do the build and the board do?",
+    "choices": [
+      "No error, no warning; the first interrupt hangs in Default_Handler",
+      "The linker reports a duplicate symbol and stops",
+      "The build warns that TIM3_IrqHandler is defined but never used anywhere",
+      "It works, because the linker matches names case-insensitively"
+    ],
+    "why": "The misspelt function is just unused, and the linker even deletes it as dead code. The weak default stays in the vector and the first interrupt hangs.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-042",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Weak aliases",
+    "kind": "concept",
+    "q": "nm Main.elf lists your handler. Which letter shows that your function, not the weak default, is installed?",
+    "choices": [
+      "T",
+      "W",
+      "U",
+      "B"
+    ],
+    "why": "T is a normal (strong) text symbol: yours. W means the weak placeholder is still in place. U is undefined and B is .bss.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-043",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Reset_Handler order",
+    "kind": "concept",
+    "q": "In which order does Reset_Handler do its work?",
+    "choices": [
+      "Copy .data, zero .bss, SystemInit(), __libc_init_array(), main()",
+      "SystemInit(), main(), copy .data, zero .bss, for(;;)",
+      "Zero .bss, call main(), then copy .data in the background",
+      "__libc_init_array(), copy .data, SystemInit(), main()"
+    ],
+    "why": "RAM is made to match C's promises first (.data copied, .bss zeroed), then the clock, then constructors, then main(), and finally a for(;;).",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-044",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Reset_Handler order",
+    "kind": "concept",
+    "q": "Why does Reset_Handler end with for(;;) after calling main()?",
+    "choices": [
+      "There is nothing to return to; returning would run into whatever bytes follow",
+      "It waits for the next interrupt to restart main()",
+      "The C standard requires an infinite loop after main()",
+      "It gives the debugger time to attach before reset"
+    ],
+    "why": "On a desktop, returning from main() exits the process. Here there is no OS, so the infinite loop is a wall.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-045",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Reset_Handler order",
+    "kind": "trap",
+    "q": "Lab: the .data copy loop is deleted. What does int magic = 0xC0FFEE; read in main()?",
+    "choices": [
+      "Whatever was in RAM, not 0xC0FFEE",
+      "0xC0FFEE, read straight from flash",
+      "0, because RAM is cleared at reset",
+      "It faults on the first read"
+    ],
+    "why": "The variable lives in RAM, and only the copy loop puts its initial value there. Without it, it holds leftover RAM contents.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-046",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Reset_Handler order",
+    "kind": "trap",
+    "q": "Lab: the .bss zero loop is deleted. Where does a global int frames; start?",
+    "choices": [
+      "At whatever RAM held, maybe different each run",
+      "At 0: the C compiler and the C standard guarantee it",
+      "At the value stored for it in flash",
+      "At 0xFFFFFFFF, the erased-flash value"
+    ],
+    "why": "C promises .bss is zero, but on this chip the startup code keeps that promise. .bss has no flash copy, so without the loop it is just leftover RAM.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-047",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Linker symbols",
+    "kind": "concept",
+    "q": "extern uint32_t _sdata; is declared for a linker symbol. What is it?",
+    "choices": [
+      "A symbol whose value is an address; no storage exists",
+      "A uint32_t variable holding the start of .data",
+      "A pointer to .data, set by Reset_Handler",
+      "A copy of the first word of .data"
+    ],
+    "why": "The linker creates no storage for _sdata; the symbol's value is the address. The declaration only gives &_sdata a type.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-048",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Linker symbols",
+    "kind": "trap",
+    "q": "uint32_t n = _edata - _sdata; is written to get the size of .data. What happens?",
+    "choices": [
+      "It compiles cleanly and gives garbage",
+      "It gives the size in bytes, as intended",
+      "The compiler rejects it: the symbols are not defined",
+      "It gives the size in 32-bit words"
+    ],
+    "why": "Without &, each name reads the four bytes stored at that address. The rule: a linker symbol is only ever used with &.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-049",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Linker symbols",
+    "kind": "calc",
+    "q": "&_sdata = 0x20000000 and &_edata = 0x20000064, both as uint32_t *. What does &_edata - &_sdata give?",
+    "choices": [
+      "25",
+      "100",
+      "0x64",
+      "4"
+    ],
+    "why": "Pointer subtraction counts elements: 0x64 = 100 bytes, / 4 bytes per uint32_t = 25. 100 would be the byte count.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-050",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "link.ld",
+    "kind": "concept",
+    "q": "How does link.ld get _estack?",
+    "choices": [
+      "It computes ORIGIN(RAM) + LENGTH(RAM)",
+      "Someone types 0x20003000 by hand",
+      "The core measures RAM size at reset",
+      "Reset_Handler sets it at run time"
+    ],
+    "why": "_estack = ORIGIN(RAM) + LENGTH(RAM) is computed by the linker, which is why the SP in the image can be trusted.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-051",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "link.ld",
+    "kind": "calc",
+    "q": "A lab shrinks RAM to LENGTH = 6K. What is _estack now?",
+    "choices": [
+      "0x20001800",
+      "0x20006000",
+      "0x20000600",
+      "0x20003000"
+    ],
+    "why": "6 × 1024 = 6144 = 0x1800, so 0x20000000 + 0x1800 = 0x20001800. 0x20006000 reads '6K' as 0x6000.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-052",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "link.ld",
+    "kind": "concept",
+    "q": "What does >RAM AT> FLASH mean for the .data section?",
+    "choices": [
+      "It lives in RAM and is stored in flash",
+      "It lives in flash and is cached in RAM",
+      "It is copied from RAM to flash at shutdown",
+      "It is placed in whichever region has room"
+    ],
+    "why": "An initialised global must survive power-off (flash) and be writable (RAM), so it gets two addresses. LOADADDR(.data) = _sidata gives the flash copy.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-053",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "link.ld",
+    "kind": "concept",
+    "q": "Why does the .bss section have no AT> FLASH?",
+    "choices": [
+      "Every byte is zero, so there is nothing to store",
+      "It is stored in flash right after the vector table instead",
+      ".bss is read-only and lives only in flash",
+      "The linker stores it compressed in .rodata"
+    ],
+    "why": "Storing hundreds of zeros in flash would be waste. .bss gets only a size, and the startup code writes the zeros.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-054",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "link.ld",
+    "kind": "concept",
+    "q": "In link.ld, what is '.' as in _sdata = .; ?",
+    "choices": [
+      "The location counter: the address reached so far",
+      "The start of flash, 0x08000000",
+      "The current stack pointer",
+      "The size of the section so far"
+    ],
+    "why": "The dot is the address the linker has reached. Assigning it to a symbol is how every boundary marker is made.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-055",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "link.ld",
+    "kind": "concept",
+    "q": "Which way does the stack grow on this chip?",
+    "choices": [
+      "Down, from _estack",
+      "Up, from the end of .bss",
+      "Up, from 0x20000000",
+      "Down, from 0x08000000"
+    ],
+    "why": "The SP starts at _estack (top of RAM) and grows down. _sbrk hands malloc the gap between .bss and the stack.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-056",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "size -A",
+    "kind": "calc",
+    "q": "size -A shows .data 40, .bss 200, ._user_heap_stack 1024 bytes. How much RAM is used?",
+    "choices": [
+      "1264 B",
+      "1224 B",
+      "240 B",
+      "1304 B"
+    ],
+    "why": "RAM used = .data + .bss + heap/stack = 40 + 200 + 1024 = 1264 B. 1304 counts .data twice; it is flash that does that.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-057",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "size -A",
+    "kind": "calc",
+    "q": "size -A shows .isr_vector 180, .text 4000, .rodata 500, .data 40 bytes. About how much flash is used?",
+    "choices": [
+      "4720 B",
+      "4680 B",
+      "4500 B",
+      "4760 B"
+    ],
+    "why": "Flash = vectors + .text + .rodata + .data again = 180 + 4000 + 500 + 40 = 4720 B. Leaving out .data gives the tempting 4680.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-058",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "size -A",
+    "kind": "number",
+    "q": "In the lesson's own build, .data is 100, .bss 372 and the heap/stack reservation 1536 bytes. How much RAM does the linker report?",
+    "choices": [
+      "2008 B",
+      "1908 B",
+      "472 B",
+      "2108 B"
+    ],
+    "why": "100 + 372 + 1536 = 2008 B. The heap and stack reservation is three quarters of that.",
+    "source": "Slides · Lesson 04, slide 15"
+  },
+  {
+    "id": "ch4-059",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "size -A",
+    "kind": "trap",
+    "q": "Which global costs both flash and RAM?",
+    "choices": [
+      "int limit = 50;",
+      "const char msg[] = \"hi\";",
+      "int total;",
+      "static int count;"
+    ],
+    "why": "An initialised global is in .data: stored in flash and copied to RAM. const goes to .rodata (flash only), and zero-initialised globals go to .bss (RAM only).",
+    "source": "Study guide · Practice P11"
+  },
+  {
+    "id": "ch4-060",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "size -A",
+    "kind": "concept",
+    "q": "Where does const char msg[] = \"hi\"; live?",
+    "choices": [
+      ".rodata: flash only",
+      ".data: RAM and flash",
+      ".bss: RAM only",
+      "The stack"
+    ],
+    "why": "const data never changes, so it stays in flash and is read with ordinary ldr. That is why the course says prefer const.",
+    "source": "Study guide · Practice P11"
+  },
+  {
+    "id": "ch4-061",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "size -A",
+    "kind": "concept",
+    "q": "Where does a global int total; (no initialiser) live?",
+    "choices": [
+      ".bss: RAM only, no flash",
+      ".data: RAM and flash",
+      ".rodata: flash only",
+      "The heap, allocated on first use"
+    ],
+    "why": "It is zero-initialised, so it is .bss: RAM only, zeroed by Reset_Handler, and costs no flash.",
+    "source": "Study guide · Practice P11"
+  },
+  {
+    "id": "ch4-062",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Clock 12 to 48 MHz",
+    "kind": "number",
+    "q": "What clock does the STM32C0 run at straight out of reset?",
+    "choices": [
+      "12 MHz: HSI48 ÷ 4",
+      "48 MHz: HSI48 ÷ 1",
+      "8 MHz: HSI ÷ 2",
+      "16 MHz: HSI48 ÷ 3"
+    ],
+    "why": "The chip wakes on its 48 MHz internal oscillator divided by four: 12 MHz. SystemInit() changes the divider to ÷1.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch4-063",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Clock 12 to 48 MHz",
+    "kind": "concept",
+    "q": "What does SystemInit() do, in order?",
+    "choices": [
+      "Set one flash wait state and wait; clear HSIDIV; wait for HSIRDY; set SystemCoreClock",
+      "Clear HSIDIV; wait for HSIRDY; then set one flash wait state",
+      "Start the PLL; wait for lock; switch the clock source to the PLL",
+      "Set SystemCoreClock; then copy .data; then zero .bss"
+    ],
+    "why": "The wait state goes up first, then the divider goes to ÷1. The C0 needs no PLL, lock bit or source switch.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-064",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Clock 12 to 48 MHz",
+    "kind": "trap",
+    "q": "You are lowering the clock from 48 MHz back to 12 MHz. When do you remove the flash wait state?",
+    "choices": [
+      "After the frequency comes down",
+      "Before the frequency comes down",
+      "At the same moment, in one register write",
+      "Never: wait states only go up"
+    ],
+    "why": "Rule: wait states go up before the frequency and come down after it. The flash must always be slow enough for the current clock.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-065",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Clock 12 to 48 MHz",
+    "kind": "trap",
+    "q": "SystemInit() switches to 48 MHz before setting the flash wait state. What is the symptom?",
+    "choices": [
+      "The CPU fetches before flash is ready and hangs somewhere unrelated",
+      "A clear HardFault pointing at SystemInit()",
+      "The chip just keeps running at 12 MHz",
+      "A compile-time error about FLASH->ACR"
+    ],
+    "why": "Flash can't keep up at 48 MHz without the wait state, so instructions are fetched wrong. The part hangs with no error, far from the real bug.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-066",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Clock 12 to 48 MHz",
+    "kind": "number",
+    "q": "Which register holds the flash wait states (LATENCY)?",
+    "choices": [
+      "FLASH->ACR",
+      "RCC->CR",
+      "RCC->CFGR",
+      "SCB->VTOR"
+    ],
+    "why": "LATENCY is in FLASH->ACR, at 0x40022000. RCC->CR holds HSIDIV and HSIRDY.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-067",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "printf retarget",
+    "kind": "concept",
+    "q": "What does the C library call to print a character from printf on this board?",
+    "choices": [
+      "_write(), implemented in retarget.c",
+      "uart_send(), provided by CMSIS",
+      "putchar(), provided by the startup code",
+      "An OS system call, through SVC"
+    ],
+    "why": "newlib calls _write(fd, buf, len), and retarget.c implements it by polling USART2. Implement it and printf, puts and putchar all work.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-068",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "printf retarget",
+    "kind": "concept",
+    "q": "How does retarget.c send one byte?",
+    "choices": [
+      "Wait for TXE in USART2->ISR, then write TDR",
+      "Write TDR, then wait for TXE",
+      "Start a DMA transfer to USART2",
+      "Set the USART2 interrupt and return"
+    ],
+    "why": "It polls: wait while the transmit register is full, then store the byte in TDR.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-069",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "printf retarget",
+    "kind": "calc",
+    "q": "What USART2 BRR value gives 115 200 baud at 48 MHz?",
+    "choices": [
+      "417",
+      "416",
+      "115",
+      "4167"
+    ],
+    "why": "BRR = f / baud = 48 000 000 / 115 200 = 416.7, rounded to the nearest: 417. Truncating gives 416.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch4-070",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "printf retarget",
+    "kind": "trap",
+    "q": "BRR is set to 417 for 48 MHz, but the clock was never raised and the chip still runs at 12 MHz. What happens on the serial line?",
+    "choices": [
+      "Garbage: the real baud is about 28 800, a quarter of 115 200",
+      "Nothing changes: the UART has its own 48 MHz clock",
+      "It works, but four times faster: about 460 800 baud",
+      "The UART refuses to start and TXE never sets"
+    ],
+    "why": "Baud = clock / BRR = 12 000 000 / 417 ≈ 28 800, a quarter of what the terminal expects. BRR is only right if the chip really runs at 48 MHz.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-071",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "printf retarget",
+    "kind": "calc",
+    "q": "What BRR value gives 38 400 baud at 48 MHz?",
+    "choices": [
+      "1250",
+      "125",
+      "417",
+      "12 500"
+    ],
+    "why": "BRR = 48 000 000 / 38 400 = 1250 exactly.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-072",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "printf retarget",
+    "kind": "trap",
+    "q": "_sbrk() is broken. What does printf do?",
+    "choices": [
+      "Prints nothing, silently",
+      "Prints, but without the '\\r'",
+      "Triggers a compile error",
+      "Prints only the first character"
+    ],
+    "why": "_sbrk hands malloc, and printf's buffer, the gap between .bss and the stack. If it fails, printf prints nothing from a program that otherwise runs.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-073",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Board and simulator",
+    "kind": "number",
+    "q": "On the Nucleo-C031C6, where is the user LED LD4?",
+    "choices": [
+      "PA5",
+      "PB0",
+      "PA2",
+      "PC13"
+    ],
+    "why": "LD4 is on PA5 (also header D13). PA2 is USART2 TX, and PB0–PB7 drive the LED bar.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-074",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Board and simulator",
+    "kind": "number",
+    "q": "Which pins and alternate function carry USART2 TX and RX?",
+    "choices": [
+      "PA2 TX, PA3 RX, both AF1",
+      "PA3 TX, PA2 RX, both AF1",
+      "PA2 TX, PA3 RX, both AF7",
+      "PA9 TX, PA10 RX, both AF1"
+    ],
+    "why": "USART2 is PA2 (TX) and PA3 (RX), alternate function 1 on both. AF7 is the number used on the F4 family.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-075",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Board and simulator",
+    "kind": "number",
+    "q": "Which block is on Wokwi's 'not modelled' list?",
+    "choices": [
+      "SYSCFG",
+      "EXTI",
+      "USART2",
+      "GPIOB"
+    ],
+    "why": "Wokwi doesn't model DMA, RTC, IWDG, PWR, SYSCFG or DBG. On the C0, EXTICR is in EXTI, not SYSCFG, so the interrupt lesson still works.",
+    "source": "Study guide · Lesson 04"
+  },
+  {
+    "id": "ch4-076",
+    "chapter": "Lesson 04 · Startup and the Linker Script",
+    "topic": "Board and simulator",
+    "kind": "trap",
+    "q": "Lab 3: .isr_vector is moved after .text in link.ld. What happens?",
+    "choices": [
+      "It builds with no warning and a valid hex file, but the chip can't start",
+      "The linker stops with an overlap error",
+      "It builds, and the chip boots normally",
+      "The hex file fails its checksum and won't load"
+    ],
+    "why": "The hardware reads the first two words of flash as SP and PC. They are now instruction bytes, but every automated check still passes.",
+    "source": "Study guide · Lesson 04"
+  }
+]

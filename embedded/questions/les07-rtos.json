@@ -1,0 +1,1337 @@
+[
+  {
+    "id": "ch7-001",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Cooperative vs preemptive",
+    "kind": "concept",
+    "q": "In a preemptive scheduler (an RTOS), who stops a running job?",
+    "choices": [
+      "The kernel, on a timer interrupt",
+      "The job itself, by returning",
+      "The NVIC, when the job's priority drops",
+      "The idle task, when it becomes ready"
+    ],
+    "why": "Preemptive: the kernel takes the CPU away on the tick. Cooperative (the superloop): the job stops only by returning.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-002",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Cooperative vs preemptive",
+    "kind": "concept",
+    "q": "A prime-finding loop that never returns is added. What happens under each scheduler?",
+    "choices": [
+      "Superloop: everything freezes. RTOS: the hog is preempted",
+      "Superloop: the hog is preempted. RTOS: everything else freezes",
+      "Both freeze, because a CPU hog takes every cycle under either scheduler",
+      "Both keep working, because SysTick still interrupts the hog in each"
+    ],
+    "why": "A cooperative scheduler works only while every job agrees to be short. A preemptive one stops the hog mid-calculation, without its consent, and resumes it later.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-003",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Cooperative vs preemptive",
+    "kind": "trap",
+    "q": "SysTick still interrupts during a superloop CPU hog. Does that rescue the other superloop jobs?",
+    "choices": [
+      "No: the handler returns to the hog, and no job is switched",
+      "Yes: SysTick runs each of the other superloop jobs in turn",
+      "Yes: the NVIC preempts the hog once for each waiting job",
+      "No: SysTick is masked for as long as the CPU hog keeps running"
+    ],
+    "why": "An interrupt alone only counts time; switching to another job needs a kernel that saves one context and restores another. That is what lesson 07 adds.",
+    "source": "Study guide · Lesson 7 traps"
+  },
+  {
+    "id": "ch7-004",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Cooperative vs preemptive",
+    "kind": "concept",
+    "q": "In the measured run, the hog shows 100 % CPU while bar and button show 0 %. Why do bar and button still work?",
+    "choices": [
+      "They preempt the hog within a tick, work briefly, and sleep",
+      "They run on a second core while the hog keeps the first one busy",
+      "The hog yields to them voluntarily after every prime it finds",
+      "They run inside SysTick_Handler, entirely outside the scheduler"
+    ],
+    "why": "Higher-priority tasks preempt the hog the moment they are ready. Their work is so short that the per-tick profile charges them 0 %.",
+    "source": "Lesson 07 slides"
+  },
+  {
+    "id": "ch7-005",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Task terms",
+    "kind": "concept",
+    "q": "What is a task's context?",
+    "choices": [
+      "Its registers plus its stack pointer",
+      "Its source code together with all of its global variables",
+      "Its priority and its current state in the scheduler's lists",
+      "Its TCB together with the list of mutexes it currently holds"
+    ],
+    "why": "Save the context and the function can be put away; restore it and it continues as if nothing happened.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-006",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Task terms",
+    "kind": "concept",
+    "q": "What is a TCB?",
+    "choices": [
+      "The task control block: the kernel's record of one task",
+      "The timer control block that drives the tick",
+      "The task's copy of the core registers",
+      "The table of callbacks for each interrupt"
+    ],
+    "why": "os_task_t holds sp, name, prio, base_prio, state, wake and more.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-007",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Task terms",
+    "kind": "trap",
+    "q": "Why must sp be the first field of the TCB?",
+    "choices": [
+      "The assembly in PendSV reads it at [tcb + 0]",
+      "The C standard requires pointers to come first",
+      "The hardware loads PSP from the TCB on exception return",
+      "So the TCB is 8-byte aligned for the stack"
+    ],
+    "why": "PendSV_Handler is hand-written assembly that loads and stores the saved stack pointer at offset 0 of the TCB. Move the field and the switch breaks silently. The hardware knows nothing about TCBs.",
+    "source": "Study guide · Lesson 7 traps"
+  },
+  {
+    "id": "ch7-008",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Task terms",
+    "kind": "concept",
+    "q": "Why does the TCB only need to remember the task's saved stack pointer?",
+    "choices": [
+      "Each task's registers are saved on its own stack",
+      "The core keeps every task's registers in banked copies",
+      "Tasks never use registers other than sp",
+      "The registers are saved in a global array indexed by task"
+    ],
+    "why": "Each task has its own stack and its registers live there while it is switched out; the TCB just points at them.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-009",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Task terms",
+    "kind": "number",
+    "q": "How many words of context does one switched-out task keep on its stack?",
+    "choices": [
+      "16",
+      "8",
+      "13",
+      "32"
+    ],
+    "why": "8 words pushed by the hardware (r0–r3, r12, lr, pc, xPSR) plus 8 saved by PendSV (r4–r11).",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-010",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Task terms",
+    "kind": "calc",
+    "q": "Five tasks are created. How many bytes of forged context does os_task_create write in total?",
+    "choices": [
+      "320 bytes",
+      "160 bytes",
+      "80 bytes",
+      "640 bytes"
+    ],
+    "why": "Each forged frame is 16 words = 64 bytes (8 for the hardware frame, 8 for r4–r11); 5 × 64 = 320.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-011",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Two stack pointers",
+    "kind": "concept",
+    "q": "Which stack pointer do exception handlers use?",
+    "choices": [
+      "MSP, always",
+      "PSP, always",
+      "Whichever the interrupted task used",
+      "PSP if CONTROL.SPSEL = 1"
+    ],
+    "why": "Handlers always run on MSP. CONTROL.SPSEL = 1 only selects PSP for Thread mode.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-012",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Two stack pointers",
+    "kind": "concept",
+    "q": "When do tasks run on PSP?",
+    "choices": [
+      "In Thread mode with CONTROL.SPSEL = 1",
+      "In Handler mode with CONTROL.SPSEL = 0",
+      "Whenever PRIMASK is set",
+      "Only after a HardFault"
+    ],
+    "why": "PSP is the process stack for Thread mode when SPSEL = 1; main() after reset uses MSP.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-013",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Two stack pointers",
+    "kind": "concept",
+    "q": "Why do handlers never need room on a task's stack beyond the 8-word frame?",
+    "choices": [
+      "Handlers run on MSP, a stack no task owns",
+      "Handlers are forbidden from using local variables",
+      "The NVIC allocates handler stacks in the TCB",
+      "Handlers push their registers onto PSP, then switch"
+    ],
+    "why": "The hardware frame goes on the interrupted task's stack; everything the handler does after that uses MSP. Each task's stack only has to hold that task.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-014",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "EXC_RETURN",
+    "kind": "number",
+    "q": "What does EXC_RETURN = 0xFFFFFFFD mean?",
+    "choices": [
+      "Return to Thread mode, use PSP",
+      "Return to Thread mode, use MSP",
+      "Return to Handler mode",
+      "Return in ARM state"
+    ],
+    "why": "0xFFFFFFFD is Thread/PSP, the value every switch in this kernel returns with. 0xFFFFFFF9 is Thread/MSP and 0xFFFFFFF1 is Handler mode.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch7-015",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "EXC_RETURN",
+    "kind": "number",
+    "q": "What does EXC_RETURN = 0xFFFFFFF9 mean?",
+    "choices": [
+      "Return to Thread mode, use MSP",
+      "Return to Thread mode, use PSP",
+      "Return to Handler mode, use MSP",
+      "A fault on the process stack"
+    ],
+    "why": "0xFFFFFFF9: Thread mode on MSP, as main() uses after reset.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch7-016",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "EXC_RETURN",
+    "kind": "calc",
+    "q": "Which bit of EXC_RETURN says 'use PSP', and what is it in 0xFFFFFFF9?",
+    "choices": [
+      "Bit 2; it is 0, so MSP",
+      "Bit 2; it is 1, so PSP",
+      "Bit 3; it is 1, so PSP",
+      "Bit 0; it is 1, so Thumb"
+    ],
+    "why": "D = 1101 has bit 2 set (PSP); 9 = 1001 has it clear (MSP). Bit 3 is the Thread/Handler bit.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-017",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "EXC_RETURN",
+    "kind": "calc",
+    "q": "A HardFault handler reads lr = 0xFFFFFFF1. Who faulted?",
+    "choices": [
+      "A handler, on MSP",
+      "A task, on PSP",
+      "main(), in Thread mode on MSP",
+      "The kernel's idle task"
+    ],
+    "why": "0xFFFFFFF1 is Handler mode, and its bit 2 is clear, so the frame is on MSP. A task fault would show 0xFFFFFFFD.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-018",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Special registers",
+    "kind": "concept",
+    "q": "How are xPSR, MSP, PSP, PRIMASK and CONTROL reached?",
+    "choices": [
+      "Only with mrs and msr: they have no memory address",
+      "With ordinary ldr and str at fixed addresses inside the SCB",
+      "With ldr and str at 0xE000E000 and the words just after it",
+      "Only from Handler mode, through a request made to the NVIC"
+    ],
+    "why": "They live inside the core, outside the memory map. CMSIS wraps the instructions as __get_PSP(), __set_PRIMASK() and so on.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-019",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Special registers",
+    "kind": "trap",
+    "q": "A FreeRTOS port for the M3 uses BASEPRI to mask only some interrupts. What does the M0+ offer?",
+    "choices": [
+      "Only PRIMASK: no BASEPRI or FAULTMASK on this core",
+      "BASEPRI as well, at exactly the same address as on the Cortex-M3",
+      "FAULTMASK, which masks every interrupt except NMI by priority",
+      "BASEPRI, but it can only be written while in Handler mode"
+    ],
+    "why": "The M0+ has PRIMASK alone; CMSIS compiles BASEPRI and FAULTMASK only for Thumb-2 cores.",
+    "source": "Study guide · Lesson 7 traps"
+  },
+  {
+    "id": "ch7-020",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Special registers",
+    "kind": "number",
+    "q": "What does CONTROL read while a task runs in this kernel?",
+    "choices": [
+      "0x00000002: SPSEL = 1",
+      "0x00000001: nPRIV = 1",
+      "0x00000000: MSP, privileged",
+      "0x00000003: PSP, unprivileged"
+    ],
+    "why": "SPSEL (bit 1) = 1 means Thread mode uses PSP. The kernel never writes CONTROL; the exception return with 0xFFFFFFFD sets SPSEL.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-021",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "SCB registers",
+    "kind": "number",
+    "q": "Where is the SCB, and which two of its registers does the kernel use?",
+    "choices": [
+      "0xE000ED00; ICSR and SHPR3",
+      "0xE000E100; ISER and IPR",
+      "0xE000ED00; VTOR and AIRCR",
+      "0xE000E010; CTRL and LOAD"
+    ],
+    "why": "The System Control Block is part of the core at 0xE000ED00. ICSR pends PendSV; SHPR3 holds the PendSV and SysTick priorities. 0xE000E100 is the NVIC; 0xE000E010 is SysTick.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-022",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "SCB registers",
+    "kind": "calc",
+    "q": "ICSR is at offset 0x04 in the SCB and PENDSVSET is bit 28. What is the write that pends PendSV?",
+    "choices": [
+      "0x10000000 to 0xE000ED04",
+      "0x00000028 to 0xE000ED04",
+      "0x10000000 to 0xE000ED00",
+      "0x08000000 to 0xE000ED04"
+    ],
+    "why": "1 << 28 = 0x10000000, written to 0xE000ED00 + 4. 0x08000000 is bit 27, PENDSVCLR.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-023",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "SCB registers",
+    "kind": "trap",
+    "q": "Why is PendSV pended with SCB->ICSR = PENDSVSET and not |=?",
+    "choices": [
+      "ICSR is write-1-to-act; zeros do nothing",
+      "|= would also set PENDSVCLR, which would cancel the request at once",
+      "ICSR is a write-only register, so the read in |= would fault",
+      "|= is three instructions, so an interrupt could split it and lose the bit"
+    ],
+    "why": "In ICSR writing 1 acts and writing 0 does nothing. A |= reads back status bits and writes them as requests, which is wrong for a write-1-to-act register.",
+    "source": "Study guide · Lesson 7 traps"
+  },
+  {
+    "id": "ch7-024",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "SCB registers",
+    "kind": "calc",
+    "q": "SHPR3 holds SysTick at bits 31:30 and PendSV at 23:22. With both at priority 3, what does SHPR3 read?",
+    "choices": [
+      "0xC0C00000",
+      "0x00C000C0",
+      "0x30300000",
+      "0xC0000000"
+    ],
+    "why": "3 << 30 = 0xC0000000 and 3 << 22 = 0x00C00000; together 0xC0C00000. 0xC0000000 is lesson 06, where only SysTick was set.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-025",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "PendSV",
+    "kind": "concept",
+    "q": "What are PendSV's two defining properties in this kernel?",
+    "choices": [
+      "Pended by software, and given the lowest priority",
+      "Raised by SysTick, and given the highest priority",
+      "Pended by software, and given the highest priority",
+      "Raised by any IRQ, and given SysTick's priority"
+    ],
+    "why": "Only software sets its pending bit, and at priority 3 it runs only when no other handler is active.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-026",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "PendSV",
+    "kind": "concept",
+    "q": "Why must a context switch never happen inside another interrupt handler?",
+    "choices": [
+      "The handler's half-finished frame would return into the wrong task",
+      "Handlers run unprivileged and so are not allowed to write PSP at all",
+      "The NVIC forbids the msr instruction anywhere inside a handler",
+      "SysTick would lose a tick for every switch made inside a handler"
+    ],
+    "why": "Swapping the task beneath a running handler would return that handler into the wrong world. So the switch is deferred to PendSV, which runs only when nothing else is active.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-027",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "PendSV",
+    "kind": "trap",
+    "q": "Where does the actual context switch happen?",
+    "choices": [
+      "Only in PendSV_Handler",
+      "In SysTick_Handler, after the tick",
+      "In schedule(), wherever it is called",
+      "In the ISR that made a task ready"
+    ],
+    "why": "Deciding (schedule()) happens anywhere: the tick, os_delay, mutex unlock, queue put. Switching happens in one place only, PendSV.",
+    "source": "Study guide · Lesson 7 traps"
+  },
+  {
+    "id": "ch7-028",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "PendSV",
+    "kind": "concept",
+    "q": "schedule() has pended PendSV, then decides the current task should keep running after all. What can it do?",
+    "choices": [
+      "Write PENDSVCLR to cancel the switch",
+      "Nothing: a pended PendSV always runs",
+      "Raise PendSV's priority to 0 to finish it early",
+      "Return 0xFFFFFFF9 instead of 0xFFFFFFFD"
+    ],
+    "why": "Deciding can change its mind with PENDSVCLR; once PendSV runs, the switch happens.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-029",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "PendSV",
+    "kind": "concept",
+    "q": "Besides SysTick, which calls run schedule() and can lead to a switch?",
+    "choices": [
+      "os_delay, mutex unlock and queue put, in tasks and ISRs",
+      "Only os_task_create, and only before the scheduler has started",
+      "None of them: only the tick is allowed to decide on a switch",
+      "Only HardFault_Handler, when it needs to recover a crashed task"
+    ],
+    "why": "A task that sleeps or blocks does not wait for the tick to be switched out; it joins the flow at the decision step.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-030",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "One switch, step by step",
+    "kind": "concept",
+    "q": "When task A is interrupted, which registers does the hardware push onto A's stack?",
+    "choices": [
+      "r0–r3, r12, lr, pc, xPSR",
+      "r4–r11",
+      "r0–r12 and lr",
+      "Only pc and xPSR"
+    ],
+    "why": "The hardware pushes 8 words, half the context. PendSV saves the other half, r4–r11.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch7-031",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "One switch, step by step",
+    "kind": "concept",
+    "q": "What does PendSV_Handler save for the old task?",
+    "choices": [
+      "r4–r11 on the old task's stack, and its SP in the TCB",
+      "r0–r3, r12, lr, pc and xPSR, all pushed onto the MSP stack",
+      "All sixteen registers, copied word by word into the TCB itself",
+      "r4–r11 on MSP, and the old task's SP kept in the CONTROL register"
+    ],
+    "why": "The hardware already pushed r0–r3, r12, lr, pc, xPSR; PendSV pushes the callee-saved r4–r11 beside them and stores the SP into the TCB.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-032",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "One switch, step by step",
+    "kind": "concept",
+    "q": "How does task B's pc get restored at the end of a switch?",
+    "choices": [
+      "The hardware pops B's 8-word frame on exception return",
+      "PendSV loads it explicitly with an ldr pc, [r0] instruction",
+      "SysTick_Handler branches to it after deciding B should run",
+      "pick() calls B's task function directly, as an ordinary function"
+    ],
+    "why": "PendSV restores B's r4–r11, sets PSP to B's hardware frame and returns with 0xFFFFFFFD; the hardware pops r0–r3, r12, lr, pc and xPSR.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-033",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "One switch, step by step",
+    "kind": "concept",
+    "q": "Put the switch from A to B in order.",
+    "choices": [
+      "Hardware pushes A's half → SysTick decides → PendSV pended → PendSV saves A, loads B → hardware pops B",
+      "PendSV pended → hardware pushes A's half → SysTick decides → hardware pops B → PendSV saves A",
+      "SysTick decides → PendSV saves A → hardware pushes A's half → PendSV pended → hardware pops B",
+      "Hardware pushes A's half → PendSV saves A, loads B → SysTick decides → PendSV pended → hardware pops B"
+    ],
+    "why": "Hardware entry, decide, pend, PendSV runs when nothing else is active, the switch itself, then the exception return pops B.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-034",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "One switch, step by step",
+    "kind": "calc",
+    "q": "PendSV runs: PSP = 0x20001040 (A's hardware frame). It stores tcb->sp = PSP − 32. What is stored?",
+    "choices": [
+      "0x20001020",
+      "0x20001060",
+      "0x20001000",
+      "0x2000103C"
+    ],
+    "why": "0x1040 − 0x20 = 0x1020. 32 bytes is room for the 8 words r4–r11 below the hardware frame.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-035",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "One switch, step by step",
+    "kind": "number",
+    "q": "How big is this kernel's PendSV_Handler?",
+    "choices": [
+      "34 instructions, 88 bytes",
+      "8 instructions, 16 bytes",
+      "about 300 instructions",
+      "16 instructions, 64 bytes"
+    ],
+    "why": "34 instructions and 88 bytes including its literal pool: the whole of multitasking.",
+    "source": "Lesson 07 slides"
+  },
+  {
+    "id": "ch7-036",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Why r8–r11 the long way",
+    "kind": "concept",
+    "q": "Why does the M0+ kernel copy r8–r11 into r4–r7 before storing them?",
+    "choices": [
+      "Thumb-1 stm/ldm reach only r0–r7",
+      "r8–r11 cannot be read in Handler mode",
+      "r8–r11 belong to the hardware frame",
+      "Storing high registers would misalign PSP"
+    ],
+    "why": "stmia has an 8-bit register list, r0–r7 only. stmia {r4-r11} exists on the M3, not here. mov between low and high registers is allowed.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-037",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Why r8–r11 the long way",
+    "kind": "trap",
+    "q": "On restore, why are r8–r11 restored first and r4–r7 last?",
+    "choices": [
+      "r4–r7 carry r8–r11 through the copy, so they load last",
+      "r8–r11 are the callee-saved registers, so AAPCS wants them back first",
+      "The hardware pops r4–r7 automatically afterwards on exception return",
+      "The ldm instruction can only load the high registers before the low ones"
+    ],
+    "why": "r8–r11 are restored by loading them into r4–r7 and moving them up. Loading the real r4–r7 last keeps that copy from being overwritten.",
+    "source": "Study guide · Lesson 7 traps"
+  },
+  {
+    "id": "ch7-038",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Forging the first frame",
+    "kind": "concept",
+    "q": "A new task has never run. How does the first switch to it work?",
+    "choices": [
+      "os_task_create forges the stack it would have if interrupted",
+      "PendSV calls the task function directly, just the first time round",
+      "The hardware builds a frame automatically when PSP is first loaded",
+      "The idle task starts it with a branch-with-link to its first line"
+    ],
+    "why": "A forged frame makes a brand-new task look exactly like one preempted a second ago, so the switch code needs no special case.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-039",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Forging the first frame",
+    "kind": "number",
+    "q": "What xPSR value is forged into every new task's frame?",
+    "choices": [
+      "0x01000000",
+      "0x00000000",
+      "0x61000000",
+      "0xFFFFFFFD"
+    ],
+    "why": "Only the Thumb bit, bit 24. 0x61000000 is a stacked xPSR with flags too; 0xFFFFFFFD is EXC_RETURN.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-040",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Forging the first frame",
+    "kind": "trap",
+    "q": "os_task_create forges xPSR = 0x00000000 by mistake. What happens?",
+    "choices": [
+      "The task HardFaults on its first switch",
+      "It runs normally; xPSR flags start at zero anyway",
+      "It runs in ARM state, more slowly",
+      "It runs, but its interrupts are masked"
+    ],
+    "why": "A clear T bit asks for ARM state, which the M0+ does not have, so the return faults at once.",
+    "source": "Study guide · Lesson 7 traps"
+  },
+  {
+    "id": "ch7-041",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Forging the first frame",
+    "kind": "concept",
+    "q": "In the forged frame, where does the task's argument go, and why?",
+    "choices": [
+      "The r0 slot, because AAPCS passes the first argument in r0",
+      "The r4 slot, because r4 is callee-saved and survives the switch",
+      "The lr slot, so that the task can return to its argument later",
+      "The TCB, because the forged stack is reserved for registers only"
+    ],
+    "why": "When the hardware pops the frame, r0 holds arg and the task receives it as a normal parameter.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-042",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Forging the first frame",
+    "kind": "concept",
+    "q": "Why is the forged lr set to task_exit?",
+    "choices": [
+      "So a task that returns is parked, not lost in memory",
+      "So the first switch to the task can find its TCB",
+      "Because EXC_RETURN must already be in lr when the first switch happens",
+      "So the task restarts from its first line each time it finishes"
+    ],
+    "why": "If the task function ever returns, it lands in task_exit and is parked for good.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-043",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Forging the first frame",
+    "kind": "number",
+    "q": "In the forged frame, what goes in the pc slot?",
+    "choices": [
+      "The task function's address",
+      "task_exit",
+      "0xFFFFFFFD",
+      "The TCB's address"
+    ],
+    "why": "pc = the task function, lr = task_exit, r0 = the argument, xPSR = 0x01000000, zeros elsewhere.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-044",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "pick() policy",
+    "kind": "concept",
+    "q": "Which task does pick() run?",
+    "choices": [
+      "The highest-priority READY task, round-robin among equals",
+      "The task that has waited longest, whatever its priority happens to be",
+      "The lowest-priority READY task, so that it eventually gets a turn",
+      "The task with the most unused stack still left, to spread the load"
+    ],
+    "why": "Fixed-priority preemptive plus round-robin among equal priorities, one tick each.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-045",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "pick() policy",
+    "kind": "calc",
+    "q": "READY tasks: bar (prio 2), hog (prio 1), report (prio 1), idle (prio 0). button (prio 3) is SLEEPING. Who runs?",
+    "choices": [
+      "bar",
+      "button",
+      "hog or report, in turn",
+      "idle"
+    ],
+    "why": "button is not READY, so it is not a candidate. bar has the highest priority of the READY tasks.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-046",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "pick() policy",
+    "kind": "calc",
+    "q": "Only hog (prio 1), report (prio 1) and idle (prio 0) are READY, and hog is running. What happens over the next ticks?",
+    "choices": [
+      "hog and report alternate, one tick each",
+      "hog keeps running until it blocks",
+      "report runs to completion, then hog",
+      "idle runs, because the others are equal"
+    ],
+    "why": "pick() starts its search after the current task and only a strictly higher priority replaces a find, so equals take turns.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-047",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "pick() policy",
+    "kind": "calc",
+    "q": "A (prio 2) and B (prio 2) are READY, C (prio 3) is BLOCKED on a mutex, and A is running. Who runs after the next tick?",
+    "choices": [
+      "B",
+      "A again",
+      "C",
+      "idle"
+    ],
+    "why": "C is not READY, so it cannot be picked. Among the equal-priority READY tasks the search starts after A, so B gets the next tick.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-048",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "pick() policy",
+    "kind": "concept",
+    "q": "Why does pick() always find a task to run?",
+    "choices": [
+      "Idle, priority 0, is always READY",
+      "SysTick makes every task READY at each tick",
+      "pick() returns the current task if nothing is found",
+      "A sleeping task counts as ready for pick()"
+    ],
+    "why": "The idle task never sleeps or blocks, so there is always an answer.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-049",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Two priority numberings",
+    "kind": "trap",
+    "q": "On this chip, which numbering treats a larger number as more urgent?",
+    "choices": [
+      "The kernel's task priorities (like FreeRTOS)",
+      "The NVIC's interrupt priorities",
+      "Both",
+      "Neither: 0 is most urgent everywhere"
+    ],
+    "why": "Kernel: higher number, more urgent. NVIC: 0 is most urgent. Two numberings on one chip; always say which you mean.",
+    "source": "Study guide · Practice problems"
+  },
+  {
+    "id": "ch7-050",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Two priority numberings",
+    "kind": "trap",
+    "q": "A task has priority 3 and an IRQ has NVIC priority 3. Which statement is right?",
+    "choices": [
+      "The task is the most urgent task; the IRQ the least urgent IRQ",
+      "Both are the most urgent of their kind, so the IRQ and task tie",
+      "Both are the least urgent of their kind, so both always wait",
+      "They are equal in rank, so the IRQ cannot preempt the task at all"
+    ],
+    "why": "3 is the top task priority here (button) but the lowest NVIC priority. Any enabled interrupt preempts any task anyway: tasks run in Thread mode.",
+    "source": "Study guide · Lesson 7 traps"
+  },
+  {
+    "id": "ch7-051",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Task states",
+    "kind": "concept",
+    "q": "A task calls os_delay(10). Which state is it in, and what makes it leave?",
+    "choices": [
+      "SLEEPING, until the tick reaches its wake time",
+      "BLOCKED, until another task unlocks",
+      "READY, but skipped for 10 ticks",
+      "SLEEPING, until a queue item arrives"
+    ],
+    "why": "SLEEPING waits for a time; BLOCKED waits for a thing (a mutex, a queue).",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-052",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Task states",
+    "kind": "concept",
+    "q": "A task calls os_queue_get() on an empty queue. What state is it in?",
+    "choices": [
+      "BLOCKED",
+      "SLEEPING",
+      "READY",
+      "Running, spinning on the queue"
+    ],
+    "why": "Waiting for a thing is BLOCKED; it leaves when an item arrives.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-053",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Task states",
+    "kind": "calc",
+    "q": "The tick is at 0xFFFFFFF0 and a task's wake is 0x00000005. The kernel tests (int32_t)(ticks − wake) >= 0. Does it wake?",
+    "choices": [
+      "No: the difference is −21, so 21 ticks to go",
+      "Yes: 0xFFFFFFF0 is far larger than 5",
+      "Yes: the difference is 4 294 967 275",
+      "No: it never wakes across the wrap"
+    ],
+    "why": "ticks − wake = 0xFFFFFFEB, which as int32_t is −21. The signed difference is wrap-safe, so the task wakes 21 ticks later, after the counter wraps.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-054",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Task states",
+    "kind": "trap",
+    "q": "Which state is the currently running task in?",
+    "choices": [
+      "READY: it is the READY task pick() chose",
+      "RUNNING, a fourth state that only one task can be in at a time",
+      "BLOCKED, because it is the one holding the CPU at the moment",
+      "SLEEPING until the next tick, when pick() chooses again"
+    ],
+    "why": "The kernel has three states. Running is not separate; it is the READY task that os_current points at.",
+    "source": "Study guide · Lesson 7 traps"
+  },
+  {
+    "id": "ch7-055",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Busy-waiting vs sleeping",
+    "kind": "concept",
+    "q": "A task waits for 50 ms by spinning on millis(). What does that cost compared with os_delay(50)?",
+    "choices": [
+      "Spinning: 100 % CPU, nobody lower runs. Sleeping: off the CPU",
+      "The same cost: both of them use the SysTick tick to wait 50 ms",
+      "Less: spinning avoids the two context switches that sleeping needs",
+      "More stack for the spinning task, but exactly the same CPU time"
+    ],
+    "why": "A busy-waiting task holds the CPU; a sleeping one is off the CPU and every other READY task runs.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-056",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Busy-waiting vs sleeping",
+    "kind": "concept",
+    "q": "What does os_delay_until(&last, period) give that os_delay(period) does not?",
+    "choices": [
+      "A fixed grid: wake times don't drift with the task's work",
+      "Shorter latency, because the wake-up skips the tick entirely",
+      "Permission to call it from an ISR as well as from a task",
+      "A busy-wait for periods that are shorter than a single tick"
+    ],
+    "why": "Like lesson 06's += period: the task wakes on a fixed grid however long its work took. The LED bar stays exactly 60 ms apart.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-057",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Busy-waiting vs sleeping",
+    "kind": "calc",
+    "q": "The bar task uses os_delay_until(&last, 60). last = 1000 and its work took 7 ms. When does it next wake?",
+    "choices": [
+      "At tick 1060",
+      "At tick 1067",
+      "At tick 1053",
+      "At tick 1120"
+    ],
+    "why": "os_delay_until keeps the grid: last + period = 1060, however long the work took. os_delay(60) after the work would give 1067.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-058",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Busy-waiting vs sleeping",
+    "kind": "concept",
+    "q": "The per-task tick count charges one millisecond to whoever was running at each tick. What is that technique?",
+    "choices": [
+      "Statistical profiling of CPU share",
+      "Exact cycle counting",
+      "Deadline monitoring",
+      "Stack high-water measurement"
+    ],
+    "why": "Sampled at each tick, over a second it gives each task's CPU share, the cpu% column of the report.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-059",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Busy-waiting vs sleeping",
+    "kind": "calc",
+    "q": "Over one second (1000 ticks) the hog was running at 700 ticks and idle at 300. What CPU shares does the report show?",
+    "choices": [
+      "hog 70 %, idle 30 %",
+      "hog 100 %, idle 0 %",
+      "hog 30 %, idle 70 %",
+      "hog 7 %, idle 3 %"
+    ],
+    "why": "Each tick charges 1 ms to the task running then: 700 / 1000 = 70 %.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-060",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Busy-waiting vs sleeping",
+    "kind": "calc",
+    "q": "In one second the report task was running at 50 of the 1000 ticks. What cpu% does the report print for it?",
+    "choices": [
+      "5 %",
+      "50 %",
+      "0.5 %",
+      "20 %"
+    ],
+    "why": "Statistical profiling charges one tick (1 ms) to whoever was running: 50 / 1000 = 5 %.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-061",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Busy-waiting vs sleeping",
+    "kind": "calc",
+    "q": "The button task wakes 200 times a second and the bar about 17. Each visit is a switch in and a switch out. About how many switches a second?",
+    "choices": [
+      "About 430",
+      "About 217",
+      "About 870",
+      "About 1000"
+    ],
+    "why": "(200 + 17) × 2 ≈ 434; the measured figure was about 420.",
+    "source": "Lesson 07 slides"
+  },
+  {
+    "id": "ch7-062",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Mutex vs masking",
+    "kind": "concept",
+    "q": "Who is held up by masking interrupts with PRIMASK, and who by a mutex?",
+    "choices": [
+      "PRIMASK: everything. Mutex: only tasks wanting that resource",
+      "PRIMASK: only lower-priority tasks. Mutex: every task and every interrupt",
+      "Both hold up only the tasks that actually use the shared data",
+      "PRIMASK: only interrupts, never tasks. Mutex: only the idle task"
+    ],
+    "why": "Masking freezes the whole system, so it is for a few instructions. A mutex can last as long as the work takes, and a waiter is BLOCKED, off the CPU.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-063",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Mutex vs masking",
+    "kind": "trap",
+    "q": "Why can't an interrupt handler call os_mutex_lock()?",
+    "choices": [
+      "Locking may block, and a handler has nothing to put to sleep",
+      "Handlers run on MSP, and a stack pointer on MSP cannot own a mutex",
+      "Handlers run unprivileged, so they cannot change PRIMASK inside lock",
+      "It would deadlock SysTick, which is the owner of every mutex"
+    ],
+    "why": "Locking may have to wait, which means putting the caller to sleep. An ISR has nothing to put to sleep, so it must use non-blocking APIs such as os_queue_put_from_isr().",
+    "source": "Study guide · Practice problems"
+  },
+  {
+    "id": "ch7-064",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Mutex vs masking",
+    "kind": "concept",
+    "q": "What protects the mutex's own bookkeeping inside os_mutex_lock()?",
+    "choices": [
+      "Masking interrupts for a few instructions",
+      "A second, smaller mutex nested inside the first one",
+      "PendSV's lowest priority, which keeps every handler out",
+      "Nothing at all: the owner field is a single atomic word"
+    ],
+    "why": "enter() and leave() save and restore PRIMASK around the owner check. The mutex makes a long critical section cheap, built on a short masked one.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-065",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Priority inversion",
+    "kind": "concept",
+    "q": "High needs a mutex Low holds; Medium, which doesn't use it, preempts Low. What is High waiting for?",
+    "choices": [
+      "Medium, a task it outranks",
+      "Low only, for its 30 ms",
+      "The idle task",
+      "The SysTick handler"
+    ],
+    "why": "Low cannot run to release the mutex while Medium runs, so High in effect waits for Medium: priority inversion.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-066",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Priority inversion",
+    "kind": "trap",
+    "q": "High waits for Low's mutex during Low's 30 ms critical section, with no Medium running. Is that priority inversion?",
+    "choices": [
+      "No: that is blocking, expected and bounded",
+      "Yes: any wait on a lower task is inversion",
+      "Yes, and it is unbounded",
+      "No: High never waits for a lower task"
+    ],
+    "why": "Blocking (High waits for Low) is legitimate. Inversion is waiting behind a task that does not hold the resource; unbounded inversion lasts as long as Medium runs.",
+    "source": "Study guide · Lesson 7 traps"
+  },
+  {
+    "id": "ch7-067",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Priority inversion",
+    "kind": "concept",
+    "q": "Which famous system suffered priority inversion, and when?",
+    "choices": [
+      "Mars Pathfinder, 1997",
+      "Apollo 11, 1969",
+      "Ariane 5, 1996",
+      "Therac-25, 1985"
+    ],
+    "why": "Pathfinder kept resetting because a high-priority bus task was starved; it was fixed remotely by enabling priority inheritance.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-068",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Priority inheritance",
+    "kind": "concept",
+    "q": "How does priority inheritance fix inversion?",
+    "choices": [
+      "Low runs at High's priority while holding the mutex High wants",
+      "High's priority is lowered to Low's until the mutex becomes free again",
+      "Medium is suspended by the kernel whenever any task holds any mutex",
+      "Interrupts are masked with PRIMASK for as long as Low holds the mutex"
+    ],
+    "why": "Medium can no longer preempt Low; Low finishes, unlocks and returns to base_prio.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-069",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Priority inheritance",
+    "kind": "number",
+    "q": "On unlock, what priority does the former holder return to?",
+    "choices": [
+      "Its base_prio",
+      "The waiter's priority",
+      "0, the idle priority",
+      "The highest priority in the system"
+    ],
+    "why": "The TCB keeps base_prio for exactly this.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-070",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Priority inheritance",
+    "kind": "calc",
+    "q": "Low (prio 1) holds the mutex; High (prio 3) blocks on it; Mid is prio 2. With inheritance, at what priority does Low now run?",
+    "choices": [
+      "3, until it unlocks",
+      "1, its base_prio",
+      "2, just above Mid's",
+      "4, above everyone"
+    ],
+    "why": "Low borrows its waiter's priority, 3, so Mid (2) can no longer preempt it. On unlock it returns to base_prio 1.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-071",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Priority inheritance",
+    "kind": "calc",
+    "q": "Low holds the mutex for 30 ms; Mid computes for 120 ms. Measured worst waits for High: 10 ms with inheritance and 110 ms without. Why is any wait over 40 ms a sign of inversion here?",
+    "choices": [
+      "It exceeds Low's 30 ms hold, so High was waiting behind Mid",
+      "40 ms is the tick period, so any longer wait means a missed tick",
+      "Mid's period is 40 ms, so a longer wait shows Mid had already finished",
+      "It exceeds High's own 100 ms deadline, so the system reports a failure"
+    ],
+    "why": "Legitimate blocking is bounded by Low's 30 ms. Anything well beyond it was time spent behind Mid. With inheritance there were none.",
+    "source": "Lesson 07 slides"
+  },
+  {
+    "id": "ch7-072",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Priority inheritance",
+    "kind": "concept",
+    "q": "What limitation does the lesson admit about its priority inheritance?",
+    "choices": [
+      "It is right for one mutex at a time, not nested holds",
+      "It works only for tasks of priority 0 and 1",
+      "It works only when interrupts are masked",
+      "It raises the holder's priority permanently"
+    ],
+    "why": "A task holding two mutexes with different waiters needs a real implementation; FreeRTOS's is several hundred lines.",
+    "source": "Lesson 07 slides"
+  },
+  {
+    "id": "ch7-073",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Queues",
+    "kind": "concept",
+    "q": "How does a queue differ from a mutex for sharing data?",
+    "choices": [
+      "A queue copies the data out; a mutex guards data that stays shared",
+      "A queue is faster than a mutex but only works between two ISRs",
+      "A queue can hold only one item, while a mutex can protect many",
+      "A queue never blocks its caller, while a mutex always blocks"
+    ],
+    "why": "Copy instead of share. put blocks while full, get blocks while empty.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-074",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Queues",
+    "kind": "trap",
+    "q": "What does os_queue_put_from_isr() do when the queue is full?",
+    "choices": [
+      "Returns 0 at once; it never blocks",
+      "Blocks the ISR until a slot frees",
+      "Overwrites the oldest item",
+      "Pends PendSV and retries"
+    ],
+    "why": "A handler has no task to put to sleep, so it reports 'full' and lets the handler decide (lesson 08 counts it as dropped).",
+    "source": "Study guide · Lesson 7 traps"
+  },
+  {
+    "id": "ch7-075",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Queues",
+    "kind": "concept",
+    "q": "os_queue_put_from_isr() makes a waiting task READY. When does that task actually run?",
+    "choices": [
+      "When the last handler returns, via PendSV",
+      "Immediately, from inside the ISR that made it ready",
+      "Only at the next SysTick tick, when pick() is run again",
+      "When the ISR calls the task's function directly at the end"
+    ],
+    "why": "It calls schedule(), which pends PendSV; the switch happens the moment no handler is active.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-076",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Queues",
+    "kind": "number",
+    "q": "In both FreeRTOS and this kernel, what is the ISR-safe queue put called?",
+    "choices": [
+      "xQueueSendFromISR / os_queue_put_from_isr",
+      "xQueueSend / os_queue_put",
+      "vTaskDelayUntil / os_delay_until",
+      "xTaskCreate / os_task_create"
+    ],
+    "why": "xTaskCreate, vTaskDelayUntil and xQueueSendFromISR correspond to os_task_create, os_delay_until and os_queue_put_from_isr.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-077",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Stack sizing",
+    "kind": "concept",
+    "q": "How does the kernel find each task's high-water mark?",
+    "choices": [
+      "It fills each stack with 0xDEADBEEF and counts untouched words",
+      "It records the lowest stack pointer it sees at every SysTick tick",
+      "The MPU traps the deepest access each task makes to its own stack",
+      "The compiler reports each task's maximum stack use in the map file"
+    ],
+    "why": "The stack grows down; words still reading 0xDEADBEEF at the bottom were never reached. Exercise every path, read it, add a margin.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-078",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Stack sizing",
+    "kind": "calc",
+    "q": "A 128-word task stack still has 104 words reading 0xDEADBEEF. What is its high-water mark?",
+    "choices": [
+      "24 words (96 bytes)",
+      "104 words",
+      "24 bytes",
+      "128 words"
+    ],
+    "why": "128 − 104 = 24 words used, as measured for the bar task.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-079",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Stack sizing",
+    "kind": "calc",
+    "q": "Stacks of 128, 128, 128, 512 and 64 words are allocated. What fraction of the 12 KB SRAM is that?",
+    "choices": [
+      "About 31 % (3840 bytes)",
+      "About 8 % (960 bytes)",
+      "About 63 % (7680 bytes)",
+      "About 16 % (1920 bytes)"
+    ],
+    "why": "960 words × 4 = 3840 bytes, and 3840 / 12 288 ≈ 31 %. 960 bytes forgets that a word is 4 bytes.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-080",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Stack sizing",
+    "kind": "calc",
+    "q": "The report task needs 115 words but is given a 96-word stack. How far does it overflow?",
+    "choices": [
+      "19 words (76 bytes)",
+      "19 bytes",
+      "211 words",
+      "96 words"
+    ],
+    "why": "115 − 96 = 19 words = 76 bytes below its stack, which in the measured run landed on the hog's primes counter.",
+    "source": "Lesson 07 slides"
+  },
+  {
+    "id": "ch7-081",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Stack sizing",
+    "kind": "number",
+    "q": "About how many stack words does printf cost in this lesson?",
+    "choices": [
+      "~115 words",
+      "~16 words",
+      "~512 words",
+      "~1 KB"
+    ],
+    "why": "115 words (460 bytes) for newlib-nano's formatter and _write; every task that prints needs room for it.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-082",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Stack sizing",
+    "kind": "trap",
+    "q": "What does a stack overflow usually look like on an MCU like this?",
+    "choices": [
+      "Another task's data quietly wrong, far from the cause",
+      "An immediate HardFault, reported in the task that overflowed",
+      "A reset by the watchdog a few milliseconds after the overflow",
+      "A compiler warning about the stack size at build time"
+    ],
+    "why": "Measured: the report task overflowed by 19 words into the hog's primes counter, which then read 536 871 010 (a stack address). Nothing crashed.",
+    "source": "Study guide · Lesson 7 traps"
+  },
+  {
+    "id": "ch7-083",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "Stack sizing",
+    "kind": "calc",
+    "q": "After the overflow, the primes counter read 536 871 010. What is that in hex, and why is it telling?",
+    "choices": [
+      "0x20000062: an SRAM address, written by a stack",
+      "0x08000062: a flash address, from the code",
+      "0xDEADBEEF: the fill pattern was overwritten",
+      "0x00000062: only the low byte changed"
+    ],
+    "why": "536 871 010 = 0x20000062, inside SRAM at 0x20000000: a stack value in another task's variable.",
+    "source": "Lesson 07 slides"
+  },
+  {
+    "id": "ch7-084",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "HardFault reporting",
+    "kind": "number",
+    "q": "In the stacked exception frame, which word is the faulting pc?",
+    "choices": [
+      "Word 6",
+      "Word 0",
+      "Word 7",
+      "Word 5"
+    ],
+    "why": "The frame is r0, r1, r2, r3, r12, lr, pc, xPSR: pc is word 6 (counting from 0), at SP + 24.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-085",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "HardFault reporting",
+    "kind": "calc",
+    "q": "A task faults and its hardware frame starts at PSP = 0x20000F00. At which address is the stacked pc?",
+    "choices": [
+      "0x20000F18",
+      "0x20000F1C",
+      "0x20000F06",
+      "0x20000F14"
+    ],
+    "why": "The frame is r0, r1, r2, r3, r12, lr, pc, xPSR; pc is word 6, at +24 = 0x18. 0x20000F1C is xPSR and 0x20000F14 is lr.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-086",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "HardFault reporting",
+    "kind": "concept",
+    "q": "How does the HardFault handler know which stack holds the frame?",
+    "choices": [
+      "Bit 2 of LR (EXC_RETURN): 1 means PSP",
+      "Bit 24 of the stacked xPSR: 1 means the frame is on PSP",
+      "CONTROL.nPRIV: 1 means an unprivileged task was the one that faulted",
+      "The fault-status register names which stack the frame was pushed to"
+    ],
+    "why": "EXC_RETURN in LR says which stack was in use. The M0+ has no fault-status registers.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-087",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "HardFault reporting",
+    "kind": "concept",
+    "q": "What can the M0+'s HardFault report tell you, and what not?",
+    "choices": [
+      "Where it faulted (pc, via addr2line), but not why",
+      "Why it faulted, from CFSR, but not where",
+      "Both where and why, from the stacked frame",
+      "Neither: the frame is lost on the M0+"
+    ],
+    "why": "No fault-status registers on the M0+, so the reason is lost. The Cortex-M4 in lesson 11 has CFSR.",
+    "source": "Study guide · Lesson 7 notes"
+  },
+  {
+    "id": "ch7-088",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "HardFault reporting",
+    "kind": "calc",
+    "q": "A stacked xPSR reads 0x61000000. Which bits are set?",
+    "choices": [
+      "Z, C and the Thumb bit",
+      "N, Z and the Thumb bit",
+      "Only the Thumb bit",
+      "C, V and the Thumb bit"
+    ],
+    "why": "0x6 in bits 31:28 is 0110: Z (30) and C (29); 0x01 in bits 27:24 is T (24).",
+    "source": "Lesson 07 slides"
+  },
+  {
+    "id": "ch7-089",
+    "chapter": "Lesson 07 · RTOS",
+    "topic": "RTOS vs desktop switch",
+    "kind": "concept",
+    "q": "Why is this RTOS's context switch only tens of cycles while a desktop OS takes microseconds?",
+    "choices": [
+      "No MMU address space, FPU state or TLB to switch",
+      "The M0+ runs at a higher clock rate than a desktop CPU does",
+      "It saves only 2 registers per switch instead of all 16 of them",
+      "It skips saving the stack pointer, because each task has its own"
+    ],
+    "why": "Leaving out the MMU, FPU and TLB makes it cheap, and is also why one bad pointer in any task can overwrite every other task.",
+    "source": "Study guide · Lesson 7 notes"
+  }
+]

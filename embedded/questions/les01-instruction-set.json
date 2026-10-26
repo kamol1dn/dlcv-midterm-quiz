@@ -1,0 +1,1277 @@
+[
+ {
+  "id": "ch1-001",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Reading assembly",
+  "kind": "concept",
+  "q": "Why does this course teach you to read disassembly, though you never write assembly?",
+  "choices": [
+   "Some bugs can only be explained by the instructions the compiler emitted",
+   "Assembly is required for every interrupt handler",
+   "C cannot reach peripheral registers without it",
+   "The exam asks you to write short assembly routines for each peripheral driver"
+  ],
+  "why": "When the debugger stops with no source line, a variable changes by itself or the optimiser deletes code, the answer is in what the compiler actually emitted. Reading it is a diagnostic skill.",
+  "source": "Lesson 01 slides · Slide 1"
+ },
+ {
+  "id": "ch1-002",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb only",
+  "kind": "concept",
+  "q": "Which instruction set does every Cortex-M execute?",
+  "choices": [
+   "Thumb (T32) only",
+   "ARM (A32) only",
+   "Both, switched at run time",
+   "ARM, with Thumb for interrupts"
+  ],
+  "why": "Every Cortex-M executes Thumb only. Cortex-A and Cortex-R hold both and switch between them.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-003",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb only",
+  "kind": "trap",
+  "q": "Under what circumstances does a Cortex-M switch into ARM (A32) state?",
+  "choices": [
+   "Never: it has no ARM state",
+   "When an interrupt is taken",
+   "When a branch target has bit 0 clear",
+   "When code runs in Handler mode"
+  ],
+  "why": "There is no ARM state to switch to. Branching to an even address tells the core to run ARM code, and it faults rather than switches.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-004",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb only",
+  "kind": "number",
+  "q": "Roughly how much smaller is the same program in Thumb than in ARM (A32)?",
+  "choices": [
+   "About 30% smaller",
+   "About 50% smaller",
+   "About 10% smaller",
+   "The same size, but faster"
+  ],
+  "why": "Thumb is about 30% smaller: 16-bit instructions widened to 32 bits only when they must be.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-005",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb only",
+  "kind": "concept",
+  "q": "What is the main reason Thumb exists?",
+  "choices": [
+   "Code density: more program per byte of memory",
+   "Faster arithmetic on 16-bit data",
+   "Access to more registers per instruction",
+   "Hardware floating-point support"
+  ],
+  "why": "A compressed instruction set is about code density, because memory is what a small system runs out of first. Thumb actually reaches fewer registers (R0–R7) in most forms.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-006",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb only",
+  "kind": "concept",
+  "q": "Thumb is ARM's compressed instruction set. Which is RISC-V's equivalent?",
+  "choices": [
+   "The \"C\" extension",
+   "The \"M\" extension",
+   "MIPS16",
+   "AArch64"
+  ],
+  "why": "RISC-V's compressed encoding is the C extension; MIPS's was MIPS16. AArch64 is ARM's 64-bit instruction set, not a compressed one.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-007",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thirteen instructions",
+  "kind": "number",
+  "q": "About how many distinct mnemonics make up 80% of real firmware on this chip?",
+  "choices": [
+   "13",
+   "51",
+   "4",
+   "100"
+  ],
+  "why": "Thirteen mnemonics (movs, ldr, cmp, str, adds, bl, lsls, b, bne, beq, subs, push, pop) make up about 80% of the spike's code.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-008",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thirteen instructions",
+  "kind": "concept",
+  "q": "Why is lsls more common than subs in embedded code?",
+  "choices": [
+   "Bit fields: every (value << (pin*2)) compiles to a shift",
+   "Shifts are the only way to multiply on the M0+",
+   "The compiler uses lsls to clear flags",
+   "lsls is needed to load addresses from the literal pool"
+  ],
+  "why": "Peripheral configuration is shift-and-mask, so a shift outranks subtraction. The M0+ does have muls.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-009",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Load–store",
+  "kind": "concept",
+  "q": "What defines a load–store architecture?",
+  "choices": [
+   "Only load and store instructions touch memory; the ALU sees registers only",
+   "Every instruction may take a memory operand",
+   "Loads and stores are combined with the arithmetic into one long instruction",
+   "Data must be loaded into a cache before use"
+  ],
+  "why": "Load–store: ALU operands are registers only and memory is reached only by ldr/str. Register–memory allows ALU operands in memory.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch1-010",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Load–store",
+  "kind": "trap",
+  "q": "Which model did the 8-bit AVR use?",
+  "choices": [
+   "Load–store, like ARM",
+   "Register–memory, like x86",
+   "Stack machine, like the JVM",
+   "Accumulator, like the 8051"
+  ],
+  "why": "The AVR was load–store too (lds/sts), with one deliberate crack: sbi/cbi on low I/O registers.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-011",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Load–store",
+  "kind": "number",
+  "q": "How many instructions does counter++ on a memory variable take on this chip?",
+  "choices": [
+   "3 (ldr, adds, str)",
+   "1 (add to memory)",
+   "2 (ldr, str)",
+   "4 (ldr, adds, cmp, str)"
+  ],
+  "why": "The ALU cannot see memory, so it is load, add, store. On x86 it is one instruction.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch1-012",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Load–store",
+  "kind": "trap",
+  "q": "counter++ is 1 instruction on x86 and 3 on Cortex-M. How many bus accesses does each make?",
+  "choices": [
+   "2 on both",
+   "1 on x86, 3 on Cortex-M",
+   "2 on x86, 3 on Cortex-M",
+   "1 on both"
+  ],
+  "why": "Both read the word and write it back: 2 bus accesses. Load–store costs instructions, not memory traffic.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch1-013",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Load–store",
+  "kind": "concept",
+  "q": "What does a load–store design buy in exchange for more instructions?",
+  "choices": [
+   "Fixed-length encoding, a simple decoder and a uniform pipeline",
+   "Fewer bus accesses per operation",
+   "Larger immediate constants packed into every single instruction",
+   "Atomic read-modify-write on memory"
+  ],
+  "why": "Fixed 2/4-byte Thumb instructions make a decoder that never asks how long an instruction is, and a pipeline that is the same for every opcode. That is most of what RISC vs CISC meant.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch1-014",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Load–store",
+  "kind": "number",
+  "q": "How long is a Thumb instruction?",
+  "choices": [
+   "2 or 4 bytes",
+   "Always 4 bytes",
+   "1 to 15 bytes",
+   "2, 4 or 6 bytes"
+  ],
+  "why": "Thumb instructions are fixed 2 or 4 bytes. x86 runs from 1 to 15.",
+  "source": "Lesson 01 slides · Slide 4"
+ },
+ {
+  "id": "ch1-015",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Read-modify-write",
+  "kind": "concept",
+  "q": "Why does setting one bit in a peripheral register take three instructions?",
+  "choices": [
+   "The ALU cannot operate on memory: read, modify, write",
+   "The register must be unlocked first",
+   "Each bit write needs a barrier instruction",
+   "The compiler must check the clock gate"
+  ],
+  "why": "Load–store means ldr, orrs, str: a read, a modify and a write, with a gap between them that an interrupt can land in.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-016",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Read-modify-write",
+  "kind": "trap",
+  "q": "The AVR set a port bit with one sbi instruction. What does the M0+ offer instead?",
+  "choices": [
+   "No single-bit instruction; GPIO's BSRR does it in one str",
+   "An sbi instruction that works on any peripheral address below 0x40000000",
+   "A bit-band alias region for every register",
+   "The bics instruction, which works on memory"
+  ],
+  "why": "The M0+ has no sbi. The fix comes back as hardware: BSRR turns a bit-set into a single store (lesson 05). bics works on registers only.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-017",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Load–store",
+  "kind": "calc",
+  "q": "A halfword 0xFF9C sits in memory. What do ldrsh and ldrh put in r0?",
+  "choices": [
+   "ldrsh 0xFFFFFF9C, ldrh 0x0000FF9C",
+   "Both give 0x0000FF9C",
+   "ldrsh 0x0000FF9C, ldrh 0xFFFFFF9C",
+   "Both give 0xFFFFFF9C"
+  ],
+  "why": "ldrsh copies bit 15 into the upper bits (0xFF9C = −100 stays −100); ldrh fills them with zeros.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-018",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Arithmetic and logic",
+  "kind": "concept",
+  "q": "What does bics r0, r1 compute, and which C produces it?",
+  "choices": [
+   "r0 = r0 AND NOT r1, from x &= ~y",
+   "r0 = r0 OR r1, from x |= y",
+   "r0 = r0 XOR r1, from x ^= y",
+   "r0 = NOT r1, from x = ~y"
+  ],
+  "why": "bics is bit clear: r0 AND NOT r1, the mask-clearing idiom x &= ~y.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-019",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Arithmetic and logic",
+  "kind": "calc",
+  "q": "r0 = 0x000000FF and r1 = 0x0000000F. What is r0 after bics r0, r1?",
+  "choices": [
+   "0x000000F0",
+   "0x0000000F",
+   "0x000000FF",
+   "0xFFFFFF00"
+  ],
+  "why": "bics clears in r0 every bit that is set in r1: 0xFF AND NOT 0x0F = 0xF0.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-020",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Arithmetic and logic",
+  "kind": "calc",
+  "q": "r0 = 0x5A and r1 = 0xFF. What is r0 after eors r0, r1?",
+  "choices": [
+   "0xA5",
+   "0x5A",
+   "0xFF",
+   "0x00"
+  ],
+  "why": "XOR with all ones flips every bit: 0101 1010 becomes 1010 0101 = 0xA5.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-021",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Arithmetic and logic",
+  "kind": "trap",
+  "q": "Your M0+ code computes a / b. What instruction does the compiler emit?",
+  "choices": [
+   "A bl to the library routine __aeabi_uidiv",
+   "A single udiv instruction",
+   "A single sdiv instruction",
+   "A shift right by b bits"
+  ],
+  "why": "The Cortex-M0+ has no divide instruction, so division is a slow library call. sdiv/udiv exist on M3 and above.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-022",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Arithmetic and logic",
+  "kind": "concept",
+  "q": "How can you tell from the .map file that your code divided?",
+  "choices": [
+   "The division helper (_udivsi3) appears in the linked libgcc",
+   "The .map file lists the address of every udiv instruction in the image",
+   "The .text section doubles in size",
+   "A warning about division is printed"
+  ],
+  "why": "The library routine is only linked in because a line of C divided; its object (libgcc.a(_udivsi3.o)) shows up in Main.map.",
+  "source": "Lesson 01 slides · Slides 2, 5"
+ },
+ {
+  "id": "ch1-023",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Arithmetic and logic",
+  "kind": "trap",
+  "q": "Why does the M0+ disassembly say adds and movs, not add and mov?",
+  "choices": [
+   "Most 16-bit encodings always set the flags",
+   "The s marks a signed operation",
+   "The s means a 16-bit (short) operand",
+   "The compiler chose to save the flags"
+  ],
+  "why": "On the 16-bit Thumb encodings the M0+ uses, there is no room for a choice, so most data-processing instructions always update the flags. On M3+ you pick add or adds.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-024",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Arithmetic and logic",
+  "kind": "calc",
+  "q": "r0 = 0x00010000 and r1 = 0x00010000. What is r0 after muls r0, r1?",
+  "choices": [
+   "0x00000000",
+   "0x00020000",
+   "0x00010000",
+   "0xFFFFFFFF"
+  ],
+  "why": "muls keeps only the low 32 bits of the product. 2^16 × 2^16 = 2^32, whose low 32 bits are all zero.",
+  "source": "Lesson 01 slides · Slide 5"
+ },
+ {
+  "id": "ch1-025",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Shifts",
+  "kind": "calc",
+  "q": "r1 = 5. What does lsls r0, r1, #3 put in r0?",
+  "choices": [
+   "40",
+   "8",
+   "15",
+   "2"
+  ],
+  "why": "A left shift by 3 multiplies by 2³ = 8: 5 × 8 = 40.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-026",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Shifts",
+  "kind": "calc",
+  "q": "What value does (2u << (pin * 2)) give for pin = 5?",
+  "choices": [
+   "0x00000800",
+   "0x00000400",
+   "0x00000020",
+   "0x00000A00"
+  ],
+  "why": "pin × 2 = 10, and 2 << 10 = 2048 = 0x800, which is bit 11 set. 0x400 is 1 << 10.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-027",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Shifts",
+  "kind": "calc",
+  "q": "r1 = 0xFFFFFFF0 (−16 as a signed int). What do asrs r0, r1, #2 and lsrs r0, r1, #2 give?",
+  "choices": [
+   "asrs 0xFFFFFFFC (−4), lsrs 0x3FFFFFFC",
+   "Both give 0xFFFFFFFC",
+   "asrs 0x3FFFFFFC, lsrs 0xFFFFFFFC",
+   "Both give 0x3FFFFFFC"
+  ],
+  "why": "asrs copies the sign bit in from the left, so −16 / 4 = −4. lsrs shifts in zeros, turning a small negative number into a huge positive one.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-028",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Shifts",
+  "kind": "trap",
+  "q": "A signed int x is divided by 4 with a logical shift right (lsrs). What goes wrong?",
+  "choices": [
+   "Negative values become very large positive numbers",
+   "Positive values are rounded in the wrong direction by the shift",
+   "Nothing: lsrs and asrs are identical",
+   "The result always becomes zero"
+  ],
+  "why": "lsrs is unsigned: it fills with zeros, losing the sign. Signed division needs asrs, which keeps the sign.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-029",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Flags",
+  "kind": "concept",
+  "q": "cmp r3, r2 subtracts and throws the answer away. What is the point?",
+  "choices": [
+   "It sets the N Z C V flags for a later branch",
+   "It tests whether r3 is a valid address",
+   "It clears r3 if the two are equal",
+   "It copies the result into r2"
+  ],
+  "why": "cmp is a subtraction that keeps only the flags; the next conditional branch reads them. tst does the same with an AND.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-030",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Flags",
+  "kind": "concept",
+  "q": "How does RISC-V write 'if (a < b) goto L'?",
+  "choices": [
+   "One compare-and-branch instruction: blt a0, a1, L",
+   "cmp a0, a1 followed by blt L",
+   "A subtract, then a branch on the N flag",
+   "It has to call a library routine"
+  ],
+  "why": "RISC-V and MIPS are compare-and-branch machines with no flags register: the comparison and the branch are one instruction.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch1-031",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Flags",
+  "kind": "number",
+  "q": "Which flag indicates signed overflow?",
+  "choices": [
+   "V",
+   "C",
+   "N",
+   "Z"
+  ],
+  "why": "N negative, Z zero, C carry/borrow, V signed overflow.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-032",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Flags",
+  "kind": "trap",
+  "q": "blt and bcc both mean 'less than'. What is the difference?",
+  "choices": [
+   "blt is signed, bcc is unsigned",
+   "blt is unsigned, bcc is signed",
+   "blt compares registers, bcc compares constants",
+   "None: they are aliases"
+  ],
+  "why": "blt/bge are signed comparisons; bcc/bcs are unsigned (lower / higher-or-same). The compiler picks by the variable's signedness.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch1-033",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Flags",
+  "kind": "calc",
+  "q": "r0 = 0xFFFFFFFF, r1 = 1. After cmp r0, r1, which branches are taken?",
+  "choices": [
+   "blt is taken; bcc is not",
+   "bcc is taken; blt is not",
+   "Both are taken",
+   "Neither is taken"
+  ],
+  "why": "Signed, 0xFFFFFFFF is −1 < 1, so blt is taken. Unsigned, it is 4 294 967 295, not lower than 1, so bcc is not.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-034",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Flags",
+  "kind": "concept",
+  "q": "Where does a signedness bug (blt where bcc was needed) usually show up?",
+  "choices": [
+   "Only at the extremes of the value range",
+   "On every comparison, immediately",
+   "Only when interrupts are enabled",
+   "Only at -O0"
+  ],
+  "why": "Signed and unsigned agree for small positive values; they disagree only near the top of the range, so the bug hides until extreme values appear.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-035",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Flags",
+  "kind": "calc",
+  "q": "r0 = 5 and r1 = 5. Which flag does cmp r0, r1 set that makes beq take the branch?",
+  "choices": [
+   "Z",
+   "N",
+   "V",
+   "C only"
+  ],
+  "why": "5 − 5 = 0, so the zero flag Z is set and beq (equal) is taken.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-036",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Calls and returns",
+  "kind": "concept",
+  "q": "What does bl func do?",
+  "choices": [
+   "Jumps to func and saves the return address in LR",
+   "Jumps to func and pushes the return address",
+   "Jumps to func only if the last compare was lower",
+   "Loads func's address into a register"
+  ],
+  "why": "bl is branch with link: the return address goes into LR, not onto the stack.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch1-037",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Calls and returns",
+  "kind": "concept",
+  "q": "What does pop {r4, pc} do that pop {r4, lr} does not?",
+  "choices": [
+   "It returns: popping into PC is a branch",
+   "It restores the flags as well",
+   "It re-enables interrupts",
+   "It frees the stack frame of the caller"
+  ],
+  "why": "Loading PC is a branch, so popping the saved LR straight into PC is the return, saving a bx lr.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-038",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Calls and returns",
+  "kind": "trap",
+  "q": "Which machines put a call's return address on the stack?",
+  "choices": [
+   "x86, 68000 and AVR",
+   "ARM, RISC-V and MIPS",
+   "ARM and AVR",
+   "RISC-V and x86"
+  ],
+  "why": "Stack-based: x86, 68000, AVR (rcall/ret). Link register: ARM, RISC-V (ra), MIPS (ra), PowerPC.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-039",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Calls and returns",
+  "kind": "concept",
+  "q": "Why does a non-leaf function start with push {…, lr}?",
+  "choices": [
+   "LR holds only one return address, and its own bl would overwrite it",
+   "AAPCS requires every function, leaf or not, to save LR on the stack",
+   "The hardware needs LR on the stack to return",
+   "To keep the stack 8-byte aligned"
+  ],
+  "why": "A call it makes will put a new return address in LR, so the old one must be saved first. A leaf function can skip it.",
+  "source": "Study guide · Key contrasts"
+ },
+ {
+  "id": "ch1-040",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Addressing modes",
+  "kind": "concept",
+  "q": "Which addressing mode does s->field compile to?",
+  "choices": [
+   "Immediate offset, like ldr r0, [r4, #28]",
+   "Register offset, like ldrb r6, [r1, r3]",
+   "PC-relative, like ldr r2, [pc, #44]",
+   "SP-relative, like ldr r0, [sp, #8]"
+  ],
+  "why": "A struct field is base plus a constant offset known at compile time. That is also how USART2->ISR is reached.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-041",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Addressing modes",
+  "kind": "concept",
+  "q": "Which addressing mode does buf[i] compile to?",
+  "choices": [
+   "Register offset, like ldrb r6, [r1, r3]",
+   "Immediate offset, like ldr r0, [r4, #28]",
+   "Register, like ldr r0, [r1]",
+   "PC-relative, like ldr r2, [pc, #44]"
+  ],
+  "why": "An array index is base plus a variable offset computed at run time: register offset.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-042",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Addressing modes",
+  "kind": "trap",
+  "q": "Can the M0+ compile *p++ into a single post-indexed ldr r0, [r1], #4?",
+  "choices": [
+   "No: pre/post-indexed and scaled forms are M3+ only",
+   "Yes: all Thumb cores have post-indexed loads in 16 bits",
+   "Yes, but only for byte loads",
+   "Only if p points into SRAM"
+  ],
+  "why": "Scaled register, pre-indexed and post-indexed modes are 32-bit encodings on M3 and above. The M0+ needs a separate adds.",
+  "source": "Lesson 01 slides · Slide 9"
+ },
+ {
+  "id": "ch1-043",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Offsets",
+  "kind": "number",
+  "q": "What range of offsets can a 16-bit ldr r0, [r1, #n] encode?",
+  "choices": [
+   "0 to 124 bytes, positive only",
+   "−4095 to +4095 bytes",
+   "0 to 1020 bytes",
+   "−128 to +127 bytes"
+  ],
+  "why": "5 bits scaled by 4 give 0–124. ±4095 is the M3/M4 32-bit form; 0–1020 is the SP-relative form.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-044",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Offsets",
+  "kind": "calc",
+  "q": "A 16-bit ldr has its 5-bit offset field set to 9. What byte offset is that?",
+  "choices": [
+   "36",
+   "9",
+   "18",
+   "72"
+  ],
+  "why": "The field is stored divided by 4, so 9 means 36. (The slides' 7 means 28, 10 means 40.)",
+  "source": "Lesson 01 slides · Slide 10"
+ },
+ {
+  "id": "ch1-045",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Offsets",
+  "kind": "calc",
+  "q": "Which offset can a single 16-bit ldr r0, [r1, #n] encode?",
+  "choices": [
+   "120",
+   "126",
+   "128",
+   "−4"
+  ],
+  "why": "It must be a multiple of 4 between 0 and 124. 126 is not a multiple of 4, 128 is out of reach and negative offsets do not exist in 16-bit Thumb.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-046",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Offsets",
+  "kind": "trap",
+  "q": "A driver reads a register at offset 0x90 from its peripheral's base. What happens on the M0+?",
+  "choices": [
+   "The compiler adds to the base first, costing an extra instruction",
+   "The access faults, because the offset cannot be reached from the base",
+   "It is one 16-bit ldr like any other",
+   "The linker places the register closer to the base"
+  ],
+  "why": "0x90 = 144 is beyond 124, so the compiler emits an add to move the base and then loads. Large peripheral structs get worse code at the far end.",
+  "source": "Lesson 01 slides · Slide 10"
+ },
+ {
+  "id": "ch1-047",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Reading disassembly",
+  "kind": "concept",
+  "q": "FLASH->ACR = (FLASH->ACR & ~LATENCY) | LATENCY_0; compiles to which four instructions?",
+  "choices": [
+   "ldr, bics, orrs, str",
+   "ldr, ands, eors, str",
+   "movs, orrs, bics, str",
+   "ldr, orrs, str, bx"
+  ],
+  "why": "Load the register, bics for the & ~, orrs for the |, store back: one statement, read-modify-write.",
+  "source": "Lesson 01 slides · Slide 11"
+ },
+ {
+  "id": "ch1-048",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Reading disassembly",
+  "kind": "calc",
+  "q": "FLASH->ACR reads 0x00000602. What is written back by ACR = (ACR & ~0x7) | 0x1?",
+  "choices": [
+   "0x00000601",
+   "0x00000603",
+   "0x00000607",
+   "0x00000001"
+  ],
+  "why": "Clear bits 2:0: 0x602 → 0x600. OR in 1: 0x601. Bits outside the field are untouched.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-049",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Reading disassembly",
+  "kind": "calc",
+  "q": "Which word would a literal pool hold for the mask ~(3 << 4)?",
+  "choices": [
+   "0xFFFFFFCF",
+   "0xFFFFFFF3",
+   "0x00000030",
+   "0xFFFFFF3F"
+  ],
+  "why": "3 << 4 = 0x30; inverting every bit gives 0xFFFFFFCF, all ones except bits 5:4. The slides' ~(7 << 11) is 0xFFFFC7FF the same way.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-050",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Reading disassembly",
+  "kind": "calc",
+  "q": "A literal pool contains the word 0x00B71B00. Which constant from C is it?",
+  "choices": [
+   "12 000 000",
+   "48 000 000",
+   "1 200 000",
+   "11 999 999"
+  ],
+  "why": "0x00B71B00 = 12 000 000, the 12 MHz reset clock. (0x02DC6C00 is 48 000 000, four times as large.)",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-051",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Literal pool",
+  "kind": "concept",
+  "q": "Why does the compiler load 0x40021000 with ldr r2, [pc, #44] instead of movs?",
+  "choices": [
+   "A 32-bit constant cannot fit inside a 16-bit instruction",
+   "movs cannot write r2",
+   "PC-relative loads are faster than movs",
+   "Peripheral addresses must always be read from flash, never built in a register"
+  ],
+  "why": "The constant is parked in a literal pool after the function and loaded PC-relative. movs only holds an 8-bit immediate.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-052",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Literal pool",
+  "kind": "concept",
+  "q": "How does RISC-V get a 32-bit constant into a register?",
+  "choices": [
+   "Builds it in two halves with lui then addi",
+   "Loads it from a literal pool, PC-relative",
+   "Embeds it in a longer instruction",
+   "Uses movw then movt"
+  ],
+  "why": "RISC-V uses lui + addi; AArch64 movz/movk; x86 makes the instruction longer; ARM/Thumb uses a literal pool. movw/movt is the M3/M4 Thumb-2 way.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-053",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Literal pool",
+  "kind": "trap",
+  "q": "Is the literal pool an ARM-specific quirk?",
+  "choices": [
+   "No: every fixed-width ISA needs some way to build 32-bit constants",
+   "Yes: no other architecture ever needs to keep its constants in memory",
+   "Yes: it exists only because of the Thumb bit",
+   "No: it is needed only for floating-point values"
+  ],
+  "why": "A 16- or 32-bit instruction cannot carry an arbitrary 32-bit constant, so every fixed-width machine needs an answer. ARM's is the literal pool.",
+  "source": "Lesson 01 slides · Slide 12"
+ },
+ {
+  "id": "ch1-054",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Literal pool",
+  "kind": "calc",
+  "q": "Which constant can a single 16-bit movs r0, #n load on the M0+?",
+  "choices": [
+   "200",
+   "300",
+   "0x40021000",
+   "−1"
+  ],
+  "why": "movs has an 8-bit immediate, 0–255. 300 and the address need more bits; −1 is not in 0–255.",
+  "source": "Lesson 01 slides · Slide 16"
+ },
+ {
+  "id": "ch1-055",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Polling loop",
+  "kind": "concept",
+  "q": "A polling loop on a status register compiles to which pattern?",
+  "choices": [
+   "Read, test, branch back",
+   "Push, call, pop",
+   "Compare, store, return",
+   "Load, store, branch forward"
+  ],
+  "why": "ldr the register, ands/tst to isolate the bit, cmp, bne back to the ldr. It costs the CPU every cycle until the hardware agrees.",
+  "source": "Lesson 01 slides · Slide 13"
+ },
+ {
+  "id": "ch1-056",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Polling loop",
+  "kind": "trap",
+  "q": "Without volatile on the status register, what would the optimiser do to a polling loop?",
+  "choices": [
+   "Read the register once and loop forever on the cached value",
+   "Delete the whole loop, since reading a value has no side effects",
+   "Insert a delay between reads",
+   "Exit after the first read"
+  ],
+  "why": "Without volatile the compiler may read once into a register and test that copy forever, so the loop hangs.",
+  "source": "Lesson 01 slides · Slide 13"
+ },
+ {
+  "id": "ch1-057",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Polling loop",
+  "kind": "calc",
+  "q": "A 16-bit bne at 0x08000300 has offset imm8 = 0xFC (−4 halfwords), counted from PC + 4. Where does it branch?",
+  "choices": [
+   "0x080002FC",
+   "0x08000300",
+   "0x080002F8",
+   "0x08000304"
+  ],
+  "why": "Target = (0x08000300 + 4) + (−4 × 2) = 0x08000304 − 8 = 0x080002FC.",
+  "source": "Lesson 01 slides · Slide 13"
+ },
+ {
+  "id": "ch1-058",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "What the compiler did",
+  "kind": "concept",
+  "q": "The constant 0x80 and the USART2 base appear before the loop though the C uses them inside it. Name the transformation.",
+  "choices": [
+   "Hoisting",
+   "Inlining",
+   "Rotation",
+   "Aliasing"
+  ],
+  "why": "Anything that cannot change is lifted out of the loop: hoisting.",
+  "source": "Lesson 01 slides · Slide 15"
+ },
+ {
+  "id": "ch1-059",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "What the compiler did",
+  "kind": "concept",
+  "q": "uart2_putc is a function in the source but _write contains no bl. Why?",
+  "choices": [
+   "The compiler inlined it at each call",
+   "It was hoisted out of the loop",
+   "It was removed as dead code",
+   "The linker replaced it with printf"
+  ],
+  "why": "Inlining: its three instructions appear once for '\\r' and again for the character.",
+  "source": "Lesson 01 slides · Slide 15"
+ },
+ {
+  "id": "ch1-060",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "What the compiler did",
+  "kind": "concept",
+  "q": "Why does a debugger stepping through -Os code seem to jump around?",
+  "choices": [
+   "Address order is not source order after reordering",
+   "The debugger loses the Thumb bit",
+   "Breakpoints only work on even addresses",
+   "Each source line compiles to exactly one instruction, so steps are uneven"
+  ],
+  "why": "The compiler rotates and reorders blocks; return len sits in the middle of _write's address range.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-061",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "What the compiler did",
+  "kind": "concept",
+  "q": "In _write, buf[i] is loaded twice, before and after the store to USART2->TDR. Why?",
+  "choices": [
+   "A char object may alias anything, so the store might have changed it",
+   "The volatile qualifier on buf forces every load from it to happen twice",
+   "The compiler ran out of registers",
+   "The UART needs the byte read twice"
+  ],
+  "why": "Character types may alias any object, so the compiler cannot assume the store left buf[i] unchanged.",
+  "source": "Lesson 01 slides · Slide 15"
+ },
+ {
+  "id": "ch1-062",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Reading disassembly",
+  "kind": "calc",
+  "q": "USART2 is at 0x40004400 and its ISR is at offset 28. What address does ldr r6, [r4, #28] read?",
+  "choices": [
+   "0x4000441C",
+   "0x40004428",
+   "0x40004472",
+   "0x4000442C"
+  ],
+  "why": "28 = 0x1C, so 0x40004400 + 0x1C = 0x4000441C. 0x28 is decimal 40, the TDR offset.",
+  "source": "Lesson 01 slides · Slide 14"
+ },
+ {
+  "id": "ch1-063",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Reading disassembly",
+  "kind": "number",
+  "q": "The USART TXE flag is bit 7. Which constant tests it?",
+  "choices": [
+   "128 (0x80)",
+   "7",
+   "64 (0x40)",
+   "256 (0x100)"
+  ],
+  "why": "1 << 7 = 128 = 0x80; _write loads it with movs r0, #128.",
+  "source": "Lesson 01 slides · Slide 14"
+ },
+ {
+  "id": "ch1-064",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb-1 vs Thumb-2",
+  "kind": "concept",
+  "q": "What is the Cortex-M0+'s instruction set?",
+  "choices": [
+   "Thumb-1 plus six 32-bit instructions (ARMv6-M)",
+   "Full Thumb-2 (ARMv7-M)",
+   "Thumb-2 with DSP (ARMv7E-M)",
+   "ARM A32 with Thumb interworking"
+  ],
+  "why": "The M0/M0+ is ARMv6-M, Thumb-1 plus six. M3 is ARMv7-M full Thumb-2; M4/M7 add DSP.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-065",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb-1 vs Thumb-2",
+  "kind": "number",
+  "q": "Which of these is one of the M0+'s only 32-bit instructions?",
+  "choices": [
+   "dmb",
+   "udiv",
+   "movw",
+   "ldr.w"
+  ],
+  "why": "The six are bl, mrs, msr, dsb, dmb, isb. udiv, movw and wide ldr belong to Thumb-2 on M3 and above.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-066",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb-1 vs Thumb-2",
+  "kind": "concept",
+  "q": "How does the M0+ do conditional execution?",
+  "choices": [
+   "With conditional branches only",
+   "With IT blocks of up to 4 instructions",
+   "With a condition on every instruction",
+   "With predicate registers"
+  ],
+  "why": "IT blocks are M3+; ARM (A32) conditions every instruction. The M0+ only has conditional branches.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-067",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb-1 vs Thumb-2",
+  "kind": "concept",
+  "q": "Why do most 16-bit Thumb instructions reach only R0–R7?",
+  "choices": [
+   "Each register field is 3 bits",
+   "R8–R12 are reserved for the OS",
+   "R8–R12 only exist in ARM state",
+   "The high registers are callee-saved"
+  ],
+  "why": "Three bits name eight registers. The 32-bit forms on M3+ reach all 16.",
+  "source": "Lesson 01 slides · Slide 16"
+ },
+ {
+  "id": "ch1-068",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb-1 vs Thumb-2",
+  "kind": "calc",
+  "q": "A Thumb-2 decoder reads a halfword whose top five bits are 11101, 11110 or 11111 as the start of a 32-bit instruction. Which halfword starts one?",
+  "choices": [
+   "0xF000",
+   "0xD1FB",
+   "0x4A0B",
+   "0x6811"
+  ],
+  "why": "0xF000 begins 11110. 0xD1FB begins 11010, 0x4A0B 01001 and 0x6811 01101: all 16-bit instructions.",
+  "source": "Lesson 01 slides · Slide 16"
+ },
+ {
+  "id": "ch1-069",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb-1 vs Thumb-2",
+  "kind": "concept",
+  "q": "Why is bl a 32-bit instruction on the M0+?",
+  "choices": [
+   "A call must reach anywhere; a 16-bit branch reaches only about ±2 KB",
+   "All calls must store a full 32-bit return address in LR, which needs 32 bits",
+   "32-bit instructions run faster",
+   "To keep functions 4-byte aligned"
+  ],
+  "why": "Thumb widens only when 16 bits cannot do the job at all, and a call must reach the whole address space.",
+  "source": "Lesson 01 slides · Slide 17"
+ },
+ {
+  "id": "ch1-070",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb-1 vs Thumb-2",
+  "kind": "trap",
+  "q": "Which of these cores has a hardware floating-point unit?",
+  "choices": [
+   "Cortex-M4F",
+   "Cortex-M0+",
+   "Cortex-M3",
+   "Every Cortex-M"
+  ],
+  "why": "Only M4F and M7 have an FPU. The M3 has hardware divide but no FPU; the M0+ has neither.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-071",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb-1 vs Thumb-2",
+  "kind": "trap",
+  "q": "The adds everywhere, no divide, 0–124 offsets, R0–R7 only: what are these limits of?",
+  "choices": [
+   "Thumb-1 (ARMv6-M)",
+   "Every ARM processor",
+   "The Thumb instruction set in general",
+   "The STM32 family"
+  ],
+  "why": "None of those are ARM; they are Thumb-1. The same C on a Cortex-M4 (Thumb-2) gets add, sdiv and ldr r0, [r1, #2000].",
+  "source": "Lesson 01 slides · Slide 17"
+ },
+ {
+  "id": "ch1-072",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb-1 vs Thumb-2",
+  "kind": "concept",
+  "q": "Which can a Cortex-M4 do in ONE instruction that the M0+ cannot?",
+  "choices": [
+   "ldr r0, [r1, #2000]",
+   "ldr r0, [r1, #28]",
+   "adds r0, r0, #1",
+   "bl to a function 1 MB away"
+  ],
+  "why": "Thumb-2's 32-bit loads reach ±4095. The M0+ can do the other three (bl is one of its six 32-bit instructions).",
+  "source": "Lesson 01 slides · Slide 17"
+ },
+ {
+  "id": "ch1-073",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "AAPCS",
+  "kind": "number",
+  "q": "Under AAPCS, where are a function's first four arguments and its result?",
+  "choices": [
+   "Arguments in r0–r3, result in r0",
+   "Arguments in r4–r7, result in r4",
+   "Arguments on the stack, result in r0",
+   "Arguments in r0–r3, result in r3"
+  ],
+  "why": "r0–r3 carry arguments 1–4 and the result comes back in r0. They are caller-saved scratch.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-074",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "AAPCS",
+  "kind": "trap",
+  "q": "A function uses r5 for its loop counter. Who must make sure r5 is unchanged afterwards?",
+  "choices": [
+   "The function itself: r4–r11 are callee-saved",
+   "The caller: r5 is caller-saved",
+   "Nobody: r5 is scratch",
+   "The hardware, on return"
+  ],
+  "why": "r4–r11 are callee-saved: a function that uses them pushes and restores them, like _write's push {r4–r7, lr}.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-075",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "AAPCS",
+  "kind": "concept",
+  "q": "A function you call may destroy which registers without restoring them?",
+  "choices": [
+   "r0–r3 and r12",
+   "r4–r11",
+   "r0–r7",
+   "Only r12"
+  ],
+  "why": "r0–r3 and r12 are caller-saved scratch; the caller saves anything in them it still needs.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-076",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "AAPCS",
+  "kind": "concept",
+  "q": "Why does a calling convention such as AAPCS exist?",
+  "choices": [
+   "Code compiled separately must agree on who owns which register",
+   "It lets the CPU check argument types at run time",
+   "It makes interrupts save fewer registers",
+   "It is required for the Thumb bit to work"
+  ],
+  "why": "Your C calls libraries built years ago by other compilers or written in assembly; the ABI is the agreement that makes that work.",
+  "source": "Lesson 01 slides · Slide 18"
+ },
+ {
+  "id": "ch1-077",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb bit",
+  "kind": "calc",
+  "q": "A handler starts at 0x080001A0. What value goes in its vector-table slot?",
+  "choices": [
+   "0x080001A1",
+   "0x080001A0",
+   "0x080001A4",
+   "0x080001A2"
+  ],
+  "why": "Every code address handed to the core has bit 0 = 1, the Thumb bit: 0x080001A0 | 1.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-078",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb bit",
+  "kind": "trap",
+  "q": "The reset vector holds 0x08000275 but Reset_Handler is at 0x08000274. What happens if you 'fix' it to 0x08000274?",
+  "choices": [
+   "The chip faults at reset: bit 0 clear means ARM code",
+   "It works: the core ignores bit 0",
+   "Execution starts one byte late and skips the first instruction",
+   "The core switches to ARM state and runs"
+  ],
+  "why": "Bit 0 = 1 means Thumb. Clear it and the core is told to run ARM code it does not have, so it faults immediately.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-079",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb bit",
+  "kind": "calc",
+  "q": "A 4-byte bl sits at 0x08000300. What value is in LR inside the called function?",
+  "choices": [
+   "0x08000305",
+   "0x08000304",
+   "0x08000301",
+   "0x08000300"
+  ],
+  "why": "The return address is the next instruction, 0x08000304, and bl sets bit 0: LR = 0x08000305.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-080",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb bit",
+  "kind": "calc",
+  "q": "LR reads 0x0800028F. Where does bx lr continue?",
+  "choices": [
+   "0x0800028E",
+   "0x0800028F",
+   "0x08000290",
+   "0x0800028C"
+  ],
+  "why": "bx lr branches to LR & ~1, the instruction right after the call. Nothing is skipped and nothing is off by one.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-081",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb bit",
+  "kind": "concept",
+  "q": "A HardFault's stacked PC or LR is a sensible even address. What does that usually mean?",
+  "choices": [
+   "A computed function pointer or a mov pc, lr return lost the Thumb bit",
+   "The stack overflowed into flash",
+   "An unaligned word access occurred",
+   "The fault happened inside an interrupt handler, which always uses even addresses"
+  ],
+  "why": "An even code address is a branch into ARM state. Typical causes: a function pointer computed rather than assigned, or hand-written assembly returning with mov pc, lr instead of bx lr.",
+  "source": "Lesson 01 slides · Slide 20"
+ },
+ {
+  "id": "ch1-082",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Thumb bit",
+  "kind": "concept",
+  "q": "Inside an exception handler, LR reads 0xFFFFFFF9. What is it?",
+  "choices": [
+   "An EXC_RETURN value; branching to it unstacks the frame",
+   "A corrupted return address left behind by a stack overflow in the handler",
+   "The address of the vector table",
+   "An odd return address with the Thumb bit set"
+  ],
+  "why": "In a handler LR holds a magic EXC_RETURN value (0xFFFFFFF9 or 0xFFFFFFFD), not a return address.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-083",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Compiler and volatile",
+  "kind": "concept",
+  "q": "What is the compiler obliged to preserve when it optimises?",
+  "choices": [
+   "Only the program's observable behaviour as C defines it",
+   "The exact order of every source line",
+   "Every memory access in the source",
+   "The register each variable is assigned to, as declared in the source"
+  ],
+  "why": "The as-if rule: only C-defined observable behaviour. It may hoist, inline, reorder and cache in registers, and C has never heard of your peripheral.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-084",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Compiler and volatile",
+  "kind": "trap",
+  "q": "Code works at -O0 and hangs at -Os. Classic cause?",
+  "choices": [
+   "A missing volatile on something hardware changes",
+   "A stack overflow caused by -Os",
+   "-Os cannot compile polling loops",
+   "Wrong flash wait states at -Os"
+  ],
+  "why": "At -Os the compiler caches the value in a register and never rereads it. volatile forbids that.",
+  "source": "Study guide · Lesson 01 notes"
+ },
+ {
+  "id": "ch1-085",
+  "chapter": "Lesson 01 · Instruction Set",
+  "topic": "Compiler and volatile",
+  "kind": "concept",
+  "q": "How do CMSIS headers protect peripheral registers from the optimiser?",
+  "choices": [
+   "Every register is declared __IO, which is volatile",
+   "They wrap each access in a function call",
+   "They disable compiler optimisation for every file that includes peripheral code",
+   "They put registers in a non-cached section"
+  ],
+  "why": "CMSIS declares every register __IO = volatile, so you inherit the protection.",
+  "source": "Study guide · Lesson 01 notes"
+ }
+]

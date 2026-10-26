@@ -1,0 +1,1367 @@
+[
+  {
+    "id": "ch5-001",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "GPIO model",
+    "kind": "concept",
+    "q": "In the course's peripheral model, which slot does EXTI fill for GPIO?",
+    "choices": [
+      "Events: a separate block, not part of GPIO",
+      "Control: it is GPIO's mode register",
+      "Data in: it latches the IDR register on every pin edge",
+      "Clock gate: it powers the GPIO ports"
+    ],
+    "why": "GPIO itself does not interrupt. Edges are turned into interrupt requests by a separate block, EXTI.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-002",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "GPIO model",
+    "kind": "concept",
+    "q": "Which GPIO register is the 'data in' slot?",
+    "choices": [
+      "IDR",
+      "ODR",
+      "BSRR",
+      "PUPDR"
+    ],
+    "why": "IDR reads the pin levels and is read-only. ODR, BSRR and BRR are data out, and PUPDR is control.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-003",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Hex and bit idioms",
+    "kind": "calc",
+    "q": "What is 0xEB in binary?",
+    "choices": [
+      "1110 1011",
+      "1110 1101",
+      "1011 1110",
+      "1101 1011"
+    ],
+    "why": "One hex digit is exactly 4 bits: E = 1110, B = 1011. Read them in order, left digit first.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-004",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Hex and bit idioms",
+    "kind": "calc",
+    "q": "GPIOA->MODER resets to 0xEBFFFFFF. What are bits 27:26 (PA13's field)?",
+    "choices": [
+      "10",
+      "11",
+      "01",
+      "00"
+    ],
+    "why": "The second hex digit, B = 1011, covers bits 27:24. Bits 27:26 are its top two, 10: alternate function, the SWD line.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-005",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Hex and bit idioms",
+    "kind": "concept",
+    "q": "Which C expression clears the bits that are 1 in mask and leaves the rest of x alone?",
+    "choices": [
+      "x & ~mask",
+      "x | mask",
+      "x & mask",
+      "x ^ ~mask"
+    ],
+    "why": "AND with the inverted mask zeroes exactly the mask's bits. x | mask sets them instead, and x & mask keeps only them.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-006",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Hex and bit idioms",
+    "kind": "calc",
+    "q": "x = 0xFF. What is x & ~0x0C (8-bit)?",
+    "choices": [
+      "0xF3",
+      "0x0C",
+      "0xF0",
+      "0xFC"
+    ],
+    "why": "~0x0C = 1111 0011 = 0xF3, and 0xFF & 0xF3 = 0xF3. Only bits 3:2 were cleared.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-007",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "GPIO register map",
+    "kind": "number",
+    "q": "What is the offset of BSRR in a GPIO port?",
+    "choices": [
+      "0x18",
+      "0x14",
+      "0x28",
+      "0x10"
+    ],
+    "why": "Offsets: IDR 0x10, ODR 0x14, BSRR 0x18, LCKR 0x1C, AFR 0x20/0x24, BRR 0x28.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-008",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "GPIO register map",
+    "kind": "number",
+    "q": "What is the offset of PUPDR in a GPIO port?",
+    "choices": [
+      "0x0C",
+      "0x08",
+      "0x04",
+      "0x10"
+    ],
+    "why": "MODER 0x00, OTYPER 0x04, OSPEEDR 0x08, PUPDR 0x0C. Every port uses the same offsets.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-009",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "GPIO register map",
+    "kind": "number",
+    "q": "What do the four MODER codes mean?",
+    "choices": [
+      "00 input, 01 output, 10 alternate, 11 analog",
+      "00 analog, 01 input, 10 output, 11 alternate",
+      "00 output, 01 input, 10 analog, 11 alternate",
+      "00 input, 01 alternate, 10 output, 11 analog"
+    ],
+    "why": "MODER: 00 input, 01 output, 10 alternate function, 11 analog. Analog is also the reset state of most pins.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch5-010",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "GPIO register map",
+    "kind": "number",
+    "q": "In PUPDR, what does the code 10 mean?",
+    "choices": [
+      "Pull-down",
+      "Pull-up",
+      "No pull",
+      "Reserved"
+    ],
+    "why": "PUPDR codes: 00 none, 01 pull-up, 10 pull-down, 11 reserved.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch5-011",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "GPIO register map",
+    "kind": "concept",
+    "q": "What does OTYPER bit n = 1 select for pin n?",
+    "choices": [
+      "Open-drain output",
+      "Push-pull output",
+      "Very high edge speed",
+      "Analog mode"
+    ],
+    "why": "OTYPER is one bit per pin: 0 push-pull (the reset value), 1 open-drain.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-012",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "GPIO register map",
+    "kind": "concept",
+    "q": "What does LCKR do?",
+    "choices": [
+      "Freezes a pin's configuration until reset",
+      "Locks the output level of a pin",
+      "Blocks every interrupt coming from that port's pins",
+      "Stops the port's clock"
+    ],
+    "why": "LCKR freezes the configuration registers of the chosen pins until the next reset. The lessons don't use it.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-013",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Pin bit positions",
+    "kind": "calc",
+    "q": "Which bits of GPIOB->MODER belong to PB3, and what value makes it an output?",
+    "choices": [
+      "Bits 7:6, value 01",
+      "Bits 3:2, value 01",
+      "Bits 7:6, value 10",
+      "Bit 3, value 1"
+    ],
+    "why": "MODER has 2 bits per pin at 2n+1:2n, so n = 3 gives bits 7:6. Output is 01; 10 would be alternate function.",
+    "source": "Study guide · Practice P1"
+  },
+  {
+    "id": "ch5-014",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Pin bit positions",
+    "kind": "calc",
+    "q": "Which PUPDR bits belong to PA12?",
+    "choices": [
+      "25:24",
+      "13:12",
+      "24:23",
+      "23:22"
+    ],
+    "why": "PUPDR is 2 bits per pin: 2 × 12 + 1 : 2 × 12 = 25:24.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-015",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Pin bit positions",
+    "kind": "calc",
+    "q": "PA9 needs alternate function 1. Which register and bits hold its AF number?",
+    "choices": [
+      "AFR[1], bits 7:4",
+      "AFR[0], bits 39:36",
+      "AFR[1], bits 3:0",
+      "AFR[0], bits 19:18"
+    ],
+    "why": "AFR[9 / 8] = AFR[1]; 9 mod 8 = 1, so bits 4·1+3 : 4·1 = 7:4. Write 0001 there.",
+    "source": "Study guide · Practice P3"
+  },
+  {
+    "id": "ch5-016",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Pin bit positions",
+    "kind": "calc",
+    "q": "Which register and bits hold pin 14's alternate-function number?",
+    "choices": [
+      "AFR[1], bits 27:24",
+      "AFR[1], bits 15:12",
+      "AFR[0], bits 27:24",
+      "AFR[1], bits 29:28"
+    ],
+    "why": "14 / 8 = 1, so AFR[1]; 14 mod 8 = 6, so bits 27:24. AFR[0] bits 27:24 belong to pin 6.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-017",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Pin bit positions",
+    "kind": "calc",
+    "q": "Which BSRR bit drives pin 7 low?",
+    "choices": [
+      "Bit 23",
+      "Bit 7",
+      "Bit 15",
+      "Bit 14"
+    ],
+    "why": "In BSRR, bit n sets and bit n + 16 resets: 7 + 16 = 23.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-018",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Reset state",
+    "kind": "number",
+    "q": "Which GPIOA pins do not wake in analog mode, and why?",
+    "choices": [
+      "PA13 and PA14: they are the SWD debug lines",
+      "PA0 and PA1: they are wired to the two user buttons",
+      "PA2 and PA3: they carry USART2",
+      "PA5 only: it drives the user LED"
+    ],
+    "why": "Every pin resets to 11 (analog) except PA13 and PA14, which reset to 10 (alternate function) so a debugger can reach the chip.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-019",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Reset state",
+    "kind": "trap",
+    "q": "An active-low button's pin is never set to input mode. What does the program see?",
+    "choices": [
+      "'Pressed' forever: an analog pin reads 0 in IDR",
+      "Random presses: the analog pin floats and drifts between levels",
+      "'Released' forever: the pull-up holds it at 1",
+      "Correct readings: input is the reset mode"
+    ],
+    "why": "Pins wake analog, and an analog pin reads 0 in IDR whatever the voltage. Active low means 0 = pressed. Input mode must be written, never assumed.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-020",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Reset state",
+    "kind": "calc",
+    "q": "PUPDR resets to 0x24000000. What pull does PA14 have?",
+    "choices": [
+      "Pull-down",
+      "Pull-up",
+      "None",
+      "Reserved"
+    ],
+    "why": "0x2 = 0010 is bits 31:28, so PA14 (bits 29:28) is 10, pull-down. The 4 = 0100 gives PA13 (bits 27:26) = 01, pull-up.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-021",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Reset state",
+    "kind": "number",
+    "q": "OSPEEDR resets to 0x0C000000. What does that mean?",
+    "choices": [
+      "PA13 is very high speed; every other pin very low",
+      "PA2 and PA3 are very high speed",
+      "Every pin is very high speed except PA13",
+      "PA14 and PA15 are very low speed"
+    ],
+    "why": "0x0C000000 has only bits 27:26 = 11, PA13's field: the debug clock line. All other fields are 00, very low.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-022",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Push-pull vs open-drain",
+    "kind": "concept",
+    "q": "What can an open-drain output do?",
+    "choices": [
+      "Drive low, or let go so a pull-up makes the high",
+      "Drive high and low, like push-pull",
+      "Drive high only, with a pull-down for the low",
+      "Only read the pin, never drive it"
+    ],
+    "why": "Open-drain uses only the N-MOS: it pulls low or lets go. The high has to come from a resistor.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-023",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Push-pull vs open-drain",
+    "kind": "trap",
+    "q": "Two outputs share one wire; one drives high and the other low. When is that a short?",
+    "choices": [
+      "When both are push-pull",
+      "When both are open-drain",
+      "When either has a pull-up enabled",
+      "Never: the NVIC prevents it"
+    ],
+    "why": "Two push-pull outputs fighting connect 3.3 V to ground through two transistors. Open-drain outputs can share a wire; at worst both pull low.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-024",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Push-pull vs open-drain",
+    "kind": "concept",
+    "q": "Several open-drain outputs share one wire with a pull-up. What logic does the wire compute?",
+    "choices": [
+      "Wired-AND: it is 1 only if every output lets go",
+      "Wired-OR: the wire is 1 if any one output drives it high",
+      "XOR of all outputs",
+      "Whatever the last output wrote"
+    ],
+    "why": "Any output pulling low makes the wire 0, so it is 1 only when all let go. This is how I²C puts many chips on two wires.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-025",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Push-pull vs open-drain",
+    "kind": "concept",
+    "q": "What does OSPEEDR control?",
+    "choices": [
+      "The slope of each output edge",
+      "How often software can toggle the pin",
+      "The input sampling rate of IDR",
+      "The pin's maximum output current"
+    ],
+    "why": "Speed is how sharply the output switches, not the toggle rate. Faster edges radiate more noise, so choose the slowest that works.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-026",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Pull resistors",
+    "kind": "concept",
+    "q": "A button connects a pin to GND when pressed. What does the pin need, and what does it read when pressed?",
+    "choices": [
+      "A pull-up; it reads 0 when pressed",
+      "A pull-down; it reads 1 when pressed",
+      "A pull-up; it reads 1 when pressed",
+      "No resistor; it reads 0 when pressed"
+    ],
+    "why": "Released, the pull-up makes the pin 1; pressed, the switch pulls it to 0. That is active low.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-027",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Pull resistors",
+    "kind": "trap",
+    "q": "An input pin with no pull resistor is connected to a released button. What does IDR show?",
+    "choices": [
+      "A random level: the pin floats",
+      "Always 0",
+      "Always 1",
+      "The last level that was written to ODR for that pin"
+    ],
+    "why": "A pin connected to nothing drifts and reads randomly. That is the 'phantom presses' symptom of a missing pull-up.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-028",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Reading IDR",
+    "kind": "calc",
+    "q": "GPIOA->IDR reads 0x00000024. What is (GPIOA->IDR >> 2) & 1u?",
+    "choices": [
+      "1",
+      "0",
+      "4",
+      "0x24"
+    ],
+    "why": "0x24 = 0010 0100: bits 5 and 2 are set. Shifting right by 2 brings bit 2 to bit 0, and & 1 keeps it: 1.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-029",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Clear-then-set",
+    "kind": "calc",
+    "q": "Starting from reset (0xEBFFFFFF), what does GPIOA->MODER read after the clear-then-set that makes PA5 an output?",
+    "choices": [
+      "0xEBFFF7FF",
+      "0xEBFFF3FF",
+      "0x00000400",
+      "0xEBFFFBFF"
+    ],
+    "why": "Clear bits 11:10: 0xEBFFFFFF & 0xFFFFF3FF = 0xEBFFF3FF. OR in 1 << 10 = 0x400: 0xEBFFF7FF. 0xEBFFF3FF is input (00); 0xEBFFFBFF is AF (10).",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-030",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Clear-then-set",
+    "kind": "calc",
+    "q": "From reset (0xEBFFFFFF), what does MODER read after making PA6 an output with clear-then-set?",
+    "choices": [
+      "0xEBFFDFFF",
+      "0xEBFFEFFF",
+      "0xEBFFF7FF",
+      "0xEBFFCFFF"
+    ],
+    "why": "PA6 is bits 13:12, mask 0x3000. Clearing gives 0xEBFFCFFF; OR 1 << 12 = 0x1000 gives 0xEBFFDFFF.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-031",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Clear-then-set",
+    "kind": "calc",
+    "q": "From reset (0xEBFFFFFF), what does MODER read after setting PA4 to alternate function (10)?",
+    "choices": [
+      "0xEBFFFEFF",
+      "0xEBFFFDFF",
+      "0xEBFFFCFF",
+      "0xEBFFFFEF"
+    ],
+    "why": "PA4 is bits 9:8. Clear: 0xEBFFFCFF. OR 2 << 8 = 0x200: 0xEBFFFEFF. 0xEBFFFDFF would be output (01).",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-032",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Clear-then-set",
+    "kind": "trap",
+    "q": "Code writes GPIOA->MODER = 1u << 10; to make PA5 an output. What else happens?",
+    "choices": [
+      "Every other pin becomes input, including the debug pins",
+      "Nothing else: only PA5 changes",
+      "PA5 becomes alternate function instead",
+      "The write is ignored because MODER is read-only"
+    ],
+    "why": "A plain assignment writes the whole register, 0x00000400: 00 (input) for every other pin, PA13/PA14 included. Clear-then-set changes only bits 11:10.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-033",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Clear-then-set",
+    "kind": "trap",
+    "q": "Code writes GPIOA->MODER |= 1u << 10; on a pin at its reset value. What mode does PA5 end in?",
+    "choices": [
+      "Still analog: 11 OR 01 is 11",
+      "Output: OR sets the 01 code",
+      "Input: OR clears the other bit",
+      "Alternate function: the field becomes 10"
+    ],
+    "why": "OR can only turn bits on, never off. The field was 11, so it stays 11. The clear step is required.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-034",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Clear-then-set",
+    "kind": "calc",
+    "q": "GPIOA->PUPDR reads 0x24000000. What does it read after enabling a pull-up on PA4 with clear-then-set?",
+    "choices": [
+      "0x24000100",
+      "0x24000010",
+      "0x24000200",
+      "0x24000400"
+    ],
+    "why": "PA4's field is bits 9:8. Clearing leaves 0x24000000; OR 1 << 8 = 0x100 gives 0x24000100. 0x24000200 would be a pull-down.",
+    "source": "Study guide · Practice P4"
+  },
+  {
+    "id": "ch5-035",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Clear-then-set",
+    "kind": "calc",
+    "q": "GPIOA->PUPDR reads 0x24000000. What does it read after a pull-down on PA3?",
+    "choices": [
+      "0x24000080",
+      "0x24000040",
+      "0x24000008",
+      "0x240000C0"
+    ],
+    "why": "PA3's field is bits 7:6, and pull-down is 10: 2 << 6 = 0x80. 0x24000040 would be a pull-up.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-036",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Clear-then-set",
+    "kind": "calc",
+    "q": "From PUPDR = 0x24000000, pull-ups are enabled on PA0 and then PA1. Final value?",
+    "choices": [
+      "0x24000005",
+      "0x24000003",
+      "0x24000011",
+      "0x2400000A"
+    ],
+    "why": "PA0: 01 in bits 1:0 → 0x1. PA1: 01 in bits 3:2 → 0x4. Together 0x5 = 0101. 0x2400000A would be pull-downs.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-037",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "ODR vs BSRR",
+    "kind": "trap",
+    "q": "main() does GPIOA->ODR |= 1u << 5 while an ISR does GPIOA->ODR |= 1u << 6. What can go wrong?",
+    "choices": [
+      "The ISR's change is lost if it lands mid read-modify-write",
+      "Nothing: ODR writes are atomic on a single-core Cortex-M0+",
+      "Both pins toggle instead of being set",
+      "The ISR faults because ODR is in use"
+    ],
+    "why": "ODR |= is three instructions. If the ISR runs between main()'s ldr and str, main() writes back a stale copy and PA6 goes off again.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-038",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "ODR vs BSRR",
+    "kind": "concept",
+    "q": "Why is GPIOA->BSRR = 1u << 5 safe against an ISR that also changes port A?",
+    "choices": [
+      "It is one store, so it is atomic",
+      "BSRR masks interrupts while it is written",
+      "The ISR cannot write BSRR",
+      "BSRR is declared volatile in CMSIS"
+    ],
+    "why": "There is nothing to read and nothing stale to write back. An interrupt can land before or after the one store, never inside it.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-039",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "ODR vs BSRR",
+    "kind": "concept",
+    "q": "What does writing a 0 to a bit of BSRR do?",
+    "choices": [
+      "Nothing to that pin",
+      "Drives that pin low",
+      "Drives that pin high",
+      "Toggles that pin"
+    ],
+    "why": "In BSRR a 0 means 'leave alone'. Only a 1 at bit n (set) or bit n + 16 (reset) changes a pin.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-040",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "ODR vs BSRR",
+    "kind": "concept",
+    "q": "Which single line drives PA5 low without touching any other pin?",
+    "choices": [
+      "GPIOA->BSRR = 1u << 21;",
+      "GPIOA->BSRR = 1u << 5;",
+      "GPIOA->BSRR = 0;",
+      "GPIOA->ODR = 1u << 21;"
+    ],
+    "why": "Bit 5 + 16 = 21 is PA5's reset bit. 1u << 5 sets it high, writing 0 does nothing, and ODR has no bit 21 for this.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-041",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "ODR vs BSRR",
+    "kind": "calc",
+    "q": "Which single BSRR value sets PB1 high and PB6 low and leaves every other pin of port B alone?",
+    "choices": [
+      "0x00400002",
+      "0x00020040",
+      "0x00000042",
+      "0x00420000"
+    ],
+    "why": "Set PB1: 1 << 1 = 0x2. Reset PB6: 1 << (6 + 16) = 0x00400000. OR them: 0x00400002.",
+    "source": "Study guide · Practice P2"
+  },
+  {
+    "id": "ch5-042",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "ODR vs BSRR",
+    "kind": "calc",
+    "q": "Which BSRR value sets PA3 high and drives PA8 low?",
+    "choices": [
+      "0x01000008",
+      "0x00080100",
+      "0x00000108",
+      "0x00100008"
+    ],
+    "why": "Set PA3: 1 << 3 = 0x8. Reset PA8: 1 << 24 = 0x01000000. Together 0x01000008.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-043",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "ODR vs BSRR",
+    "kind": "calc",
+    "q": "The LED bar uses GPIOB->BSRR = ((uint32_t)(uint8_t)~leds << 16) | leds;. What is written for leds = 0x0F?",
+    "choices": [
+      "0x00F0000F",
+      "0x000F00F0",
+      "0xFFF0000F",
+      "0x0000000F"
+    ],
+    "why": "Low half: 0x0F sets PB0–PB3. ~0x0F as 8 bits is 0xF0, shifted to the reset half: PB4–PB7 off. PB8–PB15 stay untouched.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-044",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "ODR vs BSRR",
+    "kind": "concept",
+    "q": "What does GPIOA->BRR = 1u << 5 do?",
+    "choices": [
+      "Drives PA5 low",
+      "Drives PA5 high",
+      "Toggles PA5",
+      "Reads PA5's level"
+    ],
+    "why": "BRR (offset 0x28) is BSRR's reset half on its own: bit n resets pin n. It is write-only and atomic too.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-045",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Alternate functions",
+    "kind": "concept",
+    "q": "MODER = 10 on a pin. What does AFR add?",
+    "choices": [
+      "Which peripheral drives the pin",
+      "Whether the pin is push-pull or open-drain",
+      "The pin's edge speed",
+      "The pin's interrupt priority"
+    ],
+    "why": "MODER = 10 says a peripheral owns the pin; AFR's 4-bit number says which. Neither alone is enough.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-046",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Alternate functions",
+    "kind": "concept",
+    "q": "Where does the AF number for USART2 on PA2 come from?",
+    "choices": [
+      "The datasheet's alternate-function table; it differs per pin",
+      "It is always AF1 for every UART",
+      "The reference manual's register reset values",
+      "It equals the peripheral's IRQ number"
+    ],
+    "why": "AF numbers are looked up per pin in the datasheet. USART2 on PA2/PA3 is AF1 here, but another pin or chip may differ.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-047",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Alternate functions",
+    "kind": "trap",
+    "q": "A UART pin has MODER = 10 but the wrong AF number. What does the board do?",
+    "choices": [
+      "Looks configured and carries nothing, with no error",
+      "Raises a HardFault on the first write",
+      "Falls back to the default peripheral for that pin automatically",
+      "Sends data at the wrong baud rate"
+    ],
+    "why": "The wrong AF just connects some other peripheral, or nothing. No fault, no error, just a silent pin.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-048",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Alternate functions",
+    "kind": "calc",
+    "q": "PA9 and PA10 are both set to AF1. Assuming AFR[1] started at 0, what does it read?",
+    "choices": [
+      "0x00000110",
+      "0x00001100",
+      "0x00000011",
+      "0x00000600"
+    ],
+    "why": "PA9 is AFR[1] bits 7:4 and PA10 bits 11:8, each 0001: 0x00000110. 0x00001100 is AFR[0] with PA2 and PA3 on AF1.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-049",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Initialisation order",
+    "kind": "concept",
+    "q": "In which order does gpio_init() set up a pin?",
+    "choices": [
+      "Clock (IOPENR), mode (MODER), pulls/type/speed, then use",
+      "Mode (MODER), clock (IOPENR), pulls, then use",
+      "Pulls, mode (MODER), use, then clock (IOPENR)",
+      "Use, then clock (IOPENR), then mode (MODER)"
+    ],
+    "why": "Every peripheral follows clock, configure, use. Without the clock first, every configuration write vanishes.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-050",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Initialisation order",
+    "kind": "trap",
+    "q": "The code configures MODER and writes ODR correctly but never sets RCC->IOPENR for the port. What happens?",
+    "choices": [
+      "Writes vanish and reads return 0, with no error",
+      "The LED works, but at a lower speed",
+      "A HardFault on the first MODER write",
+      "The compiler warns that the RCC clock gate was never set"
+    ],
+    "why": "An unclocked port is silently deaf. Both pieces of code look correct, and the LED stays dark.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-051",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Debouncing",
+    "kind": "number",
+    "q": "Roughly how does a typical button press bounce?",
+    "choices": [
+      "10–100 transitions over about 1 ms",
+      "1–2 transitions over about 20 ms",
+      "Around 1000 transitions over 1 s",
+      "No transitions: contacts close cleanly"
+    ],
+    "why": "Contacts hit, bounce apart and hit again for about a millisecond. Wokwi models 10 to 100 transitions per press.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-052",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Debouncing",
+    "kind": "concept",
+    "q": "How does lesson 05's debouncer decide a new level is real?",
+    "choices": [
+      "It is unchanged for DEBOUNCE_MS samples in a row",
+      "It appears in the majority of the last 20 samples",
+      "It appears at least once in the last 20 ms",
+      "It is confirmed by an EXTI edge"
+    ],
+    "why": "The level must hold for DEBOUNCE_MS (20) consecutive 1 ms samples. Any change restarts the count.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-053",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Debouncing",
+    "kind": "calc",
+    "q": "DEBOUNCE_MS = 20, samples every 1 ms. A press bounces, and the last bounce is at t = 3 ms. When is the press reported?",
+    "choices": [
+      "t = 23 ms",
+      "t = 20 ms",
+      "t = 3 ms",
+      "t = 43 ms"
+    ],
+    "why": "Every change restarts the count, so the event comes DEBOUNCE_MS after the last bounce: 3 + 20 = 23 ms.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-054",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Debouncing",
+    "kind": "calc",
+    "q": "DEBOUNCE_MS = 4, 1 ms samples, 'stable' starts at 0. Raw samples from ms 1: 0, 1, 0, 1, 0, 1, 1, 1, 1, 1 … At which ms is the press reported?",
+    "choices": [
+      "ms 10",
+      "ms 6",
+      "ms 2",
+      "ms 9"
+    ],
+    "why": "The last change is at ms 6. Four more equal samples (ms 7, 8, 9, 10) bring held to 4, so the press is reported at ms 10. ms 9 is counting the change itself as a sample.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-055",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Debouncing",
+    "kind": "concept",
+    "q": "Polling the button at 1 kHz reports only 1–2 level changes per press. Why?",
+    "choices": [
+      "Sampling is too slow to see most bounces",
+      "The button barely bounces at all",
+      "The pull-up resistor filters the bounces out",
+      "The NVIC drops bounce edges"
+    ],
+    "why": "Bounces are microseconds apart, samples a millisecond apart, so most bounces fall between samples. Polling is a filter.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-056",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Debouncing",
+    "kind": "concept",
+    "q": "What weakness of polling does a slow printf in the main loop expose?",
+    "choices": [
+      "The loop doesn't come back in time, so samples are late or missed",
+      "printf disables interrupts while it runs",
+      "printf clears the IDR register",
+      "printf changes the button's pull-up"
+    ],
+    "why": "Polling depends on the loop coming back. Anything slow delays the next sample, and a pulse shorter than the loop is invisible.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-057",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Debouncing",
+    "kind": "calc",
+    "q": "printf sends 23 characters at 115 200 baud (10 bits per character). About how long does the loop stall?",
+    "choices": [
+      "About 2 ms",
+      "About 0.2 ms",
+      "About 23 ms",
+      "About 87 µs"
+    ],
+    "why": "One character takes 10 / 115 200 ≈ 87 µs, so 23 characters take 230 / 115 200 ≈ 2.0 ms: two missed 1 ms samples. 87 µs is a single character.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-058",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "EXTI port select",
+    "kind": "concept",
+    "q": "What is the full interrupt path for a button edge?",
+    "choices": [
+      "Pin → EXTI → NVIC → vector → handler",
+      "Pin → NVIC → EXTI → vector → handler",
+      "Pin → GPIO IDR → NVIC → handler",
+      "Pin → vector → EXTI → NVIC → handler"
+    ],
+    "why": "EXTI turns the edge into a request, the NVIC enables and ranks it, and the vector table gives the handler's address.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-059",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "EXTI port select",
+    "kind": "number",
+    "q": "What are the EXTICR port codes?",
+    "choices": [
+      "A 0, B 1, C 2, D 3, F 5",
+      "A 1, B 2, C 3, D 4, F 6",
+      "A 0, B 1, C 2, D 3, F 4",
+      "A 0, B 2, C 4, D 6, F 8"
+    ],
+    "why": "Codes are 0 = A, 1 = B, 2 = C, 3 = D, 5 = F. Port F is 5, not 4: code 4 would be port E, which this chip doesn't have.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-060",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "EXTI port select",
+    "kind": "calc",
+    "q": "A button on PB6 must interrupt. What goes in EXTICR, assuming the register started at 0?",
+    "choices": [
+      "EXTICR[1] = 0x00010000",
+      "EXTICR[1] = 0x00000100",
+      "EXTICR[6] = 0x00000001",
+      "EXTICR[0] = 0x01000000"
+    ],
+    "why": "Line 6 is in EXTICR[6 / 4] = EXTICR[1], bits 8·(6 mod 4)+7 : 8·2 = 23:16. Port B's code is 1: 1 << 16 = 0x00010000.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-061",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "EXTI port select",
+    "kind": "calc",
+    "q": "PF2 is to raise an EXTI interrupt. What goes into EXTICR[0], assuming it started at 0?",
+    "choices": [
+      "0x00050000",
+      "0x00040000",
+      "0x00000500",
+      "0x00000005"
+    ],
+    "why": "Line 2 is bits 23:16 of EXTICR[0], and port F's code is 5: 5 << 16 = 0x00050000. 0x00040000 uses the wrong code 4.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-062",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "EXTI port select",
+    "kind": "trap",
+    "q": "PA1 and PB1 both need interrupts. What is true?",
+    "choices": [
+      "They share line 1, so only one of them can interrupt",
+      "Both work: each GPIO port has its own separate set of 16 EXTI lines",
+      "Both work, but at different NVIC priorities",
+      "Only PB1 can, because B outranks A"
+    ],
+    "why": "Line n watches pin n of one port only: EXTICR is a multiplexer that picks one input.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-063",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "EXTI port select",
+    "kind": "trap",
+    "q": "A button on PA1 works even though the code never writes EXTICR. Moved to PC1, it is dead. Why?",
+    "choices": [
+      "Port A's code is 0, the reset value, so PA1 worked by luck",
+      "PC1 has no internal pull-up resistor on this 48-pin package",
+      "Port C cannot raise interrupts on this chip",
+      "EXTICR is only read once, at reset"
+    ],
+    "why": "EXTICR resets to 0, which already selects port A. Every other port must be written explicitly.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-064",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "EXTI port select",
+    "kind": "number",
+    "q": "Where is EXTICR on the STM32C0, compared with the STM32F4?",
+    "choices": [
+      "In EXTI on the C0; in SYSCFG on the F4",
+      "In SYSCFG on both",
+      "In EXTI on both",
+      "In SYSCFG on the C0; in EXTI on the F4"
+    ],
+    "why": "On the C0, EXTICR is part of EXTI. F4 code using SYSCFG->EXTICR won't compile here.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-065",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "EXTI edges and pending",
+    "kind": "concept",
+    "q": "A button with a pull-up is pressed. Which EXTI trigger register catches the press?",
+    "choices": [
+      "FTSR1, falling edge",
+      "RTSR1, rising edge",
+      "IMR1, the mask",
+      "RPR1, rising pending"
+    ],
+    "why": "Active low: pressing takes the pin from 1 to 0, a falling edge. The release is the rising edge.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-066",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "EXTI edges and pending",
+    "kind": "concept",
+    "q": "Which line correctly clears line 1's falling-edge pending flag?",
+    "choices": [
+      "EXTI->FPR1 = 1u << 1;",
+      "EXTI->FPR1 |= 1u << 1;",
+      "EXTI->FPR1 &= ~(1u << 1);",
+      "EXTI->FPR1 = 0;"
+    ],
+    "why": "Pending bits are write 1 to clear, and writing 0 does nothing. |= would also write back other lines' pending 1s and clear them.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-067",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "EXTI edges and pending",
+    "kind": "calc",
+    "q": "FPR1 reads 0x00000012. The handler for line 1 runs EXTI->FPR1 |= 1u << 1;. Which pending flags does that clear?",
+    "choices": [
+      "Lines 1 and 4",
+      "Only line 1",
+      "Only line 4",
+      "None"
+    ],
+    "why": "|= reads 0x12 and writes back 0x12 | 0x02 = 0x12, a 1 at bits 1 and 4. Write-1-to-clear clears both, so line 4's edge is lost unhandled.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-068",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "EXTI edges and pending",
+    "kind": "concept",
+    "q": "During EXTI setup, when should IMR1 be unmasked?",
+    "choices": [
+      "Last, after edges are set and old pending flags are cleared",
+      "First, before anything else",
+      "Before the edge triggers, after the NVIC",
+      "It doesn't matter; IMR1 is ignored until reset"
+    ],
+    "why": "If you unmask before clearing stale pending flags, an old edge can fire the handler at once.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-069",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "EXTI edges and pending",
+    "kind": "concept",
+    "q": "How does the STM32C0 latch edges compared with older STM32 families?",
+    "choices": [
+      "Separately: RPR1 for rising, FPR1 for falling",
+      "In one shared PR register for both edges, like older families",
+      "Only in the NVIC's ISPR register",
+      "In IDR, which latches edges"
+    ],
+    "why": "The C0 has separate rising and falling pending registers. Older families have a single PR.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-070",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "NVIC enable and priority",
+    "kind": "concept",
+    "q": "What does writing 0 to a bit of NVIC ISER do?",
+    "choices": [
+      "Nothing",
+      "Disables that IRQ",
+      "Clears its pending flag",
+      "Sets it to priority 0"
+    ],
+    "why": "ISER is set-enable: a 1 enables and a 0 is ignored. You disable an IRQ through ICER.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-071",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "NVIC enable and priority",
+    "kind": "calc",
+    "q": "NVIC_EnableIRQ for IRQ 7. What does it write to ISER?",
+    "choices": [
+      "0x00000080",
+      "0x00000007",
+      "0x00000070",
+      "0x00000040"
+    ],
+    "why": "Bit n = IRQ n: 1 << 7 = 0x80. Writing 0x07 would enable IRQs 0, 1 and 2.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-072",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "NVIC enable and priority",
+    "kind": "calc",
+    "q": "NVIC_SetPriority(IRQ 5, 2). What does IPR[1] read, if the other bytes are 0?",
+    "choices": [
+      "0x00008000",
+      "0x00000200",
+      "0x00020000",
+      "0x00000080"
+    ],
+    "why": "IRQ 5 is in IPR[5 / 4] = IPR[1], byte 5 mod 4 = 1 (bits 15:8). The value is 2 << 6 = 0x80, shifted 8: 0x00008000.",
+    "source": "Slides · Lesson 05, slide 26"
+  },
+  {
+    "id": "ch5-073",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "NVIC enable and priority",
+    "kind": "calc",
+    "q": "IRQ 7 is set to priority 1, the rest of IPR[1] is 0. What does IPR[1] read?",
+    "choices": [
+      "0x40000000",
+      "0x01000000",
+      "0x00004000",
+      "0x00000040"
+    ],
+    "why": "IRQ 7 is byte 3 of IPR[1] (bits 31:24). The value is 1 << 6 = 0x40, so 0x40 << 24 = 0x40000000.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-074",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Vector address",
+    "kind": "calc",
+    "q": "EXTI4_15_IRQn is IRQ 7. What is its vector number, and where is the vector?",
+    "choices": [
+      "Vector 23, at 0x0800005C",
+      "Vector 7, at 0x0800001C",
+      "Vector 23, at 0x08000017",
+      "Vector 22, at 0x08000058"
+    ],
+    "why": "Vector = 16 + 7 = 23; address = 0x08000000 + 23 × 4 = 0x08000000 + 92 = 0x0800005C.",
+    "source": "Study guide · Practice P5"
+  },
+  {
+    "id": "ch5-075",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Vector address",
+    "kind": "calc",
+    "q": "objdump shows the bytes a5 03 00 08 in a vector slot. Where does the handler's code start?",
+    "choices": [
+      "0x080003A4",
+      "0x080003A5",
+      "0xA5030008",
+      "0x080003A6"
+    ],
+    "why": "Little-endian: 0x080003A5. Bit 0 is the Thumb bit, so the function itself (nm's address) is 0x080003A4.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-076",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Shared vectors",
+    "kind": "number",
+    "q": "Which EXTI lines share IRQ 7?",
+    "choices": [
+      "Lines 4–15",
+      "Lines 0–1",
+      "Lines 2–3",
+      "Line 7 only"
+    ],
+    "why": "IRQ 5 = lines 0–1, IRQ 6 = lines 2–3, IRQ 7 = lines 4–15. IRQ 7 is not 'line 7'.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-077",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Shared vectors",
+    "kind": "calc",
+    "q": "A button on PB9 is set up for an EXTI interrupt. Which IRQ and handler run?",
+    "choices": [
+      "IRQ 7, EXTI4_15_IRQHandler",
+      "IRQ 9, EXTI9_IRQHandler",
+      "IRQ 6, EXTI2_3_IRQHandler",
+      "IRQ 5, EXTI0_1_IRQHandler"
+    ],
+    "why": "PB9 is on line 9, and lines 4–15 share IRQ 7. There is no per-line handler for line 9.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-078",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Shared vectors",
+    "kind": "concept",
+    "q": "Why must EXTI0_1_IRQHandler read the pending bits?",
+    "choices": [
+      "IRQ 5 is shared by lines 0 and 1, so the vector alone doesn't say which fired",
+      "To tell the NVIC to stop pending the IRQ",
+      "Reading them is what re-enables interrupts",
+      "The handler's own priority is stored there"
+    ],
+    "why": "Several lines share one vector, and the IRQ can even be pended by software with nothing in EXTI. Never trust the vector; read the pending bit.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-079",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "The handler",
+    "kind": "trap",
+    "q": "The handler forgets to clear the EXTI pending bit. What does the board do after the first press?",
+    "choices": [
+      "'Freezes': the handler runs again and again",
+      "Crashes into HardFault on the second interrupt entry",
+      "Counts that press, then ignores later ones",
+      "Resets and reboots"
+    ],
+    "why": "The NVIC sees the line as long as the bit is set, so the handler re-enters as soon as it returns. It hasn't crashed: it is running flat out.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-080",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "The handler",
+    "kind": "concept",
+    "q": "Why doesn't the handler debounce by waiting 20 ms itself?",
+    "choices": [
+      "It would block everything of equal or lower priority for 20 ms",
+      "Handlers cannot call delay functions",
+      "The NVIC aborts handlers after 1 ms",
+      "EXTI loses its pending bits after 1 ms"
+    ],
+    "why": "Handlers record; main() decides. The handler counts edges, and main() runs a 20 ms 'quiet' stopwatch.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-081",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "The handler",
+    "kind": "concept",
+    "q": "b_edges is incremented in the handler and only read by main(), with no lock. Why is that safe?",
+    "choices": [
+      "One aligned 32-bit word, one writer, and volatile",
+      "The handler runs at priority 0",
+      "main() always reads it inside a __disable_irq() critical section",
+      "EXTI makes the increment atomic"
+    ],
+    "why": "A single aligned word written by one side can't tear. volatile makes main() reload it each time.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-082",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "The handler",
+    "kind": "trap",
+    "q": "With bounce on, button B (interrupt) shows tens of edges per press, but button A (polled) shows 1–2. Which is right?",
+    "choices": [
+      "Both: the interrupt sees every edge; the poll samples a summary",
+      "Only A: the interrupt is double-counting",
+      "Only B: the polled code has a bug",
+      "Neither: Wokwi's bounce model is wrong"
+    ],
+    "why": "An interrupt sees every edge, wanted or not; polling filters. They answer different questions.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-083",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Silent failures",
+    "kind": "trap",
+    "q": "Edges latch in FPR1, but the NVIC never sees the request and the handler never runs. What was forgotten?",
+    "choices": [
+      "Setting the line's bit in IMR1",
+      "Clearing the pending bit in the handler",
+      "The pull-up in PUPDR",
+      "The EXTICR port select"
+    ],
+    "why": "IMR1 is the gate between EXTI and the NVIC. Masked, the edge is recorded in FPR1 but goes no further.",
+    "source": "Study guide · Lesson 05 silent failures"
+  },
+  {
+    "id": "ch5-084",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Silent failures",
+    "kind": "trap",
+    "q": "The NVIC shows IRQ 5 pending, but the handler never runs. What was forgotten?",
+    "choices": [
+      "NVIC_EnableIRQ (the ISER bit)",
+      "IMR1 unmask",
+      "The handler's pending-bit clear",
+      "The RCC clock gate"
+    ],
+    "why": "The request reached the NVIC (it is pending) but the IRQ is not enabled in ISER, so it is held.",
+    "source": "Study guide · Lesson 05 silent failures"
+  },
+  {
+    "id": "ch5-085",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Silent failures",
+    "kind": "trap",
+    "q": "The board hangs on the first press, and nm shows EXTI0_1_IRQHandler as W. What is the cause?",
+    "choices": [
+      "The handler's name is misspelt",
+      "The pending bit is never cleared",
+      "The NVIC priority is too high",
+      "The IOPENR clock gate is off"
+    ],
+    "why": "W means the weak placeholder is still in vector 21, so the press jumps to Default_Handler and loops. Your misspelt function was deleted as dead code.",
+    "source": "Study guide · Lesson 05 silent failures"
+  },
+  {
+    "id": "ch5-086",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Silent failures",
+    "kind": "trap",
+    "q": "A released button gives random 'phantom' presses. Which of the seven silences is it?",
+    "choices": [
+      "No pull-up in PUPDR",
+      "No input mode in MODER",
+      "Wrong EXTICR port",
+      "No NVIC enable"
+    ],
+    "why": "Without a pull-up, the released pin floats and reads randomly. A missing input mode reads 0 instead: 'pressed' forever.",
+    "source": "Study guide · Lesson 05 silent failures"
+  },
+  {
+    "id": "ch5-087",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Silent failures",
+    "kind": "trap",
+    "q": "Which interrupt bug is the opposite of the seven 'silences'?",
+    "choices": [
+      "Not clearing the pending bit: the handler runs forever",
+      "A misspelt handler name that the linker silently replaces",
+      "Forgetting the IMR1 unmask",
+      "Forgetting NVIC_EnableIRQ"
+    ],
+    "why": "The seven give silence. Forgetting to clear the pending bit gives too much: the handler re-enters forever.",
+    "source": "Study guide · Lesson 05 silent failures"
+  },
+  {
+    "id": "ch5-088",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Silent failures",
+    "kind": "concept",
+    "q": "Which switch in the interrupt path starts out on?",
+    "choices": [
+      "PRIMASK: 0 means interrupts are on",
+      "IMR1: every line starts unmasked",
+      "ISER: every IRQ starts enabled",
+      "IOPENR: every port starts clocked"
+    ],
+    "why": "Every other switch on the path resets off. PRIMASK resets to 0, so interrupts are globally on.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-089",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Debugger tricks",
+    "kind": "concept",
+    "q": "In the debugger, which register write fakes an edge on EXTI line 1 with no button?",
+    "choices": [
+      "EXTI->SWIER1 = 2",
+      "NVIC->ISPR = 2",
+      "EXTI->IMR1 = 2",
+      "GPIOA->IDR = 2"
+    ],
+    "why": "SWIER1 is EXTI's software trigger: writing 1 at bit n is an edge on line n, and it sets the pending bit. IDR is read-only.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-090",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Debugger tricks",
+    "kind": "trap",
+    "q": "IRQ 5 is pended with NVIC->ISPR = 32 and no EXTI edge. What does the handler do?",
+    "choices": [
+      "Enters, finds no pending bit, and counts nothing",
+      "Counts one edge, exactly as if the button had been pressed",
+      "Never runs: ISPR is read-only",
+      "Hangs, because nothing clears the pending bit"
+    ],
+    "why": "The NVIC runs the handler, but RPR1/FPR1 are empty so its if is false. That is correct: never trust the vector, read the pending bit.",
+    "source": "Study guide · Lesson 05"
+  },
+  {
+    "id": "ch5-091",
+    "chapter": "Lesson 05 · GPIO and Interrupts",
+    "topic": "Debugger tricks",
+    "kind": "concept",
+    "q": "Where should you put a breakpoint to stop once per real press?",
+    "choices": [
+      "Where the event is decided, e.g. d->stable = raw;",
+      "On b_edges++ in the handler",
+      "On the first line of debounce_step(), which runs every millisecond",
+      "On the vector table entry"
+    ],
+    "why": "b_edges++ stops on every bounce edge, and debounce_step() runs 1000 times a second. Break where the event is decided.",
+    "source": "Study guide · Lesson 05"
+  }
+]

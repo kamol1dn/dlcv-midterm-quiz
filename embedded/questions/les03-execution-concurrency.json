@@ -1,0 +1,977 @@
+[
+  {
+    "id": "ch3-001",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Polling, interrupt, DMA",
+    "kind": "concept",
+    "q": "Which way of meeting the hardware moves a stream of bytes while the CPU is not involved at all?",
+    "choices": [
+      "DMA",
+      "Interrupt",
+      "Polling",
+      "A critical section"
+    ],
+    "why": "With DMA the hardware itself moves the bytes. An interrupt still runs a CPU handler per event, and polling keeps the CPU busy asking.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-002",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Polling, interrupt, DMA",
+    "kind": "concept",
+    "q": "According to the course, when is polling the right choice?",
+    "choices": [
+      "When the wait is shorter than the cost of being interrupted",
+      "Never in real products; polling is only a beginner's shortcut for labs",
+      "When events are rare and must never be missed",
+      "When a long stream of data has to be moved"
+    ],
+    "why": "Polling is not the beginner option: if the wait is shorter than interrupt entry and exit, polling wins. Rare, must-not-miss events are the interrupt's case; streams are DMA's.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-003",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Polling, interrupt, DMA",
+    "kind": "concept",
+    "q": "Which situation is the interrupt's natural use case?",
+    "choices": [
+      "Events that are rare or must not be missed",
+      "Waits that are shorter than the interrupt entry cost",
+      "Moving a long block of bytes into RAM",
+      "Code that must never be preempted"
+    ],
+    "why": "Interrupts let the CPU do useful work until the hardware calls a handler, so rare or must-not-miss events fit best. Short waits suit polling; bulk transfers suit DMA.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-004",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Polling, interrupt, DMA",
+    "kind": "trap",
+    "q": "Going from polling to interrupt to DMA, what happens to complexity and CPU time?",
+    "choices": [
+      "Complexity rises, CPU time spent falls",
+      "Complexity falls, CPU time spent rises",
+      "Both complexity and CPU time rise",
+      "Both complexity and CPU time fall"
+    ],
+    "why": "Slide 1: cost rises left to right in complexity and falls in CPU time. Polling is simplest but burns the CPU; DMA frees the CPU but is the hardest to set up.",
+    "source": "Slides · Lesson 03, slide 1"
+  },
+  {
+    "id": "ch3-005",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Interrupt entry",
+    "kind": "concept",
+    "q": "What is an interrupt on this Cortex-M0+, in the course's words?",
+    "choices": [
+      "A hardware-forced function call between two instructions",
+      "A scheduler switching to another operating-system thread",
+      "A software call the main loop makes when it is ready",
+      "A jump that throws away main()'s register contents"
+    ],
+    "why": "No OS is involved: between two instructions the hardware stacks registers, looks up the vector and calls the handler. main()'s registers are saved, not lost.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-006",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Interrupt entry",
+    "kind": "number",
+    "q": "How many registers does the hardware push automatically on interrupt entry?",
+    "choices": [
+      "8",
+      "4",
+      "16",
+      "13"
+    ],
+    "why": "Exactly eight words: r0–r3, r12, lr, pc and xPSR. It does not push all 16 registers; r4–r11 are left for the handler to save if it uses them.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-007",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Interrupt entry",
+    "kind": "concept",
+    "q": "Which set of registers does the hardware stack on interrupt entry?",
+    "choices": [
+      "r0–r3, r12, lr, pc, xPSR",
+      "r4–r11, lr, pc",
+      "r0–r7 and the stack pointer",
+      "r0–r12, sp, lr, pc"
+    ],
+    "why": "The stacked set is r0–r3, r12, lr, pc, xPSR. r4–r11 are callee-saved, so an ordinary C function already preserves them.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch3-008",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Interrupt entry",
+    "kind": "concept",
+    "q": "Why can an ISR on this processor be an ordinary C function with no special keyword?",
+    "choices": [
+      "The hardware stacks exactly the registers AAPCS lets a function destroy",
+      "The compiler adds a hidden interrupt prologue to every function",
+      "Cortex-M handlers are not allowed to use any registers at all",
+      "The linker wraps each handler in an assembly stub at build time"
+    ],
+    "why": "The eight stacked registers are the caller-saved set of AAPCS, and a C function preserves the rest itself. So no ISR() macro or keyword is needed.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-009",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Interrupt entry",
+    "kind": "concept",
+    "q": "On interrupt entry, what does the hardware write into IPSR?",
+    "choices": [
+      "The exception number",
+      "The return address",
+      "The interrupt's priority level",
+      "The EXC_RETURN value"
+    ],
+    "why": "IPSR (the low bits of xPSR) gets the exception number, so the core knows what is running. The return address goes on the stack, and EXC_RETURN goes into LR.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-010",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Interrupt entry",
+    "kind": "concept",
+    "q": "What does LR hold when the handler starts, and how does the handler return?",
+    "choices": [
+      "EXC_RETURN; an ordinary bx lr unstacks everything",
+      "The interrupted pc; a special reti instruction returns",
+      "Zero; the handler must pop pc from the stack itself",
+      "The handler's own address; the NVIC returns for it"
+    ],
+    "why": "The hardware loads LR with the special EXC_RETURN value, so a plain bx lr tells the core to unstack the frame and resume. There is no reti on Cortex-M.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-011",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Interrupt entry",
+    "kind": "calc",
+    "q": "SP is 0x20002F00 in main() when an interrupt arrives (assume no alignment padding). What is SP when the handler's first instruction runs?",
+    "choices": [
+      "0x20002EE0",
+      "0x20002F20",
+      "0x20002EF0",
+      "0x20002EE8"
+    ],
+    "why": "Eight words are pushed: 8 × 4 = 32 = 0x20 bytes, and the stack grows down, so 0x20002F00 − 0x20 = 0x20002EE0. 0x20002F20 is the mistake of growing the stack up.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-012",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Interrupt entry",
+    "kind": "number",
+    "q": "Which EXC_RETURN value means 'return to Thread mode on the main stack (MSP)'?",
+    "choices": [
+      "0xFFFFFFF9",
+      "0xFFFFFFFD",
+      "0xFFFFFFF1",
+      "0xFFFFFFFF"
+    ],
+    "why": "0xFFFFFFF9 is Thread/MSP, which is what a bare-metal handler sees. 0xFFFFFFFD is Thread/PSP (an RTOS task), and 0xFFFFFFF1 returns to Handler mode.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch3-013",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Interrupt entry",
+    "kind": "trap",
+    "q": "You misspell an interrupt handler's name by one letter. What happens?",
+    "choices": [
+      "It compiles and links cleanly; the interrupt never reaches your code",
+      "The compiler stops with an 'undefined handler' error",
+      "The linker warns that the vector entry is empty",
+      "The board takes a HardFault as soon as it boots"
+    ],
+    "why": "The name is the only connection to the vector table. A misspelt one is just an unused function: no error, no warning, and the interrupt does nothing useful.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-014",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "volatile and the as-if rule",
+    "kind": "concept",
+    "q": "What does the as-if rule allow a C compiler to do?",
+    "choices": [
+      "Change anything as long as observable behaviour is the same",
+      "Nothing: it must run every statement exactly as written",
+      "Treat every global as volatile unless the programmer says otherwise",
+      "Reorder instructions only inside interrupt handlers"
+    ],
+    "why": "The compiler only has to produce the same observable behaviour as the source. How many times memory is read, or in what order, is otherwise free to change.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-015",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "volatile and the as-if rule",
+    "kind": "trap",
+    "q": "main() spins in while (flag == 0) {} waiting for an ISR to set flag, which is a plain (non-volatile) global. What does an optimising build do?",
+    "choices": [
+      "Reads flag once and loops forever on a register",
+      "Reads flag every pass but in the wrong order",
+      "Refuses to compile, because flag is never written inside the loop",
+      "Exits the loop at once, assuming flag is already 1"
+    ],
+    "why": "Nothing inside the loop writes flag, so by C's rules it cannot change. The compiler reads it once and spins on the register copy: an infinite loop with no warning.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-016",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "volatile and the as-if rule",
+    "kind": "concept",
+    "q": "Why is the compiler allowed to optimise away the repeated reads of flag in a polling loop?",
+    "choices": [
+      "Hardware and ISRs are observers that C knows nothing about",
+      "Optimisation at -Os is known to be buggy on Cortex-M",
+      "Globals are stored in flash, so they cannot change",
+      "An empty loop body is undefined behaviour in C"
+    ],
+    "why": "The language's idea of 'observable' does not include an ISR or a pin changing a variable. So by the rules the compiler is correct, not misbehaving.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-017",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "volatile and the as-if rule",
+    "kind": "concept",
+    "q": "What does declaring a variable volatile guarantee?",
+    "choices": [
+      "Every access in the source is really performed, in order",
+      "Every access to it is atomic, even read-modify-write",
+      "Interrupts are masked whenever it is accessed",
+      "It is kept in a CPU register for fast access"
+    ],
+    "why": "volatile is about the compiler: every read and write written must really happen, in the order written. It does not make anything atomic and is not a lock.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-018",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "volatile and the as-if rule",
+    "kind": "trap",
+    "q": "Which of these does volatile NOT do?",
+    "choices": [
+      "Make counter++ indivisible against an ISR",
+      "Force every read in the source to really happen",
+      "Keep the accesses in the order they were written",
+      "Stop the compiler caching the value in a register"
+    ],
+    "why": "The other three are exactly what volatile is for. It cannot make a load-add-store sequence indivisible; that needs a critical section.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-019",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Lost update",
+    "kind": "concept",
+    "q": "On this load–store chip, what does counter++ on a global compile to?",
+    "choices": [
+      "ldr, adds, str",
+      "A single add-to-memory instruction",
+      "ldr, str",
+      "adds, str"
+    ],
+    "why": "Only ldr/str touch memory, so the increment is load, add in a register, store back. The gap between ldr and str is where an interrupt can land.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-020",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Lost update",
+    "kind": "calc",
+    "q": "counter = 5. main() executes ldr (reads 5); the ISR then runs, doing counter++; main() finishes adds and str. What is counter afterwards?",
+    "choices": [
+      "6",
+      "7",
+      "5",
+      "8"
+    ],
+    "why": "The ISR writes 6, then main() stores its stale 5 + 1 = 6 over it. Two increments happened, but one was lost.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-021",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Lost update",
+    "kind": "calc",
+    "q": "counter = 10. Between main()'s ldr and str for counter++, the ISR fires three times and increments counter each time. Final value?",
+    "choices": [
+      "11",
+      "14",
+      "13",
+      "10"
+    ],
+    "why": "The ISR takes counter to 13, but main() then stores its stale 10 + 1 = 11. All three of the ISR's increments are wiped out.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-022",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Lost update",
+    "kind": "trap",
+    "q": "counter is declared volatile and both main() and an ISR do counter++. Is the lost update fixed?",
+    "choices": [
+      "No: it is still ldr, adds, str and the ISR can land in the gap",
+      "Yes: volatile makes the increment a single atomic access",
+      "Yes: volatile stops the ISR from running during the access",
+      "No: an ISR is not allowed to write a volatile variable"
+    ],
+    "why": "volatile only ensures each access really happens. The sequence is still three instructions and can be split, so you need a critical section.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-023",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Lost update",
+    "kind": "calc",
+    "q": "counter = 7. main() runs counter++ and is interrupted between ldr and str by an ISR that does counter--. What is counter afterwards?",
+    "choices": [
+      "8",
+      "7",
+      "6",
+      "9"
+    ],
+    "why": "One increment and one decrement should leave 7. But main() stores its stale 7 + 1 = 8 over the ISR's 6, so the decrement is lost.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-024",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Concurrency vocabulary",
+    "kind": "concept",
+    "q": "What is a race condition?",
+    "choices": [
+      "The result depends on the relative timing of two contexts",
+      "Two interrupts of equal priority arriving in the same clock cycle",
+      "A loop that runs faster than the hardware can respond",
+      "A stack that grows into the heap"
+    ],
+    "why": "A race condition is any result that depends on the relative timing of two contexts. It is general computing vocabulary, not ARM-specific.",
+    "source": "Study guide · Glossary"
+  },
+  {
+    "id": "ch3-025",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Concurrency vocabulary",
+    "kind": "concept",
+    "q": "What is a critical section?",
+    "choices": [
+      "Code that must not be interleaved with another context",
+      "The part of the vector table that is reserved for the fault handlers",
+      "An interrupt handler with the highest priority",
+      "A section in link.ld that must be placed in RAM"
+    ],
+    "why": "A critical section is a stretch of code that must not be interleaved. Mutual exclusion is the guarantee you need over it.",
+    "source": "Study guide · Glossary"
+  },
+  {
+    "id": "ch3-026",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Concurrency vocabulary",
+    "kind": "concept",
+    "q": "What does mutual exclusion guarantee?",
+    "choices": [
+      "At most one context is inside the critical section at a time",
+      "Each shared variable is written by exactly one context, never two",
+      "Interrupts are delivered in priority order",
+      "Two contexts never share any global variable"
+    ],
+    "why": "Mutual exclusion means at most one context inside the critical section at once. It does not forbid sharing; it controls when the shared code runs.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-027",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Concurrency vocabulary",
+    "kind": "concept",
+    "q": "An operation is called atomic when it…",
+    "choices": [
+      "cannot be observed half-done",
+      "runs in exactly one clock cycle",
+      "is marked volatile in the source",
+      "is executed by the DMA controller"
+    ],
+    "why": "Atomic means no other context can see the operation half-finished. A single aligned store is atomic on this chip; a read-modify-write is not.",
+    "source": "Study guide · Glossary"
+  },
+  {
+    "id": "ch3-028",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Concurrency vocabulary",
+    "kind": "concept",
+    "q": "What is tearing?",
+    "choices": [
+      "A reader takes one value in two accesses and gets half old, half new",
+      "Two ISRs writing the same peripheral register in the same bus cycle",
+      "A stack overflow that corrupts the vector table",
+      "An interrupt lost because PRIMASK was set too long"
+    ],
+    "why": "Tearing happens when one logical value needs two bus accesses and a writer runs in between. The result is a number nobody ever stored.",
+    "source": "Study guide · Glossary"
+  },
+  {
+    "id": "ch3-029",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Mutual exclusion tools",
+    "kind": "concept",
+    "q": "ISR versus main() on one core: how do you get mutual exclusion?",
+    "choices": [
+      "Mask interrupts around the critical section",
+      "Declare the shared variable volatile so both sides see each write",
+      "Use an OS mutex inside the ISR",
+      "Raise the ISR to NVIC priority 0"
+    ],
+    "why": "If interrupts are off, the ISR cannot start, so it cannot interleave. volatile does not give exclusion, and an ISR cannot block on a mutex.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-030",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Mutual exclusion tools",
+    "kind": "concept",
+    "q": "Two threads under one operating system share a variable. What is the usual mutual-exclusion tool?",
+    "choices": [
+      "A mutex: the scheduler won't switch to the waiter",
+      "Masking interrupts on the current core",
+      "Declaring the variable volatile",
+      "An atomic ldrex/strex retry loop around every access"
+    ],
+    "why": "Between threads on one OS, a mutex asks the scheduler not to run the waiter until the owner unlocks. Masking interrupts is the ISR-versus-main tool.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-031",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Mutual exclusion tools",
+    "kind": "trap",
+    "q": "A dual-core chip: core 0 calls __disable_irq() before updating a counter that core 1 also updates. Is the counter protected?",
+    "choices": [
+      "No: core 1 keeps running; an atomic read-modify-write is needed",
+      "Yes: cpsid i stops every core on the chip, not just this one",
+      "Yes, as long as the counter is declared volatile",
+      "No: you need to mask interrupts on core 1 instead"
+    ],
+    "why": "Masking only stops other contexts on this core. Across cores you need an atomic read-modify-write such as ldrex/strex or x86 lock cmpxchg.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-032",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Mutual exclusion tools",
+    "kind": "concept",
+    "q": "Why is masking interrupts the right lock on this course's chip but the wrong one on a phone?",
+    "choices": [
+      "The Cortex-M0+ has a single core, and no ldrex/strex either",
+      "Phones have no interrupts, only DMA",
+      "PRIMASK only exists on multi-core chips",
+      "The M0+ runs too slowly for a mutex"
+    ],
+    "why": "On one core, masking stops the only other context. A phone has several cores, and masking on one does nothing to the others.",
+    "source": "Slides · Lesson 03, slide 5"
+  },
+  {
+    "id": "ch3-033",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Mutual exclusion tools",
+    "kind": "number",
+    "q": "Which instruction does __disable_irq() compile to?",
+    "choices": [
+      "cpsid i",
+      "cpsie i",
+      "svc #0",
+      "wfi"
+    ],
+    "why": "__disable_irq() is cpsid i and __enable_irq() is cpsie i. Each is a single instruction that changes PRIMASK bit 0.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-034",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Mutual exclusion tools",
+    "kind": "calc",
+    "q": "Right after __disable_irq(), what does PRIMASK read?",
+    "choices": [
+      "1",
+      "0",
+      "0xFF",
+      "0x80"
+    ],
+    "why": "PRIMASK has one bit, PM at bit 0. cpsid i sets it to 1, which masks every configurable interrupt; 0 is the reset state, with interrupts on.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-035",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Critical sections and latency",
+    "kind": "concept",
+    "q": "Why must critical sections be kept short?",
+    "choices": [
+      "The longest one sets the worst-case interrupt latency",
+      "The compiler cannot optimise code inside them",
+      "PRIMASK clears itself automatically after 1 ms",
+      "Interrupts that arrive while masked are discarded"
+    ],
+    "why": "While interrupts are off the chip cannot respond to anything, so the longest critical section bounds latency. Masked interrupts stay pending; they are delayed, not discarded.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-036",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Critical sections and latency",
+    "kind": "concept",
+    "q": "What is interrupt latency?",
+    "choices": [
+      "The time from the hardware event to the handler's first instruction",
+      "The time a handler takes from entry to bx lr",
+      "The time between two interrupts of the same source",
+      "The delay of the debounce filter after a press"
+    ],
+    "why": "Latency is the gap between the event and the start of your handler. Critical sections and higher-priority handlers add to it.",
+    "source": "Slides · Lesson 03, slide 8"
+  },
+  {
+    "id": "ch3-037",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Critical sections and latency",
+    "kind": "calc",
+    "q": "The longest critical section in a program is 960 cycles at 48 MHz. What is the worst-case latency it adds?",
+    "choices": [
+      "20 µs",
+      "2 µs",
+      "46 µs",
+      "200 µs"
+    ],
+    "why": "960 / 48 000 000 = 20 µs. 46 µs is what you get by multiplying 960 × 48 instead of dividing.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-038",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Critical sections and latency",
+    "kind": "concept",
+    "q": "'Two fixes, two problems.' Which pairing is correct?",
+    "choices": [
+      "volatile makes accesses real; a critical section makes a sequence indivisible",
+      "volatile makes a sequence indivisible; a critical section makes accesses real",
+      "volatile and a critical section both make accesses atomic",
+      "volatile prevents tearing; a critical section prevents caching"
+    ],
+    "why": "volatile stops the compiler removing or caching accesses. A critical section stops another context splitting a sequence. They are not interchangeable.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-039",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Critical sections and latency",
+    "kind": "trap",
+    "q": "According to the course, most concurrency bugs come from which mistake?",
+    "choices": [
+      "Using volatile where a critical section was needed",
+      "Using a critical section where volatile was needed",
+      "Giving the ISR too high an NVIC priority",
+      "Polling where an interrupt was needed"
+    ],
+    "why": "Students add volatile, the lost update remains, and they conclude the language is broken. The sequence needed to be made indivisible.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-040",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Critical sections and latency",
+    "kind": "calc",
+    "q": "A handler must finish within 10 µs at 48 MHz. How many cycles is that budget?",
+    "choices": [
+      "480",
+      "4800",
+      "48",
+      "208"
+    ],
+    "why": "48 000 000 cycles/s × 10 µs = 480 cycles. 4800 is the 100 µs budget.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-041",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Rare bugs",
+    "kind": "number",
+    "q": "How wide is the window in which an interrupt causes a lost update to counter++ at 48 MHz?",
+    "choices": [
+      "About 40 ns",
+      "About 4 µs",
+      "About 1 ms",
+      "About 400 ns"
+    ],
+    "why": "The interrupt must land in a two-instruction gap. At 48 MHz that is roughly 40 nanoseconds.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-042",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Rare bugs",
+    "kind": "calc",
+    "q": "At 48 MHz, how long is one clock cycle?",
+    "choices": [
+      "About 20.8 ns",
+      "About 48 ns",
+      "About 2.08 ns",
+      "About 208 ns"
+    ],
+    "why": "1 / 48 000 000 s ≈ 20.8 ns. Two instructions take about 40 ns, which is the lost-update window.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-043",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Rare bugs",
+    "kind": "number",
+    "q": "With 1000 interrupts per second, roughly how often does the counter++ lost update appear?",
+    "choices": [
+      "About once every 7 hours",
+      "About once a second",
+      "About once every 7 minutes",
+      "About once a week"
+    ],
+    "why": "The 40 ns window is tiny, so at 1000 interrupts per second the bug shows up only about once every 7 hours. That is why it survives testing.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-044",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Rare bugs",
+    "kind": "calc",
+    "q": "A lost update appears about once every 7 hours at 1000 interrupts/s. Roughly how often at 10 000 interrupts/s?",
+    "choices": [
+      "About every 40 minutes",
+      "About every 70 hours",
+      "About every 7 minutes",
+      "About every 4 minutes"
+    ],
+    "why": "Ten times more interrupts means about ten times more chances: 7 h / 10 ≈ 42 min, which the slide rounds to 40 minutes.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-045",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Rare bugs",
+    "kind": "trap",
+    "q": "A program works for hours, then misbehaves once. How do you find a race condition like this?",
+    "choices": [
+      "Reason about which variables more than one context touches",
+      "Run the test overnight until it fails again",
+      "Add printf calls inside the interrupt handler to trace the timing",
+      "Build with optimisation turned off"
+    ],
+    "why": "You can't find it by running more: the window is nanoseconds wide. You list every global, note which contexts touch it, and protect the shared ones.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-046",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Rare bugs",
+    "kind": "concept",
+    "q": "The course's discipline for globals: if more than one context touches a variable, it needs…",
+    "choices": [
+      "volatile, and probably a critical section too",
+      "a critical section only; volatile is optional",
+      "nothing, if it is a 32-bit variable",
+      "to be moved into the ISR as a local"
+    ],
+    "why": "Shared means volatile so accesses really happen, and usually a critical section so sequences are not split. The exceptions are on the 'what needs protection' table.",
+    "source": "Slides · Lesson 03, slide 6"
+  },
+  {
+    "id": "ch3-047",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "Rare bugs",
+    "kind": "calc",
+    "q": "The lost update shows up about once every 7 hours at 1000 interrupts/s. Roughly how often at 100 interrupts/s?",
+    "choices": [
+      "About every 70 hours",
+      "About every 40 minutes",
+      "About every 7 hours",
+      "About every 42 minutes"
+    ],
+    "why": "Ten times fewer interrupts means about ten times fewer chances to hit the window: 7 h × 10 = 70 h. A rarer bug is harder to catch, not safer.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-048",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "What needs protection",
+    "kind": "concept",
+    "q": "The ISR writes a single aligned 32-bit word and main() only reads it. Safe without a critical section?",
+    "choices": [
+      "Yes: one access, one writer, so it can't tear",
+      "No: every shared variable needs a critical section",
+      "No: main() can read half of the word while the ISR is writing it",
+      "Only if the ISR has priority 3"
+    ],
+    "why": "A single aligned word is one bus access, and only one context writes it. main() sees the old value or the new one, never a mix.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-049",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "What needs protection",
+    "kind": "trap",
+    "q": "The ISR sets a flag; main() reads it and then clears it. How safe is this?",
+    "choices": [
+      "Usually safe, but the clear is a read-modify-write",
+      "Always safe, because the flag is a single byte",
+      "Never safe, because the ISR writes it",
+      "Safe only if the flag is uint64_t"
+    ],
+    "why": "Setting from one side and clearing from the other mostly works, but the clear is itself load-modify-store. If the ISR sets it again inside that gap, a set can be lost.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-050",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "What needs protection",
+    "kind": "trap",
+    "q": "An ISR writes a uint64_t timestamp and main() only reads it. There is only one writer. Safe?",
+    "choices": [
+      "No: two 32-bit accesses, so main() can read a torn value",
+      "Yes: a single writer is always safe",
+      "Yes, as soon as the timestamp is declared volatile",
+      "No: an ISR cannot write 64-bit variables"
+    ],
+    "why": "'One writer' is only safe for a single aligned word. A 64-bit value takes two bus accesses on a 32-bit machine, so the reader can get half old and half new.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-051",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "What needs protection",
+    "kind": "calc",
+    "q": "A uint64_t goes from 0x00000000FFFFFFFF to 0x0000000100000000. main() reads the low word, the ISR updates the value, then main() reads the high word. What does main() get?",
+    "choices": [
+      "0x00000001FFFFFFFF",
+      "0x0000000100000000",
+      "0x00000000FFFFFFFF",
+      "0x0000000000000000"
+    ],
+    "why": "Low word from before (0xFFFFFFFF), high word from after (0x00000001): 0x00000001FFFFFFFF, a value that was never stored. That is tearing.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-052",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "What needs protection",
+    "kind": "trap",
+    "q": "An ISR updates a struct with x, y and a timestamp; main() reads all three. Safe?",
+    "choices": [
+      "No: main() can see the struct half-updated",
+      "Yes: each field on its own is small enough to be read atomically",
+      "Yes, as long as the struct is declared volatile",
+      "Only if each field is written in address order"
+    ],
+    "why": "Each field may be atomic, but the struct as a whole is several accesses. A reader in the middle sees new x with old y: tearing at the struct level.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-053",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "What needs protection",
+    "kind": "concept",
+    "q": "A global uint32_t is written only by an ISR and only read by main(). What does it need?",
+    "choices": [
+      "volatile, but no critical section",
+      "A critical section, but no volatile",
+      "Both volatile and a critical section",
+      "Neither, because it is one word"
+    ],
+    "why": "volatile makes main() really reload it each time. It needs no critical section: one aligned word with one writer can't tear.",
+    "source": "Study guide · Practice P12"
+  },
+  {
+    "id": "ch3-054",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "What needs protection",
+    "kind": "trap",
+    "q": "A shared uint8_t is written only by the ISR and only read by main(). Does it need a critical section?",
+    "choices": [
+      "No: a single aligned byte access with one writer can't be split",
+      "Yes: anything shared with an ISR needs one",
+      "Yes: bytes are read as part of a 32-bit word",
+      "No, but only if the ISR runs at priority 0"
+    ],
+    "why": "A byte is one access, and with only one writer there is nothing to interleave. It still needs volatile so main() really reads it.",
+    "source": "Slides · Lesson 03, slide 10"
+  },
+  {
+    "id": "ch3-055",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "NVIC priority",
+    "kind": "number",
+    "q": "How many NVIC priority levels does this chip have, and which is most urgent?",
+    "choices": [
+      "4 levels; 0 is the most urgent",
+      "4 levels; 3 is the most urgent",
+      "256 levels; 0 is the most urgent",
+      "16 levels; 15 is the most urgent"
+    ],
+    "why": "Only the top 2 bits of each 8-bit priority field exist, giving 4 levels. In the NVIC a lower number is more urgent.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-056",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "NVIC priority",
+    "kind": "calc",
+    "q": "Which byte value sets an IRQ to NVIC priority 3?",
+    "choices": [
+      "0xC0",
+      "0x03",
+      "0x30",
+      "0x0C"
+    ],
+    "why": "Only bits 7:6 of the byte exist, so the value is prio << 6 = 3 << 6 = 0xC0. Writing 0x03 lands in bits that don't exist.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch3-057",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "NVIC priority",
+    "kind": "calc",
+    "q": "An IRQ's priority byte reads 0x80. What priority level is it?",
+    "choices": [
+      "2",
+      "8",
+      "128",
+      "1"
+    ],
+    "why": "The level is the top two bits: 0x80 = 1000 0000, so bits 7:6 = 10 = 2. Only those two bits are implemented.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-058",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "NVIC priority",
+    "kind": "trap",
+    "q": "Code writes 0x03 straight into IRQ 4's priority byte, meaning 'least urgent'. What level does IRQ 4 actually get?",
+    "choices": [
+      "0, the most urgent",
+      "3, the least urgent",
+      "1",
+      "It faults on the write"
+    ],
+    "why": "The low six bits don't exist and read as 0, so 0x03 becomes 0x00: level 0, the most urgent. The value needs shifting: 3 << 6 = 0xC0.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-059",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "NVIC priority",
+    "kind": "calc",
+    "q": "IRQ 2 is given priority 1 and every other IRQ in IPR[0] is 0. What does IPR[0] read?",
+    "choices": [
+      "0x00400000",
+      "0x00000040",
+      "0x00010000",
+      "0x00004000"
+    ],
+    "why": "IRQ 2 is byte 2 of IPR[0] (bits 23:16). Its value is 1 << 6 = 0x40, so 0x40 << 16 = 0x00400000. 0x00004000 would be IRQ 1's byte.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-060",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "NVIC priority",
+    "kind": "concept",
+    "q": "A timer handler is running when a more urgent interrupt arrives. What happens?",
+    "choices": [
+      "The urgent one preempts the timer handler, which resumes afterwards",
+      "The urgent one waits until the timer handler returns",
+      "The timer handler is aborted and its work discarded",
+      "Both handlers run at once on the same core"
+    ],
+    "why": "The NVIC lets a more urgent interrupt preempt a running handler. That also means sharing is now ISR versus ISR, not only ISR versus main().",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-061",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "NVIC priority",
+    "kind": "concept",
+    "q": "Why must interrupt handlers be short?",
+    "choices": [
+      "A slow handler delays every interrupt of equal or lower priority",
+      "Handlers longer than 32 instructions corrupt the stacked frame",
+      "The NVIC aborts any handler that runs over 1 ms",
+      "Long handlers stop main() from using volatile"
+    ],
+    "why": "While a handler runs, equal and lower-priority interrupts wait. The usual shape is: set a flag or buffer the data, return, and let main() do the work.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-062",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "NVIC priority",
+    "kind": "concept",
+    "q": "What is priority inversion?",
+    "choices": [
+      "A high-priority task waits, in effect, on a lower-priority one",
+      "Priority 0 being most urgent instead of priority 3",
+      "Two interrupts with equal priority firing at once",
+      "A handler lowering its own priority to finish sooner"
+    ],
+    "why": "In priority inversion an urgent task is stuck waiting on something a low-priority task holds. It is introduced in lesson 03 and covered fully in lesson 07.",
+    "source": "Study guide · Glossary"
+  },
+  {
+    "id": "ch3-063",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "NVIC priority",
+    "kind": "number",
+    "q": "Which famous system kept resetting because of priority inversion?",
+    "choices": [
+      "Mars Pathfinder, 1997",
+      "Apollo 11, 1969",
+      "Ariane 5, 1996",
+      "Therac-25, 1985"
+    ],
+    "why": "Mars Pathfinder kept resetting on the surface of Mars in 1997 because of priority inversion. Ariane 5 failed from an overflow, and Therac-25 from a race in its software.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-064",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "NVIC priority",
+    "kind": "calc",
+    "q": "Suppose a chip implemented the top 3 bits of each priority byte instead of 2. How many priority levels would it have?",
+    "choices": [
+      "8",
+      "6",
+      "3",
+      "16"
+    ],
+    "why": "n implemented bits give 2^n levels: 2 bits give this chip's 4, and 3 bits would give 8. The count doubles per bit; it does not go up by 2.",
+    "source": "Study guide · Lesson 03"
+  },
+  {
+    "id": "ch3-065",
+    "chapter": "Lesson 03 · Execution and Concurrency",
+    "topic": "NVIC priority",
+    "kind": "calc",
+    "q": "IRQ 0 gets priority 1 and IRQ 1 gets priority 2; IRQs 2 and 3 are left at 0. What does IPR[0] read?",
+    "choices": [
+      "0x00008040",
+      "0x00004080",
+      "0x00000201",
+      "0x00000102"
+    ],
+    "why": "IRQ 0 is byte 0: 1 << 6 = 0x40. IRQ 1 is byte 1: 2 << 6 = 0x80, shifted 8 bits to 0x8000. Together that is 0x00008040; 0x00004080 swaps the two bytes.",
+    "source": "Study guide · Lesson 03"
+  }
+]

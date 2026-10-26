@@ -1,0 +1,1082 @@
+[
+  {
+    "id": "ch8-001",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "USART2 in the model",
+    "kind": "number",
+    "q": "Which pins and AF carry USART2 in this lesson?",
+    "choices": [
+      "PA2 TX, PA3 RX, AF1",
+      "PA3 TX, PA2 RX, AF1",
+      "PA2 TX, PA3 RX, AF4",
+      "PA9 TX, PA10 RX, AF1"
+    ],
+    "why": "PA2 is TX and PA3 is RX, both on alternate function 1.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-002",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "USART2 in the model",
+    "kind": "number",
+    "q": "Which register and bit gate USART2's clock?",
+    "choices": [
+      "RCC->APBENR1, USART2EN",
+      "RCC->IOPENR, USART2EN",
+      "USART2->CR1, UE",
+      "RCC->APBENR2, USART2EN"
+    ],
+    "why": "USART2EN in APBENR1 (bit 17) powers the peripheral. UE in CR1 enables the USART once it has a clock.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-003",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "USART2 in the model",
+    "kind": "calc",
+    "q": "USART2EN is bit 17 of RCC->APBENR1. What mask sets it?",
+    "choices": [
+      "0x00020000",
+      "0x00010000",
+      "0x00000011",
+      "0x00040000"
+    ],
+    "why": "1 << 17 = 0x20000. 0x10000 is bit 16.",
+    "source": "Lesson 08 slides"
+  },
+  {
+    "id": "ch8-004",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "USART2 in the model",
+    "kind": "number",
+    "q": "Which bits of USART2 CR1 are UE, RE, TE, RXNEIE and TXEIE?",
+    "choices": [
+      "0, 2, 3, 5, 7",
+      "0, 1, 2, 3, 4",
+      "0, 3, 2, 7, 5",
+      "1, 2, 3, 5, 6"
+    ],
+    "why": "UE 0, RE 2, TE 3, RXNEIE 5, TXEIE 7.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-005",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "USART2 in the model",
+    "kind": "calc",
+    "q": "With UE, RE, TE and RXNEIE set and TXEIE off, what does CR1 read?",
+    "choices": [
+      "0x2D",
+      "0xAD",
+      "0x0D",
+      "0x2F"
+    ],
+    "why": "Bits 0, 2, 3, 5: 1 + 4 + 8 + 32 = 45 = 0x2D. 0xAD adds TXEIE (bit 7), the 'sending' state.",
+    "source": "Lesson 08 slides"
+  },
+  {
+    "id": "ch8-006",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "USART2 in the model",
+    "kind": "calc",
+    "q": "CR1 reads 0xAD. What state is the transmitter in?",
+    "choices": [
+      "Sending: TXEIE is on because the ring has data",
+      "Idle: TXEIE is off, so no transmit interrupt can fire",
+      "Disabled: UE is clear, so the USART ignores everything",
+      "Receive-only: TE is clear, so nothing is ever transmitted"
+    ],
+    "why": "0xAD = 0x2D + 0x80, and 0x80 is TXEIE. It is on only while there is work.",
+    "source": "Lesson 08 slides"
+  },
+  {
+    "id": "ch8-007",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "USART2 in the model",
+    "kind": "number",
+    "q": "Which bits of USART2 ISR are ORE, RXNE and TXE?",
+    "choices": [
+      "3, 5, 7",
+      "5, 3, 7",
+      "0, 1, 2",
+      "3, 7, 5"
+    ],
+    "why": "ORE (overrun) 3, RXNE (a byte arrived) 5, TXE (room to send) 7.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-008",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "USART2 in the model",
+    "kind": "number",
+    "q": "What is USART2's IRQ number, and how many vectors does it use?",
+    "choices": [
+      "28, one vector for everything",
+      "28, one each for RX and TX",
+      "38, one vector for everything",
+      "12, one each for RX, TX and errors"
+    ],
+    "why": "USART2_IRQn = 28; the handler tests the ISR flags to find which job to do.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-009",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "USART2 in the model",
+    "kind": "calc",
+    "q": "USART2_IRQn = 28. At which address is its vector?",
+    "choices": [
+      "0x080000B0",
+      "0x08000070",
+      "0x0800002C",
+      "0x080000AC"
+    ],
+    "why": "Vector 16 + 28 = 44, address 0x08000000 + 44 × 4 = 0x08000000 + 176 = 0x080000B0.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch8-010",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "USART2 in the model",
+    "kind": "calc",
+    "q": "PA2 and PA3 both need AF1. What does GPIOA->AFR[0] hold for just those two pins?",
+    "choices": [
+      "0x00001100",
+      "0x00000011",
+      "0x00110000",
+      "0x00001010"
+    ],
+    "why": "PA2's field is bits 11:8 and PA3's bits 15:12: (1 << 8) | (1 << 12) = 0x1100.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch8-011",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "USART2 in the model",
+    "kind": "number",
+    "q": "Which frame format does lesson 08 leave at its default?",
+    "choices": [
+      "8N1: 8 data bits, no parity, 1 stop bit",
+      "7E1: 7 data bits, even parity, 1 stop bit",
+      "8N2: 8 data bits, no parity, 2 stop bits",
+      "9N1: 9 data bits, no parity, 1 stop bit"
+    ],
+    "why": "CR2, CR3 and PRESC keep their reset values: 8N1, no flow control, no prescaler.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-012",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Baud arithmetic",
+    "kind": "calc",
+    "q": "At 48 MHz, what BRR gives 115 200 baud?",
+    "choices": [
+      "417",
+      "416",
+      "104",
+      "4170"
+    ],
+    "why": "48 000 000 / 115 200 = 416.67, rounded to 417. 104 is the 12 MHz value.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch8-013",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Baud arithmetic",
+    "kind": "calc",
+    "q": "What BRR gives 9600 baud at 48 MHz, and how long does one byte take?",
+    "choices": [
+      "5000; about 1.04 ms",
+      "5000; about 104 µs",
+      "500; about 1.04 ms",
+      "50 000; about 10.4 ms"
+    ],
+    "why": "48 000 000 / 9600 = 5000. One byte is 10 bits / 9600 ≈ 1.04 ms.",
+    "source": "Study guide · Practice problems"
+  },
+  {
+    "id": "ch8-014",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Baud arithmetic",
+    "kind": "calc",
+    "q": "At 48 MHz, which BRR gives 57 600 baud?",
+    "choices": [
+      "833",
+      "834",
+      "417",
+      "1666"
+    ],
+    "why": "48 000 000 / 57 600 = 833.3, rounded to 833.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-015",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Baud arithmetic",
+    "kind": "calc",
+    "q": "At 48 MHz, which BRR gives 19 200 baud?",
+    "choices": [
+      "2500",
+      "250",
+      "5000",
+      "1250"
+    ],
+    "why": "48 000 000 / 19 200 = 2500 exactly. 5000 is 9600 baud.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-016",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Baud arithmetic",
+    "kind": "calc",
+    "q": "If the chip were still at its 12 MHz reset clock, which BRR gives 9600 baud?",
+    "choices": [
+      "1250",
+      "5000",
+      "125",
+      "417"
+    ],
+    "why": "12 000 000 / 9600 = 1250. 5000 is the 48 MHz value.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-017",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Baud arithmetic",
+    "kind": "trap",
+    "q": "BRR = 417 was computed for 48 MHz, but the clock is still at 12 MHz. What does the terminal at 115 200 show?",
+    "choices": [
+      "Garbage characters: the line runs at about 28 800 baud",
+      "Correct text, four times slower",
+      "Nothing at all: the UART stays idle",
+      "Correct text: the receiver resynchronises every start bit"
+    ],
+    "why": "12 MHz / 417 ≈ 28 777 baud, a quarter of the rate. Resynchronising tolerates a few percent, not 4×. BRR for the wrong clock is the classic garbage-characters fault.",
+    "source": "Study guide · Lesson 8 traps"
+  },
+  {
+    "id": "ch8-018",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Baud arithmetic",
+    "kind": "calc",
+    "q": "BRR = 417 at 48 MHz gives what actual baud rate and error?",
+    "choices": [
+      "About 115 108 baud, 0.08 % slow",
+      "Exactly 115 200 baud, no error",
+      "About 115 108 baud, 0.8 % slow",
+      "About 116 000 baud, 0.7 % fast"
+    ],
+    "why": "48 000 000 / 417 ≈ 115 108, which is 0.08 % below 115 200.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-019",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Baud arithmetic",
+    "kind": "concept",
+    "q": "Why does a UART tolerate a few percent of baud error?",
+    "choices": [
+      "The receiver resynchronises on every start bit",
+      "A parity bit corrects small timing errors",
+      "The transmitter sends the clock alongside the data",
+      "The stop bit stretches to absorb any error"
+    ],
+    "why": "Error accumulates only across one 10-bit frame, then the next start bit realigns the receiver.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-020",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Baud arithmetic",
+    "kind": "calc",
+    "q": "BRR reads 0x1A1. What is that in decimal?",
+    "choices": [
+      "417",
+      "161",
+      "4161",
+      "321"
+    ],
+    "why": "0x1A1 = 256 + 160 + 1 = 417, the 115 200-baud value.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-021",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Bits on the wire",
+    "kind": "number",
+    "q": "How many bits on the wire does one 8N1 byte take?",
+    "choices": [
+      "10: start, 8 data, stop",
+      "8: just the data",
+      "9: 8 data and a stop",
+      "11: start, 8 data, parity, stop"
+    ],
+    "why": "Start + 8 data + stop = 10. That is why byte time is 10 / baud.",
+    "source": "Study guide · Formula sheet"
+  },
+  {
+    "id": "ch8-022",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Bits on the wire",
+    "kind": "calc",
+    "q": "At 115 200 baud, how many bytes per second, and how long per byte?",
+    "choices": [
+      "11 520 bytes/s, 86.8 µs",
+      "14 400 bytes/s, 69.4 µs",
+      "11 520 bytes/s, 8.68 µs",
+      "115 200 bytes/s, 8.68 µs"
+    ],
+    "why": "115 200 / 10 = 11 520 bytes/s; 1 / 11 520 = 86.8 µs. 14 400 forgets the start and stop bits.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-023",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Bits on the wire",
+    "kind": "calc",
+    "q": "At 19 200 baud, how long does one byte take on the wire?",
+    "choices": [
+      "About 521 µs",
+      "About 417 µs",
+      "About 52 µs",
+      "About 1.04 ms"
+    ],
+    "why": "10 bits / 19 200 ≈ 520.8 µs. 1.04 ms is 9600 baud.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-024",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Bits on the wire",
+    "kind": "calc",
+    "q": "About how long does a 90-character line take at 115 200 baud?",
+    "choices": [
+      "About 8 ms",
+      "About 0.8 ms",
+      "About 90 ms",
+      "About 6 ms"
+    ],
+    "why": "90 × 86.8 µs ≈ 7.8 ms. A polled printf holds the CPU for all of it.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-025",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Bits on the wire",
+    "kind": "calc",
+    "q": "At 9600 baud, how many bytes per second can the line carry?",
+    "choices": [
+      "960",
+      "1200",
+      "9600",
+      "96"
+    ],
+    "why": "9600 / 10 = 960 bytes/s. 1200 forgets the start and stop bits.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-026",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Overrun",
+    "kind": "concept",
+    "q": "Why must USART receive be interrupt-driven in this system?",
+    "choices": [
+      "The UART holds one byte; the next one overwrites it",
+      "The UART can only raise RXNE at all while RXNEIE is set",
+      "Polling RDR also clears TXE, which stops any transmission in progress",
+      "The UART holds 64 bytes, but only an interrupt handler can read them"
+    ],
+    "why": "The next byte arrives 86.8 µs later. A printf holds a task for 8 ms and the hog never comes back, so polling can't keep up.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-027",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Overrun",
+    "kind": "calc",
+    "q": "At 9600 baud, how long does software have to read RDR before an overrun?",
+    "choices": [
+      "About 1.04 ms",
+      "About 86.8 µs",
+      "About 104 µs",
+      "About 10.4 ms"
+    ],
+    "why": "One byte time: 10 / 9600 ≈ 1.04 ms. 86.8 µs is the 115 200 deadline.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-028",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Overrun",
+    "kind": "trap",
+    "q": "What happens if the ISR never clears ORE after an overrun?",
+    "choices": [
+      "Reception stops after the first overrun",
+      "The next byte overwrites the flag and clears it",
+      "The UART resets itself",
+      "Bytes keep arriving but are doubled"
+    ],
+    "why": "From the checklist: forget to clear ORE and reception stops.",
+    "source": "Study guide · Lesson 8 traps"
+  },
+  {
+    "id": "ch8-029",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Overrun",
+    "kind": "trap",
+    "q": "Which line clears ORE?",
+    "choices": [
+      "USART2->ICR = USART_ICR_ORECF;",
+      "USART2->ISR = ~USART_ISR_ORE;",
+      "USART2->ISR = USART_ISR_ORE;",
+      "(void)USART2->TDR;"
+    ],
+    "why": "ORE is cleared by writing 1 to a different register, ICR (ORECF, bit 3). ISR is read-only status.",
+    "source": "Study guide · Lesson 8 traps"
+  },
+  {
+    "id": "ch8-030",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Receive design",
+    "kind": "concept",
+    "q": "How does the lesson's receive path turn a hard 86.8 µs deadline into a soft one?",
+    "choices": [
+      "The ISR queues each byte; a task blocks on os_queue_get()",
+      "The ISR parses and executes the whole line before it returns",
+      "A protocol task polls RDR every 50 µs, faster than the byte time",
+      "DMA copies the bytes into a ring buffer with no interrupt at all"
+    ],
+    "why": "Producer/consumer: a few dozen instructions in the ISR meet the hard deadline; the task only has to catch up before the 64-byte queue fills. DMA is lesson 10.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-031",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Receive design",
+    "kind": "concept",
+    "q": "While no byte arrives, what does the protocol task cost?",
+    "choices": [
+      "Nothing: it is BLOCKED in os_queue_get()",
+      "100 % CPU, because it polls the queue in a loop",
+      "One tick per millisecond, charged by SysTick",
+      "Half the CPU, which it shares with the hog task"
+    ],
+    "why": "A blocked task is off the CPU until the ISR puts an item.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-032",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Receive design",
+    "kind": "trap",
+    "q": "Why does the RX ISR use os_queue_put_from_isr() and not os_queue_put()?",
+    "choices": [
+      "os_queue_put may block when full, and an ISR cannot block",
+      "os_queue_put is slower because it copies twice",
+      "os_queue_put works only from priority 0",
+      "os_queue_put cannot be called with PRIMASK clear"
+    ],
+    "why": "The ISR version returns 0 when full instead of waiting; the ISR counts the byte as dropped.",
+    "source": "Study guide · Lesson 8 traps"
+  },
+  {
+    "id": "ch8-033",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Transmit ring",
+    "kind": "concept",
+    "q": "Why does the TX ring need no lock between tasks and the ISR?",
+    "choices": [
+      "Each index has one writer: tasks write head, the ISR tail",
+      "The ring is only 256 bytes long, which fits in a single word",
+      "Interrupts are masked with PRIMASK during every call to tx_put",
+      "The TX interrupt only ever runs at moments when no task is running"
+    ],
+    "why": "One writer per index is lesson 03's safe case, twice. (Several tasks printing are serialised by the print mutex.)",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-034",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Transmit ring",
+    "kind": "trap",
+    "q": "In tx_put(), why store the byte before advancing head?",
+    "choices": [
+      "If head moved first, the ISR could send an unfilled slot",
+      "Advancing head first would overflow the ring by one slot",
+      "The compiler requires stores to happen in declaration order",
+      "head must stay an even number until the byte has been stored"
+    ],
+    "why": "Publishing the index is the signal the data is ready. Data before index.",
+    "source": "Study guide · Lesson 8 traps"
+  },
+  {
+    "id": "ch8-035",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Transmit ring",
+    "kind": "concept",
+    "q": "Why does the ring always leave one slot empty?",
+    "choices": [
+      "head == tail means empty, so full must look different",
+      "The ISR needs one slot as scratch space while it sends",
+      "It keeps the usable ring size an exact power of two",
+      "So the last slot can carry the checksum of the whole line"
+    ],
+    "why": "Without the empty slot, full and empty are indistinguishable.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-036",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Transmit ring",
+    "kind": "calc",
+    "q": "The TX ring has 256 slots. How many bytes can it hold at once?",
+    "choices": [
+      "255",
+      "256",
+      "128",
+      "254"
+    ],
+    "why": "One slot is always empty, so at most 255.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-037",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Transmit ring",
+    "kind": "calc",
+    "q": "A 256-slot ring has head = 10 and tail = 250. How many bytes are waiting?",
+    "choices": [
+      "16",
+      "240",
+      "−240",
+      "6"
+    ],
+    "why": "(10 − 250) mod 256 = 16: six slots up to the wrap (250–255) plus ten after.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-038",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Transmit ring",
+    "kind": "concept",
+    "q": "When the TX ring is full, what does tx_put() do?",
+    "choices": [
+      "Waits with os_delay(1) to let the ISR drain it",
+      "Drops the byte and counts it",
+      "Overwrites the oldest byte",
+      "Sends the byte directly by polling TDR"
+    ],
+    "why": "A task may wait, so the producer sleeps for a tick while the ISR drains the ring.",
+    "source": "Lesson 08 slides"
+  },
+  {
+    "id": "ch8-039",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "TXEIE on only with work",
+    "kind": "trap",
+    "q": "TXEIE is left on after the TX ring empties. What happens?",
+    "choices": [
+      "An interrupt storm: TXE is set whenever idle",
+      "Nothing: TXE only interrupts at the moment a byte is written",
+      "The last byte in the ring is sent a second time, then it stops",
+      "The UART quietly switches itself into receive-only mode"
+    ],
+    "why": "TXE means the transmit register is empty, which is always true when idle. Measured: not even the banner printed.",
+    "source": "Study guide · Lesson 8 traps"
+  },
+  {
+    "id": "ch8-040",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "TXEIE on only with work",
+    "kind": "concept",
+    "q": "Who turns TXEIE off, and who turns it back on?",
+    "choices": [
+      "The ISR when the ring empties; _write() after filling it",
+      "_write() when the ring empties; the ISR after filling it",
+      "SysTick every millisecond; the ISR on each byte",
+      "Nobody: it stays on, and the ISR ignores TXE when empty"
+    ],
+    "why": "Off in the ISR's else branch, on again in _write().",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-041",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "TXEIE on only with work",
+    "kind": "trap",
+    "q": "_write() turns TXEIE on with USART2->CR1 |= TXEIE. Why is that line a critical section?",
+    "choices": [
+      "The ISR also writes CR1, and |= could be split by it",
+      "CR1 is a write-only register, so the read part returns garbage",
+      "Setting TXEIE immediately triggers a HardFault if the ring is empty",
+      "The mutex around printing does not cover writes to the CR1 register"
+    ],
+    "why": "If the ISR clears TXEIE between _write's load and store, the store puts back a stale value. Two instructions, protected by masking.",
+    "source": "Study guide · Lesson 8 traps"
+  },
+  {
+    "id": "ch8-042",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "TXEIE on only with work",
+    "kind": "concept",
+    "q": "How are TXE and RXNE cleared in normal operation?",
+    "choices": [
+      "Writing TDR clears TXE; reading RDR clears RXNE",
+      "Writing 1 to each of them in the ICR register",
+      "Writing 0 to each of them in the ISR register",
+      "Reading the ISR register clears both of them at once"
+    ],
+    "why": "The data registers clear their own flags. Only ORE needs ICR.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-043",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Weak _write",
+    "kind": "concept",
+    "q": "retarget.c's polled _write and uart.c's ring _write both exist. Why does the link succeed?",
+    "choices": [
+      "retarget.c's is weak; uart.c's strong definition wins",
+      "The linker keeps whichever file is listed first",
+      "uart.c's is static, so they never clash",
+      "printf calls both, polled first and then the ring"
+    ],
+    "why": "Same mechanism as the vector table: a strong definition replaces a weak one at link time.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-044",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Weak _write",
+    "kind": "concept",
+    "q": "With the ring-buffer _write, when does printf return?",
+    "choices": [
+      "As soon as the text is in the ring",
+      "When the last bit has left the pin",
+      "At the next SysTick tick",
+      "When the PC acknowledges the line"
+    ],
+    "why": "The ISR drains the ring in the background, so printf no longer holds the task for ~8 ms.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-045",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Print mutex",
+    "kind": "concept",
+    "q": "Why does say() wrap vprintf in os_mutex_lock and unlock?",
+    "choices": [
+      "Lines would interleave, and newlib-nano's printf is not re-entrant",
+      "vprintf may only be called while interrupts are masked with PRIMASK",
+      "The TX ring needs a lock between the tasks and the transmit ISR",
+      "The mutex raises the printing task's priority so it finishes sooner"
+    ],
+    "why": "Without it, lines from telemetry and the protocol task interleave and fail their checksums. The ring itself is lock-free.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-046",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Print mutex",
+    "kind": "trap",
+    "q": "Forgetting the lock around printing gives which symptom?",
+    "choices": [
+      "Interleaved lines and failed checksums on the PC",
+      "An interrupt storm that starves every task below it",
+      "Garbage characters, as if the baud rate were wrong",
+      "Reception stops for good after the first overrun"
+    ],
+    "why": "From the UART checklist. The interrupt storm is TXEIE; garbage is BRR; stopping is ORE.",
+    "source": "Study guide · Lesson 8 traps"
+  },
+  {
+    "id": "ch8-047",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Lines and frames",
+    "kind": "concept",
+    "q": "How does the protocol task tell a machine frame from a shell command?",
+    "choices": [
+      "A line starting with $ is a frame; any other is a command",
+      "A frame ends with a * marker, while a command ends with a newline",
+      "Frames are sent as binary bytes, while commands are sent as text",
+      "Frames arrive on PA3, while commands arrive on the PA2 pin"
+    ],
+    "why": "One UART, two audiences: $LED,85*6C is a frame from a program, led 170 is a command from a person.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-048",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Lines and frames",
+    "kind": "number",
+    "q": "What happens to a line longer than 63 characters?",
+    "choices": [
+      "It is discarded whole",
+      "It is cut at 63 and executed",
+      "It is split into two lines",
+      "It is passed to host.py for checking"
+    ],
+    "why": "Never act on part of a line.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-049",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Lines and frames",
+    "kind": "calc",
+    "q": "The shell command led 170 sets the LED bar. What does the board reply?",
+    "choices": [
+      "bar = 0xAA",
+      "bar = 0x170",
+      "bar = 0xA0",
+      "bar = 0x55"
+    ],
+    "why": "170 = 0xAA = 1010 1010. 85 would be 0x55.",
+    "source": "Lesson 08 slides"
+  },
+  {
+    "id": "ch8-050",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "NMEA checksum",
+    "kind": "concept",
+    "q": "How is the NMEA 0183 checksum computed?",
+    "choices": [
+      "XOR of every byte between $ and *, as 2 hex digits",
+      "Sum of every byte between $ and *, mod 256",
+      "XOR of every byte including $, as 2 hex digits",
+      "CRC-8 of the body, as 2 hex digits"
+    ],
+    "why": "XOR only the body between the markers. A CRC is what MAVLink uses.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-051",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "NMEA checksum",
+    "kind": "calc",
+    "q": "Compute the NMEA checksum of the body LED,1 (L=4C, E=45, D=44, ,=2C, 1=31).",
+    "choices": [
+      "50",
+      "61",
+      "4D",
+      "31"
+    ],
+    "why": "4C ^ 45 = 09, ^ 44 = 4D, ^ 2C = 61, ^ 31 = 50. The frame is $LED,1*50. 61 is the value before the last byte.",
+    "source": "Study guide · Practice problems"
+  },
+  {
+    "id": "ch8-052",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "NMEA checksum",
+    "kind": "calc",
+    "q": "LED,1 has checksum 50. What is the checksum of LED,3 ('3' = 0x33)?",
+    "choices": [
+      "52",
+      "53",
+      "50",
+      "62"
+    ],
+    "why": "Up to the comma the XOR is 61; 61 ^ 33 = 52.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-053",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "NMEA checksum",
+    "kind": "calc",
+    "q": "The XOR of L, E, D and ',' is 0x61. What is the checksum of LED,0 ('0' = 0x30)?",
+    "choices": [
+      "51",
+      "50",
+      "31",
+      "61"
+    ],
+    "why": "61 ^ 30 = 51.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-054",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "NMEA checksum",
+    "kind": "calc",
+    "q": "$LED,170*57 has one bit flipped to $LED,171 ('0' 0x30 → '1' 0x31). What checksum does the body now give?",
+    "choices": [
+      "56",
+      "57",
+      "58",
+      "47"
+    ],
+    "why": "Flipping bit 0 of one byte flips bit 0 of the XOR: 57 → 56, so the frame is rejected.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-055",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "NMEA checksum",
+    "kind": "calc",
+    "q": "The body GO is G = 0x47, O = 0x4F. What is its checksum?",
+    "choices": [
+      "08",
+      "96",
+      "4F",
+      "0F"
+    ],
+    "why": "0x47 ^ 0x4F = 0x08. 96 is the sum, not the XOR.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-056",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "NMEA checksum",
+    "kind": "trap",
+    "q": "Which error does an XOR checksum fail to detect?",
+    "choices": [
+      "Two errors in the same bit position of different bytes",
+      "Any single flipped bit anywhere in the body of the frame",
+      "A changed digit in the body, such as 170 turned into 171",
+      "A frame whose * marker and checksum digits are missing"
+    ],
+    "why": "The two flips cancel in the XOR. A CRC catches those; MAVLink uses one. A single flip is always caught.",
+    "source": "Study guide · Lesson 8 traps"
+  },
+  {
+    "id": "ch8-057",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "NMEA checksum",
+    "kind": "concept",
+    "q": "What does the board do with a frame that fails its checksum?",
+    "choices": [
+      "Throws it away, counts it, and replies NAK,CHECKSUM",
+      "Uses the fields that still parse",
+      "Asks host.py to retransmit the bad byte",
+      "Silently ignores it without counting"
+    ],
+    "why": "A frame that fails is thrown away and counted, never half-used.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-058",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "NMEA checksum",
+    "kind": "concept",
+    "q": "The board receives $LED,85 with no * and no checksum. What reply?",
+    "choices": [
+      "NAK,NOSTAR",
+      "NAK,CHECKSUM",
+      "ACK,LED,85",
+      "unknown command"
+    ],
+    "why": "No star means no checksum at all: NAK,NOSTAR. A wrong checksum is NAK,CHECKSUM.",
+    "source": "Lesson 08 slides"
+  },
+  {
+    "id": "ch8-059",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "host.py",
+    "kind": "concept",
+    "q": "What does host.py --selftest check?",
+    "choices": [
+      "Its checksum against a real GPS sentence",
+      "That the board answers on COM5",
+      "The board's BRR read back",
+      "That the Wokwi port is forwarded"
+    ],
+    "why": "Checking against a real GPS sentence proves it is the NMEA checksum, not merely one that agrees with itself.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-060",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "host.py",
+    "kind": "concept",
+    "q": "How does host.py --file count lost frames in a saved log?",
+    "choices": [
+      "By sequence-number gaps",
+      "By counting NAK replies",
+      "By timestamps over 1 s apart",
+      "By lines longer than 63 characters"
+    ],
+    "why": "Each telemetry frame carries a sequence number; a gap means a lost frame.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-061",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "host.py",
+    "kind": "concept",
+    "q": "Which --port reaches the Wokwi VS Code extension?",
+    "choices": [
+      "rfc2217://localhost:4000",
+      "COM5",
+      "tcp://localhost:115200",
+      "wokwi://serial0"
+    ],
+    "why": "The extension forwards the serial port as an RFC 2217 server on port 4000; COM5 is a real board.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-062",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "host.py",
+    "kind": "concept",
+    "q": "Why does the lesson choose a printable protocol?",
+    "choices": [
+      "It survives copy-and-paste from the browser's serial monitor",
+      "It is shorter on the wire than any binary protocol would be",
+      "It needs no checksum, since a person can read every frame",
+      "pyserial cannot read binary data from an RFC 2217 port at all"
+    ],
+    "why": "Browser Wokwi keeps its serial port inside the browser, so one route is copying the monitor text into a file.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-063",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Key decoding",
+    "kind": "number",
+    "q": "What bytes does the Up arrow key send on a raw terminal?",
+    "choices": [
+      "ESC [ A",
+      "ESC [ B",
+      "ESC O P",
+      "ESC [ 3 ~"
+    ],
+    "why": "Up is ESC [ A, Down ESC [ B, Right ESC [ C, Left ESC [ D. ESC O P is F1 and ESC [ 3 ~ is Delete.",
+    "source": "Lesson 08 slides"
+  },
+  {
+    "id": "ch8-064",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Key decoding",
+    "kind": "number",
+    "q": "What is the byte value of ESC?",
+    "choices": [
+      "0x1B",
+      "0x7F",
+      "0x5B",
+      "0x0D"
+    ],
+    "why": "ESC is 0x1B. 0x5B is '[', 0x7F is DEL, 0x0D is carriage return.",
+    "source": "Lesson 08 slides"
+  },
+  {
+    "id": "ch8-065",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Key decoding",
+    "kind": "concept",
+    "q": "What ends a CSI escape sequence such as ESC [ 3 ~?",
+    "choices": [
+      "A final byte in 0x40–0x7E",
+      "A byte in 0x20–0x3F",
+      "A second ESC",
+      "A carriage return"
+    ],
+    "why": "Parameters are 0x20–0x3F; the final byte 0x40–0x7E ends it, playing the part of the * in a frame.",
+    "source": "Lesson 08 slides"
+  },
+  {
+    "id": "ch8-066",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Key decoding",
+    "kind": "trap",
+    "q": "Esc alone and the start of an arrow key are the same byte, 0x1B. How does keys.c tell them apart?",
+    "choices": [
+      "Time: 50 ms of silence after ESC means a lone Esc",
+      "The ESC that starts an arrow key has its high bit set",
+      "A lone Esc is always followed by a carriage return byte",
+      "It cannot tell them apart, so the Esc key is ignored"
+    ],
+    "why": "Only time distinguishes them: if no more bytes arrive within 50 ms, it was the Esc key.",
+    "source": "Lesson 08 slides"
+  },
+  {
+    "id": "ch8-067",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Key decoding",
+    "kind": "trap",
+    "q": "Why does the board never echo a line starting with $?",
+    "choices": [
+      "host.py would read the echo as a frame from the board",
+      "The checksum would change when echoed",
+      "Echoing doubles the line past 63 characters",
+      "The terminal already draws $ lines"
+    ],
+    "why": "An echoed $RATE,100*.. would look like a frame the board sent.",
+    "source": "Lesson 08 slides"
+  },
+  {
+    "id": "ch8-068",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Key decoding",
+    "kind": "concept",
+    "q": "Why does telemetry pause while a line is half typed?",
+    "choices": [
+      "Otherwise a frame is glued onto the half-typed text",
+      "The ISR cannot transmit while it is in the middle of receiving",
+      "The print mutex is held by the shell until Enter is pressed",
+      "To leave more CPU time for the escape-sequence key decoder"
+    ],
+    "why": "The board would send sta$TEL,..., a line that does not start with $, so host.py would skip it.",
+    "source": "Lesson 08 slides"
+  },
+  {
+    "id": "ch8-069",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "UART silent failures",
+    "kind": "trap",
+    "q": "USART2 is set up correctly but PA2/PA3 are left without AF1. What do you see?",
+    "choices": [
+      "The UART works internally; the pins carry nothing",
+      "Garbage characters on the terminal",
+      "Reception stops after the first byte",
+      "An interrupt storm"
+    ],
+    "why": "Like a wrong timer AF: the peripheral runs, the pins are not connected to it.",
+    "source": "Study guide · Lesson 8 traps"
+  },
+  {
+    "id": "ch8-070",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "UART silent failures",
+    "kind": "trap",
+    "q": "Forgetting USART2EN gives which symptom?",
+    "choices": [
+      "Nothing sent or received",
+      "Garbage characters",
+      "Interleaved lines",
+      "Reception stops after an overrun"
+    ],
+    "why": "With no clock the peripheral does nothing at all.",
+    "source": "Study guide · Lesson 8 traps"
+  },
+  {
+    "id": "ch8-071",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Clearing conventions",
+    "kind": "concept",
+    "q": "Match the five flags to how they clear.",
+    "choices": [
+      "EXTI: write 1. UIF: write 0. CC1IF: read CCR1. RXNE/TXE: read RDR/write TDR. ORE: write 1 to ICR",
+      "EXTI: write 0. UIF: write 1. CC1IF: read CCR1. RXNE/TXE: write 1 to ICR. ORE: read RDR then ISR",
+      "All five are cleared by writing 1 to the flag's own bit in its status register",
+      "EXTI: write 1. UIF: write 1. CC1IF: write 0. RXNE/TXE: read ISR. ORE: write 0 to ISR"
+    ],
+    "why": "Five conventions on one chip, no rule to memorise: for every flag, look up how it clears.",
+    "source": "Study guide · Lesson 8 notes"
+  },
+  {
+    "id": "ch8-072",
+    "chapter": "Lesson 08 · UART and a Python Host",
+    "topic": "Clearing conventions",
+    "kind": "trap",
+    "q": "Which flag is cleared by writing to a different register from the one that holds it?",
+    "choices": [
+      "USART ORE (via ICR)",
+      "TIM UIF",
+      "EXTI FPR1",
+      "TIM CC1IF"
+    ],
+    "why": "ORE lives in ISR but is cleared by ORECF in ICR. UIF and EXTI are cleared in their own registers; CC1IF by reading CCR1.",
+    "source": "Study guide · Lesson 8 traps"
+  }
+]

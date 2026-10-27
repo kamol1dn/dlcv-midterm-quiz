@@ -1,0 +1,2327 @@
+[
+ {
+  "id": "ch6-001",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Unsupervised learning",
+  "kind": "concept",
+  "q": "What makes K-Means an unsupervised learning algorithm?",
+  "choices": [
+   "It groups data points without using any target labels",
+   "It needs a labelled training set to fit the centroids",
+   "It predicts a continuous target value for every point",
+   "It learns a decision boundary from labelled examples"
+  ],
+  "why": "K-Means only looks at the features and groups similar points; there is no y. The deck calls it a popular unsupervised machine learning algorithm.",
+  "source": "6.1 slide 4"
+ },
+ {
+  "id": "ch6-002",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Unsupervised learning",
+  "kind": "concept",
+  "q": "Which pair does the deck name as the two popular clustering techniques in unsupervised learning?",
+  "choices": [
+   "Hierarchical clustering and k-means clustering",
+   "Logistic regression and k-means clustering",
+   "Decision trees and hierarchical clustering",
+   "KNN and support vector machines"
+  ],
+  "why": "Slide 3: hierarchical clustering and k-means are two popular unsupervised techniques for grouping data into distinct groups.",
+  "source": "6.1 slide 3"
+ },
+ {
+  "id": "ch6-003",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Clustering",
+  "kind": "concept",
+  "q": "How does the deck define cluster analysis?",
+  "choices": [
+   "A technique that groups similar objects into clusters",
+   "A technique that predicts a label for each new object",
+   "A technique that removes redundant features from data",
+   "A technique that ranks objects by their importance"
+  ],
+  "why": "Slide 3: cluster analysis is a data mining / ML technique that groups similar objects into clusters.",
+  "source": "6.1 slide 3"
+ },
+ {
+  "id": "ch6-004",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Clustering",
+  "kind": "concept",
+  "q": "What is the key difference between k-means and hierarchical clustering?",
+  "choices": [
+   "K-means uses a predefined number of clusters; hierarchical builds a tree",
+   "K-means builds a tree of clusters; hierarchical uses a fixed K",
+   "K-means needs labels; hierarchical clustering does not",
+   "K-means works only in 2-D; hierarchical works in any dimension"
+  ],
+  "why": "Slide 3: k-means divides data into a predefined number of clusters, while hierarchical clustering creates a tree-like structure of the relationships between clusters.",
+  "source": "6.1 slide 3"
+ },
+ {
+  "id": "ch6-005",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Clustering",
+  "kind": "concept",
+  "q": "According to the deck, what is the goal of K-Means clustering?",
+  "choices": [
+   "Group similar points and discover underlying patterns in the data",
+   "Predict the class of new points from labelled examples",
+   "Reduce the number of features while keeping the variance",
+   "Find the single best line through the data points"
+  ],
+  "why": "Slide 4: the goal is to group similar data points together and discover underlying patterns or structures within the data.",
+  "source": "6.1 slide 4"
+ },
+ {
+  "id": "ch6-006",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Clustering",
+  "kind": "concept",
+  "q": "The 'first property of clusters' says points within a cluster should be...",
+  "choices": [
+   "Similar to each other, so within-cluster distance is minimised",
+   "Far apart from each other, so the cluster covers more space",
+   "Equal in number to the points in every other cluster",
+   "Labelled with the same class before clustering starts"
+  ],
+  "why": "Slide 4: points within a cluster should be similar, so the aim is to minimise the distance between points within a cluster.",
+  "source": "6.1 slide 4"
+ },
+ {
+  "id": "ch6-007",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Clustering",
+  "kind": "concept",
+  "q": "K-Means is described as which kind of algorithm?",
+  "choices": [
+   "Centroid-based (distance-based)",
+   "Density-based (neighbour-count-based)",
+   "Tree-based (split-based)",
+   "Probability-based (likelihood-based)"
+  ],
+  "why": "Slide 4: K-means is a centroid-based or distance-based algorithm; each cluster is associated with a centroid and points are assigned by distance.",
+  "source": "6.1 slide 4"
+ },
+ {
+  "id": "ch6-008",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Clustering",
+  "kind": "concept",
+  "q": "The main objective of k-means is to partition data into k groups so that points are...",
+  "choices": [
+   "Similar within each group and dissimilar to other groups",
+   "Dissimilar within each group and similar to other groups",
+   "Evenly spread so every group has the same size",
+   "Ordered by distance from the origin of the feature space"
+  ],
+  "why": "Slide 10: data points within each group are similar and dissimilar to points in other groups.",
+  "source": "6.1 slide 10"
+ },
+ {
+  "id": "ch6-009",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "concept",
+  "q": "What is step 1 (initialization) of K-Means as given in the deck?",
+  "choices": [
+   "Randomly select K points from the dataset as initial centroids",
+   "Compute the mean of all data points as the single centroid",
+   "Pick the K points farthest from each other as centroids",
+   "Assign every point to a random cluster and stop"
+  ],
+  "why": "Slide 7: start by randomly selecting K points from the dataset; they act as the initial cluster centroids.",
+  "source": "6.1 slide 7"
+ },
+ {
+  "id": "ch6-010",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "concept",
+  "q": "In the assignment step, each data point is assigned to...",
+  "choices": [
+   "The cluster whose centroid is closest to it",
+   "The cluster with the fewest points so far",
+   "The cluster whose centroid is farthest from it",
+   "A random cluster, re-drawn every iteration"
+  ],
+  "why": "Slide 7: compute the distance from the point to each of the K centroids and assign it to the closest one.",
+  "source": "6.1 slide 7"
+ },
+ {
+  "id": "ch6-011",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "concept",
+  "q": "In the update step, each centroid is moved to...",
+  "choices": [
+   "The mean of all points assigned to its cluster",
+   "The median point of the whole dataset",
+   "The point in its cluster farthest from it",
+   "A new random point from the dataset"
+  ],
+  "why": "Slide 8: recalculate the centroids by taking the mean of all data points assigned to each cluster, μk = (1/|Ck|) Σ xi.",
+  "source": "6.1 slide 8"
+ },
+ {
+  "id": "ch6-012",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "concept",
+  "q": "Which steps of K-Means are repeated until convergence?",
+  "choices": [
+   "Assignment and centroid update (steps 2 and 3)",
+   "Initialization and assignment (steps 1 and 2)",
+   "Initialization and final result (steps 1 and 5)",
+   "Only the initialization step (step 1)"
+  ],
+  "why": "Slide 9: repeat steps 2 and 3 until convergence.",
+  "source": "6.1 slide 9"
+ },
+ {
+  "id": "ch6-013",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "concept",
+  "q": "When does K-Means stop (converge), according to the deck?",
+  "choices": [
+   "Centroids no longer change significantly, or a max iteration count is hit",
+   "Every cluster contains exactly the same number of points",
+   "The inertia reaches exactly zero for all clusters",
+   "All points have been chosen once as a centroid"
+  ],
+  "why": "Slide 9: convergence occurs when the centroids no longer change significantly or when a specified number of iterations is reached.",
+  "source": "6.1 slide 9"
+ },
+ {
+  "id": "ch6-014",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "concept",
+  "q": "What does K-Means output at the end (step 5)?",
+  "choices": [
+   "The final centroids and the cluster assignment of every point",
+   "A tree showing how clusters merge at each level",
+   "A probability for every point belonging to every class",
+   "The eigenvectors of the data's covariance matrix"
+  ],
+  "why": "Slide 9: the algorithm outputs the final cluster centroids and the assignment of each data point to a cluster.",
+  "source": "6.1 slide 9"
+ },
+ {
+  "id": "ch6-015",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "concept",
+  "q": "Put the K-Means steps in the right order.",
+  "choices": [
+   "Initialize → assign → update → repeat → output",
+   "Assign → initialize → update → output → repeat",
+   "Initialize → update → assign → output → repeat",
+   "Update → assign → initialize → repeat → output"
+  ],
+  "why": "Slides 7–9: initialization, assignment, update centroids, repeat 2–3 until convergence, final result.",
+  "source": "6.1 slides 7–9"
+ },
+ {
+  "id": "ch6-016",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "concept",
+  "q": "In the formula μk = (1/|Ck|) Σ_{xi∈Ck} xi, what is |Ck|?",
+  "choices": [
+   "The number of points assigned to cluster k",
+   "The total number of clusters K",
+   "The distance from xi to centroid k",
+   "The total number of points in the dataset"
+  ],
+  "why": "Ck is the set of points assigned to cluster k, so |Ck| is how many there are; dividing the sum by it gives the mean.",
+  "source": "6.1 slide 8"
+ },
+ {
+  "id": "ch6-017",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "calc",
+  "q": "Centroids are μ1 = (1, 1) and μ2 = (6, 5). Using squared Euclidean distance, where does the point (4, 4) go?",
+  "choices": [
+   "μ2, since d² = 5 vs 18",
+   "μ1, since d² = 18 vs 5",
+   "μ1, since d² = 9 vs 13",
+   "μ2, since d² = 13 vs 9"
+  ],
+  "why": "To μ1: 3² + 3² = 18. To μ2: 2² + 1² = 5. Assign to the nearest centroid, μ2.",
+  "source": "6.1 slide 7 (practice numbers)"
+ },
+ {
+  "id": "ch6-018",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "calc",
+  "q": "Centroids are μ1 = (0, 0) and μ2 = (10, 0). Which cluster does the point (4, 3) join?",
+  "choices": [
+   "μ1, since d² = 25 vs 45",
+   "μ2, since d² = 45 vs 25",
+   "μ1, since d² = 7 vs 9",
+   "Neither: it is exactly halfway"
+  ],
+  "why": "To μ1: 16 + 9 = 25. To μ2: 36 + 9 = 45. The nearer centroid is μ1.",
+  "source": "6.1 slide 7 (practice numbers)"
+ },
+ {
+  "id": "ch6-019",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "calc",
+  "q": "A cluster contains (1, 2), (3, 4) and (5, 9). What is its new centroid after the update step?",
+  "choices": [
+   "(3, 5)",
+   "(3, 4)",
+   "(4.5, 7.5)",
+   "(9, 15)"
+  ],
+  "why": "Mean of x: (1 + 3 + 5)/3 = 3. Mean of y: (2 + 4 + 9)/3 = 5.",
+  "source": "6.1 slide 8 (practice numbers)"
+ },
+ {
+  "id": "ch6-020",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "calc",
+  "q": "A cluster contains (2, 0), (4, 2), (6, 4) and (8, 2). What is its updated centroid?",
+  "choices": [
+   "(5, 2)",
+   "(4, 2)",
+   "(5, 4)",
+   "(20, 8)"
+  ],
+  "why": "x: (2 + 4 + 6 + 8)/4 = 5. y: (0 + 2 + 4 + 2)/4 = 2.",
+  "source": "6.1 slide 8 (practice numbers)"
+ },
+ {
+  "id": "ch6-021",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "calc",
+  "q": "1-D data: 1, 2, 9, 10. Initial centroids are 1 and 2. After one assignment step, what are the clusters?",
+  "choices": [
+   "{1} and {2, 9, 10}",
+   "{1, 2} and {9, 10}",
+   "{1, 9} and {2, 10}",
+   "{1, 2, 9} and {10}"
+  ],
+  "why": "1 is nearest 1. The points 2, 9 and 10 are all nearer 2 than 1. Only the update step then moves the second centroid to 7.",
+  "source": "6.1 slides 7–8 (practice numbers)"
+ },
+ {
+  "id": "ch6-022",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "calc",
+  "q": "Continuing: clusters {1} and {2, 9, 10}. What are the centroids after the update step?",
+  "choices": [
+   "1 and 7",
+   "1.5 and 9.5",
+   "1 and 9",
+   "1 and 21"
+  ],
+  "why": "Mean of {1} = 1. Mean of {2, 9, 10} = 21/3 = 7.",
+  "source": "6.1 slide 8 (practice numbers)"
+ },
+ {
+  "id": "ch6-023",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means algorithm",
+  "kind": "calc",
+  "q": "Continuing: centroids 1 and 7, data 1, 2, 9, 10. After re-assigning and updating once more, what are the centroids?",
+  "choices": [
+   "1.5 and 9.5",
+   "1 and 7",
+   "2 and 9",
+   "1.5 and 7"
+  ],
+  "why": "2 is now nearer 1 (distance 1) than 7 (distance 5), so clusters become {1, 2} and {9, 10}, giving means 1.5 and 9.5. Another pass changes nothing, so it has converged.",
+  "source": "6.1 slides 7–9 (practice numbers)"
+ },
+ {
+  "id": "ch6-024",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Objective (inertia)",
+  "kind": "concept",
+  "q": "What does K-Means minimise?",
+  "choices": [
+   "The sum of squared distances from points to their cluster centroids",
+   "The number of points that change cluster each iteration",
+   "The sum of distances between all pairs of centroids",
+   "The variance of the cluster sizes"
+  ],
+  "why": "Slides 3 and 5: minimise the sum of squared distances between the objects and their cluster centres, J = Σk Σ_{xi∈Ck} ‖xi − μk‖².",
+  "source": "6.1 slides 3, 5, 7"
+ },
+ {
+  "id": "ch6-025",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Objective (inertia)",
+  "kind": "concept",
+  "q": "On the elbow-curve slides, what is the K-Means objective (sum of squared distances to the centroid) called?",
+  "choices": [
+   "Inertia",
+   "Entropy",
+   "Accuracy",
+   "Eigenvalue"
+  ],
+  "why": "Slides 29–30 label the y-axis 'Inertia'; it is the within-cluster sum of squared distances.",
+  "source": "6.1 slides 29–30"
+ },
+ {
+  "id": "ch6-026",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Objective (inertia)",
+  "kind": "calc",
+  "q": "Cluster 1 = {(0,0), (2,0)} with centroid (1,0); cluster 2 = {(5,5), (5,7), (5,9)} with centroid (5,7). What is the total inertia J?",
+  "choices": [
+   "10",
+   "8",
+   "6",
+   "14"
+  ],
+  "why": "Cluster 1: 1 + 1 = 2. Cluster 2: 4 + 0 + 4 = 8. J = 2 + 8 = 10.",
+  "source": "6.1 slide 7 (practice numbers)"
+ },
+ {
+  "id": "ch6-027",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Objective (inertia)",
+  "kind": "calc",
+  "q": "1-D cluster {2, 4, 6} with centroid 4. What does it contribute to J?",
+  "choices": [
+   "8",
+   "4",
+   "0",
+   "12"
+  ],
+  "why": "(2 − 4)² + (4 − 4)² + (6 − 4)² = 4 + 0 + 4 = 8.",
+  "source": "6.1 slide 7 (practice numbers)"
+ },
+ {
+  "id": "ch6-028",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Objective (inertia)",
+  "kind": "trap",
+  "q": "Slides 5 and 10 say K-Means minimises 'the sum of distances'. What is the precise objective?",
+  "choices": [
+   "The sum of squared distances, since the mean minimises squared error",
+   "The sum of plain distances, exactly as slides 5 and 10 say",
+   "The largest distance from any point to its centroid",
+   "The sum of distances between different centroids"
+  ],
+  "why": "Slide 3, slide 5 (second bullet) and the J formula on slide 7 all use squared distances. With plain distances the mean would not be the optimal centre.",
+  "source": "6.1 slides 3, 5, 7"
+ },
+ {
+  "id": "ch6-029",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Convergence & local minima",
+  "kind": "trap",
+  "q": "Does K-Means always find the global minimum of J?",
+  "choices": [
+   "No: it converges, but possibly to a local minimum that depends on the start",
+   "Yes: assignment and update together guarantee the global minimum",
+   "Yes, but only when K is chosen with the elbow method",
+   "No: it never converges unless a max iteration count is set"
+  ],
+  "why": "Each step can only lower J, so it converges, but only to a local minimum. The notebook's seed 42 gets stuck at cost ≈ 8980 while seed 11 reaches ≈ 611.6.",
+  "source": "K-Means.ipynb"
+ },
+ {
+  "id": "ch6-030",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Convergence & local minima",
+  "kind": "concept",
+  "q": "Why can running K-Means twice on the same data give different clusters?",
+  "choices": [
+   "The initial centroids are chosen randomly",
+   "The assignment step uses random distances",
+   "The update step uses a random subset of points",
+   "The number of clusters changes between runs"
+  ],
+  "why": "Slide 19: because centroids are initialised randomly, we might get different clusters every time.",
+  "source": "6.1 slide 19"
+ },
+ {
+  "id": "ch6-031",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Convergence & local minima",
+  "kind": "concept",
+  "q": "In K-Means.ipynb, random start with seed 42 stalls at cost ≈ 8980, while K-Means++ reaches about what cost?",
+  "choices": [
+   "≈ 611.6, the same as the good random start",
+   "≈ 8980, the same poor local minimum",
+   "≈ 34104, the cost after iteration 1",
+   "Exactly 0, since K-Means++ is optimal"
+  ],
+  "why": "The notebook's K-Means++ run converges at cost 611.6156, matching the good seed-11 random start, instead of the poor ≈ 8980 minimum.",
+  "source": "K-Means.ipynb"
+ },
+ {
+  "id": "ch6-032",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Convergence & local minima",
+  "kind": "calc",
+  "q": "Starting from centroids A(1,2) and E(9,8) on the 5-point data, the initial cost is 40. After one K-Means iteration it becomes 22.33. Why must it not go up?",
+  "choices": [
+   "Assignment and update each can only lower (or keep) J",
+   "K-Means++ chose the centroids, so J is fixed",
+   "The cost always halves after each iteration",
+   "The elbow method forces J to decrease"
+  ],
+  "why": "Re-assigning to the nearest centroid and moving a centroid to the mean each lower or keep J, so J is non-increasing and the algorithm converges.",
+  "source": "6.1 summary (K = 2 practice)"
+ },
+ {
+  "id": "ch6-033",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing K",
+  "kind": "concept",
+  "q": "What happens if K is chosen too small?",
+  "choices": [
+   "Under-clustering: distinct groups get merged",
+   "Over-clustering: real groups get split up",
+   "The algorithm fails to converge at all",
+   "Every point becomes its own cluster"
+  ],
+  "why": "Slide 12: a small value can result in under-clustered data, and a large value can cause over-clustering.",
+  "source": "6.1 slide 12"
+ },
+ {
+  "id": "ch6-034",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing K",
+  "kind": "concept",
+  "q": "What happens if K is chosen too large?",
+  "choices": [
+   "Over-clustering: natural groups are split into pieces",
+   "Under-clustering: separate groups are merged together",
+   "Inertia goes up as K increases",
+   "The centroids can no longer be computed"
+  ],
+  "why": "Slide 12: a large K can cause over-clustering.",
+  "source": "6.1 slide 12"
+ },
+ {
+  "id": "ch6-035",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing K",
+  "kind": "concept",
+  "q": "According to slide 12, finding the optimal K is especially hard for which kind of data?",
+  "choices": [
+   "Noisy data",
+   "Labelled data",
+   "Low-dimensional data",
+   "Standardised data"
+  ],
+  "why": "Slide 12: finding the optimal k value can be very challenging, especially for noisy data.",
+  "source": "6.1 slide 12"
+ },
+ {
+  "id": "ch6-036",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing K",
+  "kind": "concept",
+  "q": "In the elbow method, what is on each axis?",
+  "choices": [
+   "x: number of clusters K; y: inertia (sum of squared distances)",
+   "x: inertia; y: number of clusters K",
+   "x: iteration number; y: number of points that moved",
+   "x: number of features; y: explained variance"
+  ],
+  "why": "Slides 17, 28–29: the x-axis is the number of clusters and the y-axis is the evaluation metric, inertia.",
+  "source": "6.1 slides 17, 28–29"
+ },
+ {
+  "id": "ch6-037",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing K",
+  "kind": "concept",
+  "q": "Where do you pick K on an elbow curve?",
+  "choices": [
+   "Where the drop in inertia starts to level off",
+   "At the K with the lowest inertia",
+   "At the K with the highest inertia",
+   "Where the curve first crosses zero"
+  ],
+  "why": "Slide 17: choose the number of clusters where the change in the sum of squared distances begins to level off.",
+  "source": "6.1 slide 17"
+ },
+ {
+  "id": "ch6-038",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing K",
+  "kind": "trap",
+  "q": "Why not simply pick the K with the lowest inertia?",
+  "choices": [
+   "Inertia always falls as K grows; K = n gives 0",
+   "The lowest inertia always occurs at K = 2",
+   "Inertia is random, so its minimum means nothing",
+   "Lower inertia means worse clusters"
+  ],
+  "why": "Each extra cluster can only lower inertia; with one cluster per point it is 0. So the minimum is useless; look for the elbow.",
+  "source": "6.1 slides 28–30"
+ },
+ {
+  "id": "ch6-039",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing K",
+  "kind": "calc",
+  "q": "Inertia for K = 1…6 is 100, 40, 15, 12, 10, 9. Which K does the elbow method suggest?",
+  "choices": [
+   "3",
+   "6",
+   "1",
+   "2"
+  ],
+  "why": "Big drops up to K = 3 (100 → 40 → 15), then only small gains (15 → 12 → 10 → 9). The bend is at K = 3.",
+  "source": "6.1 slide 17 (practice numbers)"
+ },
+ {
+  "id": "ch6-040",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing K",
+  "kind": "concept",
+  "q": "Roughly where does slide 30 circle the elbow?",
+  "choices": [
+   "Around K = 6 to 10",
+   "Around K = 2 to 4",
+   "Around K = 12 to 14",
+   "Exactly at K = 1"
+  ],
+  "why": "Slide 30 circles the points at about K = 6, 8 and 10.",
+  "source": "6.1 slide 30"
+ },
+ {
+  "id": "ch6-041",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing K",
+  "kind": "concept",
+  "q": "In K-Means.ipynb's 5-blob elbow example, which K is chosen?",
+  "choices": [
+   "5",
+   "3",
+   "9",
+   "2"
+  ],
+  "why": "The notebook sets best_K = 5 from the elbow plot (cost ≈ 1584.62).",
+  "source": "K-Means.ipynb"
+ },
+ {
+  "id": "ch6-042",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing K",
+  "kind": "trap",
+  "q": "Slide 17 says the optimal number of clusters 'heavily relies on' what?",
+  "choices": [
+   "Subjective interpretation and the underlying structure of the data",
+   "A closed-form formula from the number of features",
+   "The number of iterations K-Means needs",
+   "The first centroid picked by K-Means++"
+  ],
+  "why": "Slide 17: the optimal number heavily relies on subjective interpretations and the data's underlying structure; the elbow is a common aid, not a formula.",
+  "source": "6.1 slide 17"
+ },
+ {
+  "id": "ch6-043",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++",
+  "kind": "concept",
+  "q": "What problem is K-Means++ designed to solve?",
+  "choices": [
+   "Random initialisation giving different (often poor) clusters",
+   "Choosing the number of clusters K automatically",
+   "Handling clusters of non-spherical shape",
+   "Reducing the number of features before clustering"
+  ],
+  "why": "Slide 19: random initialisation may give different clusters every time; K-Means++ is used to choose the initial centroids.",
+  "source": "6.1 slide 19"
+ },
+ {
+  "id": "ch6-044",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++",
+  "kind": "concept",
+  "q": "How is the FIRST centroid chosen in K-Means++?",
+  "choices": [
+   "Uniformly at random from the data points",
+   "As the mean of all data points",
+   "As the point farthest from the origin",
+   "With probability proportional to D(x)²"
+  ],
+  "why": "Slide 21 step 1: the first cluster centre is chosen uniformly at random from the data points.",
+  "source": "6.1 slide 21"
+ },
+ {
+  "id": "ch6-045",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++",
+  "kind": "concept",
+  "q": "In K-Means++, what is D(x)?",
+  "choices": [
+   "The distance from x to the nearest centroid already chosen",
+   "The distance from x to the first centroid only",
+   "The distance from x to the dataset's mean",
+   "The distance from x to the farthest point"
+  ],
+  "why": "Slide 21 says 'the cluster center that has already been chosen'; with several centres it is the nearest one, as the min column on slide 23 shows.",
+  "source": "6.1 slides 21, 23"
+ },
+ {
+  "id": "ch6-046",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++",
+  "kind": "concept",
+  "q": "With what probability is point x chosen as the next centroid in K-Means++?",
+  "choices": [
+   "Proportional to D(x)²: P(x) = D(x)² / Σ D(xj)²",
+   "Proportional to D(x): P(x) = D(x) / Σ D(xj)",
+   "Uniform: P(x) = 1/n for every point",
+   "Proportional to 1/D(x)², favouring near points"
+  ],
+  "why": "Slide 21 step 3 and the formula on slides 22–23: probability proportional to (D(x))².",
+  "source": "6.1 slides 21–22"
+ },
+ {
+  "id": "ch6-047",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++",
+  "kind": "concept",
+  "q": "When does K-Means++ initialisation stop?",
+  "choices": [
+   "When k centroids have been chosen",
+   "When the inertia stops decreasing",
+   "When every point has been a centroid once",
+   "After exactly two centroids are picked"
+  ],
+  "why": "Slide 21 step 4: repeat steps 2 and 3 until k clusters have been chosen.",
+  "source": "6.1 slide 21"
+ },
+ {
+  "id": "ch6-048",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++",
+  "kind": "concept",
+  "q": "What happens after K-Means++ has chosen the k centroids?",
+  "choices": [
+   "Standard K-Means (assign/update) runs from those centroids",
+   "The algorithm stops; those are the final clusters",
+   "PCA is applied to the centroids",
+   "The elbow method picks which centroids to keep"
+  ],
+  "why": "Slide 26: we continue with the K-Means algorithm after initialising the centroids.",
+  "source": "6.1 slide 26"
+ },
+ {
+  "id": "ch6-049",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++",
+  "kind": "concept",
+  "q": "What trade-off does slide 26 give for K-Means++?",
+  "choices": [
+   "Costlier to initialise, but K-Means often converges faster",
+   "Cheaper to initialise, but K-Means converges slower",
+   "Same cost, but always finds the global minimum",
+   "Costlier overall and gives worse clusters"
+  ],
+  "why": "Slide 26: computationally costly relative to random initialisation, but subsequent K-Means often converges more rapidly, and it tends to improve the clusters.",
+  "source": "6.1 slide 26"
+ },
+ {
+  "id": "ch6-050",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means vs K-Means++",
+  "kind": "concept",
+  "q": "What is the core difference between k-means and k-means++?",
+  "choices": [
+   "Only initialisation: k-means++ spreads the starting centroids using D² sampling",
+   "K-means++ uses medians instead of means in the update step",
+   "K-means++ chooses K automatically; k-means needs K given",
+   "K-means++ uses Manhattan distance instead of Euclidean"
+  ],
+  "why": "K-means picks all K starting centroids at random. K-means++ picks one at random, then each next with probability ∝ D(x)². After that both run the same assign/update loop.",
+  "source": "6.1 slides 19, 21, 26"
+ },
+ {
+  "id": "ch6-051",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means vs K-Means++",
+  "kind": "trap",
+  "q": "Which statement about k-means++ is FALSE?",
+  "choices": [
+   "It removes the need to choose K",
+   "Its first centroid is still picked at random",
+   "It is more expensive to initialise than random",
+   "It then runs the normal k-means loop"
+  ],
+  "why": "K-Means++ only changes how the starting centroids are chosen; K must still be chosen (e.g. with the elbow method).",
+  "source": "6.1 slides 21, 26"
+ },
+ {
+  "id": "ch6-052",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means vs K-Means++",
+  "kind": "concept",
+  "q": "In plain k-means, how many centroids are picked at random during initialisation?",
+  "choices": [
+   "All K of them",
+   "Only the first one",
+   "None: they are computed from the mean",
+   "K − 1 of them"
+  ],
+  "why": "Slide 21: K-Means randomly picks all the centroids, whereas K-Means++ picks just one at random.",
+  "source": "6.1 slides 7, 21"
+ },
+ {
+  "id": "ch6-053",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++",
+  "kind": "trap",
+  "q": "Slides 24–25 draw the next K-Means++ centroid as the farthest point. Is the farthest point always chosen?",
+  "choices": [
+   "No: it is the most likely pick, since selection is random ∝ D²",
+   "Yes: K-Means++ always takes the farthest point",
+   "No: the nearest point is always chosen instead",
+   "Yes, but only for the second centroid"
+  ],
+  "why": "K-Means++ samples with probability ∝ D(x)². The farthest point has the highest chance but is not guaranteed.",
+  "source": "6.1 slides 21, 24–25"
+ },
+ {
+  "id": "ch6-054",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++",
+  "kind": "trap",
+  "q": "Can a point already chosen as a centroid be chosen again by K-Means++?",
+  "choices": [
+   "No: its D(x) = 0, so its probability is 0",
+   "Yes: every point keeps probability 1/n",
+   "Yes: chosen points get double probability",
+   "Only if it is the farthest point"
+  ],
+  "why": "A chosen centroid is at distance 0 from itself, so D² = 0 and P = 0 (A on slide 22; A and E on slide 23).",
+  "source": "6.1 slides 22–23"
+ },
+ {
+  "id": "ch6-055",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++",
+  "kind": "calc",
+  "q": "1-D points 0, 1, 3. The first centroid is 0. What is the probability that 3 is chosen next?",
+  "choices": [
+   "0.9",
+   "0.75",
+   "0.5",
+   "0.1"
+  ],
+  "why": "D² values: 0, 1, 9; sum = 10. P(3) = 9/10 = 0.9.",
+  "source": "6.1 slide 22 (practice numbers)"
+ },
+ {
+  "id": "ch6-056",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++",
+  "kind": "calc",
+  "q": "Three non-centroid points have D(x)² = 1, 4 and 5. What is the probability of the point with D² = 5?",
+  "choices": [
+   "0.5",
+   "0.33",
+   "0.2",
+   "0.05"
+  ],
+  "why": "Sum of D² = 10, so P = 5/10 = 0.5.",
+  "source": "6.1 slide 22 (practice numbers)"
+ },
+ {
+  "id": "ch6-057",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++",
+  "kind": "calc",
+  "q": "Points have plain distances D = 1, 2 and 3 to the nearest chosen centroid. What is the probability of the point with D = 3?",
+  "choices": [
+   "9/14 ≈ 0.64",
+   "3/6 = 0.5",
+   "1/3 ≈ 0.33",
+   "3/14 ≈ 0.21"
+  ],
+  "why": "Square first: D² = 1, 4, 9, sum 14. P = 9/14 ≈ 0.64. Using plain D (3/6) is the classic mistake.",
+  "source": "6.1 slide 21 (practice numbers)"
+ },
+ {
+  "id": "ch6-058",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "Points A(1,2), B(2,1), C(5,4), D(6,5), E(9,8); first centroid A. What is D² for C?",
+  "choices": [
+   "20",
+   "25",
+   "32",
+   "13"
+  ],
+  "why": "(5 − 1)² + (4 − 2)² = 16 + 4 = 20.",
+  "source": "6.1 slide 22"
+ },
+ {
+  "id": "ch6-059",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "Same 5 points, first centroid A(1,2). What is D² for E(9,8)?",
+  "choices": [
+   "100",
+   "98",
+   "14",
+   "64"
+  ],
+  "why": "(9 − 1)² + (8 − 2)² = 64 + 36 = 100.",
+  "source": "6.1 slide 22"
+ },
+ {
+  "id": "ch6-060",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "Same 5 points, first centroid A(1,2). D² values are 0, 2, 20, 34, 100. What is their sum?",
+  "choices": [
+   "156",
+   "136",
+   "154",
+   "100"
+  ],
+  "why": "0 + 2 + 20 + 34 + 100 = 156, the denominator for every probability.",
+  "source": "6.1 slide 22"
+ },
+ {
+  "id": "ch6-061",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "First centroid A(1,2). What is the probability that D(6,5) is picked as the second centroid?",
+  "choices": [
+   "34/156 ≈ 0.218",
+   "34/100 = 0.34",
+   "20/156 ≈ 0.128",
+   "1/4 = 0.25"
+  ],
+  "why": "D² for D = 5² + 3² = 34; P = 34/156 ≈ 0.218.",
+  "source": "6.1 slide 22"
+ },
+ {
+  "id": "ch6-062",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "First centroid A(1,2). Which point is most likely to be the second centroid, and with what probability?",
+  "choices": [
+   "E, with 100/156 ≈ 0.641",
+   "D, with 34/156 ≈ 0.218",
+   "E, with 100/100 = 1.0",
+   "B, with 2/156 ≈ 0.013"
+  ],
+  "why": "E has the largest D² (100), so P(E) = 100/156 ≈ 0.641. The slide then takes C₂ = E(9,8), one likely random outcome.",
+  "source": "6.1 slides 22–23"
+ },
+ {
+  "id": "ch6-063",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "First centroid A(1,2). What is the probability that B(2,1) is picked second?",
+  "choices": [
+   "2/156 ≈ 0.013",
+   "2/40 = 0.05",
+   "1/156 ≈ 0.006",
+   "2/100 = 0.02"
+  ],
+  "why": "D²(B) = 1 + 1 = 2, so P = 2/156 ≈ 0.013. B is very close to A, so it is very unlikely.",
+  "source": "6.1 slide 22"
+ },
+ {
+  "id": "ch6-064",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "Second centroid is E(9,8). What is the squared distance from B(2,1) to E?",
+  "choices": [
+   "98",
+   "85",
+   "49",
+   "14"
+  ],
+  "why": "(9 − 2)² + (8 − 1)² = 49 + 49 = 98. Slide 23 prints 85, which is wrong.",
+  "source": "6.1 slide 23 (corrected)"
+ },
+ {
+  "id": "ch6-065",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "Second centroid is E(9,8). What is the squared distance from C(5,4) to E?",
+  "choices": [
+   "32",
+   "25",
+   "20",
+   "16"
+  ],
+  "why": "(9 − 5)² + (8 − 4)² = 16 + 16 = 32. Slide 23 prints 25, which is wrong.",
+  "source": "6.1 slide 23 (corrected)"
+ },
+ {
+  "id": "ch6-066",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "Second centroid is E(9,8). What is the squared distance from D(6,5) to E?",
+  "choices": [
+   "18",
+   "34",
+   "9",
+   "25"
+  ],
+  "why": "(9 − 6)² + (8 − 5)² = 9 + 9 = 18.",
+  "source": "6.1 slide 23"
+ },
+ {
+  "id": "ch6-067",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "Centroids A(1,2) and E(9,8). For D(6,5), dist² to A = 34 and to E = 18. What D(x)² is used for the third pick?",
+  "choices": [
+   "18, the distance to the nearer centroid",
+   "34, the distance to the first centroid",
+   "52, the sum of both distances",
+   "26, the average of both distances"
+  ],
+  "why": "D(x) is the distance to the nearest chosen centroid, so D² = min(34, 18) = 18 (slide 23's min column).",
+  "source": "6.1 slide 23"
+ },
+ {
+  "id": "ch6-068",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "Centroids A and E. The min(dist²) column is A 0, B 2, C 20, D 18, E 0. What is the sum used as the denominator?",
+  "choices": [
+   "40",
+   "156",
+   "38",
+   "58"
+  ],
+  "why": "0 + 2 + 20 + 18 + 0 = 40.",
+  "source": "6.1 slide 23"
+ },
+ {
+  "id": "ch6-069",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "Centroids A and E; min dist² is A 0, B 2, C 20, D 18, E 0. What is the probability that C(5,4) is the third centroid?",
+  "choices": [
+   "20/40 = 0.50",
+   "20/156 ≈ 0.128",
+   "18/40 = 0.45",
+   "20/38 ≈ 0.53"
+  ],
+  "why": "P(C) = 20/40 = 0.50. D gets 18/40 = 0.45, B 2/40 = 0.05, and A and E 0.",
+  "source": "6.1 slide 23 (corrected)"
+ },
+ {
+  "id": "ch6-070",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "Centroids A and E. What is the probability that D(6,5) is the third centroid?",
+  "choices": [
+   "18/40 = 0.45",
+   "34/40 = 0.85",
+   "18/156 ≈ 0.115",
+   "34/156 ≈ 0.218"
+  ],
+  "why": "D's min dist² is 18 (to E); 18/40 = 0.45.",
+  "source": "6.1 slide 23"
+ },
+ {
+  "id": "ch6-071",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "concept",
+  "q": "What conclusion does slide 23 draw about the third centroid?",
+  "choices": [
+   "It will likely be C(5,4) or D(6,5)",
+   "It will certainly be B(2,1)",
+   "It will likely be A(1,2) or E(9,8)",
+   "Every remaining point is equally likely"
+  ],
+  "why": "C and D have the largest min-distances (20 and 18), so together they take 95% of the probability.",
+  "source": "6.1 slide 23"
+ },
+ {
+  "id": "ch6-072",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "trap",
+  "q": "Slide 23's wrong values (85 for B→E and 25 for C→E) — do they change the conclusion?",
+  "choices": [
+   "No: both points are nearer A, so the min column is unaffected",
+   "Yes: with the corrected values E becomes the third centroid",
+   "Yes: B becomes the most likely third centroid",
+   "No, because the dist² to C₂ column is never used"
+  ],
+  "why": "Corrected values are 98 and 32, but min(2, 98) = 2 and min(20, 32) = 20, same as before. C or D is still most likely.",
+  "source": "6.1 slide 23 (corrected)"
+ },
+ {
+  "id": "ch6-073",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "concept",
+  "q": "Which distance measure does the K-Means++ worked example use?",
+  "choices": [
+   "Squared Euclidean distance",
+   "Manhattan distance",
+   "Cosine distance",
+   "Plain (unsquared) Euclidean distance"
+  ],
+  "why": "Slides 22–23 state 'Squared Euclidean distance is used here'.",
+  "source": "6.1 slides 22–23"
+ },
+ {
+  "id": "ch6-074",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "Running K-Means with K = 2 from centroids A(1,2) and E(9,8): which points join A in the first assignment?",
+  "choices": [
+   "B and C",
+   "B only",
+   "B, C and D",
+   "C and D"
+  ],
+  "why": "C: 20 (to A) vs 32 (to E), so A. D: 34 vs 18, so E. B is clearly nearer A. Clusters: {A, B, C} and {D, E}.",
+  "source": "6.1 summary (K = 2 practice)"
+ },
+ {
+  "id": "ch6-075",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "Clusters {A(1,2), B(2,1), C(5,4)} and {D(6,5), E(9,8)}. What is the updated centroid of {D, E}?",
+  "choices": [
+   "(7.5, 6.5)",
+   "(6, 5)",
+   "(15, 13)",
+   "(7, 6)"
+  ],
+  "why": "((6 + 9)/2, (5 + 8)/2) = (7.5, 6.5). The other centroid is (8/3, 7/3) ≈ (2.67, 2.33).",
+  "source": "6.1 summary (K = 2 practice)"
+ },
+ {
+  "id": "ch6-076",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means++ example",
+  "kind": "calc",
+  "q": "What is the updated centroid of {A(1,2), B(2,1), C(5,4)}?",
+  "choices": [
+   "(2.67, 2.33)",
+   "(2.33, 2.67)",
+   "(3, 2.5)",
+   "(8, 7)"
+  ],
+  "why": "x: (1 + 2 + 5)/3 = 8/3 ≈ 2.67. y: (2 + 1 + 4)/3 = 7/3 ≈ 2.33.",
+  "source": "6.1 summary (K = 2 practice)"
+ },
+ {
+  "id": "ch6-077",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Pitfalls",
+  "kind": "concept",
+  "q": "Slides 13–15 show K-Means with K = 3 on clusters of different sizes and densities. What goes wrong?",
+  "choices": [
+   "Tight groups get merged while a big loose group gets split",
+   "All points end up in a single cluster",
+   "The algorithm never converges on such data",
+   "Each small cluster is split into many pieces"
+  ],
+  "why": "Slide 16: tightly packed points are grouped into one cluster, while loosely spread points of one cluster are assigned to different clusters.",
+  "source": "6.1 slides 13–16"
+ },
+ {
+  "id": "ch6-078",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Pitfalls",
+  "kind": "concept",
+  "q": "Why are outliers a problem for K-Means?",
+  "choices": [
+   "Centroids are means, so extreme values pull them away",
+   "Outliers are always assigned to every cluster",
+   "Outliers make the number of clusters grow",
+   "K-Means deletes outliers, losing data"
+  ],
+  "why": "Slide 18: k-means is sensitive to extreme values; because each centroid is a mean, an outlier drags it.",
+  "source": "6.1 slide 18"
+ },
+ {
+  "id": "ch6-079",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Pitfalls",
+  "kind": "concept",
+  "q": "Which remedies for outliers does slide 18 list?",
+  "choices": [
+   "Remove them, transform them, or use a robust k-means variant",
+   "Increase K until every outlier has its own cluster",
+   "Use K-Means++ so outliers are never chosen",
+   "Run PCA so outliers disappear"
+  ],
+  "why": "Slide 18: remove them, transform them, or use a robust variant of k-means that is less sensitive to outliers.",
+  "source": "6.1 slide 18"
+ },
+ {
+  "id": "ch6-080",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Pitfalls",
+  "kind": "calc",
+  "q": "A 1-D cluster is {2, 4, 6}. An outlier 48 is added. How far does the centroid move?",
+  "choices": [
+   "From 4 to 15",
+   "From 4 to 12",
+   "From 4 to 5",
+   "It stays at 4"
+  ],
+  "why": "Old mean = 12/3 = 4. New mean = (2 + 4 + 6 + 48)/4 = 60/4 = 15. One extreme value drags the mean a long way.",
+  "source": "6.1 slide 18 (practice numbers)"
+ },
+ {
+  "id": "ch6-081",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Pitfalls",
+  "kind": "trap",
+  "q": "Slide 19 suggests 'use a higher number of clusters, perhaps k = 10' for unequal sizes. What is the catch?",
+  "choices": [
+   "It lowers inertia by chopping groups up, not by recovering the real ones",
+   "A higher K always raises inertia, so it cannot help",
+   "K-Means cannot run with K larger than 5",
+   "A higher K makes K-Means++ unnecessary"
+  ],
+  "why": "More clusters always lower inertia, but the big loose cluster is just cut into pieces; the true groups of different size or density are not recovered.",
+  "source": "6.1 slide 19"
+ },
+ {
+  "id": "ch6-082",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Pitfalls",
+  "kind": "concept",
+  "q": "Why should features be scaled before running K-Means?",
+  "choices": [
+   "It uses Euclidean distance, so large-scale features dominate",
+   "K-Means only accepts values between 0 and 1",
+   "Scaling decides the number of clusters K",
+   "Scaling makes the initial centroids deterministic"
+  ],
+  "why": "K-Means assigns points by Euclidean distance; a feature measured in thousands swamps one measured in units unless you standardise (as in 5.2).",
+  "source": "6.1 summary"
+ },
+ {
+  "id": "ch6-083",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Pitfalls",
+  "kind": "trap",
+  "q": "Which kind of cluster shape does K-Means handle best?",
+  "choices": [
+   "Roughly round clusters of similar size",
+   "Long, curved, interlocking clusters",
+   "Rings nested inside one another",
+   "Clusters of very different densities"
+  ],
+  "why": "K-Means assigns each point to the nearest centroid, which works best for compact, roughly spherical clusters of similar size; slides 13–16 show it failing on unequal sizes and densities.",
+  "source": "6.1 slides 13–16"
+ },
+ {
+  "id": "ch6-084",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Pitfalls",
+  "kind": "concept",
+  "q": "Which of these is NOT one of the K-Means challenges discussed in the deck?",
+  "choices": [
+   "Needing labelled data to train",
+   "Choosing the value of K",
+   "Clusters of different sizes and densities",
+   "Sensitivity to outliers"
+  ],
+  "why": "The deck's challenges are choosing K, unequal sizes/densities, outliers and random initialisation. K-Means is unsupervised and needs no labels.",
+  "source": "6.1 slides 12–19"
+ },
+ {
+  "id": "ch6-085",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Pitfalls",
+  "kind": "concept",
+  "q": "Which K-Means challenge does K-Means++ address?",
+  "choices": [
+   "Sensitivity to random initialisation",
+   "Choosing the number of clusters",
+   "Sensitivity to outliers",
+   "Clusters with different densities"
+  ],
+  "why": "Slide 19: K-Means++ solves the problem of random initialisation. The elbow method addresses choosing K.",
+  "source": "6.1 slide 19"
+ },
+ {
+  "id": "ch6-086",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA basics",
+  "kind": "concept",
+  "q": "What is PCA?",
+  "choices": [
+   "A dimensionality reduction method that keeps most of the information",
+   "A clustering method that groups similar points",
+   "A classifier that predicts labels from features",
+   "A method that adds new features to the data"
+  ],
+  "why": "Slide 4: PCA transforms a large set of variables into a smaller one that still contains most of the information.",
+  "source": "6.2 slide 4"
+ },
+ {
+  "id": "ch6-087",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA basics",
+  "kind": "concept",
+  "q": "In one line, what is the idea of PCA according to slide 5?",
+  "choices": [
+   "Reduce the number of variables while preserving as much information as possible",
+   "Increase the number of variables to capture more information",
+   "Group observations into clusters of similar points",
+   "Remove all correlated observations from the data"
+  ],
+  "why": "Slide 5 sums it up: reduce the number of variables of a data set, while preserving as much information as possible.",
+  "source": "6.2 slide 5"
+ },
+ {
+  "id": "ch6-088",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA basics",
+  "kind": "concept",
+  "q": "Why reduce dimensionality, according to slide 5?",
+  "choices": [
+   "Smaller data is easier to explore and visualise, and faster for ML",
+   "Smaller data always gives perfect accuracy",
+   "Smaller data removes the need for a test set",
+   "Smaller data lets us skip feature scaling"
+  ],
+  "why": "Slide 5: smaller data sets are easier to explore and visualise, and faster for machine learning algorithms without extraneous variables.",
+  "source": "6.2 slide 5"
+ },
+ {
+  "id": "ch6-089",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA basics",
+  "kind": "concept",
+  "q": "What are principal components?",
+  "choices": [
+   "New uncorrelated variables built as linear combinations of the originals",
+   "A subset of the original variables kept unchanged",
+   "The cluster centroids found in the data",
+   "The original variables sorted by their mean"
+  ],
+  "why": "Slide 6: principal components are new variables constructed as linear combinations of the initial variables, made uncorrelated.",
+  "source": "6.2 slide 6"
+ },
+ {
+  "id": "ch6-090",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA basics",
+  "kind": "calc",
+  "q": "A dataset has 10 variables. How many principal components does it have?",
+  "choices": [
+   "10",
+   "1",
+   "9",
+   "It depends on the number of samples only"
+  ],
+  "why": "Slide 6: 10-dimensional data gives 10 principal components; there are as many PCs as variables.",
+  "source": "6.2 slides 6, 10"
+ },
+ {
+  "id": "ch6-091",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA basics",
+  "kind": "concept",
+  "q": "How is information distributed across the principal components?",
+  "choices": [
+   "Maximum in the first, then the most remaining in the second, and so on",
+   "Equally across all components",
+   "Maximum in the last component",
+   "Randomly, depending on the data order"
+  ],
+  "why": "Slide 6: PCA puts maximum possible information in the first component, then maximum remaining information in the second, and so on.",
+  "source": "6.2 slide 6"
+ },
+ {
+  "id": "ch6-092",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA basics",
+  "kind": "concept",
+  "q": "How does PCA reduce dimensionality, per slide 7?",
+  "choices": [
+   "Discard low-information components and keep the rest as new variables",
+   "Delete the original features with the smallest means",
+   "Merge similar samples into a single sample",
+   "Drop the first principal component"
+  ],
+  "why": "Slide 7: discard the components with low information and consider the remaining components as your new variables.",
+  "source": "6.2 slide 7"
+ },
+ {
+  "id": "ch6-093",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA basics",
+  "kind": "concept",
+  "q": "What does the bar chart on slide 7 show?",
+  "choices": [
+   "Percentage of explained variance for each principal component",
+   "Inertia for each number of clusters",
+   "The mean of each original variable",
+   "Classification accuracy for each component"
+  ],
+  "why": "Slide 7's y-axis is 'Percentage of explained variances' and x-axis 'Principal Components'; the bars fall from about 40% for PC1.",
+  "source": "6.2 slide 7"
+ },
+ {
+  "id": "ch6-094",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA geometry",
+  "kind": "concept",
+  "q": "Geometrically, what do principal components represent?",
+  "choices": [
+   "Directions in the data that explain the maximal amount of variance",
+   "Directions in which the data has the least variance",
+   "The axes of the original features",
+   "Lines joining each pair of cluster centroids"
+  ],
+  "why": "Slide 8: principal components represent the directions of the data that explain a maximal amount of variance.",
+  "source": "6.2 slide 8"
+ },
+ {
+  "id": "ch6-095",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA geometry",
+  "kind": "concept",
+  "q": "Why does PCA treat variance as information?",
+  "choices": [
+   "More variance along a line means more spread, so more information",
+   "Less variance means the data is cleaner, so more informative",
+   "Variance measures the number of samples in the data",
+   "Variance equals the accuracy of a later classifier"
+  ],
+  "why": "Slide 8: the larger the variance carried by a line, the larger the dispersion of points along it, and the more information it has.",
+  "source": "6.2 slide 8"
+ },
+ {
+  "id": "ch6-096",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA geometry",
+  "kind": "concept",
+  "q": "The first principal component (PC1) is the line through the origin along which...",
+  "choices": [
+   "The projected points are most spread out (maximum variance)",
+   "The projected points are closest together (minimum variance)",
+   "The points have the largest mean value",
+   "Exactly half the points lie on each side"
+  ],
+  "why": "Slides 10–11: PC1 accounts for the largest possible variance; the projections are the most spread out.",
+  "source": "6.2 slides 10–11"
+ },
+ {
+  "id": "ch6-097",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA geometry",
+  "kind": "concept",
+  "q": "How is PC2 constructed?",
+  "choices": [
+   "Same way as PC1, but uncorrelated with (perpendicular to) PC1",
+   "Parallel to PC1 but shifted by one unit",
+   "As the direction of minimum variance in the data",
+   "As the average of PC1 and the original x-axis"
+  ],
+  "why": "Slide 12: PC2 is calculated the same way, with the condition that it is uncorrelated with (perpendicular to) PC1 and takes the next highest variance.",
+  "source": "6.2 slide 12"
+ },
+ {
+  "id": "ch6-098",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA geometry",
+  "kind": "concept",
+  "q": "Slide 11 defines PC1's variance as the average squared distance from the projected points to the origin. Why the origin?",
+  "choices": [
+   "The data is centred, so the origin is the mean",
+   "The origin is always the densest region",
+   "PCA ignores the mean of the data",
+   "Projections are measured from the first sample"
+  ],
+  "why": "Variance is spread around the mean. After centring (step 1) the mean is at the origin, so distance to the origin works.",
+  "source": "6.2 slide 11"
+ },
+ {
+  "id": "ch6-099",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA geometry",
+  "kind": "concept",
+  "q": "Slide 8's simple picture of principal components is...",
+  "choices": [
+   "New axes giving the best angle to see differences between observations",
+   "Labels showing which class each observation belongs to",
+   "Centroids summarising each group of observations",
+   "Thresholds for splitting the data into a tree"
+  ],
+  "why": "Slide 8: think of principal components as new axes that provide the best angle to see and evaluate the data.",
+  "source": "6.2 slide 8"
+ },
+ {
+  "id": "ch6-100",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Covariance",
+  "kind": "concept",
+  "q": "Which formula does the deck use for the covariance of x and y?",
+  "choices": [
+   "Cov(x, y) = 1/(n − 1) · Σ (xi − x̄)(yi − ȳ)",
+   "Cov(x, y) = 1/n · Σ xi·yi",
+   "Cov(x, y) = Σ (xi − yi)² / n",
+   "Cov(x, y) = (x̄ − ȳ)² / (n − 1)"
+  ],
+  "why": "Slide 14 gives the sample covariance, dividing by n − 1.",
+  "source": "6.2 slide 14"
+ },
+ {
+  "id": "ch6-101",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Covariance",
+  "kind": "concept",
+  "q": "What sits on the diagonal of the covariance matrix S?",
+  "choices": [
+   "The variance of each feature",
+   "The mean of each feature",
+   "The eigenvalues of S",
+   "Zeros, since a feature has no covariance with itself"
+  ],
+  "why": "Cov(X₁, X₁) is the variance of X₁, so the diagonal holds the variances. S is symmetric because Cov(X₁, X₂) = Cov(X₂, X₁).",
+  "source": "6.2 slide 14"
+ },
+ {
+  "id": "ch6-102",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Covariance",
+  "kind": "concept",
+  "q": "For data with p features, what is the size of the covariance matrix?",
+  "choices": [
+   "p × p",
+   "n × n, with n the number of samples",
+   "n × p",
+   "1 × p"
+  ],
+  "why": "S holds one covariance per pair of features, so it is p × p (2 × 2 for the slide-17 example).",
+  "source": "6.2 slide 14"
+ },
+ {
+  "id": "ch6-103",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Covariance",
+  "kind": "calc",
+  "q": "Data x = 1, 3, 5 and y = 2, 6, 10. What is Cov(x, y) (divide by n − 1)?",
+  "choices": [
+   "8",
+   "16/3 ≈ 5.33",
+   "4",
+   "16"
+  ],
+  "why": "x̄ = 3, ȳ = 6. Deviations: x −2, 0, 2; y −4, 0, 4. Products: 8 + 0 + 8 = 16. 16/2 = 8.",
+  "source": "6.2 slide 14 (practice numbers)"
+ },
+ {
+  "id": "ch6-104",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Covariance",
+  "kind": "calc",
+  "q": "Data x = 1, 3, 5. What is Var(x) = Cov(x, x), dividing by n − 1?",
+  "choices": [
+   "4",
+   "8/3 ≈ 2.67",
+   "8",
+   "3"
+  ],
+  "why": "x̄ = 3; squared deviations 4 + 0 + 4 = 8; 8/2 = 4.",
+  "source": "6.2 slide 14 (practice numbers)"
+ },
+ {
+  "id": "ch6-105",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Covariance",
+  "kind": "calc",
+  "q": "Slide-17 data, centred X₁: −4, 0, 5, −1. What is Cov(X₁, X₁)?",
+  "choices": [
+   "14",
+   "10.5",
+   "42",
+   "23"
+  ],
+  "why": "(16 + 0 + 25 + 1)/3 = 42/3 = 14.",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-106",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Covariance",
+  "kind": "calc",
+  "q": "Slide-17 data, centred X₂: 2.5, −4.5, −3.5, 5.5. What is Cov(X₂, X₂)?",
+  "choices": [
+   "23",
+   "17.25",
+   "69",
+   "14"
+  ],
+  "why": "(6.25 + 20.25 + 12.25 + 30.25)/3 = 69/3 = 23.",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-107",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Covariance",
+  "kind": "calc",
+  "q": "Slide-17 data: centred pairs (−4, 2.5), (0, −4.5), (5, −3.5), (−1, 5.5). What is Cov(X₁, X₂)?",
+  "choices": [
+   "−11",
+   "11",
+   "−8.25",
+   "−33"
+  ],
+  "why": "Products: −10 + 0 − 17.5 − 5.5 = −33; −33/3 = −11.",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-108",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Covariance",
+  "kind": "trap",
+  "q": "For slide-17's X₁, a student divides by n = 4 instead of n − 1 = 3 and gets 10.5. Which value does the deck's formula give?",
+  "choices": [
+   "14",
+   "10.5",
+   "42",
+   "12"
+  ],
+  "why": "Slide 14 uses 1/(n − 1): 42/3 = 14. This matches the slide's answer and np.cov.",
+  "source": "6.2 slide 14"
+ },
+ {
+  "id": "ch6-109",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Eigenvalues & eigenvectors",
+  "kind": "concept",
+  "q": "In PCA, what does an eigenvector of the covariance matrix give?",
+  "choices": [
+   "The direction of a principal component",
+   "The variance along a principal component",
+   "The mean of the data",
+   "The number of components to keep"
+  ],
+  "why": "Eigenvectors of S are the PC directions; their eigenvalues are the variances along them.",
+  "source": "6.2 slides 15–16"
+ },
+ {
+  "id": "ch6-110",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Eigenvalues & eigenvectors",
+  "kind": "concept",
+  "q": "In PCA, what does an eigenvalue of the covariance matrix represent?",
+  "choices": [
+   "The variance of the data along that eigenvector's direction",
+   "The direction of the principal component",
+   "The correlation between two original features",
+   "The distance from each point to the mean"
+  ],
+  "why": "The eigenvalue λ is the variance captured by its principal component; the largest λ belongs to PC1.",
+  "source": "6.2 slide 15"
+ },
+ {
+  "id": "ch6-111",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Eigenvalues & eigenvectors",
+  "kind": "trap",
+  "q": "A student says 'the eigenvalue is the direction of PC1 and the eigenvector is its variance'. What is wrong?",
+  "choices": [
+   "They are swapped: eigenvector = direction, eigenvalue = variance",
+   "Nothing: that is the correct interpretation",
+   "Both are directions; neither measures variance",
+   "Both are variances; neither gives a direction"
+  ],
+  "why": "The eigenvector is the axis (a direction); the eigenvalue is the amount of variance along that axis.",
+  "source": "6.2 slides 15–16"
+ },
+ {
+  "id": "ch6-112",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Eigenvalues & eigenvectors",
+  "kind": "concept",
+  "q": "Which equation gives the eigenvalues of S in step 3?",
+  "choices": [
+   "det(S − λI) = 0",
+   "S · λ = I",
+   "det(S) − λ = 0",
+   "(S + λI)U = 1"
+  ],
+  "why": "Slide 15: 0 = det(S − λI), where I is the identity matrix.",
+  "source": "6.2 slide 15"
+ },
+ {
+  "id": "ch6-113",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Eigenvalues & eigenvectors",
+  "kind": "concept",
+  "q": "Which equation gives the eigenvector U for an eigenvalue λ in step 4?",
+  "choices": [
+   "(S − λI)U = 0",
+   "S · U = 0",
+   "(S − λI) = U",
+   "det(U) = λ"
+  ],
+  "why": "Slide 15: [0, 0]ᵀ = (S − λI)U with U = [u₁, u₂]ᵀ.",
+  "source": "6.2 slide 15"
+ },
+ {
+  "id": "ch6-114",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Eigenvalues & eigenvectors",
+  "kind": "calc",
+  "q": "S = [[5, 0], [0, 2]]. What are its eigenvalues, and which axis is PC1?",
+  "choices": [
+   "5 and 2; PC1 lies along the x₁-axis",
+   "5 and 2; PC1 lies along the x₂-axis",
+   "7 and 0; PC1 lies along the x₁-axis",
+   "10 and 1; PC1 is the diagonal"
+  ],
+  "why": "For a diagonal matrix the eigenvalues are the diagonal entries. The largest, 5, belongs to (1, 0), so PC1 is the x₁-axis.",
+  "source": "6.2 slide 15 (practice numbers)"
+ },
+ {
+  "id": "ch6-115",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Eigenvalues & eigenvectors",
+  "kind": "calc",
+  "q": "S = [[2, 1], [1, 2]]. det(S − λI) = (2 − λ)² − 1 = 0. What are the eigenvalues?",
+  "choices": [
+   "3 and 1",
+   "2 and 2",
+   "4 and 0",
+   "3 and −1"
+  ],
+  "why": "(2 − λ)² = 1 → 2 − λ = ±1 → λ = 1 or 3. Check: trace 4 = 3 + 1, det 3 = 3 × 1.",
+  "source": "6.2 slide 15 (practice numbers)"
+ },
+ {
+  "id": "ch6-116",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Eigenvalues & eigenvectors",
+  "kind": "calc",
+  "q": "For S = [[2, 1], [1, 2]] and λ = 3, which unit vector is the eigenvector (PC1)?",
+  "choices": [
+   "(0.707, 0.707)",
+   "(0.707, −0.707)",
+   "(1, 1)",
+   "(1, 0)"
+  ],
+  "why": "(S − 3I)U = 0 gives −u₁ + u₂ = 0, so u₂ = u₁. (1, 1) normalised is (1/√2, 1/√2) ≈ (0.707, 0.707).",
+  "source": "6.2 slide 15 (practice numbers)"
+ },
+ {
+  "id": "ch6-117",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Eigenvalues & eigenvectors",
+  "kind": "calc",
+  "q": "An eigenvector is found as (3, 4). What is it after scaling to unit length?",
+  "choices": [
+   "(0.6, 0.8)",
+   "(0.75, 1)",
+   "(0.43, 0.57)",
+   "(3/7, 4/7)"
+  ],
+  "why": "Length = √(9 + 16) = 5, so (3/5, 4/5) = (0.6, 0.8).",
+  "source": "6.2 slide 15 (practice numbers)"
+ },
+ {
+  "id": "ch6-118",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Eigenvalues & eigenvectors",
+  "kind": "trap",
+  "q": "Why must the eigenvector be normalised to unit length before projecting?",
+  "choices": [
+   "Otherwise projections are scaled by an arbitrary factor",
+   "Otherwise the eigenvalues change sign",
+   "Otherwise the covariance matrix is no longer symmetric",
+   "It is not needed: any length gives the slide's answer"
+  ],
+  "why": "Any multiple of an eigenvector is an eigenvector; only the unit vector gives the slide-17 numbers. Step 4 on the slide never says this.",
+  "source": "6.2 slides 15, 17"
+ },
+ {
+  "id": "ch6-119",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA steps",
+  "kind": "concept",
+  "q": "What is step 1 of PCA in the deck?",
+  "choices": [
+   "Calculate the mean of each feature (and centre the data)",
+   "Calculate the eigenvalues of the data matrix",
+   "Project the data onto the first eigenvector",
+   "Sort the features by variance"
+  ],
+  "why": "Slide 14: step 1, calculate mean, x̄ = Σ xi / m. The data is then centred by subtracting it.",
+  "source": "6.2 slide 14"
+ },
+ {
+  "id": "ch6-120",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA steps",
+  "kind": "concept",
+  "q": "What is the correct order of PCA steps in the deck?",
+  "choices": [
+   "Mean → covariance matrix → eigenvalues → eigenvectors → project",
+   "Covariance matrix → mean → eigenvectors → eigenvalues → project",
+   "Mean → eigenvalues → covariance matrix → project → eigenvectors",
+   "Project → mean → covariance matrix → eigenvalues → eigenvectors"
+  ],
+  "why": "Slides 14–16: (1) mean, (2) covariance matrix, (3) eigenvalues, (4) eigenvectors, (5) computation of the first principal component.",
+  "source": "6.2 slides 14–16"
+ },
+ {
+  "id": "ch6-121",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA steps",
+  "kind": "concept",
+  "q": "In step 5, the transformed data (PC1 scores) are obtained by...",
+  "choices": [
+   "Multiplying the centred data by the unit eigenvector u₁",
+   "Multiplying the raw data by the eigenvalue λ₁",
+   "Dividing the centred data by the covariance matrix",
+   "Adding the eigenvector to each data point"
+  ],
+  "why": "Slide 16: transformed data = centred data · u₁ (a dot product of each centred point with u₁).",
+  "source": "6.2 slide 16"
+ },
+ {
+  "id": "ch6-122",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA steps",
+  "kind": "concept",
+  "q": "Which eigenvector becomes PC1?",
+  "choices": [
+   "The one with the largest eigenvalue",
+   "The one with the smallest eigenvalue",
+   "The first one the solver happens to return",
+   "The one closest to the x₁-axis"
+  ],
+  "why": "Sort eigenvalues in descending order; the largest λ has the most variance, so its eigenvector is PC1. PCA.ipynb does this with argsort(...)[::-1].",
+  "source": "6.2 slides 10, 15; PCA.ipynb"
+ },
+ {
+  "id": "ch6-123",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA steps",
+  "kind": "trap",
+  "q": "Which step actually reduces the dimension, though the deck's 5 steps never state it explicitly?",
+  "choices": [
+   "Sorting eigenvalues and keeping only the top-k eigenvectors",
+   "Computing the mean of each feature",
+   "Building the covariance matrix",
+   "Solving det(S − λI) = 0"
+  ],
+  "why": "Dimension drops when you keep only the top-k eigenvectors and project onto them (k < p). The notebook sorts eigenvalues and keeps the first component.",
+  "source": "6.2 slides 14–16; PCA.ipynb"
+ },
+ {
+  "id": "ch6-124",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA steps",
+  "kind": "trap",
+  "q": "Slide 16 writes the projection as X_centeredᵀ · u₁. With one row per sample (4 × 2 data), what is the dimensionally correct form?",
+  "choices": [
+   "X_centered · u₁, giving a 4 × 1 result",
+   "X_centeredᵀ · u₁, exactly as written",
+   "u₁ · X_centered, giving a 2 × 4 result",
+   "X_centered · λ₁, giving a 4 × 2 result"
+  ],
+  "why": "X_centered is 4 × 2 and u₁ is 2 × 1, so X_centered · u₁ is 4 × 1. The transpose only works if each sample is a column.",
+  "source": "6.2 slide 16"
+ },
+ {
+  "id": "ch6-125",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA steps",
+  "kind": "concept",
+  "q": "Why should features in different units be standardised before PCA?",
+  "choices": [
+   "Otherwise the feature with the largest scale dominates PC1",
+   "PCA cannot compute a mean for unscaled data",
+   "Standardisation removes the need for eigenvectors",
+   "Standardisation sets every eigenvalue to 1"
+  ],
+  "why": "PCA chases variance; a feature measured in large units has huge variance and would dominate PC1. Standardising (z-score) first puts features on equal footing.",
+  "source": "6.2 summary; 5.2"
+ },
+ {
+  "id": "ch6-126",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA steps",
+  "kind": "calc",
+  "q": "A centred point is (2, 1) and u₁ = (0.6, 0.8). What is its PC1 score?",
+  "choices": [
+   "2.0",
+   "1.4",
+   "3.0",
+   "2.2"
+  ],
+  "why": "Dot product: 0.6·2 + 0.8·1 = 1.2 + 0.8 = 2.0.",
+  "source": "6.2 slide 16 (practice numbers)"
+ },
+ {
+  "id": "ch6-127",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA steps",
+  "kind": "calc",
+  "q": "Raw point (7, 5), feature means (4, 1), u₁ = (0.8, 0.6). What is its PC1 score?",
+  "choices": [
+   "4.8",
+   "8.6",
+   "3.6",
+   "5.0"
+  ],
+  "why": "Centre first: (3, 4). Score = 0.8·3 + 0.6·4 = 2.4 + 2.4 = 4.8. Forgetting to centre gives 8.6.",
+  "source": "6.2 slides 14, 16 (practice numbers)"
+ },
+ {
+  "id": "ch6-128",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA slide-17 example",
+  "kind": "calc",
+  "q": "Slide-17 data: (4, 11), (8, 4), (13, 5), (7, 14). What are the feature means?",
+  "choices": [
+   "x̄₁ = 8, x̄₂ = 8.5",
+   "x̄₁ = 8.5, x̄₂ = 8",
+   "x̄₁ = 8, x̄₂ = 11",
+   "x̄₁ = 10.7, x̄₂ = 11.3"
+  ],
+  "why": "x̄₁ = (4 + 8 + 13 + 7)/4 = 32/4 = 8. x̄₂ = (11 + 4 + 5 + 14)/4 = 34/4 = 8.5.",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-129",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA slide-17 example",
+  "kind": "calc",
+  "q": "Slide-17 data with means (8, 8.5). What is the centred version of the point (13, 5)?",
+  "choices": [
+   "(5, −3.5)",
+   "(−5, 3.5)",
+   "(5, 3.5)",
+   "(13, −3.5)"
+  ],
+  "why": "(13 − 8, 5 − 8.5) = (5, −3.5).",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-130",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA slide-17 example",
+  "kind": "calc",
+  "q": "What is the covariance matrix S for the slide-17 data?",
+  "choices": [
+   "[[14, −11], [−11, 23]]",
+   "[[14, 11], [11, 23]]",
+   "[[23, −11], [−11, 14]]",
+   "[[10.5, −8.25], [−8.25, 17.25]]"
+  ],
+  "why": "Var(X₁) = 14, Var(X₂) = 23, Cov(X₁, X₂) = −11 (dividing by n − 1 = 3). The last option divides by n.",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-131",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA slide-17 example",
+  "kind": "calc",
+  "q": "For S = [[14, −11], [−11, 23]], what is the characteristic equation det(S − λI) = 0?",
+  "choices": [
+   "λ² − 37λ + 201 = 0",
+   "λ² − 37λ + 443 = 0",
+   "λ² + 37λ + 201 = 0",
+   "λ² − 9λ + 201 = 0"
+  ],
+  "why": "(14 − λ)(23 − λ) − (−11)² = λ² − 37λ + 322 − 121 = λ² − 37λ + 201.",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-132",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA slide-17 example",
+  "kind": "calc",
+  "q": "What are the eigenvalues of S = [[14, −11], [−11, 23]]?",
+  "choices": [
+   "λ₁ ≈ 30.38 and λ₂ ≈ 6.62",
+   "λ₁ = 23 and λ₂ = 14",
+   "λ₁ ≈ 25.0 and λ₂ ≈ 12.0",
+   "λ₁ = 37 and λ₂ = 0"
+  ],
+  "why": "λ = (37 ± √565)/2 = (37 ± 23.77)/2 → 30.385 and 6.615. Check: sum = 37 = trace, product = 201 = det.",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-133",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA slide-17 example",
+  "kind": "calc",
+  "q": "A quick check on eigenvalues of S = [[14, −11], [−11, 23]]: their sum must equal...",
+  "choices": [
+   "37, the trace of S",
+   "201, the determinant of S",
+   "−11, the off-diagonal entry",
+   "4, the number of samples"
+  ],
+  "why": "The eigenvalues sum to the trace (14 + 23 = 37) and multiply to the determinant (322 − 121 = 201).",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-134",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA slide-17 example",
+  "kind": "calc",
+  "q": "For λ₁ ≈ 30.385, what is the unit eigenvector u₁ for the slide-17 data?",
+  "choices": [
+   "(0.5574, −0.8303)",
+   "(0.8303, 0.5574)",
+   "(11, −16.385)",
+   "(0.5574, 0.8303)"
+  ],
+  "why": "(14 − 30.385)u₁ − 11u₂ = 0 → u₂ = −1.4895 u₁. Take (11, −16.385), length 19.735, normalise → (0.5574, −0.8303).",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-135",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA slide-17 example",
+  "kind": "calc",
+  "q": "With u₁ = (0.5574, −0.8303), what is the PC1 score of the centred point (0, −4.5) (raw (8, 4))?",
+  "choices": [
+   "3.7361",
+   "−3.7361",
+   "−4.3052",
+   "2.5083"
+  ],
+  "why": "0.5574·0 + (−0.8303)(−4.5) = 3.7361, matching slide 17.",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-136",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA slide-17 example",
+  "kind": "calc",
+  "q": "With u₁ = (0.5574, −0.8303), what is the PC1 score of the raw point (4, 11)?",
+  "choices": [
+   "−4.3052",
+   "4.3052",
+   "−5.1238",
+   "6.9026"
+  ],
+  "why": "Centred (−4, 2.5): 0.5574·(−4) − 0.8303·2.5 = −2.2296 − 2.0757 = −4.3052.",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-137",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA slide-17 example",
+  "kind": "calc",
+  "q": "Which list is the slide-17 answer (PC1 scores for the four points)?",
+  "choices": [
+   "−4.3052, 3.7361, 5.6928, −5.1238",
+   "4.3052, 3.7361, 5.6928, 5.1238",
+   "−4.3052, −3.7361, 5.6928, 5.1238",
+   "−2.2296, 3.7361, 2.7870, −0.5574"
+  ],
+  "why": "Slide 17 gives −4.3052, 3.7361, 5.6928, −5.1238. The last option is only the x₁ part of each dot product.",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-138",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA slide-17 example",
+  "kind": "trap",
+  "q": "PCA.ipynb gets +4.3052, −3.7361, −5.6928, +5.1238 for slide 17, the slide's numbers with flipped signs. Which is correct?",
+  "choices": [
+   "Both: an eigenvector times −1 is still an eigenvector",
+   "Only the slide: the notebook has a bug",
+   "Only the notebook: the slide has a bug",
+   "Neither: the true answer has all positive scores"
+  ],
+  "why": "u₁ and −u₁ are both unit eigenvectors for λ₁; the sign only flips the axis direction.",
+  "source": "6.2 slide 17; PCA.ipynb"
+ },
+ {
+  "id": "ch6-139",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA slide-17 example",
+  "kind": "calc",
+  "q": "How much of the variance does PC1 explain for the slide-17 data (λ₁ ≈ 30.385, λ₂ ≈ 6.615)?",
+  "choices": [
+   "≈ 82.1%",
+   "≈ 17.9%",
+   "≈ 62.2%",
+   "100%"
+  ],
+  "why": "30.385/37 ≈ 0.821. Going from 2-D to 1-D keeps about 82% of the variance.",
+  "source": "6.2 slide 17"
+ },
+ {
+  "id": "ch6-140",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Explained variance",
+  "kind": "concept",
+  "q": "How is the explained variance ratio of component i computed?",
+  "choices": [
+   "λᵢ / Σλ, its eigenvalue over the sum of all eigenvalues",
+   "λᵢ / λ₁, its eigenvalue over the largest eigenvalue",
+   "1 / number of components",
+   "Its eigenvector length over the sum of lengths"
+  ],
+  "why": "Each eigenvalue is the variance along its PC; dividing by the total variance (sum of eigenvalues) gives its share, the bars on slide 7.",
+  "source": "6.2 slide 7"
+ },
+ {
+  "id": "ch6-141",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Explained variance",
+  "kind": "calc",
+  "q": "Eigenvalues are 6, 3 and 1. What fraction of the variance does PC1 explain?",
+  "choices": [
+   "60%",
+   "50%",
+   "33%",
+   "90%"
+  ],
+  "why": "6/(6 + 3 + 1) = 6/10 = 60%.",
+  "source": "6.2 slide 7 (practice numbers)"
+ },
+ {
+  "id": "ch6-142",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Explained variance",
+  "kind": "calc",
+  "q": "Eigenvalues are 6, 3 and 1. What fraction do the first two PCs explain together?",
+  "choices": [
+   "90%",
+   "60%",
+   "30%",
+   "100%"
+  ],
+  "why": "(6 + 3)/10 = 90%.",
+  "source": "6.2 slide 7 (practice numbers)"
+ },
+ {
+  "id": "ch6-143",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Explained variance",
+  "kind": "calc",
+  "q": "S = [[2, 1], [1, 2]] has eigenvalues 3 and 1. What share of the variance does PC1 explain?",
+  "choices": [
+   "75%",
+   "67%",
+   "50%",
+   "33%"
+  ],
+  "why": "3/(3 + 1) = 0.75.",
+  "source": "6.2 slide 7 (practice numbers)"
+ },
+ {
+  "id": "ch6-144",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing components",
+  "kind": "calc",
+  "q": "Eigenvalues are 50, 30, 15 and 5. How many components are needed to keep at least 90% of the variance?",
+  "choices": [
+   "3",
+   "2",
+   "1",
+   "4"
+  ],
+  "why": "Cumulative: 50%, 80%, 95%, 100%. Two give 80% (not enough); three give 95%.",
+  "source": "6.2 slide 7 (practice numbers)"
+ },
+ {
+  "id": "ch6-145",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing components",
+  "kind": "concept",
+  "q": "How do you decide how many principal components to keep?",
+  "choices": [
+   "Keep the top components until their cumulative explained variance is high enough",
+   "Always keep exactly half of the components",
+   "Keep the components with the smallest eigenvalues",
+   "Keep one component per class label"
+  ],
+  "why": "Slide 7: keep the high-information components and drop the low ones. In practice keep enough to reach e.g. 90–95% cumulative explained variance.",
+  "source": "6.2 slide 7"
+ },
+ {
+  "id": "ch6-146",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing components",
+  "kind": "calc",
+  "q": "Eigenvalues are 8 and 2 for 2-D data. If you keep only PC1, what fraction of the variance is lost?",
+  "choices": [
+   "20%",
+   "80%",
+   "25%",
+   "50%"
+  ],
+  "why": "PC1 explains 8/10 = 80%, so dropping PC2 loses 2/10 = 20%.",
+  "source": "6.2 slide 7 (practice numbers)"
+ },
+ {
+  "id": "ch6-147",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "Choosing components",
+  "kind": "concept",
+  "q": "In PCA.ipynb, the 800-feature dataset is reduced to how many components before training the classifiers?",
+  "choices": [
+   "50",
+   "10",
+   "2",
+   "800"
+  ],
+  "why": "The notebook uses PCA(n_components=50), shrinking X_train from (800, 800) to (800, 50).",
+  "source": "PCA.ipynb"
+ },
+ {
+  "id": "ch6-148",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA limitations",
+  "kind": "concept",
+  "q": "What is the main downside of principal components named in the deck?",
+  "choices": [
+   "They are less interpretable and have no real meaning",
+   "They are always correlated with each other",
+   "They can only be computed for 2-D data",
+   "They require labels for every sample"
+  ],
+  "why": "Slide 7: principal components are less interpretable and don't have any real meaning, being linear combinations of the initial variables.",
+  "source": "6.2 slide 7"
+ },
+ {
+  "id": "ch6-149",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA limitations",
+  "kind": "trap",
+  "q": "Does PCA use the class labels y to choose its components?",
+  "choices": [
+   "No: it is unsupervised and only looks at variance in X",
+   "Yes: it picks directions that best separate the classes",
+   "Yes: it needs y to compute the covariance matrix",
+   "Only when the data has more than two classes"
+  ],
+  "why": "PCA never looks at y. It finds high-variance directions, which are not necessarily the ones that separate the classes.",
+  "source": "6.2 summary"
+ },
+ {
+  "id": "ch6-150",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA limitations",
+  "kind": "trap",
+  "q": "Slide 5 says reducing variables 'comes at the expense of accuracy'. What did PCA.ipynb show for the linear SVM after 800 → 50 features?",
+  "choices": [
+   "Accuracy rose from 0.73 to 0.805",
+   "Accuracy fell from 0.805 to 0.73",
+   "Accuracy stayed exactly at 0.73",
+   "Accuracy fell to 0.50 (random guessing)"
+  ],
+  "why": "PCA loses some variance, but when dropped dimensions are mostly noise, model accuracy can go up. Random forest also rose, from 0.745 to 0.785.",
+  "source": "6.2 slide 5; PCA.ipynb"
+ },
+ {
+  "id": "ch6-151",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA limitations",
+  "kind": "trap",
+  "q": "Which statement about PCA is FALSE?",
+  "choices": [
+   "PCs are a subset of the original features, kept unchanged",
+   "PCs are linear combinations of the original features",
+   "PCs are uncorrelated with each other",
+   "p features give p principal components"
+  ],
+  "why": "PCs are new variables built as mixtures of the originals (slide 6), not a selection of original columns.",
+  "source": "6.2 slides 6, 12"
+ },
+ {
+  "id": "ch6-152",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA limitations",
+  "kind": "concept",
+  "q": "What is lost when you keep only the first k principal components?",
+  "choices": [
+   "The variance carried by the discarded components",
+   "Nothing: PCA is always lossless",
+   "The labels of the training data",
+   "The mean of each original feature"
+  ],
+  "why": "Dropping components throws away the variance (information) they carried; slide 7 calls them the low-information components.",
+  "source": "6.2 slides 5, 7"
+ },
+ {
+  "id": "ch6-153",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "PCA limitations",
+  "kind": "trap",
+  "q": "When applying PCA to train and test data, which practice does PCA.ipynb follow?",
+  "choices": [
+   "Fit PCA on the training data only, then transform the test data",
+   "Fit PCA on train + test together for a better fit",
+   "Fit a separate PCA on the test data",
+   "Apply PCA only to the test data"
+  ],
+  "why": "The notebook splits first, fits PCA on X_train, then uses it to transform X_test, which avoids data leakage.",
+  "source": "PCA.ipynb"
+ },
+ {
+  "id": "ch6-154",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means vs PCA",
+  "kind": "concept",
+  "q": "How do K-Means and PCA differ in purpose?",
+  "choices": [
+   "K-Means groups samples into clusters; PCA reduces the number of features",
+   "K-Means reduces features; PCA groups samples into clusters",
+   "Both are supervised methods for classification",
+   "Both find the directions of maximum variance"
+  ],
+  "why": "Both are unsupervised, but K-Means partitions the rows (samples) while PCA compresses the columns (features).",
+  "source": "6.1 slide 4; 6.2 slide 4"
+ },
+ {
+  "id": "ch6-155",
+  "chapter": "Week 6 · Unsupervised: K-Means & PCA",
+  "topic": "K-Means vs PCA",
+  "kind": "concept",
+  "q": "What do K-Means and PCA have in common?",
+  "choices": [
+   "Both are unsupervised and work without labels",
+   "Both choose K with the elbow method",
+   "Both compute eigenvectors of the covariance matrix",
+   "Both assign each sample to a cluster"
+  ],
+  "why": "Both belong to the 'Unsupervised Learning' decks and use only the features X.",
+  "source": "6.1 slide 4; 6.2 slide 1"
+ }
+]

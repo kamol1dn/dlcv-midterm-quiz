@@ -16,7 +16,7 @@ python quiz.py 2          # only week 2 (and 2b); `2b` alone for 2b
 python quiz.py --mix      # random order weighted by exam share
 python quiz.py --missed   # only what you got wrong
 python quiz.py stats      # progress per week
-python quiz.py --deck embedded        # other decks: embedded, distinguished (dl is the default)
+python quiz.py --deck embedded        # other decks: embedded, distinguished, ai (dl is the default)
 ```
 
 **Web version, no install:** https://iut-midterm-flashcards.vercel.app (progress saved in your browser).

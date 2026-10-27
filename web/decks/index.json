@@ -1,5 +1,51 @@
 [
  {
+  "key": "ai",
+  "title": "Artificial Intelligence",
+  "subtitle": "Weeks 1–6 · regression to K-Means & PCA",
+  "exam": "Tue 27 Oct, 14:00",
+  "unit": "Week",
+  "share": [
+   [
+    [
+     1
+    ],
+    0.1
+   ],
+   [
+    [
+     2
+    ],
+    0.17
+   ],
+   [
+    [
+     3
+    ],
+    0.17
+   ],
+   [
+    [
+     4
+    ],
+    0.2
+   ],
+   [
+    [
+     5
+    ],
+    0.12
+   ],
+   [
+    [
+     6
+    ],
+    0.24
+   ]
+  ],
+  "count": 155
+ },
+ {
   "key": "embedded",
   "title": "Embedded Software",
   "subtitle": "Lessons 00–08 · 33 MCQ, 60 min",

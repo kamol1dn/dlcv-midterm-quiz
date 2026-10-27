@@ -8,7 +8,7 @@
     python quiz.py --mix        new cards in random order, weighted by exam share
                                 (default: course order, week 0 first, as the guide teaches it)
     python quiz.py stats        progress per week + weakest topics
-    python quiz.py --deck embedded       another deck: dl (default), embedded, distinguished;
+    python quiz.py --deck embedded       another deck: dl (default), embedded, distinguished, ai;
                                          combine with the options above, each deck has its own progress
     python quiz.py reset        wipe all progress
 
@@ -56,6 +56,9 @@ DECKS = {
     "embedded": ("embedded/questions", "progress-embedded.json", "answers-embedded.jsonl", None),
     "distinguished": ("distinguished/questions", "progress-distinguished.json", "answers-distinguished.jsonl",
                       {(5,): 0.30, (1, 6, 10, 12): 0.60, (2, 4, 11): 0.10}),
+    # A guess: no split was announced. Decision trees, K-Means and PCA are the topics flagged for the exam.
+    "ai": ("ai/questions", "progress-ai.json", "answers-ai.jsonl",
+           {(1,): 0.10, (2,): 0.17, (3,): 0.17, (4,): 0.20, (5,): 0.12, (6,): 0.24}),
 }
 BANK = HERE / "questions"
 PROGRESS = HERE / "progress.json"

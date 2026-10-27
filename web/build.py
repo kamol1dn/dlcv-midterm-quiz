@@ -13,11 +13,13 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "web" / "decks"
 
 DECKS = [
-    {"key": "ai", "title": "Artificial Intelligence", "subtitle": "Weeks 1–6 · regression to K-Means & PCA",
-     "exam": "Tue 27 Oct, 14:00", "dir": "ai/questions", "unit": "Week",
-     "share": [[[1], 0.10], [[2], 0.17], [[3], 0.17], [[4], 0.20], [[5], 0.12], [[6], 0.24]]},
     {"key": "embedded", "title": "Embedded Software", "subtitle": "Lessons 00–08 · 33 MCQ, 60 min",
      "exam": "Wed 28 Oct, 09:30", "dir": "embedded/questions", "unit": "Lesson", "share": None},
+    {"key": "multimedia", "title": "Multimedia Computing", "subtitle": "L2–L7, L9–L12 · 10 MCQ + 8 problems",
+     "exam": "Wed 28 Oct, 12:30", "dir": "multimedia/questions", "unit": "L", "share": None},
+    {"key": "ai", "title": "Artificial Intelligence", "subtitle": "Weeks 1–6 · regression to K-Means & PCA",
+     "exam": "Midterm done 27 Oct · final in Dec", "dir": "ai/questions", "unit": "Week",
+     "share": [[[1], 0.10], [[2], 0.17], [[3], 0.17], [[4], 0.20], [[5], 0.12], [[6], 0.24]]},
     {"key": "distinguished", "title": "Distinguished Lecture", "subtitle": "Critical thinking · 30 MCQ, 60 min",
      "exam": "Fri 30 Oct, 09:30", "dir": "distinguished/questions", "unit": "Ch.",
      "share": [[[5], 0.30], [[1, 6, 10, 12], 0.60], [[2, 4, 11], 0.10]]},

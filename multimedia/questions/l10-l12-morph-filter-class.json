@@ -1,0 +1,1562 @@
+[
+ {
+  "id": "ch10-001",
+  "chapter": "L10 · Morphology",
+  "topic": "Structuring element",
+  "kind": "concept",
+  "q": "A structuring element 'fits' an image at a position when:",
+  "choices": [
+   "every 1 of the SE lies on an image 1",
+   "at least one 1 of the SE lies on a 1",
+   "every 0 of the SE lies on an image 0",
+   "the SE origin lies on an image 1"
+  ],
+  "why": "Fit = all SE 1s land on 1s (used by erosion). Hit = at least one does (used by dilation).",
+  "source": "L10 slide 6"
+ },
+ {
+  "id": "ch10-002",
+  "chapter": "L10 · Morphology",
+  "topic": "Dilation",
+  "kind": "concept",
+  "q": "For grey-scale images, dilation replaces the anchor pixel with:",
+  "choices": [
+   "the maximum under the kernel",
+   "the minimum under the kernel",
+   "the median under the kernel",
+   "the mean under the kernel"
+  ],
+  "why": "Slides 12-13: dilation is a local max, so bright regions grow.",
+  "source": "L10 slide 12"
+ },
+ {
+  "id": "ch10-003",
+  "chapter": "L10 · Morphology",
+  "topic": "Erosion",
+  "kind": "concept",
+  "q": "For grey-scale images, erosion replaces the anchor pixel with:",
+  "choices": [
+   "the minimum under the kernel",
+   "the maximum under the kernel",
+   "the median under the kernel",
+   "the weighted sum under the kernel"
+  ],
+  "why": "Slide 18: erosion computes a local minimum; bright areas thin, dark zones grow.",
+  "source": "L10 slide 18"
+ },
+ {
+  "id": "ch10-004",
+  "chapter": "L10 · Morphology",
+  "topic": "Dilation",
+  "kind": "trap",
+  "q": "L10 slide 12 says dilation 'convolutes' the image with a kernel. What is it really?",
+  "choices": [
+   "A max over the SE, so non-linear",
+   "A weighted sum, so it is linear",
+   "A min over the SE, so it is linear",
+   "A median over the SE, non-linear"
+  ],
+  "why": "Dilation is not convolution: the kernel only gives the neighbourhood, and the output is a max.",
+  "source": "L10 slide 12"
+ },
+ {
+  "id": "ch10-005",
+  "chapter": "L10 · Morphology",
+  "topic": "Definitions",
+  "kind": "concept",
+  "q": "Which set expression is dilation A ⊕ B?",
+  "choices": [
+   "{z : (B̂)_z ∩ A ≠ ∅}",
+   "{z : (B)_z ⊆ A}",
+   "{z : (B)_z ∩ Aᶜ = ∅}",
+   "{z : (B̂)_z ⊆ Aᶜ}"
+  ],
+  "why": "Dilation: positions where the reflected, shifted SE overlaps A in at least one element.",
+  "source": "L10 slide 20"
+ },
+ {
+  "id": "ch10-006",
+  "chapter": "L10 · Morphology",
+  "topic": "Definitions",
+  "kind": "concept",
+  "q": "Which set expression is erosion A ⊖ B?",
+  "choices": [
+   "{z : (B)_z ⊆ A}",
+   "{z : (B̂)_z ∩ A ≠ ∅}",
+   "{z : (B)_z ∩ A ≠ ∅}",
+   "{z : (B̂)_z ⊆ Aᶜ}"
+  ],
+  "why": "Erosion: positions where the shifted SE is entirely contained in A.",
+  "source": "L10 slide 23"
+ },
+ {
+  "id": "ch10-007",
+  "chapter": "L10 · Morphology",
+  "topic": "Definitions",
+  "kind": "concept",
+  "q": "What is the reflection B̂ of a structuring element?",
+  "choices": [
+   "B rotated 180° about its origin",
+   "B shifted by one pixel right",
+   "The complement of B in a window",
+   "B transposed about its diagonal"
+  ],
+  "why": "B̂ = {w : w = −b, b ∈ B}: every point is mirrored through the origin (180° rotation).",
+  "source": "L10 slide 8"
+ },
+ {
+  "id": "ch10-008",
+  "chapter": "L10 · Morphology",
+  "topic": "Opening",
+  "kind": "concept",
+  "q": "Opening A ∘ B is defined as:",
+  "choices": [
+   "(A ⊖ B) ⊕ B, erode then dilate",
+   "(A ⊕ B) ⊖ B, dilate then erode",
+   "(A ⊖ B) ⊖ B, erode twice",
+   "(A ⊕ B) − (A ⊖ B)"
+  ],
+  "why": "Opening = erosion followed by dilation with the same SE.",
+  "source": "L10 slide 26, 29"
+ },
+ {
+  "id": "ch10-009",
+  "chapter": "L10 · Morphology",
+  "topic": "Closing",
+  "kind": "concept",
+  "q": "Closing A • B is defined as:",
+  "choices": [
+   "(A ⊕ B) ⊖ B, dilate then erode",
+   "(A ⊖ B) ⊕ B, erode then dilate",
+   "(A ⊕ B) ⊕ B, dilate twice",
+   "A − (A ⊖ B)"
+  ],
+  "why": "Closing = dilation followed by erosion with the same SE.",
+  "source": "L10 slide 28-29"
+ },
+ {
+  "id": "ch10-010",
+  "chapter": "L10 · Morphology",
+  "topic": "Opening",
+  "kind": "concept",
+  "q": "Which effect belongs to opening?",
+  "choices": [
+   "Breaks narrow isthmuses",
+   "Fills small holes",
+   "Fuses narrow breaks",
+   "Fills long thin gulfs"
+  ],
+  "why": "Opening smooths contours, breaks narrow isthmuses and eliminates thin protrusions; the rest are closing.",
+  "source": "L10 slide 29"
+ },
+ {
+  "id": "ch10-011",
+  "chapter": "L10 · Morphology",
+  "topic": "Closing",
+  "kind": "concept",
+  "q": "Which effect belongs to closing?",
+  "choices": [
+   "Eliminates small holes",
+   "Removes small bright specks",
+   "Breaks narrow isthmuses",
+   "Eliminates thin protrusions"
+  ],
+  "why": "Closing fuses narrow breaks and long thin gulfs, eliminates small holes, fills gaps in the contour.",
+  "source": "L10 slide 28-29"
+ },
+ {
+  "id": "ch10-012",
+  "chapter": "L10 · Morphology",
+  "topic": "Properties",
+  "kind": "concept",
+  "q": "Which property holds for opening?",
+  "choices": [
+   "A ∘ B is a subset of A",
+   "A is a subset of A ∘ B",
+   "A ∘ B equals A ⊕ B",
+   "A ∘ B is never idempotent"
+  ],
+  "why": "Opening is anti-extensive (result ⊆ A); closing is extensive (A ⊆ result).",
+  "source": "L10 slide 34"
+ },
+ {
+  "id": "ch10-013",
+  "chapter": "L10 · Morphology",
+  "topic": "Properties",
+  "kind": "concept",
+  "q": "Applying an opening twice with the same SE gives:",
+  "choices": [
+   "the same result as one opening",
+   "a result eroded twice as much",
+   "the original image A restored",
+   "the closing of the image A"
+  ],
+  "why": "Opening and closing are idempotent: (A∘B)∘B = A∘B.",
+  "source": "L10 slide 34"
+ },
+ {
+  "id": "ch10-014",
+  "chapter": "L10 · Morphology",
+  "topic": "Properties",
+  "kind": "trap",
+  "q": "If C ⊆ D, which is true for closing?",
+  "choices": [
+   "C • B ⊆ D • B",
+   "D • B ⊆ C • B",
+   "C • B = D • B always",
+   "C • B ⊆ D only"
+  ],
+  "why": "Both opening and closing are increasing: they preserve set inclusion.",
+  "source": "L10 slide 34"
+ },
+ {
+  "id": "ch10-015",
+  "chapter": "L10 · Morphology",
+  "topic": "Boundary",
+  "kind": "concept",
+  "q": "Boundary extraction β(A) is computed as:",
+  "choices": [
+   "A − (A ⊖ B)",
+   "(A ⊕ B) − A",
+   "(A ⊕ B) ⊖ B",
+   "A ∩ (A ⊕ B)"
+  ],
+  "why": "The boundary is A minus its erosion. (A ⊕ B) − A would give an outer boundary instead.",
+  "source": "L10 slide 38"
+ },
+ {
+  "id": "ch10-016",
+  "chapter": "L10 · Morphology",
+  "topic": "Region filling",
+  "kind": "concept",
+  "q": "The region-filling iteration in L10 is:",
+  "choices": [
+   "X_k = (X_{k−1} ⊕ B) ∩ Aᶜ",
+   "X_k = (X_{k−1} ⊖ B) ∩ A",
+   "X_k = (X_{k−1} ⊕ B) ∩ A",
+   "X_k = (X_{k−1} ⊖ B) ∪ Aᶜ"
+  ],
+  "why": "Grow the seed by dilation, then clip to the complement so it cannot cross the boundary. ∩ A is connected components.",
+  "source": "L10 slide 40"
+ },
+ {
+  "id": "ch10-017",
+  "chapter": "L10 · Morphology",
+  "topic": "Region filling",
+  "kind": "trap",
+  "q": "Why does Gonzalez's region filling use the 3×3 cross, not the 3×3 square?",
+  "choices": [
+   "A square leaks through diagonal gaps",
+   "A square never converges at all",
+   "A cross is faster to compute",
+   "A square removes the boundary A"
+  ],
+  "why": "The boundary is 8-connected; a square SE would step diagonally through it and flood the background.",
+  "source": "L10 slide 41"
+ },
+ {
+  "id": "ch10-018",
+  "chapter": "L10 · Morphology",
+  "topic": "Connected components",
+  "kind": "concept",
+  "q": "The connected-component extraction iteration is:",
+  "choices": [
+   "X_k = (X_{k−1} ⊕ B) ∩ A",
+   "X_k = (X_{k−1} ⊕ B) ∩ Aᶜ",
+   "X_k = (X_{k−1} ⊖ B) ∩ A",
+   "X_k = A − (X_{k−1} ⊖ B)"
+  ],
+  "why": "Same loop as region filling but intersected with A, so growth stays inside the object.",
+  "source": "L10 slide 43"
+ },
+ {
+  "id": "ch10-019",
+  "chapter": "L10 · Morphology",
+  "topic": "Hit-or-miss",
+  "kind": "concept",
+  "q": "The hit-or-miss transform A ⊛ B equals:",
+  "choices": [
+   "(A ⊖ X) ∩ [Aᶜ ⊖ (W − X)]",
+   "(A ⊕ X) ∩ [Aᶜ ⊕ (W − X)]",
+   "(A ⊖ X) ∪ [Aᶜ ⊖ (W − X)]",
+   "(A ⊖ X) − [A ⊕ (W − X)]"
+  ],
+  "why": "X must fit the object and its local background W − X must fit the complement; both erosions are intersected.",
+  "source": "L10 slide 36-37"
+ },
+ {
+  "id": "ch10-020",
+  "chapter": "L10 · Morphology",
+  "topic": "Gradient",
+  "kind": "concept",
+  "q": "The morphological gradient is:",
+  "choices": [
+   "dilation minus erosion",
+   "erosion minus dilation",
+   "opening minus closing",
+   "original minus opening"
+  ],
+  "why": "Slide 55: (A ⊕ B) − (A ⊖ B) highlights boundaries/edges.",
+  "source": "L10 slide 55"
+ },
+ {
+  "id": "ch10-021",
+  "chapter": "L10 · Morphology",
+  "topic": "Top-hat",
+  "kind": "concept",
+  "q": "The white top-hat transform is:",
+  "choices": [
+   "original minus its opening",
+   "its closing minus original",
+   "dilation minus original",
+   "original minus its erosion"
+  ],
+  "why": "White top-hat = A − (A∘B), keeps small bright details. Black top-hat = (A•B) − A.",
+  "source": "L10 slide 56"
+ },
+ {
+  "id": "ch10-022",
+  "chapter": "L10 · Morphology",
+  "topic": "Erosion",
+  "kind": "calc",
+  "q": "A d×d square is eroded by a centred (d/4)×(d/4) square SE. Result?",
+  "choices": [
+   "A 3d/4 × 3d/4 square",
+   "A 5d/4 × 5d/4 square",
+   "A d/2 × d/2 square",
+   "A 7d/8 × 7d/8 square"
+  ],
+  "why": "Erosion removes d/8 from each side: d − d/4 = 3d/4 (Fig. 9.6).",
+  "source": "L10 slide 24"
+ },
+ {
+  "id": "ch10-023",
+  "chapter": "L10 · Morphology",
+  "topic": "Dilation",
+  "kind": "calc",
+  "q": "A d×d square is dilated by a centred (d/4)×(d/4) square SE. Side length?",
+  "choices": [
+   "5d/4",
+   "9d/8",
+   "3d/2",
+   "3d/4"
+  ],
+  "why": "Dilation adds d/8 on each side: d + d/4 = 5d/4 (Fig. 9.4).",
+  "source": "L10 slide 21"
+ },
+ {
+  "id": "ch10-024",
+  "chapter": "L10 · Morphology",
+  "topic": "Erosion",
+  "kind": "calc",
+  "q": "A d×d square is eroded by a centred SE d/4 wide and d tall. Result?",
+  "choices": [
+   "A line 3d/4 long, zero height",
+   "A 3d/4 × d/2 rectangle",
+   "A 5d/4 × 2d rectangle",
+   "Nothing at all is left"
+  ],
+  "why": "Width shrinks to d − d/4 = 3d/4; height shrinks to d − d = 0, so a horizontal line (Fig. 9.6e).",
+  "source": "L10 slide 24"
+ },
+ {
+  "id": "ch10-025",
+  "chapter": "L10 · Morphology",
+  "topic": "Opening",
+  "kind": "calc",
+  "q": "Squares of side 1, 3, 5, 7, 9, 15 are eroded by a 13×13 square. What survives?",
+  "choices": [
+   "Only the 15s, each now 3×3",
+   "The 9s and 15s, now smaller",
+   "Only the 15s, each now 13×13",
+   "Nothing survives the erosion"
+  ],
+  "why": "Only squares ≥ 13 survive; 15 − 12 = 3. Dilating back with 13×13 restores 15×15 (Fig. 9.7).",
+  "source": "L10 slide 25"
+ },
+ {
+  "id": "ch10-026",
+  "chapter": "L10 · Morphology",
+  "topic": "Erosion",
+  "kind": "calc",
+  "q": "A solid 5×5 block of 1s (background around it) is eroded by a 3×3 square. How many 1s remain?",
+  "choices": [
+   "9",
+   "16",
+   "1",
+   "25"
+  ],
+  "why": "Each side loses one pixel: a 3×3 block, 9 pixels.",
+  "source": "L10 slide 23-25"
+ },
+ {
+  "id": "ch10-027",
+  "chapter": "L10 · Morphology",
+  "topic": "Opening",
+  "kind": "calc",
+  "q": "A 4×4 block has a 1-pixel-wide line sticking out of one side. Opening with a 3×3 square gives:",
+  "choices": [
+   "the 4×4 block without the line",
+   "the 4×4 block with the line kept",
+   "only the 2×2 core of the block",
+   "an empty image with no pixels"
+  ],
+  "why": "Erosion leaves the 2×2 core and kills the line; dilation grows the core back to 4×4 only.",
+  "source": "L10 slide 26-30"
+ },
+ {
+  "id": "ch10-028",
+  "chapter": "L10 · Morphology",
+  "topic": "Closing",
+  "kind": "calc",
+  "q": "A 3×3 block of 1s has its centre pixel 0. Closing with a 3×3 square (block far from borders):",
+  "choices": [
+   "fills the hole, giving a full 3×3",
+   "leaves the hole unchanged",
+   "removes the whole block",
+   "grows the block to 5×5"
+  ],
+  "why": "Dilation gives a 5×5 with no hole; erosion shrinks it back to a full 3×3.",
+  "source": "L10 slide 28-33"
+ },
+ {
+  "id": "ch10-029",
+  "chapter": "L10 · Morphology",
+  "topic": "Boundary",
+  "kind": "calc",
+  "q": "Boundary extraction with a 3×3 square on a solid 5×5 block (background around it). Boundary pixel count?",
+  "choices": [
+   "16",
+   "25",
+   "9",
+   "20"
+  ],
+  "why": "Erosion leaves the 3×3 interior (9); 25 − 9 = 16 boundary pixels.",
+  "source": "L10 slide 38-39"
+ },
+ {
+  "id": "ch10-030",
+  "chapter": "L10 · Morphology",
+  "topic": "Grey morphology",
+  "kind": "calc",
+  "q": "f = [3, 9, 3] and a flat 3-wide SE. Grey dilation at the middle sample is:",
+  "choices": [
+   "9",
+   "3",
+   "5",
+   "15"
+  ],
+  "why": "Dilation is the max of the window: max(3, 9, 3) = 9.",
+  "source": "L10 slide 13, 52"
+ },
+ {
+  "id": "ch10-031",
+  "chapter": "L10 · Morphology",
+  "topic": "Grey morphology",
+  "kind": "calc",
+  "q": "f = [3, 3, 9, 3, 3], flat 3-wide SE. The opening at the middle sample is:",
+  "choices": [
+   "3",
+   "9",
+   "6",
+   "0"
+  ],
+  "why": "Erosion gives [3,3,3,3,3]; dilating that gives 3: the narrow bright spike is removed.",
+  "source": "L10 slide 26, 52"
+ },
+ {
+  "id": "ch10-032",
+  "chapter": "L10 · Morphology",
+  "topic": "Duality",
+  "kind": "trap",
+  "q": "L11 slide 60 says 'Opening filter: max → min'. Following L10, opening is:",
+  "choices": [
+   "min (erosion) then max (dilation)",
+   "max (dilation) then min (erosion)",
+   "median then max",
+   "min then median"
+  ],
+  "why": "L11 S60 swaps the names. L10 and Gonzalez: opening = erosion (min) then dilation (max).",
+  "source": "L10 slide 26; L11 slide 60"
+ },
+ {
+  "id": "ch11-001",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Convolution",
+  "kind": "trap",
+  "q": "Slide 14 multiplies I₀×M₀ … I₈×M₈ with no flip. Strictly, that is:",
+  "choices": [
+   "correlation (no 180° mask rotation)",
+   "convolution (mask rotated 180°)",
+   "a median of the products",
+   "a morphological dilation"
+  ],
+  "why": "True convolution rotates the mask 180°. Identical for symmetric masks, different for Sobel or lopsided masks.",
+  "source": "L11 slide 11, 14"
+ },
+ {
+  "id": "ch11-002",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Convolution",
+  "kind": "calc",
+  "q": "Correlate a unit impulse with w = [1 2 3; 4 5 6; 7 8 9]. The output is:",
+  "choices": [
+   "w rotated 180°: [9 8 7; 6 5 4; 3 2 1]",
+   "w itself: [1 2 3; 4 5 6; 7 8 9]",
+   "w transposed: [1 4 7; 2 5 8; 3 6 9]",
+   "a single value equal to 45"
+  ],
+  "why": "Correlation of an impulse gives the rotated mask; convolution gives the mask itself.",
+  "source": "L11 slide 11-14"
+ },
+ {
+  "id": "ch11-003",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Convolution",
+  "kind": "calc",
+  "q": "1-D: f = [0, 1, 2] convolved (full) with w = [1, 1]. Result?",
+  "choices": [
+   "[0, 1, 3, 2]",
+   "[0, 1, 2, 2]",
+   "[1, 3, 2, 0]",
+   "[0, 2, 4, 2]"
+  ],
+  "why": "Full length 3 + 2 − 1 = 4: [0, 0+1, 1+2, 2] = [0, 1, 3, 2].",
+  "source": "L11 slide 12"
+ },
+ {
+  "id": "ch11-004",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Convolution",
+  "kind": "calc",
+  "q": "f = box of height 1 on [0,1], g = box of height ½ on [0,1]. Peak of f∗g?",
+  "choices": [
+   "½ at x = 1",
+   "1 at x = 1",
+   "½ at x = 0.5",
+   "1 at x = 2"
+  ],
+  "why": "The convolution is a triangle on [0, 2]: x/2 then 1 − x/2, peak ½ at x = 1.",
+  "source": "L11 slide 13"
+ },
+ {
+  "id": "ch11-005",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Borders",
+  "kind": "concept",
+  "q": "Which is NOT one of the border-handling options on L11 slide 15?",
+  "choices": [
+   "Mirror and double the edge pixels",
+   "Zero-padding",
+   "Duplicating the edge rows/columns",
+   "Wrap-around"
+  ],
+  "why": "Slide 15 lists zero-padding, starting at (1,1) (skipping borders), duplicating edges, and wrap-around.",
+  "source": "L11 slide 15"
+ },
+ {
+  "id": "ch11-006",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Blurring",
+  "kind": "calc",
+  "q": "Window [13 4 8; 2 9 6; 7 25 16]. Output of the 3×3 box filter?",
+  "choices": [
+   "10",
+   "8",
+   "9",
+   "12"
+  ],
+  "why": "Sum = 90, 90/9 = 10.",
+  "source": "L11 slide 16, 55"
+ },
+ {
+  "id": "ch11-007",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Median",
+  "kind": "calc",
+  "q": "Window [13 4 8; 2 9 6; 7 25 16] (L11 S55). Median filter output?",
+  "choices": [
+   "8",
+   "9",
+   "10",
+   "7"
+  ],
+  "why": "Sorted: 2 4 6 7 8 9 13 16 25; the 5th value is 8.",
+  "source": "L11 slide 55"
+ },
+ {
+  "id": "ch11-008",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Blurring",
+  "kind": "calc",
+  "q": "Window [13 4 8; 2 9 6; 7 25 16] with the Gaussian mask (1/16)[1 2 1; 2 4 2; 1 2 1]. Output?",
+  "choices": [
+   "9.625",
+   "10.000",
+   "8.500",
+   "9.125"
+  ],
+  "why": "Corners 44·1 + edges 37·2 + centre 9·4 = 154; 154/16 = 9.625.",
+  "source": "L11 slide 19"
+ },
+ {
+  "id": "ch11-009",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Median",
+  "kind": "calc",
+  "q": "Zero-padded 3×3 median at a corner pixel of an image that is all 10s. Output?",
+  "choices": [
+   "0",
+   "10",
+   "5",
+   "3.3"
+  ],
+  "why": "Five of the nine values are padding zeros, so the median (5th of 9) is 0.",
+  "source": "L11 slide 15, 55"
+ },
+ {
+  "id": "ch11-010",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Blurring",
+  "kind": "calc",
+  "q": "A 3×3 box filter on a window of eight 10s and one 100 at the centre. Output?",
+  "choices": [
+   "20",
+   "10",
+   "100",
+   "55"
+  ],
+  "why": "(8·10 + 100)/9 = 180/9 = 20: the spike is spread, not removed.",
+  "source": "L11 slide 16"
+ },
+ {
+  "id": "ch11-011",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Median",
+  "kind": "calc",
+  "q": "3×3 median on a window of eight 10s and one 255 (salt) at the centre. Output?",
+  "choices": [
+   "10",
+   "255",
+   "38",
+   "0"
+  ],
+  "why": "The extreme value sorts to the end; the 5th value is 10, so the impulse disappears.",
+  "source": "L11 slide 53-55"
+ },
+ {
+  "id": "ch11-012",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Median",
+  "kind": "concept",
+  "q": "Why is the median filter preferred to a low-pass filter for impulse noise?",
+  "choices": [
+   "It removes impulses and keeps edges",
+   "It is linear, so it is faster",
+   "It blurs edges more evenly",
+   "It sharpens the image as well"
+  ],
+  "why": "Slide 53: median removes impulse noise and preserves sharp edges; low-pass suits Gaussian noise.",
+  "source": "L11 slide 53"
+ },
+ {
+  "id": "ch11-013",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Colour median",
+  "kind": "concept",
+  "q": "The vector (colour) median outputs:",
+  "choices": [
+   "the pixel with the smallest summed distance",
+   "the per-channel median of R, G and B",
+   "the pixel with the largest brightness",
+   "the average colour of the window"
+  ],
+  "why": "Slide 59: compute Distᵢ = Σⱼ |xᵢ − xⱼ| over R, G, B and return the xᵢ with the smallest Distᵢ.",
+  "source": "L11 slide 59"
+ },
+ {
+  "id": "ch11-014",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Min/max",
+  "kind": "concept",
+  "q": "A minimum filter removes which noise, and what happens to brightness?",
+  "choices": [
+   "White spikes; image gets darker",
+   "Dark spikes; image gets brighter",
+   "White spikes; image gets brighter",
+   "Dark spikes; image gets darker"
+  ],
+  "why": "Slide 60: min removes white spikes and lowers overall intensity; max removes dark spikes and raises it.",
+  "source": "L11 slide 60"
+ },
+ {
+  "id": "ch11-015",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Min/max",
+  "kind": "concept",
+  "q": "Why are min and max filters cascaded?",
+  "choices": [
+   "Each alone fails on mixed salt and pepper",
+   "Each alone blurs edges too strongly",
+   "Each alone is too slow to compute",
+   "Each alone needs zero padding"
+  ],
+  "why": "Slide 60: both fail on mixed impulse noise; cascading them can remove salt and pepper.",
+  "source": "L11 slide 60"
+ },
+ {
+  "id": "ch11-016",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Sharpening",
+  "kind": "trap",
+  "q": "The deck prints a sharpening mask [1 −2 1; −1 5 −2; 1 −2 1]. Its weights sum to:",
+  "choices": [
+   "2, so it is a typo for −2 (sum 1)",
+   "1, so it is a valid mask as is",
+   "0, so it is a high-pass mask",
+   "9, so it must be divided by 9"
+  ],
+  "why": "1−2+1−1+5−2+1−2+1 = 2. With −2 in place of −1 the sum is 1 like the other sharpening masks.",
+  "source": "L11 slide 20"
+ },
+ {
+  "id": "ch11-017",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Unsharp masking",
+  "kind": "concept",
+  "q": "Unsharp masking, per L11, is:",
+  "choices": [
+   "original minus lowpass",
+   "lowpass minus original",
+   "original plus lowpass",
+   "original times lowpass"
+  ],
+  "why": "Slide 21: subtract a low-pass filtered image from its original.",
+  "source": "L11 slide 21"
+ },
+ {
+  "id": "ch11-018",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "High-boost",
+  "kind": "concept",
+  "q": "High-boost = A·Original − Lowpass. What happens when A = 1?",
+  "choices": [
+   "It becomes a plain high-pass filter",
+   "It becomes a plain low-pass filter",
+   "It returns the original image",
+   "It returns an all-zero image"
+  ],
+  "why": "Slide 21/24: A = 1 gives high-pass; A > 1 restores low-frequency content.",
+  "source": "L11 slide 21, 24"
+ },
+ {
+  "id": "ch11-019",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "High-boost",
+  "kind": "calc",
+  "q": "High-boost mask: −1/9 around a centre of w/9. For A = 2, w equals:",
+  "choices": [
+   "17",
+   "18",
+   "8",
+   "9"
+  ],
+  "why": "w = 9A − 1 = 17.",
+  "source": "L11 slide 21"
+ },
+ {
+  "id": "ch11-020",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "High-boost",
+  "kind": "calc",
+  "q": "Centre 40, 3×3 mean 26.67. High-boost output for A = 1.2?",
+  "choices": [
+   "21.33",
+   "13.33",
+   "48.00",
+   "26.67"
+  ],
+  "why": "1.2·40 − 26.67 = 48 − 26.67 = 21.33.",
+  "source": "L11 slide 24"
+ },
+ {
+  "id": "ch11-021",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "High-pass",
+  "kind": "calc",
+  "q": "Mask (1/9)[−1 −1 −1; −1 8 −1; −1 −1 −1] on a flat patch of all 50s. Output?",
+  "choices": [
+   "0",
+   "50",
+   "400/9",
+   "−50"
+  ],
+  "why": "The weights sum to 0, so any constant region gives 0.",
+  "source": "L11 slide 21"
+ },
+ {
+  "id": "ch11-022",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Point detection",
+  "kind": "calc",
+  "q": "Point mask [−1 −1 −1; −1 8 −1; −1 −1 −1] on 10s with centre 90. R = ?",
+  "choices": [
+   "640",
+   "720",
+   "80",
+   "560"
+  ],
+  "why": "8·90 − 8·10 = 720 − 80 = 640.",
+  "source": "L11 slide 28"
+ },
+ {
+  "id": "ch11-023",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Line detection",
+  "kind": "calc",
+  "q": "Which line mask responds most to [0 0 9; 0 9 0; 9 0 0]?",
+  "choices": [
+   "+45° mask [−1 −1 2; −1 2 −1; 2 −1 −1]",
+   "Horizontal [−1 −1 −1; 2 2 2; −1 −1 −1]",
+   "Vertical [−1 2 −1; −1 2 −1; −1 2 −1]",
+   "−45° mask [2 −1 −1; −1 2 −1; −1 −1 2]"
+  ],
+  "why": "The 9s run bottom-left to top-right, matching the +45° 2s: response 54; others give 0.",
+  "source": "L11 slide 28"
+ },
+ {
+  "id": "ch11-024",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Homogeneity",
+  "kind": "calc",
+  "q": "Homogeneity operator on [11 13 15; 16 11 11; 16 12 11]. Output?",
+  "choices": [
+   "5",
+   "4",
+   "16",
+   "2"
+  ],
+  "why": "Max |11 − neighbour| = |11 − 16| = 5 (L11 S34 worked example).",
+  "source": "L11 slide 34"
+ },
+ {
+  "id": "ch11-025",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Difference op",
+  "kind": "calc",
+  "q": "Difference operator on [20 22 40; 18 25 45; 19 21 50]. Output?",
+  "choices": [
+   "30",
+   "25",
+   "27",
+   "21"
+  ],
+  "why": "Pairs: |20−50| = 30, |22−21| = 1, |40−19| = 21, |45−18| = 27; max = 30.",
+  "source": "L11 slide 33-34"
+ },
+ {
+  "id": "ch11-026",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Gradient operators",
+  "kind": "trap",
+  "q": "L11 slide 8 files Canny as 'second-order, Gaussian-based'. In fact Canny uses:",
+  "choices": [
+   "the first derivative of a smoothed image",
+   "the second derivative (zero crossings)",
+   "the median of a smoothed image",
+   "a morphological gradient of it"
+  ],
+  "why": "Canny = Gaussian smoothing + gradient (first derivative) + non-max suppression + hysteresis.",
+  "source": "L11 slide 8"
+ },
+ {
+  "id": "ch11-027",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Roberts",
+  "kind": "concept",
+  "q": "Per L11, the Roberts operator is:",
+  "choices": [
+   "smallest in area and most noise-prone",
+   "most sensitive to diagonal edges",
+   "most sensitive to horizontal edges",
+   "largest in area and least noisy"
+  ],
+  "why": "Slide 38: Roberts has a smaller effective area and is more susceptible to noise.",
+  "source": "L11 slide 38"
+ },
+ {
+  "id": "ch11-028",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Sobel",
+  "kind": "concept",
+  "q": "Per L11 slide 38, the Sobel operator is more sensitive to:",
+  "choices": [
+   "diagonal edges",
+   "vertical and horizontal edges",
+   "isolated points",
+   "zero crossings"
+  ],
+  "why": "Slide 38: Sobel more sensitive to diagonal edges; Prewitt more sensitive to vertical/horizontal.",
+  "source": "L11 slide 38"
+ },
+ {
+  "id": "ch11-029",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Sobel",
+  "kind": "calc",
+  "q": "Sobel Gx = [−1 0 1; −2 0 2; −1 0 1] on [20 30 60; 20 40 90; 30 60 100]. Gx = ?",
+  "choices": [
+   "250",
+   "340",
+   "110",
+   "180"
+  ],
+  "why": "Right column 60 + 180 + 100 = 340; left 20 + 40 + 30 = 90; 340 − 90 = 250.",
+  "source": "L11 slide 37, 43"
+ },
+ {
+  "id": "ch11-030",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Sobel",
+  "kind": "calc",
+  "q": "Sobel Gx = 250, Gy = 110. Magnitude with |Gx| + |Gy| and with √(Gx² + Gy²)?",
+  "choices": [
+   "360 and 273.1",
+   "360 and 360.0",
+   "273.1 and 360",
+   "140 and 273.1"
+  ],
+  "why": "|Gx| + |Gy| = 360; √(62500 + 12100) = √74600 = 273.1.",
+  "source": "L11 slide 37"
+ },
+ {
+  "id": "ch11-031",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Sobel",
+  "kind": "calc",
+  "q": "Sobel Gx on a vertical step: columns 10, 10, 90 (every row). Gx = ?",
+  "choices": [
+   "320",
+   "80",
+   "240",
+   "160"
+  ],
+  "why": "(1 + 2 + 1)·90 − (1 + 2 + 1)·10 = 360 − 40 = 320.",
+  "source": "L11 slide 43"
+ },
+ {
+  "id": "ch11-032",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Sobel",
+  "kind": "trap",
+  "q": "The deck's Sobel mask is [1 0 −1; 2 0 −2; 1 0 −1] instead of [−1 0 1; −2 0 2; −1 0 1]. Effect?",
+  "choices": [
+   "Gx flips sign; magnitude is unchanged",
+   "Gx doubles; the direction is unchanged",
+   "Magnitude halves; direction is unchanged",
+   "Nothing changes in Gx or the magnitude"
+  ],
+  "why": "A negated mask negates the response: same |∇f|, direction rotated by 180°.",
+  "source": "L11 slide 37"
+ },
+ {
+  "id": "ch11-033",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Compass",
+  "kind": "concept",
+  "q": "Compass gradient operators find edges by:",
+  "choices": [
+   "convolving with 8 masks for 8 directions",
+   "using a single isotropic Laplacian",
+   "taking the median of 8 neighbours",
+   "subtracting 4 opposite pixel pairs"
+  ],
+  "why": "Slide 41: Prewitt, Kirsch, Robinson 3- and 5-level compass masks, eight orientations.",
+  "source": "L11 slide 41-42"
+ },
+ {
+  "id": "ch11-034",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Laplacian",
+  "kind": "concept",
+  "q": "How does the Laplacian mark an edge?",
+  "choices": [
+   "A zero crossing (sign change)",
+   "A local maximum of its value",
+   "A value above a fixed threshold",
+   "A local minimum of its value"
+  ],
+  "why": "Slide 45: the Laplacian output changes sign at edges; edges are zero crossings.",
+  "source": "L11 slide 45"
+ },
+ {
+  "id": "ch11-035",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Laplacian",
+  "kind": "concept",
+  "q": "Which is NOT a disadvantage of the Laplacian listed on L11?",
+  "choices": [
+   "Poor edge localization",
+   "Unacceptably sensitive to noise",
+   "Produces double edges",
+   "Unable to detect edge direction"
+  ],
+  "why": "Slide 45 actually credits second derivatives with better localization; the other three are its listed drawbacks.",
+  "source": "L11 slide 45"
+ },
+ {
+  "id": "ch11-036",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Laplacian",
+  "kind": "calc",
+  "q": "4-neighbour Laplacian [0 −1 0; −1 4 −1; 0 −1 0] at centre 30 of [10 10 40; 10 30 40; 10 20 40]?",
+  "choices": [
+   "40",
+   "60",
+   "80",
+   "120"
+  ],
+  "why": "4·30 − (10 + 10 + 40 + 20) = 120 − 80 = 40.",
+  "source": "L11 slide 45"
+ },
+ {
+  "id": "ch11-037",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Laplacian",
+  "kind": "calc",
+  "q": "Sharpen with [0 −1 0; −1 5 −1; 0 −1 0] at the centre of [10 10 40; 10 30 40; 10 20 40]?",
+  "choices": [
+   "70",
+   "40",
+   "30",
+   "110"
+  ],
+  "why": "This mask = identity + 4-neighbour Laplacian: 30 + 40 = 70.",
+  "source": "L11 slide 20, 45"
+ },
+ {
+  "id": "ch11-038",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Derivatives",
+  "kind": "calc",
+  "q": "Ramp f = [10, 10, 20, 30, 30]. Second difference f[x+1] − 2f[x] + f[x−1] at x = 1, 2, 3?",
+  "choices": [
+   "10, 0, −10",
+   "0, 10, 0",
+   "10, 10, 10",
+   "−10, 0, 10"
+  ],
+  "why": "x=1: 20 − 20 + 10 = 10; x=2: 30 − 40 + 10 = 0; x=3: 30 − 60 + 20 = −10. Double edge, zero crossing between.",
+  "source": "L11 slide 45-46"
+ },
+ {
+  "id": "ch11-039",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "LoG/DoG",
+  "kind": "concept",
+  "q": "Why apply a Gaussian before the Laplacian (LoG)?",
+  "choices": [
+   "To reduce the Laplacian's noise sensitivity",
+   "To make the edges thicker and darker",
+   "To find the edge direction directly",
+   "To turn it into a first-derivative filter"
+  ],
+  "why": "Slide 48: LoG is a second-order edge detector less susceptible to noise because of the smoothing.",
+  "source": "L11 slide 48"
+ },
+ {
+  "id": "ch11-040",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "LoG/DoG",
+  "kind": "calc",
+  "q": "DoG approximates LoG well when the ratio of the two σ's is about:",
+  "choices": [
+   "1.6",
+   "2.0",
+   "1.0",
+   "3.2"
+  ],
+  "why": "Slide 49: σ₁ = 1.0, σ₂ = 1.6. (The slide writes σ₁/σ₂ = 1.6; it means σ₂/σ₁.)",
+  "source": "L11 slide 49"
+ },
+ {
+  "id": "ch11-041",
+  "chapter": "L11 · Spatial Filtering & Edges",
+  "topic": "Filter types",
+  "kind": "trap",
+  "q": "L11 slide 4 splits filters into 'linear/smoothing' and 'frequency domain'. Which pairing is correct?",
+  "choices": [
+   "Linear vs non-linear; spatial vs frequency",
+   "Linear vs frequency; spatial vs smoothing",
+   "Smoothing vs frequency; linear vs spatial",
+   "Median vs frequency; linear vs smoothing"
+  ],
+  "why": "Linear/non-linear is about what the filter does (median and min/max are non-linear); spatial/frequency is where you filter.",
+  "source": "L11 slide 4"
+ },
+ {
+  "id": "ch12-001",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Vocabulary",
+  "kind": "concept",
+  "q": "In L12, a 'pattern' is:",
+  "choices": [
+   "an arrangement of descriptors",
+   "a family of related classes",
+   "a single pixel's grey value",
+   "a trained classifier model"
+  ],
+  "why": "Slide 3: pattern = arrangement of descriptors (features); pattern class = family of patterns sharing properties.",
+  "source": "L12 slide 3"
+ },
+ {
+  "id": "ch12-002",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Fish example",
+  "kind": "concept",
+  "q": "In the sea bass vs salmon example, what does L12 conclude about length?",
+  "choices": [
+   "Length alone is a poor feature",
+   "Length alone separates them well",
+   "Length is better than lightness",
+   "Length is the only feature needed"
+  ],
+  "why": "Slide 9: 'The length is a poor feature alone!' Lightness is tried next.",
+  "source": "L12 slide 8-9"
+ },
+ {
+  "id": "ch12-003",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Fish example",
+  "kind": "concept",
+  "q": "Why move the lightness threshold toward smaller values (slide 11)?",
+  "choices": [
+   "To sell fewer sea bass as salmon",
+   "To sell more sea bass as salmon",
+   "To make both errors exactly equal",
+   "To ignore the cost of errors"
+  ],
+  "why": "The boundary is chosen to minimise cost: fewer sea bass classified as salmon. That is decision theory.",
+  "source": "L12 slide 11"
+ },
+ {
+  "id": "ch12-004",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Features",
+  "kind": "concept",
+  "q": "Adding the width to lightness makes the fish feature vector:",
+  "choices": [
+   "xᵀ = [x₁, x₂] and the boundary a line",
+   "xᵀ = [x₁] and the boundary a point",
+   "xᵀ = [x₁, x₂, x₃] and the boundary a plane",
+   "xᵀ = [x₁, x₂] and the boundary a point"
+  ],
+  "why": "Slide 12: two features (lightness, width), so the decision boundary is a line in the 2-D plane.",
+  "source": "L12 slide 12-13"
+ },
+ {
+  "id": "ch12-005",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Features",
+  "kind": "trap",
+  "q": "What precaution does slide 14 give about adding more features?",
+  "choices": [
+   "Noisy features can reduce performance",
+   "More features always improve accuracy",
+   "Correlated features are always best",
+   "Features must be integer-valued"
+  ],
+  "why": "A new feature should add new (uncorrelated) information, but noisy features can make results worse.",
+  "source": "L12 slide 14"
+ },
+ {
+  "id": "ch12-006",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Generalization",
+  "kind": "concept",
+  "q": "A boundary that perfectly separates all training fish raises the issue of:",
+  "choices": [
+   "generalization to novel input (overfitting)",
+   "segmenting fish that overlap on the belt",
+   "the cost and resolution of the camera",
+   "the speed of the conveyor belt system"
+  ],
+  "why": "Slides 15-16: the aim is to classify novel input correctly; a too-complex boundary may not generalize.",
+  "source": "L12 slide 15-16"
+ },
+ {
+  "id": "ch12-007",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "PR system",
+  "kind": "concept",
+  "q": "What is the correct order of a pattern recognition system (L12)?",
+  "choices": [
+   "Sensing, segmentation, features, classification",
+   "Features, sensing, classification, segmentation",
+   "Segmentation, sensing, classification, features",
+   "Classification, features, segmentation, sensing"
+  ],
+  "why": "Slides 17-19: sensing → segmentation & grouping → feature extraction → classification → post-processing.",
+  "source": "L12 slide 17-19"
+ },
+ {
+  "id": "ch12-008",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Design cycle",
+  "kind": "concept",
+  "q": "Which is NOT a step of the design cycle on L12 slide 20?",
+  "choices": [
+   "Post-processing",
+   "Data collection",
+   "Model choice",
+   "Evaluation"
+  ],
+  "why": "Design cycle: data collection, feature choice, model choice, training, evaluation (and computational complexity).",
+  "source": "L12 slide 20"
+ },
+ {
+  "id": "ch12-009",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Learning",
+  "kind": "concept",
+  "q": "In supervised learning:",
+  "choices": [
+   "a teacher gives a label or cost per pattern",
+   "the system forms natural clusters itself",
+   "no training data is used at all",
+   "only the class priors are known"
+  ],
+  "why": "Slide 28: supervised = teacher-provided labels/costs; unsupervised = the system forms natural groupings.",
+  "source": "L12 slide 28"
+ },
+ {
+  "id": "ch12-010",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Approaches",
+  "kind": "concept",
+  "q": "Structural pattern recognition represents data as:",
+  "choices": [
+   "a grammar or a graph",
+   "a vector of real numbers",
+   "a probability density",
+   "a histogram of features"
+  ],
+  "why": "Slide 30: structural PR uses discrete structures (grammars, graphs) with parsing/graph matching.",
+  "source": "L12 slide 29-30"
+ },
+ {
+  "id": "ch12-011",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Vocabulary",
+  "kind": "concept",
+  "q": "The 'reject class' is:",
+  "choices": [
+   "for objects not in any known class",
+   "the class with the smallest prior",
+   "the class with the most samples",
+   "for objects on the boundary only"
+  ],
+  "why": "Slides 31, 36: a generic class for objects not in any of the designated known classes.",
+  "source": "L12 slide 31, 36"
+ },
+ {
+  "id": "ch12-012",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Features",
+  "kind": "calc",
+  "q": "Using only [#holes, #strokes] from the slide-34 table, which characters cannot be told apart?",
+  "choices": [
+   "'1', '-' and '/' (0 holes, 1 stroke)",
+   "'A' and 'B' (both have 1 hole)",
+   "'8' and 'B' (both have 2 strokes)",
+   "'W' and 'X' (both have 4 strokes)"
+  ],
+  "why": "'1', '-' and '/' all have 0 holes and 1 stroke; other features (best axis, size) must separate them.",
+  "source": "L12 slide 32-34"
+ },
+ {
+  "id": "ch12-013",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Nearest mean",
+  "kind": "concept",
+  "q": "The nearest class mean classifier:",
+  "choices": [
+   "picks the closest mean, rejects if too far",
+   "picks the class with the most samples",
+   "picks the nearest single training sample",
+   "picks the class with the largest prior"
+  ],
+  "why": "Slide 38: Euclidean distance to each class mean; choose the closest if close enough, otherwise reject.",
+  "source": "L12 slide 38"
+ },
+ {
+  "id": "ch12-014",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Nearest mean",
+  "kind": "concept",
+  "q": "Nearest mean fails when a class is multi-modal. The fix on slide 39:",
+  "choices": [
+   "use one mean per mode (subclasses)",
+   "use only one feature instead",
+   "average the modes into one mean",
+   "switch to the reject class"
+  ],
+  "why": "Slide 39: if the modes are detected, two subclass mean vectors can be used.",
+  "source": "L12 slide 39"
+ },
+ {
+  "id": "ch12-015",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Nearest mean",
+  "kind": "calc",
+  "q": "Means m₁ = (1, 2), m₂ = (6, 1), m₃ = (3, 6). Nearest class to x = (4, 3)?",
+  "choices": [
+   "Class 2 (distance √8)",
+   "Class 1 (distance √10)",
+   "Class 3 (distance √10)",
+   "Tie between 1 and 3"
+  ],
+  "why": "Squared distances 10, 8, 10: class 2 is closest.",
+  "source": "L12 slide 38"
+ },
+ {
+  "id": "ch12-016",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Nearest mean",
+  "kind": "calc",
+  "q": "Means m₁ = (4.3, 1.3), m₂ = (1.5, 0.3). The boundary d₁(x) − d₂(x) = 0 is:",
+  "choices": [
+   "2.8x₁ + 1.0x₂ − 8.92 = 0",
+   "2.8x₁ + 1.0x₂ + 8.92 = 0",
+   "5.8x₁ + 1.6x₂ − 11.26 = 0",
+   "1.4x₁ + 0.5x₂ − 2.9 = 0"
+  ],
+  "why": "(m₁ − m₂)ᵀx − ½(‖m₁‖² − ‖m₂‖²) = 2.8x₁ + x₂ − ½(20.18 − 2.34) = 2.8x₁ + x₂ − 8.92.",
+  "source": "L12 slide 38 (Gonzalez Iris)"
+ },
+ {
+  "id": "ch12-017",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Nearest mean",
+  "kind": "calc",
+  "q": "Decision function d_j(x) = xᵀm_j − ½‖m_j‖². For m = (6, 1) and x = (4, 3), d = ?",
+  "choices": [
+   "8.5",
+   "27.0",
+   "18.5",
+   "9.5"
+  ],
+  "why": "xᵀm = 24 + 3 = 27; ½‖m‖² = 18.5; 27 − 18.5 = 8.5.",
+  "source": "L12 slide 37-38"
+ },
+ {
+  "id": "ch12-018",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Nearest mean",
+  "kind": "concept",
+  "q": "With decision functions d_j(x) = xᵀm_j − ½‖m_j‖², the rule is:",
+  "choices": [
+   "pick the largest d_j",
+   "pick the smallest d_j",
+   "pick d_j closest to 0",
+   "pick the d_j with the most terms"
+  ],
+  "why": "Maximising d_j is equivalent to minimising the Euclidean distance to m_j.",
+  "source": "L12 slide 38"
+ },
+ {
+  "id": "ch12-019",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Nearest mean",
+  "kind": "concept",
+  "q": "The minimum-distance boundary between two class means is:",
+  "choices": [
+   "the perpendicular bisector of the means",
+   "the line joining the two means",
+   "a circle centred on one of the means",
+   "a parabola through both of the means"
+  ],
+  "why": "d_ij(x) = 0 is the set of points equidistant from m_i and m_j: the perpendicular bisector.",
+  "source": "L12 slide 38"
+ },
+ {
+  "id": "ch12-020",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Scaled distance",
+  "kind": "calc",
+  "q": "x = (5, 5); class mean (7, 2) with σ = (1, 4). Scaled Euclidean distance?",
+  "choices": [
+   "2.14",
+   "3.61",
+   "2.50",
+   "4.56"
+  ],
+  "why": "√((−2/1)² + (3/4)²) = √(4 + 0.5625) = √4.5625 = 2.136.",
+  "source": "L12 slide 40"
+ },
+ {
+  "id": "ch12-021",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Scaled distance",
+  "kind": "concept",
+  "q": "Why scale by each class's σ (slide 40)?",
+  "choices": [
+   "A spread-out class should 'reach' farther",
+   "It makes every distance a whole integer",
+   "It removes the need for any class means",
+   "It turns k-NN into a nearest-mean rule"
+  ],
+  "why": "A point at the top of a widely spread class can be nearer its mean once each axis is divided by that class's σ.",
+  "source": "L12 slide 40"
+ },
+ {
+  "id": "ch12-022",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "k-NN",
+  "kind": "concept",
+  "q": "The nearest neighbour classifier:",
+  "choices": [
+   "keeps all samples, uses the nearest one",
+   "keeps one mean vector per class only",
+   "keeps only the misclassified samples",
+   "keeps only the class prior probabilities"
+  ],
+  "why": "Slide 41: keep all training samples, assign the class of the nearest neighbour; extends to k-NN.",
+  "source": "L12 slide 41"
+ },
+ {
+  "id": "ch12-023",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "k-NN",
+  "kind": "calc",
+  "q": "q = (3, 3). Neighbours by distance: R (1), B (1.41), B (2), R (2.24), R (2.83). 1-NN, 3-NN, 5-NN give:",
+  "choices": [
+   "R, B, R",
+   "R, R, R",
+   "B, B, R",
+   "R, B, B"
+  ],
+  "why": "k=1: R. k=3: R,B,B → B. k=5: R,B,B,R,R → R. The answer depends on k.",
+  "source": "L12 slide 41"
+ },
+ {
+  "id": "ch12-024",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "k-NN",
+  "kind": "trap",
+  "q": "For a 2-class k-NN vote, why choose an odd k?",
+  "choices": [
+   "To avoid tied votes",
+   "To make it run faster",
+   "To avoid needing distances",
+   "To reduce memory use"
+  ],
+  "why": "With two classes an even k can split evenly; an odd k always gives a majority.",
+  "source": "L12 slide 41"
+ },
+ {
+  "id": "ch12-025",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Bayes",
+  "kind": "concept",
+  "q": "In Bayes' rule P(ωᵢ|x) = p(x|ωᵢ)P(ωᵢ)/p(x), P(ωᵢ) is the:",
+  "choices": [
+   "a priori probability (prior)",
+   "class-conditional density",
+   "unconditional distribution",
+   "posterior probability"
+  ],
+  "why": "Slide 42: class-conditional p(x|ωᵢ), a priori P(ωᵢ), unconditional p(x).",
+  "source": "L12 slide 42"
+ },
+ {
+  "id": "ch12-026",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Bayes",
+  "kind": "concept",
+  "q": "In Bayes' rule, p(x) in the denominator is:",
+  "choices": [
+   "Σⱼ p(x|ωⱼ)P(ωⱼ), the same for all classes",
+   "the prior of the most likely class",
+   "the largest class-conditional value",
+   "the posterior of the chosen class"
+  ],
+  "why": "p(x) = Σ p(x|ωⱼ)P(ωⱼ) is common to every class, so it does not change which class wins.",
+  "source": "L12 slide 42"
+ },
+ {
+  "id": "ch12-027",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Bayes",
+  "kind": "calc",
+  "q": "P(salmon) = 0.6, P(bass) = 0.4, p(bright|salmon) = 0.2, p(bright|bass) = 0.7. P(bass | bright)?",
+  "choices": [
+   "0.70",
+   "0.40",
+   "0.28",
+   "0.30"
+  ],
+  "why": "p(bright) = 0.12 + 0.28 = 0.40; 0.28 / 0.40 = 0.70.",
+  "source": "L12 slide 42"
+ },
+ {
+  "id": "ch12-028",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Bayes",
+  "kind": "calc",
+  "q": "Priors 0.5, 0.3, 0.2; likelihoods 0.1, 0.4, 0.6. The evidence p(x) is:",
+  "choices": [
+   "0.29",
+   "1.10",
+   "0.33",
+   "0.12"
+  ],
+  "why": "0.05 + 0.12 + 0.12 = 0.29.",
+  "source": "L12 slide 42"
+ },
+ {
+  "id": "ch12-029",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Bayes",
+  "kind": "trap",
+  "q": "Slide 42 says use Bayes' rule 'if all classes are disjoint'. The proper condition is:",
+  "choices": [
+   "mutually exclusive and exhaustive",
+   "independent and equally likely",
+   "Gaussian with equal variance",
+   "linearly separable in x"
+  ],
+  "why": "Exclusive and exhaustive classes let p(x) expand into Σ p(x|ωⱼ)P(ωⱼ).",
+  "source": "L12 slide 42"
+ },
+ {
+  "id": "ch12-030",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Evaluation",
+  "kind": "calc",
+  "q": "50 salmon (45 correct) and 50 sea bass (40 correct) are tested. Error rate?",
+  "choices": [
+   "15%",
+   "10%",
+   "20%",
+   "85%"
+  ],
+  "why": "Errors 5 + 10 = 15 of 100 = 15% (accuracy 85%).",
+  "source": "L12 slide 26"
+ },
+ {
+  "id": "ch12-031",
+  "chapter": "L12 · Pattern Classification",
+  "topic": "Template matching",
+  "kind": "calc",
+  "q": "An m × n template must reach every border pixel. Padding on top/bottom and left/right?",
+  "choices": [
+   "(m−1)/2 rows and (n−1)/2 columns",
+   "m rows and n columns",
+   "(m+1)/2 rows and (n+1)/2 columns",
+   "m−1 rows and n−1 columns"
+  ],
+  "why": "Fig. 12.8 (slide 35): pad (m−1)/2 and (n−1)/2 so the template centre can sit on any image pixel.",
+  "source": "L12 slide 35"
+ }
+]

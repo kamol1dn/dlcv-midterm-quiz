@@ -1,0 +1,1502 @@
+[
+ {
+  "id": "ch4-001",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Modulation",
+  "kind": "concept",
+  "q": "In AM (amplitude modulation), which property of the carrier is varied?",
+  "choices": [
+   "Its height (amplitude)",
+   "Its frequency (pitch rate)",
+   "Its phase only",
+   "Its sampling rate"
+  ],
+  "why": "AM varies the carrier's height to carry the data; FM varies frequency, PM varies phase.",
+  "source": "L4 slide 3"
+ },
+ {
+  "id": "ch4-002",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "PCM",
+  "kind": "concept",
+  "q": "In a quantizer, the set of input-interval boundaries that map to the same output level is the:",
+  "choices": [
+   "Coder mapping",
+   "Decoder mapping",
+   "Codebook index",
+   "Prediction error"
+  ],
+  "why": "Boundaries form the coder mapping; the representative output values form the decoder mapping.",
+  "source": "L4 slide 5"
+ },
+ {
+  "id": "ch4-003",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Compression stages",
+  "kind": "concept",
+  "q": "What are the three stages of every compression scheme, in order?",
+  "choices": [
+   "Transformation, loss, coding",
+   "Coding, loss, transformation",
+   "Sampling, coding, transmission",
+   "Loss, transformation, coding"
+  ],
+  "why": "Transform to an easier representation, introduce loss (quantization), then assign codewords.",
+  "source": "L4 slide 6"
+ },
+ {
+  "id": "ch4-004",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Compression stages",
+  "kind": "concept",
+  "q": "Which stage is the main lossy step in compression?",
+  "choices": [
+   "Quantization",
+   "Entropy coding",
+   "Prediction",
+   "Transformation"
+  ],
+  "why": "Quantization uses fewer reconstruction levels than the original, so information is necessarily lost.",
+  "source": "L4 slide 6"
+ },
+ {
+  "id": "ch4-005",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Compression ratio",
+  "kind": "concept",
+  "q": "How is the compression ratio defined?",
+  "choices": [
+   "B0 / B1 (bits before ÷ bits after)",
+   "B1 / B0 (bits after ÷ bits before)",
+   "B0 − B1 (the number of bits saved)",
+   "(B0 − B1) / B1 (the relative saving)"
+  ],
+  "why": "Compression ratio = B0/B1, and a good codec has a ratio much larger than 1.",
+  "source": "L4 slide 11"
+ },
+ {
+  "id": "ch4-006",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Entropy",
+  "kind": "concept",
+  "q": "Self-information log2(1/p_i) corresponds to:",
+  "choices": [
+   "The bits needed to encode symbol s_i",
+   "The probability of the symbol s_i",
+   "The number of distinct symbols",
+   "The average code length of the whole code"
+  ],
+  "why": "Shannon's self-information is the ideal number of bits for that symbol.",
+  "source": "L4 slide 12"
+ },
+ {
+  "id": "ch4-007",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Entropy",
+  "kind": "calc",
+  "q": "Entropy of an image whose 256 grey levels are all equally likely?",
+  "choices": [
+   "8 bits",
+   "1 bit",
+   "256 bits",
+   "0.92 bits"
+  ],
+  "why": "η = log2 256 = 8.",
+  "source": "L4 slide 13"
+ },
+ {
+  "id": "ch4-008",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Entropy",
+  "kind": "calc",
+  "q": "The two-valued image on slide 13 has entropy about:",
+  "choices": [
+   "0.92 bits",
+   "2 bits",
+   "1.92 bits",
+   "8 bits (log2 256)"
+  ],
+  "why": "With p = 1/3 and 2/3, η ≈ 0.918 ≈ 0.92, under 1 bit.",
+  "source": "L4 slide 13"
+ },
+ {
+  "id": "ch4-009",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Entropy",
+  "kind": "calc",
+  "q": "Entropy of a source with probabilities 1/2, 1/4, 1/8, 1/8?",
+  "choices": [
+   "1.75 bits",
+   "2 bits (log2 4)",
+   "1.5 bits",
+   "2.25 bits"
+  ],
+  "why": "0.5·1 + 0.25·2 + 2·0.125·3 = 1.75.",
+  "source": "Ch. 7 practice"
+ },
+ {
+  "id": "ch4-010",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Entropy",
+  "kind": "calc",
+  "q": "Self-information of a symbol with p = 1/8?",
+  "choices": [
+   "3 bits",
+   "8 bits",
+   "0.125 bits",
+   "0.375 bits"
+  ],
+  "why": "log2(1/(1/8)) = log2 8 = 3. (0.375 is p·log2(1/p), its contribution to η.)",
+  "source": "L4 slide 12"
+ },
+ {
+  "id": "ch4-011",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Entropy",
+  "kind": "calc",
+  "q": "Entropy of the string HELLO, roughly?",
+  "choices": [
+   "1.92 bits/symbol",
+   "2.00 bits/symbol",
+   "1.32 bits/symbol",
+   "2.32 bits/symbol (log2 5)"
+  ],
+  "why": "0.4·1.32 + 3·0.2·2.32 ≈ 1.922. 2.0 is the Huffman average, not η.",
+  "source": "L4 slide 21"
+ },
+ {
+  "id": "ch4-012",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Entropy",
+  "kind": "trap",
+  "q": "For HELLO the slide's 'log2' column shows 1.32 for L. What is it?",
+  "choices": [
+   "log2(1/p) for p = 2/5",
+   "The code length given to L",
+   "The entropy of the whole string",
+   "L's count divided by 1.5"
+  ],
+  "why": "log2(5/2) = 1.32 is L's self-information, not its actual code length (1 bit).",
+  "source": "L4 slide 21"
+ },
+ {
+  "id": "ch4-013",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Entropy",
+  "kind": "trap",
+  "q": "Which value can the entropy of an n-symbol source NOT exceed?",
+  "choices": [
+   "log2 n",
+   "n",
+   "1 bit",
+   "n / 2 bits"
+  ],
+  "why": "η ≤ log2 n, with equality only for a uniform distribution.",
+  "source": "L4 slide 13"
+ },
+ {
+  "id": "ch4-014",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "RLC",
+  "kind": "concept",
+  "q": "A memoryless source is one where:",
+  "choices": [
+   "Each symbol is independent of earlier ones",
+   "Symbols always come in long runs",
+   "The dictionary is rebuilt for every symbol",
+   "Every symbol has exactly the same probability"
+  ],
+  "why": "Memoryless = independently distributed; the current symbol does not depend on previous ones.",
+  "source": "L4 slide 14"
+ },
+ {
+  "id": "ch4-015",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "RLC",
+  "kind": "concept",
+  "q": "Run-length coding exploits:",
+  "choices": [
+   "Memory (runs) in the source",
+   "Unequal symbol probabilities",
+   "The human hearing threshold",
+   "A pre-built string dictionary"
+  ],
+  "why": "RLC encodes a symbol plus the length of its continuous group.",
+  "source": "L4 slide 14"
+ },
+ {
+  "id": "ch4-016",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "RLC",
+  "kind": "calc",
+  "q": "RLC of BBBBEEEEEEEECCCCDAAAAA?",
+  "choices": [
+   "4B8E4C1D5A",
+   "4B8E4C5A1D",
+   "B4E8C4D1A5",
+   "4B7E4C1D5A"
+  ],
+  "why": "Runs are 4 B, 8 E, 4 C, 1 D, 5 A, written count-then-symbol.",
+  "source": "L4 slide 15"
+ },
+ {
+  "id": "ch4-017",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "RLC",
+  "kind": "calc",
+  "q": "22 characters RLC-encode to 4B8E4C1D5A. Ratio in characters?",
+  "choices": [
+   "2.2",
+   "0.45",
+   "12",
+   "1.2"
+  ],
+  "why": "22 / 10 = 2.2.",
+  "source": "L4 slide 15"
+ },
+ {
+  "id": "ch4-018",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "RLC",
+  "kind": "trap",
+  "q": "RLC-encoding ABCABC (count + symbol) gives how many characters?",
+  "choices": [
+   "12",
+   "6",
+   "3",
+   "0"
+  ],
+  "why": "1A1B1C1A1B1C, twice the input: RLC expands data without runs.",
+  "source": "L4 slide 15"
+ },
+ {
+  "id": "ch4-019",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Shannon-Fano",
+  "kind": "concept",
+  "q": "Shannon-Fano coding is a:",
+  "choices": [
+   "Top-down approach",
+   "Bottom-up approach",
+   "Dictionary approach",
+   "Lossy approach"
+  ],
+  "why": "It sorts symbols and recursively splits them into halves of equal count.",
+  "source": "L4 slide 19"
+ },
+ {
+  "id": "ch4-020",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Shannon-Fano",
+  "kind": "concept",
+  "q": "After sorting by count, Shannon-Fano repeatedly:",
+  "choices": [
+   "Splits the list into two near-equal-count parts",
+   "Merges the two lowest-count symbols together",
+   "Adds the current string to a dictionary",
+   "Narrows an interval inside [0, 1) after each symbol"
+  ],
+  "why": "Recursive division into two parts of about equal total count until each part has one symbol.",
+  "source": "L4 slide 19"
+ },
+ {
+  "id": "ch4-021",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Shannon-Fano",
+  "kind": "trap",
+  "q": "Why does the slide show two Shannon-Fano trees for HELLO?",
+  "choices": [
+   "The splits are not unique; both are valid",
+   "The second tree fixes an error in the first",
+   "One is Shannon-Fano and the other Huffman",
+   "One tree is the encoder's, one the decoder's"
+  ],
+  "why": "Different equally balanced splits are legal; here both give 10 bits.",
+  "source": "L4 slides 20–23"
+ },
+ {
+  "id": "ch4-022",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Shannon-Fano",
+  "kind": "calc",
+  "q": "Counts A15 B7 C6 D6 E5: Shannon-Fano needs 89 bits. Huffman needs:",
+  "choices": [
+   "87 bits",
+   "89 bits (no gain)",
+   "91 bits",
+   "78 bits"
+  ],
+  "why": "Huffman gives A 1 bit and the rest 3 bits: 15 + 24·3 = 87, beating Shannon-Fano.",
+  "source": "Ch. 7 practice"
+ },
+ {
+  "id": "ch4-023",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "concept",
+  "q": "Each Huffman step combines:",
+  "choices": [
+   "The two lowest-probability nodes",
+   "The two highest-probability nodes",
+   "The first and the last symbols",
+   "Any two adjacent entries in the list"
+  ],
+  "why": "Pick the two smallest (leaf or parent), make them siblings under a parent with the summed probability.",
+  "source": "L4 slide 25"
+ },
+ {
+  "id": "ch4-024",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "trap",
+  "q": "Must the leaves be sorted before building a Huffman tree?",
+  "choices": [
+   "No; sorting is optional",
+   "Yes, in increasing order",
+   "Yes, in decreasing order",
+   "Yes, in alphabetical order"
+  ],
+  "why": "Slide 25: leaves can be sorted, 'though this is not necessary'.",
+  "source": "L4 slide 25"
+ },
+ {
+  "id": "ch4-025",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "calc",
+  "q": "Fixed-length code for 6 distinct symbols needs how many bits each?",
+  "choices": [
+   "3",
+   "6",
+   "2",
+   "2.58"
+  ],
+  "why": "⌈log2 6⌉ = 3: bits must be whole.",
+  "source": "L4 slide 24"
+ },
+ {
+  "id": "ch4-026",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "calc",
+  "q": "Huffman codes L=0, H=10, E=110, O=111 for HELLO. Average code length?",
+  "choices": [
+   "2.0 bits/symbol",
+   "1.92 bits/symbol",
+   "2.5 bits/symbol",
+   "1.6 bits/symbol"
+  ],
+  "why": "10 bits / 5 symbols = 2.0.",
+  "source": "L4 slide 28"
+ },
+ {
+  "id": "ch4-027",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "calc",
+  "q": "Slide 29: after iteration (a) the list is L P1 H. Which symbols formed P1?",
+  "choices": [
+   "E and O",
+   "H and E",
+   "L and H",
+   "L and O"
+  ],
+  "why": "P1 merges the two count-1 symbols E and O; H stays in the list.",
+  "source": "L4 slide 29"
+ },
+ {
+  "id": "ch4-028",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "calc",
+  "q": "Huffman for a: 1/2, b: 1/4, c: 1/8, d: 1/8. Average length?",
+  "choices": [
+   "1.75 bits",
+   "2 bits",
+   "1.5 bits",
+   "2.25 bits"
+  ],
+  "why": "Lengths 1,2,3,3 → 0.5 + 0.5 + 0.375 + 0.375 = 1.75, exactly the entropy.",
+  "source": "Ch. 7 practice"
+ },
+ {
+  "id": "ch4-029",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "calc",
+  "q": "MISSISSIPPI (I4 S4 P2 M1) Huffman-coded takes how many bits?",
+  "choices": [
+   "21",
+   "22",
+   "20",
+   "11"
+  ],
+  "why": "Lengths 1 and 2 for S and I, 3 for P and M: 4+8+6+3 = 21 (fixed 2-bit = 22).",
+  "source": "Ch. 7 practice"
+ },
+ {
+  "id": "ch4-030",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "calc",
+  "q": "SHAHZODA (H2 A2, S Z O D 1 each) Huffman-coded takes:",
+  "choices": [
+   "20 bits",
+   "24 bits (3 per letter)",
+   "16 bits",
+   "18 bits"
+  ],
+  "why": "H, A get 2 bits, the four singles 3 bits: 8 + 12 = 20 (2.5 bits/letter = η).",
+  "source": "L4 slide 26 notes"
+ },
+ {
+  "id": "ch4-031",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "calc",
+  "q": "Code lengths 1,2,3,4,4 for p = .4,.2,.2,.1,.1. Average length?",
+  "choices": [
+   "2.2 bits",
+   "2.12 bits (the entropy)",
+   "2.4 bits",
+   "2.8 bits"
+  ],
+  "why": ".4 + .4 + .6 + .4 + .4 = 2.2. A tree with lengths 2,2,2,3,3 also gives 2.2.",
+  "source": "Ch. 7 practice"
+ },
+ {
+  "id": "ch4-032",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "trap",
+  "q": "Two students build different Huffman trees for the same source (ties broken differently). Then:",
+  "choices": [
+   "Both are optimal, with equal average length",
+   "Only the one with sorted leaves is correct",
+   "The one with the shorter longest code wins",
+   "Their codes give different compression ratios"
+  ],
+  "why": "Tie-breaking changes codes and even code lengths, but the average length is the same minimum.",
+  "source": "L4 slide 30"
+ },
+ {
+  "id": "ch4-033",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "concept",
+  "q": "The unique prefix property means:",
+  "choices": [
+   "No codeword is a prefix of another",
+   "Every codeword starts with the same bit",
+   "Every codeword has exactly the same length",
+   "Codewords are sorted by their prefix"
+  ],
+  "why": "It precludes ambiguity in decoding, so no separators are needed.",
+  "source": "L4 slide 30"
+ },
+ {
+  "id": "ch4-034",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "concept",
+  "q": "In an optimal Huffman code, the two least frequent symbols:",
+  "choices": [
+   "Have equal length, differing in the last bit",
+   "Get the two shortest codewords in the code",
+   "Always get the codes 0 and 1 respectively",
+   "Differ from each other in their very first bit"
+  ],
+  "why": "They are siblings at the deepest level, so same length, last bit differs.",
+  "source": "L4 slide 30"
+ },
+ {
+  "id": "ch4-035",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "concept",
+  "q": "Huffman's average code length L̄ satisfies:",
+  "choices": [
+   "η ≤ L̄ < η + 1",
+   "η < L̄ < η + 2",
+   "L̄ = η exactly",
+   "L̄ ≤ η always"
+  ],
+  "why": "Eq. 7.6: within one bit of the entropy, never below it.",
+  "source": "L4 slide 30"
+ },
+ {
+  "id": "ch4-036",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "calc",
+  "q": "A source has η = 2.3 bits. Which Huffman average length is impossible?",
+  "choices": [
+   "3.4 bits",
+   "2.3 bits",
+   "2.9 bits",
+   "3.2 bits"
+  ],
+  "why": "L̄ must lie in [2.3, 3.3); 3.4 is outside the bound.",
+  "source": "L4 slide 30"
+ },
+ {
+  "id": "ch4-037",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "calc",
+  "q": "With code a=1, b=01, c=001, d=000, decode 1001011000:",
+  "choices": [
+   "acbad",
+   "abcad",
+   "acbda",
+   "adcba"
+  ],
+  "why": "1|001|01|1|000 → a c b a d.",
+  "source": "L4 slide 30"
+ },
+ {
+  "id": "ch4-038",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "trap",
+  "q": "Is the code a=0, b=01, c=10 uniquely decodable?",
+  "choices": [
+   "No: 010 reads as 'ac' or 'ba'",
+   "Yes: all its codewords are different",
+   "Yes: it has fewer than four symbols",
+   "No: c is longer than both a and b"
+  ],
+  "why": "0 is a prefix of 01, so the bitstream is ambiguous.",
+  "source": "L4 slide 30"
+ },
+ {
+  "id": "ch4-039",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Huffman",
+  "kind": "calc",
+  "q": "Efficiency of a code with η = 1.922 and L̄ = 2.0?",
+  "choices": [
+   "About 96%",
+   "About 104%",
+   "About 92%",
+   "About 50%"
+  ],
+  "why": "η / L̄ = 1.922 / 2 ≈ 0.961.",
+  "source": "Ch. 7 practice"
+ },
+ {
+  "id": "ch4-040",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Extended Huffman",
+  "kind": "concept",
+  "q": "Why is plain Huffman wasteful when one p_i is very large?",
+  "choices": [
+   "Codes must be whole bits, at least 1",
+   "It cannot code more than 2 symbols",
+   "The tree grows deeper than log2 n",
+   "The prefix property no longer holds for it"
+  ],
+  "why": "The ideal length log2(1/p_i) is near 0, but Huffman still spends at least 1 bit.",
+  "source": "L4 slide 31"
+ },
+ {
+  "id": "ch4-041",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Extended Huffman",
+  "kind": "calc",
+  "q": "p(A)=0.9, p(B)=0.1, Huffman on pairs gives 1.29 bits per pair. Bits per symbol?",
+  "choices": [
+   "0.645",
+   "1.29",
+   "1.0",
+   "0.469 (= η)"
+  ],
+  "why": "1.29 / 2 = 0.645, down from 1 (η = 0.469).",
+  "source": "L4 slide 32"
+ },
+ {
+  "id": "ch4-042",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Extended Huffman",
+  "kind": "trap",
+  "q": "What does the slide say about extended Huffman's gain?",
+  "choices": [
+   "An improvement, but not much",
+   "It always reaches the entropy",
+   "It is worse than plain Huffman",
+   "It removes the need for a tree"
+  ],
+  "why": "Better than plain Huffman but modest, and n^k tables get huge for k ≥ 3.",
+  "source": "L4 slide 32"
+ },
+ {
+  "id": "ch4-043",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Adaptive Huffman",
+  "kind": "trap",
+  "q": "For adaptive Huffman to decode correctly, the encoder and decoder must:",
+  "choices": [
+   "Use the same initial_code and update_tree",
+   "Exchange the whole tree after every symbol",
+   "Use different trees for odd and even symbols",
+   "Agree only on the final frequency counts"
+  ],
+  "why": "If the routines differ, the trees diverge and decoding fails.",
+  "source": "L4 slide 34"
+ },
+ {
+  "id": "ch4-044",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "Adaptive Huffman",
+  "kind": "concept",
+  "q": "When a swap is needed, which node is swapped with the node just incremented to N+1?",
+  "choices": [
+   "The farthest node with count N",
+   "The nearest node with count N+1",
+   "The root node of the whole tree",
+   "The leaf with the smallest count"
+  ],
+  "why": "Swap rule: the farthest node with count N is swapped with the node whose count became N+1.",
+  "source": "L4 slide 35"
+ },
+ {
+  "id": "ch4-045",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "concept",
+  "q": "LZW uses:",
+  "choices": [
+   "Fixed-length codes for variable-length strings",
+   "Variable-length codes for fixed-length strings",
+   "Variable-length codes for each single symbol",
+   "One real number for the whole of the input message"
+  ],
+  "why": "Fixed-length codewords represent variable-length strings that occur together.",
+  "source": "L4 slide 37"
+ },
+ {
+  "id": "ch4-046",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "concept",
+  "q": "How does the LZW decoder get the dictionary?",
+  "choices": [
+   "It rebuilds it dynamically from the codes",
+   "The encoder sends it before the data",
+   "It is fixed by the standard in advance, like ASCII",
+   "It is stored at the end of the file"
+  ],
+  "why": "Encoder and decoder build the same dictionary as the data flows.",
+  "source": "L4 slide 37"
+ },
+ {
+  "id": "ch4-047",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "concept",
+  "q": "Which is NOT an advantage of LZW over Huffman listed on the slide?",
+  "choices": [
+   "It is lossy, so it gets higher ratios",
+   "No prior knowledge of the data needed",
+   "It compresses the data in a single pass",
+   "Better on files with repetitive data"
+  ],
+  "why": "LZW is lossless; the other three are listed advantages (plus 60–70% on some text).",
+  "source": "L4 slide 38"
+ },
+ {
+  "id": "ch4-048",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "concept",
+  "q": "In LZW compression, if s + c is already in the dictionary:",
+  "choices": [
+   "Set s = s + c; output nothing",
+   "Output code(s); add s + c",
+   "Output code(c); set s = c",
+   "Add s + c again with a new code"
+  ],
+  "why": "Only extend the current string; output and add happen when s + c is new.",
+  "source": "L4 slide 39"
+ },
+ {
+  "id": "ch4-049",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "calc",
+  "q": "LZW of ABABBABCABABBA with 1=A, 2=B, 3=C outputs:",
+  "choices": [
+   "1 2 4 5 2 3 4 6 1",
+   "1 2 4 5 2 3 4 6 7",
+   "1 2 1 2 2 1 2 3 1",
+   "1 2 4 5 3 2 4 6 1"
+  ],
+  "why": "The slide's trace: 9 codes for 14 characters.",
+  "source": "L4 slide 41"
+ },
+ {
+  "id": "ch4-050",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "calc",
+  "q": "In the slide example, what is code 6?",
+  "choices": [
+   "ABB",
+   "BAB",
+   "ABA",
+   "ABBA"
+  ],
+  "why": "s=AB, c=B → output 4, add 6 = ABB.",
+  "source": "L4 slide 41"
+ },
+ {
+  "id": "ch4-051",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "calc",
+  "q": "The last dictionary entry made for ABABBABCABABBA is:",
+  "choices": [
+   "11 = ABBA",
+   "10 = ABBA",
+   "11 = ABAB",
+   "12 = ABBA"
+  ],
+  "why": "s=ABB, c=A → output 6, add 11 = ABBA; then A is output at EOF.",
+  "source": "L4 slide 41"
+ },
+ {
+  "id": "ch4-052",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "calc",
+  "q": "Slide ratio for 14 characters sent as 9 codes?",
+  "choices": [
+   "1.56",
+   "0.643",
+   "5",
+   "1.40"
+  ],
+  "why": "14/9 = 1.56 (counting symbols, not bits).",
+  "source": "L4 slide 41"
+ },
+ {
+  "id": "ch4-053",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "calc",
+  "q": "LZW of BABAABAAA with 1=A, 2=B outputs:",
+  "choices": [
+   "2 1 3 4 1 7",
+   "2 1 3 4 1 1",
+   "2 1 2 1 1 2",
+   "2 1 3 3 1 7"
+  ],
+  "why": "Entries 3=BA, 4=AB, 5=BAA, 6=ABA, 7=AA; the final s = AA is output as 7.",
+  "source": "Ch. 7 practice"
+ },
+ {
+  "id": "ch4-054",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "calc",
+  "q": "Decoder state: s = AB, next code 5 is not yet in the dictionary. Entry = ?",
+  "choices": [
+   "ABA",
+   "ABAB",
+   "ABB",
+   "BAB"
+  ],
+  "why": "Exception handler: entry = s + s[0] = AB + A.",
+  "source": "L4 slide 44"
+ },
+ {
+  "id": "ch4-055",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "calc",
+  "q": "Decode 1 2 3 5 with 1=A, 2=B:",
+  "choices": [
+   "ABABABA",
+   "ABABABB",
+   "ABABBAB",
+   "ABAABAB"
+  ],
+  "why": "A, B (3=AB), AB (4=BA), 5 missing → AB+A = ABA. Total ABABABA.",
+  "source": "L4 slide 44"
+ },
+ {
+  "id": "ch4-056",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "concept",
+  "q": "When does the LZW decoder's exception handler fire?",
+  "choices": [
+   "A code arrives before the decoder made it",
+   "A code is larger than the max code length",
+   "The input contains a symbol not in the initial table",
+   "The dictionary is completely full"
+  ],
+  "why": "The decoder is one step behind; if the encoder uses a just-created code, the decoder lacks it.",
+  "source": "L4 slide 44"
+ },
+ {
+  "id": "ch4-057",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "trap",
+  "q": "In LZW decoding, the new entry added is:",
+  "choices": [
+   "s + first character of the entry",
+   "s + the whole current entry",
+   "The current entry on its own",
+   "s + the last character of the current entry"
+  ],
+  "why": "Algorithm 7.3: add s + entry[0].",
+  "source": "L4 slide 42"
+ },
+ {
+  "id": "ch4-058",
+  "chapter": "L4 · Entropy, Huffman & LZW",
+  "topic": "LZW",
+  "kind": "calc",
+  "q": "An LZW dictionary starts with code length l0 = 9. Its initial size?",
+  "choices": [
+   "512",
+   "9",
+   "256",
+   "1024"
+  ],
+  "why": "2^l0 = 2^9 = 512; when full, l grows by 1.",
+  "source": "L4 slide 45"
+ },
+ {
+  "id": "ch5-001",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "concept",
+  "q": "Why does arithmetic coding usually beat Huffman?",
+  "choices": [
+   "It is not limited to whole bits per symbol",
+   "It uses a fixed-length code for each symbol",
+   "It builds a dictionary of long strings",
+   "It throws away the inaudible information"
+  ],
+  "why": "Huffman uses integer-length codewords; arithmetic coding treats the whole message as one unit.",
+  "source": "L5 slide 3"
+ },
+ {
+  "id": "ch5-002",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "concept",
+  "q": "In arithmetic coding a message is represented by:",
+  "choices": [
+   "A half-open interval [a, b) in [0, 1)",
+   "A binary tree of symbol codewords",
+   "A list of indices into a string dictionary",
+   "A run count followed by a symbol"
+  ],
+  "why": "The interval starts as [0, 1) and narrows with each symbol.",
+  "source": "L5 slide 3"
+ },
+ {
+  "id": "ch5-003",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "trap",
+  "q": "The slide's encoder updates low first, then high = low + range·Range_high. What goes wrong?",
+  "choices": [
+   "high uses the new low; both need the old",
+   "Nothing; this is the correct update order",
+   "range must be updated before low is",
+   "low should use Range_high instead"
+  ],
+  "why": "Compute both bounds from the old low (and old range); the worked table follows that rule.",
+  "source": "L5 slide 4"
+ },
+ {
+  "id": "ch5-004",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "calc",
+  "q": "CAEE$: after C then A, the interval is:",
+  "choices": [
+   "[0.30, 0.34)",
+   "[0.30, 0.32)",
+   "[0.06, 0.10)",
+   "[0.30, 0.50)"
+  ],
+  "why": "low = 0.3 + 0.2·0, high = 0.3 + 0.2·0.2 = 0.34.",
+  "source": "L5 slide 7"
+ },
+ {
+  "id": "ch5-005",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "calc",
+  "q": "CAEE$: after C, A, E, the interval is:",
+  "choices": [
+   "[0.322, 0.334)",
+   "[0.3286, 0.3322)",
+   "[0.300, 0.340)",
+   "[0.550, 0.850)"
+  ],
+  "why": "0.3 + 0.04·0.55 = 0.322 and 0.3 + 0.04·0.85 = 0.334.",
+  "source": "L5 slide 7"
+ },
+ {
+  "id": "ch5-006",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "calc",
+  "q": "Final interval for CAEE$?",
+  "choices": [
+   "[0.33184, 0.33220)",
+   "[0.32860, 0.33220)",
+   "[0.33203, 0.33220)",
+   "[0.33184, 0.33203)"
+  ],
+  "why": "0.3286 + 0.0036·0.9 = 0.33184; 0.3286 + 0.0036·1 = 0.3322.",
+  "source": "L5 slide 7"
+ },
+ {
+  "id": "ch5-007",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "calc",
+  "q": "Final range for CAEE$ (p = 0.2, 0.2, 0.3, 0.3, 0.1)?",
+  "choices": [
+   "0.00036",
+   "0.0036",
+   "0.012",
+   "0.000324"
+  ],
+  "why": "The final range is the product of the probabilities: 0.2·0.2·0.3·0.3·0.1.",
+  "source": "L5 slide 7"
+ },
+ {
+  "id": "ch5-008",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "calc",
+  "q": "Codeword chosen for CAEE$?",
+  "choices": [
+   "0.01010101 (binary)",
+   "0.01010110 (binary)",
+   "0.33184 (the decimal low itself)",
+   "0.10101010 (binary)"
+  ],
+  "why": "0.01010101₂ = 0.33203125, the shortest binary fraction inside [0.33184, 0.3322).",
+  "source": "L5 slide 8"
+ },
+ {
+  "id": "ch5-009",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "calc",
+  "q": "How many bits does the CAEE$ codeword use?",
+  "choices": [
+   "8",
+   "5",
+   "11",
+   "16"
+  ],
+  "why": "0.01010101 has 8 fraction bits.",
+  "source": "L5 slide 8"
+ },
+ {
+  "id": "ch5-010",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "concept",
+  "q": "Procedure 7.2 sets the next bit to 1, then changes it back to 0 when:",
+  "choices": [
+   "The value exceeds high",
+   "The value is still below low",
+   "The value equals 0.5",
+   "The range is below 0.1"
+  ],
+  "why": "Set a 1; if value > high, replace by 0; stop once value ≥ low.",
+  "source": "L5 slide 8"
+ },
+ {
+  "id": "ch5-011",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "calc",
+  "q": "Decoding 0.33203125: after outputting C [0.3, 0.5), the next value is:",
+  "choices": [
+   "0.16015625",
+   "0.03203125",
+   "0.66406250",
+   "0.80078125"
+  ],
+  "why": "(0.33203125 − 0.3) / 0.2 = 0.16015625.",
+  "source": "L5 slide 10"
+ },
+ {
+  "id": "ch5-012",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "calc",
+  "q": "Decoder: value 0.8359375 lies in E [0.55, 0.85). The next value?",
+  "choices": [
+   "0.953125",
+   "0.285937",
+   "0.835937",
+   "0.900000"
+  ],
+  "why": "(0.8359375 − 0.55) / 0.3 = 0.953125, which decodes to $.",
+  "source": "L5 slide 10"
+ },
+ {
+  "id": "ch5-013",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "calc",
+  "q": "Table A [0,.4) B [.4,.7) C [.7,.9) $ [.9,1). Interval after C then A?",
+  "choices": [
+   "[0.70, 0.78)",
+   "[0.70, 0.74)",
+   "[0.28, 0.36)",
+   "[0.70, 0.90)"
+  ],
+  "why": "low = 0.7 + 0.2·0 = 0.7; high = 0.7 + 0.2·0.4 = 0.78.",
+  "source": "Ch. 7 practice"
+ },
+ {
+  "id": "ch5-014",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "calc",
+  "q": "Same table: decode the value 0.7545.",
+  "choices": [
+   "CAB$",
+   "CBA$",
+   "CAA$",
+   "BCA$"
+  ],
+  "why": "0.7545→C; 0.2725→A; 0.68125→B; 0.9375→$.",
+  "source": "Ch. 7 practice"
+ },
+ {
+  "id": "ch5-015",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Arithmetic coding",
+  "kind": "trap",
+  "q": "Two different numbers inside the final interval [low, high) are decoded. They give:",
+  "choices": [
+   "The same message",
+   "Different messages",
+   "An error for one of them",
+   "Messages of different length"
+  ],
+  "why": "Any value in the final interval identifies the message; the codeword is just the shortest binary one.",
+  "source": "L5 slide 8"
+ },
+ {
+  "id": "ch5-016",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Lossy compression",
+  "kind": "concept",
+  "q": "Lossy compression gives:",
+  "choices": [
+   "A close approximation, much higher ratio",
+   "An exact copy at a much higher ratio",
+   "An exact copy at a much lower ratio",
+   "A close approximation, at a lower ratio than lossless"
+  ],
+  "why": "The output is not identical, but the ratio is much higher than lossless.",
+  "source": "L5 slide 11"
+ },
+ {
+  "id": "ch5-017",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Quantization",
+  "kind": "calc",
+  "q": "A 3-bit uniform quantizer covers [−4, 4). Step size?",
+  "choices": [
+   "1",
+   "0.5",
+   "2",
+   "8/3"
+  ],
+  "why": "Δ = 8 / 2³ = 1.",
+  "source": "Ch. 8 practice"
+ },
+ {
+  "id": "ch5-018",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Audio data rate",
+  "kind": "calc",
+  "q": "Data rate of 44.1 kHz, 16-bit stereo audio?",
+  "choices": [
+   "1,411,200 bit/s",
+   "705,600 bit/s",
+   "176,400 bit/s",
+   "1,411,200 byte/s"
+  ],
+  "why": "44,100 × 16 × 2 = 1,411,200 bit/s ≈ 1.4 Mbit/s.",
+  "source": "L5 slide 17"
+ },
+ {
+  "id": "ch5-019",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Audio data rate",
+  "kind": "trap",
+  "q": "The slide says '84M per minute' for CD audio. 84M of what?",
+  "choices": [
+   "Bits (about 10.6 MB)",
+   "Bytes (84 MB)",
+   "Samples (84 million)",
+   "Kilobits (84 Gbit total)"
+  ],
+  "why": "1.4112 Mbit/s × 60 ≈ 84.7 Mbit; in bytes it's about 10.6 MB.",
+  "source": "L5 slide 17"
+ },
+ {
+  "id": "ch5-020",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Audio data rate",
+  "kind": "calc",
+  "q": "CD audio (1,411.2 kbit/s) coded as MP3 at 128 kbit/s. Compression ratio?",
+  "choices": [
+   "About 11",
+   "About 128",
+   "About 1.4",
+   "About 8"
+  ],
+  "why": "1,411,200 / 128,000 = 11.025.",
+  "source": "L5 slides 17, 25"
+ },
+ {
+  "id": "ch5-021",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Audio formats",
+  "kind": "concept",
+  "q": "Which of these is a lossless audio format?",
+  "choices": [
+   "FLAC",
+   "MP3",
+   "AAC",
+   "Vorbis"
+  ],
+  "why": "FLAC and Apple Lossless are lossless, at the cost of larger files.",
+  "source": "L5 slide 19"
+ },
+ {
+  "id": "ch5-022",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Audio formats",
+  "kind": "concept",
+  "q": "MP3 and AAC are both based on:",
+  "choices": [
+   "MDCT and perceptual coding",
+   "LZW and Huffman coding",
+   "DPCM prediction and run-length coding",
+   "Arithmetic and RLC coding"
+  ],
+  "why": "Both are lossy and use the modified discrete cosine transform plus psychoacoustics.",
+  "source": "L5 slide 20"
+ },
+ {
+  "id": "ch5-023",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Psychoacoustics",
+  "kind": "concept",
+  "q": "The human ear is most sensitive between:",
+  "choices": [
+   "500 Hz and 5 kHz",
+   "20 Hz and 200 Hz",
+   "5 kHz and 20 kHz",
+   "50 Hz and 500 Hz"
+  ],
+  "why": "Intermediate frequencies, where the basilar membrane reacts most. The hearing range is 20 Hz–20 kHz.",
+  "source": "L5 slide 34"
+ },
+ {
+  "id": "ch5-024",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Psychoacoustics",
+  "kind": "concept",
+  "q": "Masking is:",
+  "choices": [
+   "One sound reducing perception of another",
+   "Removing all frequencies above 20 kHz",
+   "Filtering the audio into 32 sub-bands",
+   "Adding noise to cover up the quiet passages of a song"
+  ],
+  "why": "A strong sound makes nearby (in frequency or time) weaker sounds inaudible.",
+  "source": "L5 slide 35"
+ },
+ {
+  "id": "ch5-025",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Psychoacoustics",
+  "kind": "concept",
+  "q": "A loud sound hides quieter sounds just before and after it. This is:",
+  "choices": [
+   "Temporal masking",
+   "Frequency masking",
+   "Pre-echo artifact",
+   "Threshold of hearing"
+  ],
+  "why": "Temporal masking acts in time; frequency masking acts on nearby frequencies.",
+  "source": "L5 slide 35"
+ },
+ {
+  "id": "ch5-026",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Psychoacoustics",
+  "kind": "calc",
+  "q": "About how much SNR does each added bit give?",
+  "choices": [
+   "6 dB",
+   "3 dB",
+   "10 dB",
+   "1 dB"
+  ],
+  "why": "Each bit doubles the levels → about 6 dB more SNR; 16 bits ≈ 96 dB.",
+  "source": "L5 slide 41"
+ },
+ {
+  "id": "ch5-027",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Psychoacoustics",
+  "kind": "concept",
+  "q": "Why does masking allow compression?",
+  "choices": [
+   "Raising the masked noise floor saves bits",
+   "Masked bands are then coded losslessly",
+   "It removes the need for a filter bank",
+   "It doubles the effective sampling rate of the signal"
+  ],
+  "why": "Noise under the mask is inaudible; a higher noise floor means fewer bits.",
+  "source": "L5 slide 41"
+ },
+ {
+  "id": "ch5-028",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "MPEG-1 audio",
+  "kind": "concept",
+  "q": "Sampling frequencies supported by MPEG-1 audio?",
+  "choices": [
+   "32, 44.1 and 48 kHz",
+   "8, 16 and 22.05 kHz",
+   "44.1, 88.2 and 96 kHz",
+   "16, 32 and 64 kHz"
+  ],
+  "why": "Precision 16 bits; sampling 32/44.1/48 kHz.",
+  "source": "L5 slide 23"
+ },
+ {
+  "id": "ch5-029",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "MPEG-1 audio",
+  "kind": "concept",
+  "q": "MPEG-1 Layer III (MP3) bit-rate range and target?",
+  "choices": [
+   "32–320 kbps, target 64",
+   "32–448 kbps, target 192",
+   "32–384 kbps, target 128",
+   "2–64 kbps, target 16"
+  ],
+  "why": "Layer 1: 32–448/192; Layer 2: 32–384/128; Layer 3: 32–320/64.",
+  "source": "L5 slide 23"
+ },
+ {
+  "id": "ch5-030",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "MPEG-1 audio",
+  "kind": "concept",
+  "q": "Which layer is the dominant standard for DAB radio and DVB TV?",
+  "choices": [
+   "Layer II (MP2)",
+   "Layer III (MP3)",
+   "Layer I (MP1)",
+   "AAC (MPEG-4)"
+  ],
+  "why": "MP2, from MUSICAM, is a time-domain sub-band coder used in broadcasting.",
+  "source": "L5 slide 24"
+ },
+ {
+  "id": "ch5-031",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "MPEG-1 audio",
+  "kind": "concept",
+  "q": "How many sub-bands does the MPEG audio filter bank produce?",
+  "choices": [
+   "32 equal sub-bands",
+   "16 equal sub-bands",
+   "32 critical bands of unequal width",
+   "64 equal sub-bands"
+  ],
+  "why": "The filter bank divides the input into 32 equal-frequency sub-bands.",
+  "source": "L5 slide 31"
+ },
+ {
+  "id": "ch5-032",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "MPEG-1 audio",
+  "kind": "concept",
+  "q": "Which order matches the MPEG audio encoder?",
+  "choices": [
+   "Filter bank, psychoacoustic model, bit allocation, bitstream",
+   "Psychoacoustic model, bitstream, filter bank, bit allocation",
+   "Bit allocation, filter bank, bitstream, psychoacoustic model",
+   "Filter bank, bitstream, bit allocation, psychoacoustic model"
+  ],
+  "why": "Split into sub-bands, find what is masked, allocate bits, pack the bitstream.",
+  "source": "L5 slides 29–37"
+ },
+ {
+  "id": "ch5-033",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Bit allocation",
+  "kind": "concept",
+  "q": "MPEG bit allocation computes MNR as:",
+  "choices": [
+   "SNR − SMR",
+   "SMR − SNR",
+   "SNR + SMR",
+   "SNR / SMR"
+  ],
+  "why": "Mask-to-noise ratio = signal-to-noise ratio − signal-to-mask ratio.",
+  "source": "L5 slide 37"
+ },
+ {
+  "id": "ch5-034",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Bit allocation",
+  "kind": "concept",
+  "q": "Each iteration, bits are given to the sub-band with:",
+  "choices": [
+   "The lowest MNR",
+   "The highest MNR",
+   "The highest SNR",
+   "The lowest SMR"
+  ],
+  "why": "Lowest MNR = most audible noise, so it needs bits most.",
+  "source": "L5 slide 37"
+ },
+ {
+  "id": "ch5-035",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Bit allocation",
+  "kind": "calc",
+  "q": "SNR = 18 dB, SMR = 12 dB. MNR?",
+  "choices": [
+   "6 dB",
+   "30 dB",
+   "−6 dB",
+   "1.5 dB"
+  ],
+  "why": "MNR = SNR − SMR = 18 − 12.",
+  "source": "L5 slide 37"
+ },
+ {
+  "id": "ch5-036",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Bit allocation",
+  "kind": "calc",
+  "q": "Bands with SMR 12, 3, 20, 8 dB all start at 0 bits. Which band gets the first bit?",
+  "choices": [
+   "Band 3 (SMR 20)",
+   "Band 2 (SMR 3, the smallest)",
+   "Band 1 (SMR 12)",
+   "Band 4 (SMR 8)"
+  ],
+  "why": "MNR = 0 − SMR: band 3 has the lowest MNR (−20).",
+  "source": "L5 slide 37"
+ },
+ {
+  "id": "ch5-037",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Audio quality",
+  "kind": "concept",
+  "q": "Pre-echo is:",
+  "choices": [
+   "Sound heard before it actually occurs",
+   "An echo added after every loud sound",
+   "Noise above 20 kHz that gets removed",
+   "A delay between the two stereo channels"
+  ],
+  "why": "A transform-coding artifact most noticeable on percussion like cymbals.",
+  "source": "L5 slide 38"
+ },
+ {
+  "id": "ch5-038",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "Audio quality",
+  "kind": "concept",
+  "q": "Which two artifacts appear at too-low bit-rates?",
+  "choices": [
+   "Ringing and pre-echo",
+   "Aliasing and clipping",
+   "Hiss and wow",
+   "Flutter and jitter"
+  ],
+  "why": "Compression artifacts named on the slide are ringing and pre-echo.",
+  "source": "L5 slide 38"
+ },
+ {
+  "id": "ch5-039",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "AAC / MPEG-4",
+  "kind": "concept",
+  "q": "AAC was introduced in 1997 as:",
+  "choices": [
+   "MPEG-2 Part 7",
+   "MPEG-1 Layer IV",
+   "MPEG-4 Part 14",
+   "MPEG-2 Layer III"
+  ],
+  "why": "Introduced as MPEG-2 Part 7, folded into MPEG-4 in 1999.",
+  "source": "L5 slide 47"
+ },
+ {
+  "id": "ch5-040",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "AAC / MPEG-4",
+  "kind": "concept",
+  "q": "Which is an AAC improvement over MP3?",
+  "choices": [
+   "Pure MDCT filter bank, 8–96 kHz rates",
+   "A fixed 128 kbps rate and 32 sub-bands",
+   "Lossless coding of all audio content",
+   "A hybrid LZW-plus-Huffman coding stage"
+  ],
+  "why": "AAC adds more sampling rates, arbitrary bit-rates, variable frame length and a simpler pure-MDCT filter bank.",
+  "source": "L5 slide 49"
+ },
+ {
+  "id": "ch5-041",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "AAC / MPEG-4",
+  "kind": "concept",
+  "q": "Which MPEG-4 coder targets speech at 6–24 kbps?",
+  "choices": [
+   "CELP",
+   "Parametric coding",
+   "Time-frequency coding",
+   "AAC-LC"
+  ],
+  "why": "Code-excited linear prediction: 6–24 kbps at 8/16 kHz. Parametric is 2–6 kbps.",
+  "source": "L5 slide 48"
+ },
+ {
+  "id": "ch5-042",
+  "chapter": "L5 · Arithmetic Coding & MPEG Audio",
+  "topic": "AAC / MPEG-4",
+  "kind": "trap",
+  "q": "MP4 (MPEG-4 Part 14) is:",
+  "choices": [
+   "A container format",
+   "An audio codec",
+   "A video codec",
+   "A lossless audio format"
+  ],
+  "why": "A wrapper holding video and audio streams plus metadata.",
+  "source": "L5 slide 52"
+ }
+]

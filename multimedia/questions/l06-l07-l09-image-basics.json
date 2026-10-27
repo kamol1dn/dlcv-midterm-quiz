@@ -1,0 +1,1682 @@
+[
+ {
+  "id": "ch6-001",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Human vision",
+  "kind": "concept",
+  "q": "Scotopic vision uses which receptors?",
+  "choices": [
+   "Rods only, giving no colour",
+   "Cones only, giving colour",
+   "Rods and cones equally",
+   "Ganglion cells only"
+  ],
+  "why": "Scotopic (dim-light) vision uses rods only, so objects appear black and white.",
+  "source": "L6 slide 5"
+ },
+ {
+  "id": "ch6-002",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Brightness discrimination",
+  "kind": "concept",
+  "q": "The Weber ratio is defined as…",
+  "choices": [
+   "ΔI / I",
+   "I / ΔI",
+   "ΔI · I",
+   "log(I) / ΔI"
+  ],
+  "why": "ΔI is the just-noticeable increment over a background of intensity I.",
+  "source": "L6 slide 6"
+ },
+ {
+  "id": "ch6-003",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Brightness discrimination",
+  "kind": "trap",
+  "q": "A SMALL Weber ratio means…",
+  "choices": [
+   "Good discrimination",
+   "Poor discrimination",
+   "Saturated eye",
+   "Low illumination"
+  ],
+  "why": "If a small relative change is already visible, discrimination is good.",
+  "source": "L6 slide 6"
+ },
+ {
+  "id": "ch6-004",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Brightness discrimination",
+  "kind": "calc",
+  "q": "I = 50, ΔI just visible at 5. Weber ratio?",
+  "choices": [
+   "0.10",
+   "10",
+   "0.02",
+   "0.50"
+  ],
+  "why": "5 / 50 = 0.10.",
+  "source": "L6 slide 6"
+ },
+ {
+  "id": "ch6-005",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Perception",
+  "kind": "concept",
+  "q": "Seeing the same grey as darker on a bright background is called…",
+  "choices": [
+   "Simultaneous contrast",
+   "Mach band effect",
+   "Brightness adaptation",
+   "False contouring"
+  ],
+  "why": "Perceived intensity is not a simple function of actual intensity.",
+  "source": "L6 slide 9"
+ },
+ {
+  "id": "ch6-006",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Perception",
+  "kind": "concept",
+  "q": "Over/undershoot bands seen at a sharp intensity edge are…",
+  "choices": [
+   "Mach bands",
+   "Airy rings",
+   "False contours",
+   "Moiré fringes"
+  ],
+  "why": "Mach bands show the eye exaggerates edges.",
+  "source": "L6 slide 8"
+ },
+ {
+  "id": "ch6-007",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Image formation",
+  "kind": "concept",
+  "q": "A LONGER focal length gives…",
+  "choices": [
+   "Narrower angle, higher magnification",
+   "Wider angle, higher magnification",
+   "Narrower angle, lower magnification",
+   "Wider angle, lower magnification"
+  ],
+  "why": "Longer focal length narrows the angle of view and magnifies.",
+  "source": "L6 slide 15"
+ },
+ {
+  "id": "ch6-008",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Light",
+  "kind": "concept",
+  "q": "Typical range of visible light?",
+  "choices": [
+   "380 to 700 nm",
+   "100 to 380 nm",
+   "700 to 1000 nm",
+   "50 to 500 nm"
+  ],
+  "why": "Speaker notes: the eye detects roughly 380-700 nm.",
+  "source": "L6 slide 17"
+ },
+ {
+  "id": "ch6-009",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Image formation",
+  "kind": "concept",
+  "q": "In f(x,y) = i(x,y)·r(x,y), r is…",
+  "choices": [
+   "Reflectance",
+   "Resolution",
+   "Radiance",
+   "Red channel"
+  ],
+  "why": "i = illumination, r = reflectance.",
+  "source": "L6 slide 23"
+ },
+ {
+  "id": "ch6-010",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Spatial domain",
+  "kind": "concept",
+  "q": "g(x,y) = T[f(x,y)] is a point operation when the neighbourhood is…",
+  "choices": [
+   "1 × 1",
+   "3 × 3",
+   "5 × 5",
+   "The whole image"
+  ],
+  "why": "A 1×1 neighbourhood means s = T(r).",
+  "source": "L6 slide 22"
+ },
+ {
+  "id": "ch6-011",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Sampling",
+  "kind": "concept",
+  "q": "Quantization digitises…",
+  "choices": [
+   "The amplitude (grey level)",
+   "The coordinates (x, y)",
+   "The colour channels (R, G, B)",
+   "The file format on disk"
+  ],
+  "why": "Sampling digitises coordinates, quantization digitises amplitude.",
+  "source": "L6 slide 24"
+ },
+ {
+  "id": "ch6-012",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Storage",
+  "kind": "calc",
+  "q": "Bits for a 1024 × 1024 image with 256 grey levels?",
+  "choices": [
+   "8,388,608",
+   "268,435,456",
+   "1,048,576",
+   "2,097,152"
+  ],
+  "why": "1024 × 1024 × 8 = 8,388,608 bits (1 MB).",
+  "source": "L6 slide 28"
+ },
+ {
+  "id": "ch6-013",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Storage",
+  "kind": "calc",
+  "q": "8192 × 8192, k = 8 (circled on the slide). How many bits?",
+  "choices": [
+   "536,870,912",
+   "67,108,864",
+   "134,217,728",
+   "268,435,456"
+  ],
+  "why": "8192² × 8 = 536,870,912 bits = 64 MB.",
+  "source": "L6 slide 28"
+ },
+ {
+  "id": "ch6-014",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Storage",
+  "kind": "calc",
+  "q": "256 × 256 image with 16 grey levels. Size in bytes?",
+  "choices": [
+   "32,768",
+   "65,536",
+   "262,144",
+   "16,384"
+  ],
+  "why": "k = 4: 256 × 256 × 4 = 262,144 bits = 32,768 bytes.",
+  "source": "L6 slide 28"
+ },
+ {
+  "id": "ch6-015",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Storage",
+  "kind": "trap",
+  "q": "Storage of an M × N image with L levels is…",
+  "choices": [
+   "M·N·log₂L bits",
+   "M·N·L bits",
+   "M·N·L bytes",
+   "M + N + L bits"
+  ],
+  "why": "b = M·N·k with k = log₂L; using L directly is a classic mistake.",
+  "source": "L6 slide 28"
+ },
+ {
+  "id": "ch6-016",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Resolution",
+  "kind": "concept",
+  "q": "Too few grey levels in a smooth region causes…",
+  "choices": [
+   "False contouring",
+   "Checkerboard blocks",
+   "Aliasing",
+   "Motion blur"
+  ],
+  "why": "Low intensity resolution gives banding (false contouring).",
+  "source": "L6 slide 30"
+ },
+ {
+  "id": "ch6-017",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Resolution",
+  "kind": "concept",
+  "q": "Isopreference curves vary which two quantities?",
+  "choices": [
+   "N (pixels) and k (bits per pixel)",
+   "Gamma and contrast stretch factor",
+   "Hue and saturation of the colour",
+   "Focal length and lens aperture"
+  ],
+  "why": "Speaker notes: changing N and k independently.",
+  "source": "L6 slide 31"
+ },
+ {
+  "id": "ch6-018",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Resolution",
+  "kind": "concept",
+  "q": "According to isopreference curves, images with more detail…",
+  "choices": [
+   "Tolerate fewer grey levels",
+   "Need more grey levels",
+   "Need more pixels, not more levels",
+   "Are unaffected by changing k"
+  ],
+  "why": "Detailed images hide false contouring, so fewer levels are acceptable.",
+  "source": "L6 slide 31"
+ },
+ {
+  "id": "ch6-019",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Intensity transforms",
+  "kind": "concept",
+  "q": "The slides' image negative formula is…",
+  "choices": [
+   "y = −x + 255",
+   "y = x − 255",
+   "y = 255 / x",
+   "y = x + 255"
+  ],
+  "why": "Negative s = (L−1) − r, written y = −x + 255.",
+  "source": "L6 slide 45"
+ },
+ {
+  "id": "ch6-020",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Intensity transforms",
+  "kind": "calc",
+  "q": "Negative of 8-bit pixel 77?",
+  "choices": [
+   "178",
+   "177",
+   "77",
+   "−77"
+  ],
+  "why": "255 − 77 = 178.",
+  "source": "L6 slide 45"
+ },
+ {
+  "id": "ch6-021",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Intensity transforms",
+  "kind": "calc",
+  "q": "Negative of 3-bit pixel 5?",
+  "choices": [
+   "2",
+   "3",
+   "250",
+   "0"
+  ],
+  "why": "L − 1 = 7, so 7 − 5 = 2.",
+  "source": "L6 slide 45"
+ },
+ {
+  "id": "ch6-022",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Threshold",
+  "kind": "calc",
+  "q": "Threshold T = 128 (≥ T → 255). Pixel 127 becomes?",
+  "choices": [
+   "0",
+   "255",
+   "127",
+   "128"
+  ],
+  "why": "127 < 128, so it goes to 0.",
+  "source": "L6 slide 43"
+ },
+ {
+  "id": "ch6-023",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Posterize",
+  "kind": "concept",
+  "q": "Posterizing to 2 grey levels is the same as…",
+  "choices": [
+   "Thresholding",
+   "Negative",
+   "Gamma correction",
+   "Histogram equalisation"
+  ],
+  "why": "Slide 46: thresholding results when levels are reduced to 2.",
+  "source": "L6 slide 46"
+ },
+ {
+  "id": "ch6-024",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Threshold",
+  "kind": "concept",
+  "q": "A bounded threshold…",
+  "choices": [
+   "Thresholds a limited range, passes others through",
+   "Thresholds every pixel at two values",
+   "Sets every pixel outside a range to 255",
+   "Uses a threshold chosen by the histogram"
+  ],
+  "why": "Other pixels get the null transform.",
+  "source": "L6 slide 46"
+ },
+ {
+  "id": "ch6-025",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Contrast stretch",
+  "kind": "calc",
+  "q": "Stretch with low = 100, high = 151: pixel 130 becomes?",
+  "choices": [
+   "150",
+   "130",
+   "75",
+   "255"
+  ],
+  "why": "255·(130−100)/51 = 5·30 = 150.",
+  "source": "L6 slide 37"
+ },
+ {
+  "id": "ch6-026",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Contrast stretch",
+  "kind": "calc",
+  "q": "Stretch with low = 100, high = 151: pixel 160 becomes?",
+  "choices": [
+   "255",
+   "300",
+   "295",
+   "0"
+  ],
+  "why": "160 ≥ high, so it is clipped to 255.",
+  "source": "L6 slide 37"
+ },
+ {
+  "id": "ch6-027",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Contrast stretch",
+  "kind": "calc",
+  "q": "4-bit image, x_min = 4, x_max = 9. Stretched value of x = 7?",
+  "choices": [
+   "9",
+   "7",
+   "12",
+   "3"
+  ],
+  "why": "15/(9−4) · (7−4) = 3 · 3 = 9.",
+  "source": "L6 slide 38"
+ },
+ {
+  "id": "ch6-028",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Gamma",
+  "kind": "concept",
+  "q": "Gamma γ < 1 (e.g. 0.45) makes the image…",
+  "choices": [
+   "Brighter",
+   "Darker",
+   "Unchanged",
+   "Binary"
+  ],
+  "why": "(r)^0.45 > r for 0 < r < 1, so dark tones are lifted.",
+  "source": "L6 slide 48"
+ },
+ {
+  "id": "ch6-029",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Gamma",
+  "kind": "trap",
+  "q": "Gamma γ = 2.2 makes the image…",
+  "choices": [
+   "Darker",
+   "Brighter",
+   "Higher contrast in shadows",
+   "Unchanged"
+  ],
+  "why": "γ > 1 pushes mid-tones down.",
+  "source": "L6 slide 48"
+ },
+ {
+  "id": "ch6-030",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Gamma",
+  "kind": "calc",
+  "q": "Normalised r = 0.25 with γ = 0.5. Output?",
+  "choices": [
+   "0.5",
+   "0.0625",
+   "0.125",
+   "0.25"
+  ],
+  "why": "√0.25 = 0.5.",
+  "source": "L6 slide 48"
+ },
+ {
+  "id": "ch6-031",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Gamma",
+  "kind": "calc",
+  "q": "8-bit r = 100, γ = 2.2. Output s (rounded)?",
+  "choices": [
+   "33",
+   "167",
+   "220",
+   "100"
+  ],
+  "why": "255·(100/255)^2.2 = 32.5 → 33.",
+  "source": "L6 slide 53"
+ },
+ {
+  "id": "ch6-032",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Gamma",
+  "kind": "trap",
+  "q": "Which pixel values are unchanged by ANY gamma?",
+  "choices": [
+   "0 and 255",
+   "Only 128",
+   "Only 0",
+   "None of them"
+  ],
+  "why": "0^γ = 0 and 1^γ = 1 after normalising.",
+  "source": "L6 slide 48"
+ },
+ {
+  "id": "ch6-033",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Gamma",
+  "kind": "concept",
+  "q": "Why is gamma correction needed?",
+  "choices": [
+   "Cameras are linear but eyes/displays follow a power curve",
+   "Cameras record in a power curve but displays are linear",
+   "It compresses the file size of displayed images",
+   "It removes noise introduced by the sensor array"
+  ],
+  "why": "It prevents bleaching or darkening on different monitors.",
+  "source": "L6 slide 47"
+ },
+ {
+  "id": "ch6-034",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Bit planes",
+  "kind": "calc",
+  "q": "173 = 10101101₂. 2-bit bit clipping gives?",
+  "choices": [
+   "128",
+   "192",
+   "173",
+   "160"
+  ],
+  "why": "173 AND 11000000₂ = 10000000₂ = 128.",
+  "source": "L6 slide 55"
+ },
+ {
+  "id": "ch6-035",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Bit planes",
+  "kind": "concept",
+  "q": "Bit plane 7 of an 8-bit image looks like…",
+  "choices": [
+   "A threshold at 128",
+   "A negative of the image",
+   "Random-looking noise",
+   "The image's own histogram"
+  ],
+  "why": "Bit 7 is 1 exactly when r ≥ 128.",
+  "source": "L6 slide 55"
+ },
+ {
+  "id": "ch6-036",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Intensity transforms",
+  "kind": "calc",
+  "q": "Log transform s = c·log₁₀(1+r), c = 105.89. r = 99?",
+  "choices": [
+   "212",
+   "106",
+   "99",
+   "255"
+  ],
+  "why": "log₁₀(100) = 2, so 105.89 · 2 = 211.8 → 212.",
+  "source": "Gonzalez 3.2 (brief)"
+ },
+ {
+  "id": "ch6-037",
+  "chapter": "L6 · Image Fundamentals & Intensity Transforms",
+  "topic": "Histogram",
+  "kind": "concept",
+  "q": "A narrow histogram bunched to the left means…",
+  "choices": [
+   "Dark, low-contrast image",
+   "Bright, high-contrast image",
+   "Dark, high-contrast image",
+   "Bright, low-contrast image"
+  ],
+  "why": "Left = dark; narrow = low contrast.",
+  "source": "L6 slide 59"
+ },
+ {
+  "id": "ch7-001",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Storage",
+  "kind": "calc",
+  "q": "Row-major index of row 2, column 3 in a 5-wide image (0-based)?",
+  "choices": [
+   "13",
+   "14",
+   "17",
+   "11"
+  ],
+  "why": "y·W + x = 2·5 + 3 = 13.",
+  "source": "L7 slide 4"
+ },
+ {
+  "id": "ch7-002",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Storage",
+  "kind": "calc",
+  "q": "Column-major index of row 2, column 3 in a 4-high image?",
+  "choices": [
+   "14",
+   "13",
+   "11",
+   "17"
+  ],
+  "why": "x·H + y = 3·4 + 2 = 14.",
+  "source": "L7 slide 4"
+ },
+ {
+  "id": "ch7-003",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Measuring light",
+  "kind": "concept",
+  "q": "Radiometry measures…",
+  "choices": [
+   "Radiation across the whole optical spectrum",
+   "Only visible light weighted by the eye",
+   "Only the perceived brightness of a source",
+   "Only the colour of reflected light"
+  ],
+  "why": "Photometry is the eye-weighted visible part.",
+  "source": "L7 slide 6-7"
+ },
+ {
+  "id": "ch7-004",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Measuring light",
+  "kind": "concept",
+  "q": "Luminance (lumens) measures…",
+  "choices": [
+   "Energy an observer perceives from a source",
+   "Total energy flowing from the source",
+   "A subjective impression",
+   "Reflectance of the surface"
+  ],
+  "why": "Radiance = total energy (W); luminance = perceived (lm).",
+  "source": "L7 slide 14"
+ },
+ {
+  "id": "ch7-005",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Measuring light",
+  "kind": "trap",
+  "q": "Which quantity is 'practically impossible to measure'?",
+  "choices": [
+   "Brightness",
+   "Luminance",
+   "Radiance",
+   "Wavelength"
+  ],
+  "why": "Brightness is a subjective descriptor.",
+  "source": "L7 slide 15"
+ },
+ {
+  "id": "ch7-006",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Eye sensitivity",
+  "kind": "concept",
+  "q": "Photopic sensitivity peaks at…",
+  "choices": [
+   "555 nm",
+   "507 nm",
+   "610 nm",
+   "380 nm"
+  ],
+  "why": "Yellow-green, 555 nm; half at 510 and 610 nm.",
+  "source": "L7 slide 9"
+ },
+ {
+  "id": "ch7-007",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Eye sensitivity",
+  "kind": "trap",
+  "q": "Scotopic sensitivity peaks at…",
+  "choices": [
+   "507 nm",
+   "555 nm",
+   "510 nm",
+   "700 nm"
+  ],
+  "why": "Blue-green, 507 nm.",
+  "source": "L7 slide 9"
+ },
+ {
+  "id": "ch7-008",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Neighbours",
+  "kind": "concept",
+  "q": "ND(p) of p = (x, y) is…",
+  "choices": [
+   "(x±1, y±1)",
+   "(x±1, y), (x, y±1)",
+   "All 8 surrounding pixels",
+   "(x±2, y±2)"
+  ],
+  "why": "The four diagonal neighbours.",
+  "source": "L7 slide 21"
+ },
+ {
+  "id": "ch7-009",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Neighbours",
+  "kind": "calc",
+  "q": "Which pixel is in N4 of (3, 5)?",
+  "choices": [
+   "(3, 4)",
+   "(4, 4)",
+   "(2, 6)",
+   "(5, 5)"
+  ],
+  "why": "N4 changes exactly one coordinate by 1.",
+  "source": "L7 slide 21"
+ },
+ {
+  "id": "ch7-010",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Connectivity",
+  "kind": "trap",
+  "q": "The slide's 8-connectivity definition says q ∈ N4(p). This is…",
+  "choices": [
+   "A typo: it should be N8(p)",
+   "Correct as written",
+   "The m-connectivity rule",
+   "Correct only for V = {1}"
+  ],
+  "why": "As written it duplicates the 4-connectivity definition.",
+  "source": "L7 slide 22"
+ },
+ {
+  "id": "ch7-011",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Connectivity",
+  "kind": "concept",
+  "q": "Diagonal q is m-adjacent to p only if…",
+  "choices": [
+   "N4(p) ∩ N4(q) has no pixel in V",
+   "N4(p) ∩ N4(q) has a pixel in V",
+   "q is also in N4(p)",
+   "Both p and q equal 1"
+  ],
+  "why": "This removes the duplicate diagonal route.",
+  "source": "L7 slide 23"
+ },
+ {
+  "id": "ch7-012",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Connectivity",
+  "kind": "concept",
+  "q": "m-connectivity was introduced to…",
+  "choices": [
+   "Remove multiple paths of 8-connectivity",
+   "Speed up 4-connectivity searches",
+   "Handle colour images with 3 channels",
+   "Measure Euclidean distance exactly"
+  ],
+  "why": "8-connectivity can join two pixels by two routes.",
+  "source": "L7 slide 24"
+ },
+ {
+  "id": "ch7-013",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Connectivity",
+  "kind": "calc",
+  "q": "V = {1}, grid 011/010/001. How many 8-paths from centre to top-right?",
+  "choices": [
+   "2",
+   "1",
+   "3",
+   "0"
+  ],
+  "why": "Direct diagonal, and via (0,1). m allows only the latter.",
+  "source": "L6 slide 35"
+ },
+ {
+  "id": "ch7-014",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Paths",
+  "kind": "concept",
+  "q": "Length n of a path (x₀,y₀) … (xₙ,yₙ) counts…",
+  "choices": [
+   "Steps between pixels",
+   "Pixels including both ends",
+   "Rows the path crosses",
+   "Distinct grey levels"
+  ],
+  "why": "n+1 pixels give a path of length n.",
+  "source": "L7 slide 25"
+ },
+ {
+  "id": "ch7-015",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Adjacency",
+  "kind": "concept",
+  "q": "Of a region's boundaries, which is always a closed path?",
+  "choices": [
+   "The outer boundary",
+   "The inner boundary",
+   "Neither",
+   "Both always"
+  ],
+  "why": "The inner boundary need not close; the outer one does.",
+  "source": "L7 slide 29"
+ },
+ {
+  "id": "ch7-016",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Distance",
+  "kind": "calc",
+  "q": "p = (0,0), q = (4,4). D4 (city-block)?",
+  "choices": [
+   "8",
+   "4",
+   "5.66",
+   "16"
+  ],
+  "why": "|4| + |4| = 8.",
+  "source": "L7 slide 32"
+ },
+ {
+  "id": "ch7-017",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Distance",
+  "kind": "calc",
+  "q": "p = (0,0), q = (4,4). D8 (chessboard)?",
+  "choices": [
+   "4",
+   "8",
+   "5.66",
+   "0"
+  ],
+  "why": "max(4, 4) = 4.",
+  "source": "L7 slide 33"
+ },
+ {
+  "id": "ch7-018",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Distance",
+  "kind": "calc",
+  "q": "p = (0,0), q = (4,4). Euclidean distance?",
+  "choices": [
+   "√32 ≈ 5.66",
+   "√16 = 4.00",
+   "√8 ≈ 2.83",
+   "√64 = 8.00"
+  ],
+  "why": "√(16+16) = √32.",
+  "source": "L7 slide 31"
+ },
+ {
+  "id": "ch7-019",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Distance",
+  "kind": "calc",
+  "q": "p = (2,3), q = (7,5). D4?",
+  "choices": [
+   "7",
+   "5",
+   "5.39",
+   "10"
+  ],
+  "why": "5 + 2 = 7.",
+  "source": "L7 slide 32"
+ },
+ {
+  "id": "ch7-020",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Distance",
+  "kind": "calc",
+  "q": "p = (2,3), q = (7,5). D8?",
+  "choices": [
+   "5",
+   "7",
+   "2",
+   "5.39"
+  ],
+  "why": "max(5, 2) = 5.",
+  "source": "L7 slide 33"
+ },
+ {
+  "id": "ch7-021",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Distance",
+  "kind": "calc",
+  "q": "p = (1,6), q = (4,2). Euclidean distance?",
+  "choices": [
+   "5",
+   "7",
+   "4",
+   "25"
+  ],
+  "why": "√(9 + 16) = 5.",
+  "source": "L7 slide 31"
+ },
+ {
+  "id": "ch7-022",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Distance",
+  "kind": "calc",
+  "q": "How many pixels have D4 ≤ 1 from a centre (including it)?",
+  "choices": [
+   "5",
+   "9",
+   "4",
+   "8"
+  ],
+  "why": "Centre + its 4 N4 neighbours.",
+  "source": "L7 slide 32"
+ },
+ {
+  "id": "ch7-023",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Distance",
+  "kind": "calc",
+  "q": "How many pixels have D8 ≤ 2 from a centre?",
+  "choices": [
+   "25",
+   "13",
+   "9",
+   "16"
+  ],
+  "why": "A 5×5 square.",
+  "source": "L7 slide 33"
+ },
+ {
+  "id": "ch7-024",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Distance",
+  "kind": "trap",
+  "q": "Which distance depends on the pixel VALUES along the way?",
+  "choices": [
+   "D_m",
+   "D4",
+   "D8",
+   "Euclidean"
+  ],
+  "why": "D4, D8, D_E use coordinates only.",
+  "source": "L7 slide 34"
+ },
+ {
+  "id": "ch7-025",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Distance",
+  "kind": "calc",
+  "q": "Slide 34 case p1=0, p3=0 (V={1}). m-distance p→p4?",
+  "choices": [
+   "2",
+   "3",
+   "4",
+   "1"
+  ],
+  "why": "Both diagonals are allowed: p, p2, p4.",
+  "source": "L7 slide 34"
+ },
+ {
+  "id": "ch7-026",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Distance",
+  "kind": "concept",
+  "q": "Triangle inequality for a metric D:",
+  "choices": [
+   "D(p,z) ≤ D(p,q) + D(q,z)",
+   "D(p,q) = D(q,p)",
+   "D(p,q) ≥ 0",
+   "D(p,z) ≥ D(p,q) + D(q,z)"
+  ],
+  "why": "The other true ones are non-negativity and symmetry.",
+  "source": "L7 slide 30"
+ },
+ {
+  "id": "ch7-027",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Distance",
+  "kind": "trap",
+  "q": "For any two pixels, which ordering always holds?",
+  "choices": [
+   "D8 ≤ D_E ≤ D4",
+   "D4 ≤ D_E ≤ D8",
+   "D_E ≤ D8 ≤ D4",
+   "D8 ≤ D4 ≤ D_E"
+  ],
+  "why": "max ≤ √(sum of squares) ≤ sum.",
+  "source": "L7 slides 31-33"
+ },
+ {
+  "id": "ch7-028",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Paths",
+  "kind": "calc",
+  "q": "Gonzalez grid, V = {0,1}: shortest m-path p→q is 5 and 8-path is…",
+  "choices": [
+   "4",
+   "5",
+   "6",
+   "No path"
+  ],
+  "why": "8-path (3,0),(3,1),(2,2),(1,2),(0,3).",
+  "source": "L7 slides 22-25"
+ },
+ {
+  "id": "ch7-029",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Arithmetic",
+  "kind": "concept",
+  "q": "Image arithmetic requires the images to…",
+  "choices": [
+   "Be the same size",
+   "Be binary",
+   "Have the same histogram",
+   "Be colour images"
+  ],
+  "why": "Operations are element-wise.",
+  "source": "L7 slide 35"
+ },
+ {
+  "id": "ch7-030",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Colour",
+  "kind": "concept",
+  "q": "HSI separates colour from…",
+  "choices": [
+   "Intensity",
+   "Hue",
+   "Saturation",
+   "Chromaticity"
+  ],
+  "why": "Hue and saturation carry colour; I carries brightness.",
+  "source": "L7 slide 37"
+ },
+ {
+  "id": "ch7-031",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Colour",
+  "kind": "concept",
+  "q": "In CIE XYZ, Y represents…",
+  "choices": [
+   "Luminance",
+   "Yellow content",
+   "Blue response",
+   "Saturation"
+  ],
+  "why": "Y matches the eye's brightness sensitivity.",
+  "source": "L7 slide 47"
+ },
+ {
+  "id": "ch7-032",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Colour",
+  "kind": "calc",
+  "q": "X = 20, Y = 30, Z = 50. Chromaticity x?",
+  "choices": [
+   "0.2",
+   "0.3",
+   "0.5",
+   "20"
+  ],
+  "why": "x = 20 / 100.",
+  "source": "L7 slide 54"
+ },
+ {
+  "id": "ch7-033",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Colour",
+  "kind": "calc",
+  "q": "Chromaticity x = 0.3, y = 0.4. What is z?",
+  "choices": [
+   "0.3",
+   "0.7",
+   "0.4",
+   "1.0"
+  ],
+  "why": "z = 1 − x − y.",
+  "source": "L7 slide 54"
+ },
+ {
+  "id": "ch7-034",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Colour",
+  "kind": "concept",
+  "q": "In polar chromaticity around the white point, the angle is…",
+  "choices": [
+   "Hue",
+   "Saturation",
+   "Luminance",
+   "Purity"
+  ],
+  "why": "Angle = hue, radius = saturation/purity.",
+  "source": "L7 slides 61-65"
+ },
+ {
+  "id": "ch7-035",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Colour",
+  "kind": "concept",
+  "q": "Gamut is…",
+  "choices": [
+   "The subset of colours a device can reproduce",
+   "The brightest colour a display can produce",
+   "The number of grey levels in an image",
+   "The wavelength of the dominant colour"
+  ],
+  "why": "On the chromaticity diagram it is the primaries' triangle.",
+  "source": "L7 slide 59"
+ },
+ {
+  "id": "ch7-036",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Colour",
+  "kind": "concept",
+  "q": "Lines of resolution: NTSC vs PAL?",
+  "choices": [
+   "525 vs 625",
+   "625 vs 525",
+   "480 vs 576",
+   "720 vs 1080"
+  ],
+  "why": "NTSC 525, PAL 625.",
+  "source": "L7 slide 59"
+ },
+ {
+  "id": "ch7-037",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Colour",
+  "kind": "concept",
+  "q": "Light with equal amounts of all wavelengths is…",
+  "choices": [
+   "Achromatic",
+   "Monochromatic",
+   "Polychromatic",
+   "Chromatic"
+  ],
+  "why": "Monochromatic = one wavelength (laser); polychromatic = unequal mix.",
+  "source": "L7 slide 67"
+ },
+ {
+  "id": "ch7-038",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Colour",
+  "kind": "calc",
+  "q": "RGB (200, 100, 50) to 8-bit CMY?",
+  "choices": [
+   "(55, 155, 205)",
+   "(200, 100, 50)",
+   "(50, 100, 200)",
+   "(155, 55, 205)"
+  ],
+  "why": "C = 255 − R, M = 255 − G, Y = 255 − B.",
+  "source": "Gonzalez Ch. 6"
+ },
+ {
+  "id": "ch7-039",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Colour",
+  "kind": "calc",
+  "q": "HSI intensity of RGB (200, 100, 50)?",
+  "choices": [
+   "≈ 117",
+   "350",
+   "200",
+   "≈ 124"
+  ],
+  "why": "(200 + 100 + 50)/3 = 116.7; 124 is the 0.299/0.587/0.114 weighting.",
+  "source": "L7 slide 37"
+ },
+ {
+  "id": "ch7-040",
+  "chapter": "L7 · Pixel Relationships & Colour",
+  "topic": "Colour",
+  "kind": "concept",
+  "q": "CIE criterion for XYZ: equal amounts of the primaries produce…",
+  "choices": [
+   "White",
+   "Black",
+   "Grey 50%",
+   "Yellow"
+  ],
+  "why": "X = Y = Z gives the equal-energy white point (1/3, 1/3).",
+  "source": "L7 slide 45"
+ },
+ {
+  "id": "ch9-001",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Image types",
+  "kind": "calc",
+  "q": "Bits per pixel of an 8-bit-per-channel RGB image?",
+  "choices": [
+   "24",
+   "8",
+   "3",
+   "16"
+  ],
+  "why": "3 × 8 = 24 bits.",
+  "source": "L9 slide 5"
+ },
+ {
+  "id": "ch9-002",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "LUT",
+  "kind": "concept",
+  "q": "In a LUT, the current pixel value is used as…",
+  "choices": [
+   "The array index",
+   "The output value",
+   "A multiplication factor",
+   "A threshold"
+  ],
+  "why": "New value = LUT[old value].",
+  "source": "L9 slide 11"
+ },
+ {
+  "id": "ch9-003",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "LUT",
+  "kind": "calc",
+  "q": "LUT = [0,0,1,1,2,3,4,5]. Input 7 becomes?",
+  "choices": [
+   "5",
+   "7",
+   "4",
+   "0"
+  ],
+  "why": "LUT[7] is the last entry, 5.",
+  "source": "L9 slide 11"
+ },
+ {
+  "id": "ch9-004",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "LUT",
+  "kind": "concept",
+  "q": "Main storage advantage of a colormap:",
+  "choices": [
+   "8-bit indices can address 24-bit colours",
+   "It increases the number of colours shown",
+   "It makes images lossless in compression",
+   "It speeds up histogram equalisation"
+  ],
+  "why": "Only the 8-bit index is stored per pixel.",
+  "source": "L9 slide 9"
+ },
+ {
+  "id": "ch9-005",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "LUT",
+  "kind": "calc",
+  "q": "256×256 indexed image + 256-entry RGB LUT. Total bytes?",
+  "choices": [
+   "66,304",
+   "65,536",
+   "196,608",
+   "768"
+  ],
+  "why": "65,536 + 256 × 3 = 66,304.",
+  "source": "L9 slide 9"
+ },
+ {
+  "id": "ch9-006",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram",
+  "kind": "concept",
+  "q": "Multiplying an image by 1.2 does what to its histogram?",
+  "choices": [
+   "Stretches it",
+   "Shifts it left",
+   "Flattens it",
+   "Leaves it unchanged"
+  ],
+  "why": "×1.2 spreads values; ÷1.2 squeezes them.",
+  "source": "L9 slide 17"
+ },
+ {
+  "id": "ch9-007",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram eq.",
+  "kind": "concept",
+  "q": "Goal of histogram equalisation:",
+  "choices": [
+   "A uniform output histogram",
+   "A Gaussian output histogram",
+   "A specified target histogram",
+   "Fewer grey levels"
+  ],
+  "why": "Specification targets a chosen shape; equalisation targets uniform.",
+  "source": "L9 slide 20"
+ },
+ {
+  "id": "ch9-008",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram eq.",
+  "kind": "concept",
+  "q": "The HE transform T(r) is the input's…",
+  "choices": [
+   "Cumulative distribution function",
+   "Probability density function",
+   "Inverse of its own CDF",
+   "Fourier transform of the histogram"
+  ],
+  "why": "s = ∫₀ʳ p_r(w) dw.",
+  "source": "L9 slide 24"
+ },
+ {
+  "id": "ch9-009",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram eq.",
+  "kind": "concept",
+  "q": "T(r) must be single-valued and…",
+  "choices": [
+   "Monotonically increasing",
+   "Linear with slope one",
+   "Symmetric about r = 0.5",
+   "Periodic over [0, L−1]"
+  ],
+  "why": "So it is invertible and keeps the order of levels.",
+  "source": "L9 slide 21"
+ },
+ {
+  "id": "ch9-010",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram eq.",
+  "kind": "trap",
+  "q": "Why is a discrete equalised histogram NOT flat?",
+  "choices": [
+   "Levels can merge but never split",
+   "Rounding errors add noise",
+   "The CDF is not monotonic",
+   "Only colour images flatten"
+  ],
+  "why": "All pixels at one level map to one output level.",
+  "source": "L9 slide 26"
+ },
+ {
+  "id": "ch9-011",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram eq.",
+  "kind": "concept",
+  "q": "HE stretches contrast near histogram…",
+  "choices": [
+   "Peaks (maxima)",
+   "Valleys (minima)",
+   "Edges only",
+   "Zero bins"
+  ],
+  "why": "Contrast is compressed near minima.",
+  "source": "L9 slide 26"
+ },
+ {
+  "id": "ch9-012",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram eq.",
+  "kind": "calc",
+  "q": "Slide 30: 16 pixels, L = 8, cumulative count 3. 7·CDF = ?",
+  "choices": [
+   "1.31",
+   "0.43",
+   "2.18",
+   "3.00"
+  ],
+  "why": "3 × 7/16 = 1.3125.",
+  "source": "L9 slide 30"
+ },
+ {
+  "id": "ch9-013",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram eq.",
+  "kind": "trap",
+  "q": "Slide 30 writes 1 × 7/16 = 0.43. The exact value is…",
+  "choices": [
+   "0.4375",
+   "0.43",
+   "0.47",
+   "0.70"
+  ],
+  "why": "The slide truncates; it rounds to 0 either way.",
+  "source": "L9 slide 30"
+ },
+ {
+  "id": "ch9-014",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram eq.",
+  "kind": "calc",
+  "q": "Slide 29 image: cumulative count at r = 3 is 11 of 16. s_3?",
+  "choices": [
+   "5",
+   "4",
+   "3",
+   "6"
+  ],
+  "why": "7 · 11/16 = 4.81 → 5.",
+  "source": "L9 slide 31"
+ },
+ {
+  "id": "ch9-015",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram eq.",
+  "kind": "calc",
+  "q": "Slide 29 image equalised: r = 4 maps to?",
+  "choices": [
+   "7",
+   "4",
+   "5",
+   "6"
+  ],
+  "why": "Cumulative 16/16 → 7.",
+  "source": "L9 slide 31"
+ },
+ {
+  "id": "ch9-016",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram eq.",
+  "kind": "calc",
+  "q": "5×5 3-bit image with n_0 = 6. s_0 after HE?",
+  "choices": [
+   "2",
+   "0",
+   "1",
+   "6"
+  ],
+  "why": "7 · 6/25 = 1.68 → 2.",
+  "source": "L9 slide 30"
+ },
+ {
+  "id": "ch9-017",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram eq.",
+  "kind": "calc",
+  "q": "64×64, L = 8, n_0 = 790. s_0 after HE?",
+  "choices": [
+   "1",
+   "0",
+   "2",
+   "790"
+  ],
+  "why": "7 · 790/4096 = 1.35 → 1.",
+  "source": "L9 slide 30"
+ },
+ {
+  "id": "ch9-018",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram eq.",
+  "kind": "calc",
+  "q": "MN = 4096; r=3 and r=4 (656 and 329 px) both map to 6. n(6) after HE?",
+  "choices": [
+   "985",
+   "656",
+   "329",
+   "327"
+  ],
+  "why": "Merged levels add their counts.",
+  "source": "L9 slide 31"
+ },
+ {
+  "id": "ch9-019",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram eq.",
+  "kind": "calc",
+  "q": "4×4 image, L = 8, all 16 pixels have value 2. After HE they become?",
+  "choices": [
+   "7",
+   "2",
+   "0",
+   "3"
+  ],
+  "why": "CDF at 2 is 1, so s = 7.",
+  "source": "L9 slide 30"
+ },
+ {
+  "id": "ch9-020",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram spec.",
+  "kind": "concept",
+  "q": "Histogram specification needs as input…",
+  "choices": [
+   "The image and a desired histogram",
+   "Only the image and its own histogram",
+   "Only a desired histogram shape",
+   "Two images of exactly equal size"
+  ],
+  "why": "Its difficulty is constructing a meaningful target.",
+  "source": "L9 slide 40"
+ },
+ {
+  "id": "ch9-021",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram spec.",
+  "kind": "concept",
+  "q": "Histogram specification mapping:",
+  "choices": [
+   "z = G⁻¹(T(r))",
+   "z = T⁻¹(G(r))",
+   "z = G(T(r))",
+   "z = T(r) − G(r)"
+  ],
+  "why": "Equalise input, then apply the inverse of the target's equalisation.",
+  "source": "L9 slide 42"
+ },
+ {
+  "id": "ch9-022",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram spec.",
+  "kind": "calc",
+  "q": "Target n_z = 0,0,0,0,0,6,5,5 (16 px, L = 8). G(5) = ?",
+  "choices": [
+   "2.6",
+   "4.8",
+   "6",
+   "0.375"
+  ],
+  "why": "7 · 6/16 = 2.625.",
+  "source": "L9 slide 44"
+ },
+ {
+  "id": "ch9-023",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram spec.",
+  "kind": "calc",
+  "q": "Slide 44 inverse LUT: equalised value s = 4 maps to z = ?",
+  "choices": [
+   "6",
+   "5",
+   "4",
+   "7"
+  ],
+  "why": "Closest G(z) to 4 is 4.8 at z = 6.",
+  "source": "L9 slide 44"
+ },
+ {
+  "id": "ch9-024",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Histogram spec.",
+  "kind": "calc",
+  "q": "Slide 44 inverse LUT: s = 1 maps to z = ?",
+  "choices": [
+   "0",
+   "5",
+   "1",
+   "7"
+  ],
+  "why": "|1 − 0| < |1 − 2.6|, so z = 0 (slide column: 0).",
+  "source": "L9 slide 44"
+ },
+ {
+  "id": "ch9-025",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Arithmetic",
+  "kind": "concept",
+  "q": "Adding a constant to every pixel changes…",
+  "choices": [
+   "Brightness only",
+   "Contrast only",
+   "Both brightness and contrast",
+   "Neither"
+  ],
+  "why": "It shifts the histogram without stretching it.",
+  "source": "L9 slide 48"
+ },
+ {
+  "id": "ch9-026",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Arithmetic",
+  "kind": "calc",
+  "q": "8-bit 250 + 20 with clamping?",
+  "choices": [
+   "255",
+   "270",
+   "14",
+   "230"
+  ],
+  "why": "Clamped to the max; 14 is what uint8 wrap-around gives.",
+  "source": "L9 slide 52"
+ },
+ {
+  "id": "ch9-027",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Arithmetic",
+  "kind": "calc",
+  "q": "8-bit 50 − 100 with clamping?",
+  "choices": [
+   "0",
+   "−50",
+   "50",
+   "206"
+  ],
+  "why": "Negative results clamp to 0.",
+  "source": "L9 slide 52"
+ },
+ {
+  "id": "ch9-028",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Arithmetic",
+  "kind": "calc",
+  "q": "Pixel 128 × 1.2, rounded?",
+  "choices": [
+   "154",
+   "153",
+   "128",
+   "107"
+  ],
+  "why": "153.6 → 154.",
+  "source": "L9 slide 47"
+ },
+ {
+  "id": "ch9-029",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Arithmetic",
+  "kind": "concept",
+  "q": "Image subtraction is used for…",
+  "choices": [
+   "Change and motion detection",
+   "Contrast enhancement of dark areas",
+   "Colour space conversion",
+   "Lossless image compression"
+  ],
+  "why": "Medical blood-flow, PCB inspection, security monitoring.",
+  "source": "L9 slide 53"
+ },
+ {
+  "id": "ch9-030",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Logic",
+  "kind": "calc",
+  "q": "NOT of 8-bit pixel 200?",
+  "choices": [
+   "55",
+   "56",
+   "−200",
+   "0"
+  ],
+  "why": "255 − 200 = 55.",
+  "source": "L9 slide 55"
+ },
+ {
+  "id": "ch9-031",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Logic",
+  "kind": "calc",
+  "q": "200 AND 100 (bitwise)?",
+  "choices": [
+   "64",
+   "236",
+   "172",
+   "100"
+  ],
+  "why": "11001000 AND 01100100 = 01000000.",
+  "source": "L9 slide 58"
+ },
+ {
+  "id": "ch9-032",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Logic",
+  "kind": "calc",
+  "q": "200 OR 100 (bitwise)?",
+  "choices": [
+   "236",
+   "64",
+   "172",
+   "300"
+  ],
+  "why": "11001000 OR 01100100 = 11101100.",
+  "source": "L9 slide 59"
+ },
+ {
+  "id": "ch9-033",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Logic",
+  "kind": "calc",
+  "q": "200 XOR 128?",
+  "choices": [
+   "72",
+   "328",
+   "128",
+   "200"
+  ],
+  "why": "Flips only the MSB: 200 − 128 = 72.",
+  "source": "L9 slide 57"
+ },
+ {
+  "id": "ch9-034",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Logic",
+  "kind": "concept",
+  "q": "Why is XOR used to draw a mouse cursor?",
+  "choices": [
+   "XOR-ing twice restores the original",
+   "XOR always produces white pixels",
+   "XOR is faster than AND or OR",
+   "XOR increases image contrast"
+  ],
+  "why": "A ⊕ k ⊕ k = A.",
+  "source": "L9 slide 56"
+ },
+ {
+  "id": "ch9-035",
+  "chapter": "L9 · Point Processing & Histograms",
+  "topic": "Logic",
+  "kind": "trap",
+  "q": "XOR of two equal pixel values gives…",
+  "choices": [
+   "0",
+   "255",
+   "The same value",
+   "Double the value"
+  ],
+  "why": "Equal bits become 0, which is how XOR finds pixels of a given value.",
+  "source": "L9 slide 56"
+ }
+]

@@ -1,0 +1,1352 @@
+[
+ {
+  "id": "ch2-001",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "What sound is",
+  "kind": "concept",
+  "q": "Sound, as defined in the lecture, is which kind of wave?",
+  "choices": [
+   "Longitudinal pressure wave",
+   "Transverse electromagnetic wave",
+   "Longitudinal light wave",
+   "Transverse magnetic wave"
+  ],
+  "why": "A speaker vibrates back and forth, compressing and expanding air, producing a longitudinal pressure wave.",
+  "source": "L2 slide 3"
+ },
+ {
+  "id": "ch2-002",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "What sound is",
+  "kind": "trap",
+  "q": "Why is there no sound in outer space?",
+  "choices": [
+   "There is no air to compress",
+   "The frequency there is too high",
+   "Space is too cold for waves",
+   "Light cancels out the sound"
+  ],
+  "why": "Sound is molecules of air being compressed and expanded; without air there is no sound.",
+  "source": "L2 slide 3"
+ },
+ {
+  "id": "ch2-003",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Wave behaviour",
+  "kind": "concept",
+  "q": "Bending of a sound wave around an obstacle is called:",
+  "choices": [
+   "Diffraction",
+   "Refraction",
+   "Reflection",
+   "Aliasing"
+  ],
+  "why": "Reflection = bouncing, refraction = change of angle entering a denser medium, diffraction = bending around an obstacle.",
+  "source": "L2 slide 4"
+ },
+ {
+  "id": "ch2-004",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Transducer",
+  "kind": "concept",
+  "q": "A transducer used to detect sound converts:",
+  "choices": [
+   "Pressure into voltage",
+   "Voltage into bits",
+   "Bits into sound pressure",
+   "Frequency into wavelength"
+  ],
+  "why": "Sound is measured as pressure at a point, using a transducer to convert pressure to voltage levels.",
+  "source": "L2 slide 4"
+ },
+ {
+  "id": "ch2-005",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Multimedia system",
+  "kind": "concept",
+  "q": "Which is NOT one of the three major components of a multimedia system?",
+  "choices": [
+   "Signal interpolation",
+   "Content creation",
+   "Compression/storage",
+   "Delivery/distribution"
+  ],
+  "why": "The three components are content creation, compression/storage, and delivery/distribution.",
+  "source": "L2 slide 5"
+ },
+ {
+  "id": "ch2-006",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Analog vs digital",
+  "kind": "trap",
+  "q": "Which is NOT listed as an advantage of digital over analog?",
+  "choices": [
+   "No quantization error at all",
+   "No degradation over time",
+   "Easy compression/transmission",
+   "Easy editing of regions"
+  ],
+  "why": "Digital has many advantages, but quantization always introduces error.",
+  "source": "L2 slides 9, 11, 31"
+ },
+ {
+  "id": "ch2-007",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Sampling rates",
+  "kind": "concept",
+  "q": "Typical audio sampling rates range from:",
+  "choices": [
+   "8 kHz to 48 kHz",
+   "20 Hz to 20 kHz",
+   "50 Hz to 10 kHz",
+   "88 MHz to 108 MHz"
+  ],
+  "why": "Audio is sampled at 8-48 kHz; 20 Hz-20 kHz is the hearing range.",
+  "source": "L2 slide 13"
+ },
+ {
+  "id": "ch2-008",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Hearing range",
+  "kind": "trap",
+  "q": "Human hearing extends from about:",
+  "choices": [
+   "20 Hz to 20 kHz",
+   "8 kHz to 48 kHz",
+   "50 Hz to 10 kHz",
+   "0 Hz to 4 kHz"
+  ],
+  "why": "The ear hears about 20 Hz to 20 kHz; above that is ultrasound.",
+  "source": "L2 slide 13"
+ },
+ {
+  "id": "ch2-009",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "A/D conversion",
+  "kind": "concept",
+  "q": "Analog-to-digital conversion consists of:",
+  "choices": [
+   "Sampling and quantization",
+   "Filtering and coding",
+   "Sampling and interpolation",
+   "Convolution and coding"
+  ],
+  "why": "Two main processes: sampling and quantization.",
+  "source": "L2 slide 15"
+ },
+ {
+  "id": "ch2-010",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "A/D conversion",
+  "kind": "concept",
+  "q": "Converting a digital signal back to analog is called:",
+  "choices": [
+   "Interpolation",
+   "Quantization",
+   "Convolution",
+   "Companding expansion"
+  ],
+  "why": "The reverse process (D/A) is known as interpolation.",
+  "source": "L2 slide 15"
+ },
+ {
+  "id": "ch2-011",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Sine wave",
+  "kind": "calc",
+  "q": "A signal has frequency 250 Hz. Its period is:",
+  "choices": [
+   "4 ms",
+   "0.4 ms",
+   "40 ms",
+   "250 ms"
+  ],
+  "why": "T = 1/f = 1/250 = 0.004 s = 4 ms.",
+  "source": "L2 slide 16"
+ },
+ {
+  "id": "ch2-012",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Wavelength",
+  "kind": "calc",
+  "q": "A 1 kHz tone travels at 340 m/s. Its wavelength is:",
+  "choices": [
+   "0.34 m",
+   "3.4 m",
+   "340 km",
+   "34 cm/s"
+  ],
+  "why": "λ = v·T = 340 × 0.001 = 0.34 m.",
+  "source": "L2 slide 26"
+ },
+ {
+  "id": "ch2-013",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Frequency",
+  "kind": "trap",
+  "q": "A signal that does not change at all has frequency:",
+  "choices": [
+   "Zero",
+   "Infinite",
+   "One hertz",
+   "Half the sampling rate"
+  ],
+  "why": "No change = zero frequency; an instantaneous change = infinite frequency.",
+  "source": "L2 slide 23"
+ },
+ {
+  "id": "ch2-014",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Sampling",
+  "kind": "concept",
+  "q": "If the sampling period T is reduced, then:",
+  "choices": [
+   "More samples, more storage",
+   "Fewer samples, less storage",
+   "Quantization error grows",
+   "The signal is aliased"
+  ],
+  "why": "Reducing T (raising f) increases the number of samples and the storage requirement.",
+  "source": "L2 slide 19 notes"
+ },
+ {
+  "id": "ch2-015",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Quantization",
+  "kind": "calc",
+  "q": "A signal range R = 8 V quantized with 4 bits has step size:",
+  "choices": [
+   "0.5 V",
+   "2 V",
+   "0.25 V",
+   "1 V"
+  ],
+  "why": "Δ = R/2^b = 8/16 = 0.5 V.",
+  "source": "L2 slide 29"
+ },
+ {
+  "id": "ch2-016",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Quantization",
+  "kind": "calc",
+  "q": "Going from 3 bits to 5 bits changes the step size Δ by a factor of:",
+  "choices": [
+   "1/4",
+   "1/2",
+   "2/3",
+   "1/8"
+  ],
+  "why": "Δ = R/2^b; two more bits divide Δ by 2^2 = 4.",
+  "source": "L2 slide 29"
+ },
+ {
+  "id": "ch2-017",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Quantization",
+  "kind": "calc",
+  "q": "At least how many bits are needed for 1000 quantization levels?",
+  "choices": [
+   "10",
+   "9",
+   "11",
+   "1000"
+  ],
+  "why": "2^9 = 512 < 1000 ≤ 1024 = 2^10.",
+  "source": "L2 slide 29"
+ },
+ {
+  "id": "ch2-018",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Quantization",
+  "kind": "concept",
+  "q": "Quantization always introduces error because:",
+  "choices": [
+   "Each sample has finite bits",
+   "The sampling rate is set too low",
+   "Noise enters at the DAC",
+   "Signals are not periodic"
+  ],
+  "why": "Each sample is represented by a finite number of bits, so the quantized value differs from the actual value.",
+  "source": "L2 slide 31"
+ },
+ {
+  "id": "ch2-019",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Quantization",
+  "kind": "concept",
+  "q": "Per the slides, music must be quantized with ___ bits and speech with ___ bits.",
+  "choices": [
+   "16 and 8",
+   "8 and 16",
+   "24 and 16",
+   "16 and 4"
+  ],
+  "why": "Audio for music needs 16 bits; speech requires only 8.",
+  "source": "L2 slide 31"
+ },
+ {
+  "id": "ch2-020",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Quantization",
+  "kind": "concept",
+  "q": "Uniform quantization works best when:",
+  "choices": [
+   "All values are equally likely",
+   "The signal is mostly very loud",
+   "Low values are more common",
+   "The signal is aliased"
+  ],
+  "why": "Uniform intervals spread the error evenly when all values in the range are equally likely; otherwise use non-linear (log) scales.",
+  "source": "L2 slides 31, 33"
+ },
+ {
+  "id": "ch2-021",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Bit rate",
+  "kind": "concept",
+  "q": "Bit rate equals:",
+  "choices": [
+   "Sampling rate × bits per sample",
+   "Sampling rate ÷ bits per sample",
+   "Bits per sample ÷ duration",
+   "Levels × sampling period"
+  ],
+  "why": "Bits/second = (samples/second) × (bits/sample).",
+  "source": "L2 slide 34"
+ },
+ {
+  "id": "ch2-022",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Bit rate",
+  "kind": "calc",
+  "q": "Speech sampled at 8 kHz with 8 bits per sample has a bit rate of:",
+  "choices": [
+   "64 kbps",
+   "8 kbps",
+   "16 kbps",
+   "128 kbps"
+  ],
+  "why": "8000 × 8 = 64 000 bit/s (professor's table).",
+  "source": "L2 slide 35"
+ },
+ {
+  "id": "ch2-023",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Bit rate",
+  "kind": "calc",
+  "q": "Mono CD audio (44.1 kHz, 16 bits) has a bit rate of about:",
+  "choices": [
+   "706 kbps",
+   "1411.2 kbps",
+   "352 kbps",
+   "176 kbps"
+  ],
+  "why": "44 100 × 16 = 705 600 bit/s; stereo doubles it to 1.4 Mbps.",
+  "source": "L2 slide 35"
+ },
+ {
+  "id": "ch2-024",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Bit rate",
+  "kind": "calc",
+  "q": "Stereo CD audio (44.1 kHz, 16 bits) has a bit rate of about:",
+  "choices": [
+   "1411.2 kbps",
+   "706 kbps",
+   "2.8 Mbps",
+   "176 kbps"
+  ],
+  "why": "44 100 × 16 × 2 = 1 411 200 bit/s.",
+  "source": "L2 slide 35"
+ },
+ {
+  "id": "ch2-025",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Bit rate",
+  "kind": "calc",
+  "q": "AM radio at 11 kHz and 8 bits per sample produces:",
+  "choices": [
+   "88 kbps",
+   "11 kbps",
+   "176 kbps",
+   "44 kbps"
+  ],
+  "why": "11 000 × 8 = 88 000 bit/s.",
+  "source": "L2 slide 35"
+ },
+ {
+  "id": "ch2-026",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Bit rate",
+  "kind": "calc",
+  "q": "A 10-second mono clip at 8 kHz, 8 bits takes how many bytes?",
+  "choices": [
+   "80 000 bytes",
+   "640 000 bytes",
+   "64 000 bytes",
+   "8000 bytes"
+  ],
+  "why": "64 000 bit/s × 10 s = 640 000 bits ÷ 8 = 80 000 bytes.",
+  "source": "L2 slide 34"
+ },
+ {
+  "id": "ch2-027",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "LTI systems",
+  "kind": "concept",
+  "q": "Any LTI system is fully characterised by its:",
+  "choices": [
+   "Impulse response",
+   "Sampling rate",
+   "Step size",
+   "Bit rate"
+  ],
+  "why": "The output is the input convolved with the impulse response.",
+  "source": "L2 slide 40"
+ },
+ {
+  "id": "ch2-028",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "LTI systems",
+  "kind": "concept",
+  "q": "In the time domain, the output of an LTI system is:",
+  "choices": [
+   "Input convolved with impulse response",
+   "Input multiplied by its own transfer function",
+   "Input plus the impulse response",
+   "Input sampled at the Nyquist rate"
+  ],
+  "why": "Time-domain view: output = input * impulse response (convolution).",
+  "source": "L2 slide 40"
+ },
+ {
+  "id": "ch2-029",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Convolution",
+  "kind": "concept",
+  "q": "Convolution f*g integrates f multiplied by g that has been:",
+  "choices": [
+   "Reversed and shifted",
+   "Squared and averaged",
+   "Sampled and quantized",
+   "Differentiated twice"
+  ],
+  "why": "Convolution = integral of the first signal multiplied with the other signal reversed and shifted.",
+  "source": "L2 slide 39"
+ },
+ {
+  "id": "ch2-030",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Useful signals",
+  "kind": "concept",
+  "q": "The Dirac delta function is zero everywhere except x = 0, and its integral is:",
+  "choices": [
+   "1",
+   "0",
+   "Infinite",
+   "2π"
+  ],
+  "why": "A sharp peak bounding unit area: infinite at x = 0, integral 1.",
+  "source": "L2 slide 42"
+ },
+ {
+  "id": "ch2-031",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Nyquist",
+  "kind": "concept",
+  "q": "The sampling theorem was established by ___ and formalised by ___ in 1950.",
+  "choices": [
+   "Nyquist; Shannon",
+   "Shannon; Nyquist",
+   "Fourier; Dirac",
+   "Dirac; Nyquist"
+  ],
+  "why": "Henry Nyquist (late 1920s), formalised by Claude Shannon in 1950.",
+  "source": "L2 slide 47"
+ },
+ {
+  "id": "ch2-032",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Nyquist",
+  "kind": "calc",
+  "q": "A signal's maximum frequency is 10 kHz. It must be sampled at more than:",
+  "choices": [
+   "20 kHz",
+   "10 kHz",
+   "5 kHz",
+   "40 kHz"
+  ],
+  "why": "f_s > 2 × f_max = 20 kHz, the Nyquist sampling frequency (professor's example).",
+  "source": "L2 slide 48"
+ },
+ {
+  "id": "ch2-033",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Nyquist",
+  "kind": "calc",
+  "q": "Speech band-limited to 4 kHz needs a sampling rate above:",
+  "choices": [
+   "8 kHz",
+   "4 kHz",
+   "2 kHz",
+   "16 kHz"
+  ],
+  "why": "2 × 4 kHz = 8 kHz, matching the 8 kHz telephone rate.",
+  "source": "L2 slides 13, 48"
+ },
+ {
+  "id": "ch2-034",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Nyquist",
+  "kind": "calc",
+  "q": "A signal contains 2 kHz, 5 kHz and 7.5 kHz. Its Nyquist sampling frequency is:",
+  "choices": [
+   "15 kHz",
+   "4 kHz",
+   "29 kHz",
+   "7.5 kHz"
+  ],
+  "why": "Only the highest component matters: 2 × 7.5 kHz = 15 kHz.",
+  "source": "L2 slide 48"
+ },
+ {
+  "id": "ch2-035",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Nyquist",
+  "kind": "trap",
+  "q": "Sampling well above the Nyquist frequency causes:",
+  "choices": [
+   "More data than necessary",
+   "Aliasing of high tones",
+   "Loss of low frequencies",
+   "Larger quantization error"
+  ],
+  "why": "Oversampling reproduces the signal correctly but creates extra storage and transmission overhead.",
+  "source": "L2 slide 50"
+ },
+ {
+  "id": "ch2-036",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Aliasing",
+  "kind": "concept",
+  "q": "Aliasing is:",
+  "choices": [
+   "Information lost by undersampling",
+   "Error from too few bits",
+   "Random noise added by analog circuits",
+   "Data growth from oversampling"
+  ],
+  "why": "Aliasing describes loss of information when sampling below the Nyquist frequency.",
+  "source": "L2 slide 51"
+ },
+ {
+  "id": "ch2-037",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Aliasing",
+  "kind": "calc",
+  "q": "A 9 kHz tone sampled at 8 kHz is heard as:",
+  "choices": [
+   "1 kHz",
+   "9 kHz",
+   "5 kHz",
+   "4 kHz"
+  ],
+  "why": "|9 - 8| = 1 kHz, below f_s/2 = 4 kHz.",
+  "source": "L2 slide 51"
+ },
+ {
+  "id": "ch2-038",
+  "chapter": "L2 · Sound, Sampling & Aliasing",
+  "topic": "Aliasing",
+  "kind": "concept",
+  "q": "The wagon wheel turning backwards in western films is an example of:",
+  "choices": [
+   "Temporal aliasing",
+   "Spatial aliasing",
+   "Quantization noise",
+   "Oversampling"
+  ],
+  "why": "The movie camera has undersampled the wheels' motion in time.",
+  "source": "L2 slide 55"
+ },
+ {
+  "id": "ch3-001",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SNR",
+  "kind": "concept",
+  "q": "SNR is the ratio of:",
+  "choices": [
+   "Signal power to noise power",
+   "Noise power to signal power",
+   "Signal voltage to bit rate",
+   "Sampling rate to noise rate"
+  ],
+  "why": "The ratio of the power of the correct signal to the noise; a measure of signal quality.",
+  "source": "L3 slide 4"
+ },
+ {
+  "id": "ch3-002",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SNR",
+  "kind": "calc",
+  "q": "V_signal is 10 times V_noise. The SNR is:",
+  "choices": [
+   "20 dB",
+   "10 dB",
+   "100 dB",
+   "1 dB"
+  ],
+  "why": "20 × log10(10) = 20 dB (the professor's example).",
+  "source": "L3 slide 6"
+ },
+ {
+  "id": "ch3-003",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SNR",
+  "kind": "calc",
+  "q": "V_signal = 5 V and V_noise = 0.05 V. The SNR is:",
+  "choices": [
+   "40 dB",
+   "20 dB",
+   "100 dB",
+   "2 dB"
+  ],
+  "why": "Ratio 100; 20 × log10(100) = 40 dB.",
+  "source": "L3 slide 6"
+ },
+ {
+  "id": "ch3-004",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SNR",
+  "kind": "calc",
+  "q": "Signal power is 1000 times noise power. The SNR is:",
+  "choices": [
+   "30 dB",
+   "60 dB",
+   "3 dB",
+   "10 dB"
+  ],
+  "why": "For power use 10·log10: 10 × 3 = 30 dB.",
+  "source": "L3 slides 4, 6"
+ },
+ {
+  "id": "ch3-005",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SNR",
+  "kind": "trap",
+  "q": "Why does SNR use 20·log10 for voltages?",
+  "choices": [
+   "Power is proportional to V squared",
+   "A bel is twenty decibels",
+   "Voltages are always doubled",
+   "Noise always has two equal components"
+  ],
+  "why": "Power ∝ V², so 10·log10(V²) = 20·log10(V).",
+  "source": "L3 slide 6"
+ },
+ {
+  "id": "ch3-006",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SQNR",
+  "kind": "concept",
+  "q": "Quantization noise is the difference between the analog value and:",
+  "choices": [
+   "The nearest quantization level",
+   "The previous sample value",
+   "The average signal value",
+   "The noise measured on the analog line"
+  ],
+  "why": "Defined against the nearest quantization interval value at the sampling instant.",
+  "source": "L3 slide 8"
+ },
+ {
+  "id": "ch3-007",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SQNR",
+  "kind": "concept",
+  "q": "Quantization error is at most:",
+  "choices": [
+   "Half of one interval",
+   "One full interval",
+   "Two intervals",
+   "The full signal range"
+  ],
+  "why": "At most, the error can be as much as half of the interval.",
+  "source": "L3 slide 8"
+ },
+ {
+  "id": "ch3-008",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SQNR",
+  "kind": "concept",
+  "q": "The SQNR formula for a sinusoidal input is:",
+  "choices": [
+   "6.02N + 1.76 dB",
+   "6.02N - 1.76 dB",
+   "1.76N + 6.02 dB",
+   "20N + 1.76 dB"
+  ],
+  "why": "SQNR = 6.02N + 1.76 dB, N = bits per sample.",
+  "source": "L3 slide 9"
+ },
+ {
+  "id": "ch3-009",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SQNR",
+  "kind": "calc",
+  "q": "The slide's maximum SQNR for 16-bit audio is about:",
+  "choices": [
+   "96 dB",
+   "48 dB",
+   "120 dB",
+   "16 dB"
+  ],
+  "why": "6.02 × 16 = 96.3 dB; each bit adds about 6 dB.",
+  "source": "L3 slide 9"
+ },
+ {
+  "id": "ch3-010",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SQNR",
+  "kind": "calc",
+  "q": "Using 6.02N, the SQNR of 8-bit audio is about:",
+  "choices": [
+   "48 dB",
+   "96 dB",
+   "56 dB",
+   "24 dB"
+  ],
+  "why": "6.02 × 8 = 48.16 dB (≈ 50 dB with +1.76).",
+  "source": "L3 slide 9"
+ },
+ {
+  "id": "ch3-011",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SQNR",
+  "kind": "calc",
+  "q": "Using 6.02N + 1.76, the SQNR of 16-bit audio is:",
+  "choices": [
+   "98.08 dB",
+   "96.32 dB",
+   "97.76 dB",
+   "99.84 dB"
+  ],
+  "why": "6.02 × 16 + 1.76 = 96.32 + 1.76 = 98.08 dB.",
+  "source": "L3 slide 9"
+ },
+ {
+  "id": "ch3-012",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SQNR",
+  "kind": "calc",
+  "q": "Going from 12 to 16 bits per sample improves SQNR by about:",
+  "choices": [
+   "24 dB",
+   "6 dB",
+   "12 dB",
+   "4 dB"
+  ],
+  "why": "4 extra bits × 6.02 dB = 24.08 dB.",
+  "source": "L3 slide 9"
+ },
+ {
+  "id": "ch3-013",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SQNR",
+  "kind": "calc",
+  "q": "Minimum bits for SQNR ≥ 75 dB using 6.02N:",
+  "choices": [
+   "13",
+   "12",
+   "14",
+   "75"
+  ],
+  "why": "75/6.02 = 12.46, round up to 13 (78.26 dB).",
+  "source": "L3 slide 9"
+ },
+ {
+  "id": "ch3-014",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "SQNR",
+  "kind": "trap",
+  "q": "In SQNR = 6.02N + 1.76, the symbol N is:",
+  "choices": [
+   "Bits per sample",
+   "Number of levels",
+   "Sampling rate",
+   "Noise voltage"
+  ],
+  "why": "Here N is bits. On L2 slide 29, N = 2^b means levels; do not mix them.",
+  "source": "L3 slide 9"
+ },
+ {
+  "id": "ch3-015",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "Filtering",
+  "kind": "concept",
+  "q": "For speech, the frequencies typically retained are:",
+  "choices": [
+   "50 Hz to 10 kHz",
+   "20 Hz to 20 kHz",
+   "8 kHz to 48 kHz",
+   "200 Hz to 3.4 kHz"
+  ],
+  "why": "Speech 50 Hz-10 kHz; music about 20 Hz-20 kHz.",
+  "source": "L3 slide 10"
+ },
+ {
+  "id": "ch3-016",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "Filtering",
+  "kind": "concept",
+  "q": "The filter screening out both low and high frequencies at the encoder is a:",
+  "choices": [
+   "Bandpass filter",
+   "Low-pass filter",
+   "High-pass filter",
+   "Comb filter"
+  ],
+  "why": "A bandpass (band-limiting) filter screens out lower and higher frequencies.",
+  "source": "L3 slide 10"
+ },
+ {
+  "id": "ch3-017",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "Filtering",
+  "kind": "trap",
+  "q": "Which filter is applied after the DAC at the decoder?",
+  "choices": [
+   "Low-pass, same high cutoff",
+   "Bandpass, half the cutoff",
+   "High-pass, same low cutoff",
+   "None, the DAC removes noise"
+  ],
+  "why": "High frequencies reappear through sampling and quantization, so a low-pass filter with the encoder's high cutoff is used.",
+  "source": "L3 slide 10"
+ },
+ {
+  "id": "ch3-018",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "Data rate",
+  "kind": "concept",
+  "q": "Compared with mono, stereo audio needs:",
+  "choices": [
+   "Twice the bit rate",
+   "The same bit rate",
+   "Half the bit rate",
+   "Four times the bit rate"
+  ],
+  "why": "Stereo information doubles the bitrate needed.",
+  "source": "L3 slide 11"
+ },
+ {
+  "id": "ch3-019",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "Data rate",
+  "kind": "trap",
+  "q": "In computer networking, 'bandwidth' means:",
+  "choices": [
+   "A data rate in bits per second",
+   "A frequency range in hertz",
+   "A count of MIDI channels",
+   "The number of quantization bits used"
+  ],
+  "why": "For analog devices bandwidth is in Hz; in networking it is the data rate in bps.",
+  "source": "L3 slide 12"
+ },
+ {
+  "id": "ch3-020",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "Data rate",
+  "kind": "calc",
+  "q": "Table 6.2 lists CD audio as 176.4 kB/s. In kbps that is:",
+  "choices": [
+   "1411.2 kbps",
+   "176.4 kbps",
+   "22.05 kbps",
+   "705.6 kbps"
+  ],
+  "why": "kB/s are bytes: 176.4 × 8 = 1411.2 kbps = 44.1 kHz × 16 × 2.",
+  "source": "L3 slide 11"
+ },
+ {
+  "id": "ch3-021",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "Data rate",
+  "kind": "calc",
+  "q": "How many bytes does one minute of CD-quality stereo audio take?",
+  "choices": [
+   "About 10.6 MB",
+   "About 5.3 MB",
+   "About 84.7 MB",
+   "About 1.4 MB"
+  ],
+  "why": "1 411 200 bit/s × 60 s ÷ 8 = 10 584 000 bytes, the slide's 'about 10 MB'.",
+  "source": "L3 slide 21"
+ },
+ {
+  "id": "ch3-022",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "Synthetic sound",
+  "kind": "concept",
+  "q": "The two approaches to handling stored sampled audio are:",
+  "choices": [
+   "FM and Wave Table",
+   "AM and MIDI",
+   "PCM and Huffman coding",
+   "MIDI and MP3"
+  ],
+  "why": "FM (frequency modulation) and Wave Table (Wave) sound.",
+  "source": "L3 slide 13"
+ },
+ {
+  "id": "ch3-023",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "concept",
+  "q": "MIDI files are very small because MIDI:",
+  "choices": [
+   "Codes events, not sound",
+   "Uses 4-bit samples",
+   "Samples at 8 kHz",
+   "Applies strong Huffman coding"
+  ],
+  "why": "MIDI is a scripting language: it codes events such as pitch, volume and instrument.",
+  "source": "L3 slide 16"
+ },
+ {
+  "id": "ch3-024",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "concept",
+  "q": "Per the slide, 3 minutes of music stored as MIDI messages takes about:",
+  "choices": [
+   "3 kB",
+   "3 MB",
+   "10 MB",
+   "30 kB"
+  ],
+  "why": "3 minutes in about 3 kB, versus WAV storing 1 minute in about 10 MB.",
+  "source": "L3 slide 21"
+ },
+ {
+  "id": "ch3-025",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "concept",
+  "q": "How many MIDI channels are there?",
+  "choices": [
+   "16",
+   "10",
+   "128",
+   "24"
+  ],
+  "why": "16 channels, numbered 0-15, carried in the low 4 bits of the status byte.",
+  "source": "L3 slide 18"
+ },
+ {
+  "id": "ch3-026",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "concept",
+  "q": "The MIDI channel number occupies which bits of the status byte?",
+  "choices": [
+   "The last four (LSBs)",
+   "The first four (MSBs)",
+   "The single top bit",
+   "All eight bits"
+  ],
+  "why": "The channel is the last four (least significant) bits.",
+  "source": "L3 slides 18, 35"
+ },
+ {
+  "id": "ch3-027",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "concept",
+  "q": "In General MIDI, channel 10 is reserved for:",
+  "choices": [
+   "Percussion",
+   "Piano",
+   "Vocals",
+   "System messages"
+  ],
+  "why": "Channel 10 is reserved for percussion instruments (drums).",
+  "source": "L3 slide 24"
+ },
+ {
+  "id": "ch3-028",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "concept",
+  "q": "Messages that carry no channel number and address all instruments are:",
+  "choices": [
+   "System messages",
+   "Voice messages",
+   "Mode messages",
+   "Data-byte messages"
+  ],
+  "why": "System messages, e.g. a change in tuning or timing, go to all instruments.",
+  "source": "L3 slide 19"
+ },
+ {
+  "id": "ch3-029",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "concept",
+  "q": "A MIDI keyboard on its own:",
+  "choices": [
+   "Produces no sound",
+   "Is a wave-table sampler",
+   "Holds 128 patches",
+   "Is a sound module"
+  ],
+  "why": "It generates MIDI messages; it may also include a synthesizer.",
+  "source": "L3 slide 21"
+ },
+ {
+  "id": "ch3-030",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "concept",
+  "q": "Timbre is:",
+  "choices": [
+   "The quality of the sound",
+   "The number of voices",
+   "The speed of the link",
+   "The loudness envelope of a note"
+  ],
+  "why": "Timbre is what instrument is emulated, e.g. piano vs violin: the quality of the sound.",
+  "source": "L3 slide 21"
+ },
+ {
+  "id": "ch3-031",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "trap",
+  "q": "'16-part multi-timbral' means a module can play:",
+  "choices": [
+   "16 instruments at once",
+   "16 notes at once",
+   "16 channels in sequence",
+   "16 bits per sample"
+  ],
+  "why": "Multi-timbral = different instrument sounds at once; polyphony counts simultaneous notes.",
+  "source": "L3 slide 23"
+ },
+ {
+  "id": "ch3-032",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "trap",
+  "q": "'64 voices of polyphony' means a module can play:",
+  "choices": [
+   "64 notes at once",
+   "64 instruments at once",
+   "64 patches per bank",
+   "64 channels in total"
+  ],
+  "why": "Polyphony is the number of voices (notes) produced at the same time.",
+  "source": "L3 slide 23"
+ },
+ {
+  "id": "ch3-033",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "concept",
+  "q": "In MIDI, a 'voice' is:",
+  "choices": [
+   "Each timbre and pitch at once",
+   "A human singer's track",
+   "A system message sent to all channels",
+   "A 10-bit MIDI byte"
+  ],
+  "why": "Every different timbre and pitch the tone module can produce at the same time.",
+  "source": "L3 slide 22"
+ },
+ {
+  "id": "ch3-034",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "concept",
+  "q": "The set of control settings that defines a particular timbre is a:",
+  "choices": [
+   "Patch",
+   "Bank",
+   "Voice",
+   "Track"
+  ],
+  "why": "A patch defines a timbre; patches are organised into databases called banks.",
+  "source": "L3 slide 24"
+ },
+ {
+  "id": "ch3-035",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "concept",
+  "q": "General MIDI defines how many patches for standard instruments?",
+  "choices": [
+   "128",
+   "16",
+   "47",
+   "256"
+  ],
+  "why": "128 patches; plus a percussion map of 47 sounds.",
+  "source": "L3 slide 24"
+ },
+ {
+  "id": "ch3-036",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "concept",
+  "q": "A General MIDI device must have at least how many dynamically allocated voices?",
+  "choices": [
+   "24",
+   "16",
+   "64",
+   "128"
+  ],
+  "why": "It must support all 16 channels, be multi-timbral and polyphonic, and have at least 24 voices.",
+  "source": "L3 slide 40"
+ },
+ {
+  "id": "ch3-037",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI bytes",
+  "kind": "concept",
+  "q": "A MIDI status byte has a value between:",
+  "choices": [
+   "128 and 255",
+   "0 and 127",
+   "0 and 15",
+   "256 and 511"
+  ],
+  "why": "Status bytes have MSB = 1 (128-255); data bytes have MSB = 0 (0-127).",
+  "source": "L3 slide 25"
+ },
+ {
+  "id": "ch3-038",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI bytes",
+  "kind": "calc",
+  "q": "How many bits does one MIDI byte occupy on the wire?",
+  "choices": [
+   "10",
+   "8",
+   "9",
+   "16"
+  ],
+  "why": "8 data bits plus a 0 start bit and a stop bit.",
+  "source": "L3 slide 25"
+ },
+ {
+  "id": "ch3-039",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI bytes",
+  "kind": "calc",
+  "q": "Status byte 0x93 means:",
+  "choices": [
+   "Note On, channel 3",
+   "Note Off, channel 3",
+   "Note On, channel 9",
+   "Program change, ch. 3"
+  ],
+  "why": "High nibble 9 = Note On (&H9n); low nibble n = 3.",
+  "source": "L3 slide 37"
+ },
+ {
+  "id": "ch3-040",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI bytes",
+  "kind": "calc",
+  "q": "Status byte 0xC5 is:",
+  "choices": [
+   "Program change, channel 5",
+   "Control change, channel 5",
+   "Note On, channel 12",
+   "Pitch bend, channel 5"
+  ],
+  "why": "&HCn = program change; n = 5. Control change is &HBn, pitch bend &HEn.",
+  "source": "L3 slide 37"
+ },
+ {
+  "id": "ch3-041",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI bytes",
+  "kind": "calc",
+  "q": "Note On for the drum channel (channel 10 counted from 1) has status byte:",
+  "choices": [
+   "0x99",
+   "0x9A",
+   "0x90",
+   "0xA9"
+  ],
+  "why": "Channels are numbered 0-15 in the byte, so channel 10 is n = 9: 0x99.",
+  "source": "L3 slides 18, 37"
+ },
+ {
+  "id": "ch3-042",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI hardware",
+  "kind": "concept",
+  "q": "The MIDI serial connection runs at:",
+  "choices": [
+   "31.25 kbps",
+   "44.1 kbps",
+   "64 kbps",
+   "1411.2 kbps"
+  ],
+  "why": "A 31.25 kbps serial link with 10-bit bytes.",
+  "source": "L3 slide 31"
+ },
+ {
+  "id": "ch3-043",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI hardware",
+  "kind": "concept",
+  "q": "MIDI communication is:",
+  "choices": [
+   "Half-duplex",
+   "Full-duplex",
+   "Simplex wireless",
+   "Parallel 8-bit"
+  ],
+  "why": "The slide states MIDI communication is half-duplex.",
+  "source": "L3 slide 31"
+ },
+ {
+  "id": "ch3-044",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI hardware",
+  "kind": "concept",
+  "q": "The MIDI THRU port:",
+  "choices": [
+   "Copies the data entering IN",
+   "Sends data the device makes",
+   "Receives all MIDI data",
+   "Converts MIDI to WAV"
+  ],
+  "why": "THRU simply copies data entering the IN channel, for daisy-chaining.",
+  "source": "L3 slide 31"
+ },
+ {
+  "id": "ch3-045",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI timing",
+  "kind": "calc",
+  "q": "One 3-byte MIDI note message takes about:",
+  "choices": [
+   "0.96 ms",
+   "0.77 ms",
+   "9.6 ms",
+   "0.1 ms"
+  ],
+  "why": "30 bits / 31 250 bit/s = 0.00096 s. (0.77 ms wrongly uses 8-bit bytes.)",
+  "source": "L3 slide 34"
+ },
+ {
+  "id": "ch3-046",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI timing",
+  "kind": "calc",
+  "q": "Ten Note On plus ten Note Off messages take about:",
+  "choices": [
+   "19.2 ms",
+   "9.6 ms",
+   "15.4 ms",
+   "1.92 ms"
+  ],
+  "why": "20 × 30 = 600 bits; 600/31 250 = 0.0192 s.",
+  "source": "L3 slide 34"
+ },
+ {
+  "id": "ch3-047",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "MIDI",
+  "kind": "concept",
+  "q": "Recording one sound through several bandpass filters and mapping each to keys is:",
+  "choices": [
+   "Multisampling",
+   "Multi-timbral",
+   "Looping",
+   "Companding expansion"
+  ],
+  "why": "Multisampling makes pitch shifting more reliable, since less shift is needed per note.",
+  "source": "L3 slide 29"
+ },
+ {
+  "id": "ch3-048",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "Audio coding",
+  "kind": "concept",
+  "q": "Quantization and transformation of data together are known as:",
+  "choices": [
+   "Coding",
+   "Sampling",
+   "Filtering",
+   "Interpolation"
+  ],
+  "why": "Quantization and transformation are collectively known as coding of the data.",
+  "source": "L3 slide 42"
+ },
+ {
+  "id": "ch3-049",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "Audio coding",
+  "kind": "concept",
+  "q": "The three stages of every compression scheme, in order, are:",
+  "choices": [
+   "Transformation, loss, coding",
+   "Coding, loss, transformation",
+   "Sampling, coding, loss",
+   "Loss, transformation, coding"
+  ],
+  "why": "1 transformation, 2 loss (quantization), 3 coding (codewords).",
+  "source": "L3 slide 43"
+ },
+ {
+  "id": "ch3-050",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "Audio coding",
+  "kind": "concept",
+  "q": "The main lossy step in a compression scheme is:",
+  "choices": [
+   "Quantization",
+   "Transformation",
+   "Huffman coding",
+   "Predictive coding"
+  ],
+  "why": "Quantization uses fewer reconstruction levels than the original, so information is lost.",
+  "source": "L3 slide 43"
+ },
+ {
+  "id": "ch3-051",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "Audio coding",
+  "kind": "trap",
+  "q": "Huffman coding belongs to which compression stage?",
+  "choices": [
+   "Coding",
+   "Transformation",
+   "Loss",
+   "Sampling"
+  ],
+  "why": "The coding stage assigns codewords, fixed- or variable-length such as Huffman.",
+  "source": "L3 slide 43"
+ },
+ {
+  "id": "ch3-052",
+  "chapter": "L3 · SNR, Filtering, MIDI & Audio Coding",
+  "topic": "PCM",
+  "kind": "concept",
+  "q": "In the PCM decoder chain, what follows the µ-law/A-law expander?",
+  "choices": [
+   "Low-pass filter",
+   "Bandlimiting filter",
+   "Linear PCM encoder",
+   "Compressor"
+  ],
+  "why": "Figure 6.15: DAC → expander → low-pass filter → output analog speech.",
+  "source": "L3 slide 44"
+ }
+]

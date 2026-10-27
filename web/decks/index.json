@@ -1,9 +1,27 @@
 [
  {
+  "key": "embedded",
+  "title": "Embedded Software",
+  "subtitle": "Lessons 00–08 · 33 MCQ, 60 min",
+  "exam": "Wed 28 Oct, 09:30",
+  "unit": "Lesson",
+  "share": null,
+  "count": 698
+ },
+ {
+  "key": "multimedia",
+  "title": "Multimedia Computing",
+  "subtitle": "L2–L7, L9–L12 · 10 MCQ + 8 problems",
+  "exam": "Wed 28 Oct, 12:30",
+  "unit": "L",
+  "share": null,
+  "count": 406
+ },
+ {
   "key": "ai",
   "title": "Artificial Intelligence",
   "subtitle": "Weeks 1–6 · regression to K-Means & PCA",
-  "exam": "Tue 27 Oct, 14:00",
+  "exam": "Midterm done 27 Oct · final in Dec",
   "unit": "Week",
   "share": [
    [
@@ -44,15 +62,6 @@
    ]
   ],
   "count": 603
- },
- {
-  "key": "embedded",
-  "title": "Embedded Software",
-  "subtitle": "Lessons 00–08 · 33 MCQ, 60 min",
-  "exam": "Wed 28 Oct, 09:30",
-  "unit": "Lesson",
-  "share": null,
-  "count": 698
  },
  {
   "key": "distinguished",

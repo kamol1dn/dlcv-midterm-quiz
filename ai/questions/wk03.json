@@ -1,0 +1,2102 @@
+[
+ {
+  "id": "ch3-001",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Why evaluate",
+  "kind": "concept",
+  "q": "According to 3.1, what is the real goal when evaluating a learning algorithm?",
+  "choices": [
+   "Checking that the model performs well on new, unseen data",
+   "Driving the error on the training set as close to zero as possible",
+   "Making sure the model trains in the shortest possible time",
+   "Confirming that the model uses as few parameters as possible"
+  ],
+  "why": "Evaluation measures how well a model generalizes to unseen data. Low training error alone says nothing about that, and speed or parameter count are not the stated goal.",
+  "source": "3.1 slide 3"
+ },
+ {
+  "id": "ch3-002",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Over/underfitting",
+  "kind": "concept",
+  "q": "How does 3.1 define overfitting?",
+  "choices": [
+   "Performing well on training data but poorly on test data",
+   "Performing poorly on both the training and the test data",
+   "Performing well on test data but poorly on training data",
+   "Performing equally well on both the training and test data"
+  ],
+  "why": "Overfitting = memorising the training set: great train score, bad test score. Poor on both is underfitting; good on both is what you want.",
+  "source": "3.1 slide 4"
+ },
+ {
+  "id": "ch3-003",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Over/underfitting",
+  "kind": "concept",
+  "q": "How does 3.1 define underfitting?",
+  "choices": [
+   "Poor performance on both the training and the test data",
+   "Good performance on training data but poor on test data",
+   "Good performance on test data but poor on training data",
+   "Good performance on both the training and the test data"
+  ],
+  "why": "An underfit model is too simple to capture the pattern, so it does badly everywhere. Good-train/bad-test is overfitting.",
+  "source": "3.1 slide 4"
+ },
+ {
+  "id": "ch3-004",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Over/underfitting",
+  "kind": "trap",
+  "q": "A model scores 99% accuracy on the training set and 61% on the test set. What is the diagnosis?",
+  "choices": [
+   "Overfitting: it memorised the training data and fails to generalize",
+   "Underfitting: the model is too simple to capture the pattern",
+   "A well-fitted model, because the training accuracy is so high",
+   "Data leakage is certain, since test accuracy is above 50%"
+  ],
+  "why": "A big gap between high train and low test performance is the textbook sign of overfitting. Underfitting would be low on both.",
+  "source": "3.1 slide 4"
+ },
+ {
+  "id": "ch3-005",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Over/underfitting",
+  "kind": "trap",
+  "q": "A model scores 54% on the training set and 52% on the test set (two balanced classes). What is the diagnosis?",
+  "choices": [
+   "Underfitting: it performs poorly on both sets",
+   "Overfitting: the train and test scores are too close",
+   "Good generalization, because the two scores are similar",
+   "Overfitting: the training score is above the test score"
+  ],
+  "why": "Similar scores are not automatically good: both are near chance level, so the model has not learned the pattern. That is underfitting.",
+  "source": "3.1 slide 4"
+ },
+ {
+  "id": "ch3-006",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Why evaluate",
+  "kind": "concept",
+  "q": "Which of these is NOT one of the five reasons for evaluation listed in 3.1?",
+  "choices": [
+   "Reducing the amount of memory the model needs",
+   "Model selection among several candidate models",
+   "Tuning hyperparameters for optimal performance",
+   "Benchmarking against baselines and earlier models"
+  ],
+  "why": "The five reasons are generalization ability, model selection, parameter tuning, understanding strengths and weaknesses, and benchmarking. Memory use is not on the list.",
+  "source": "3.1 slides 4–6"
+ },
+ {
+  "id": "ch3-007",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Why evaluate",
+  "kind": "concept",
+  "q": "In 3.1, what does 'benchmarking' mean as a reason to evaluate?",
+  "choices": [
+   "Comparing the model with baselines, earlier models or competitors' models",
+   "Measuring how long the model takes to train on a benchmark machine",
+   "Testing which hyperparameter setting gives the lowest training error",
+   "Checking whether the model is overfitting or underfitting the data"
+  ],
+  "why": "Benchmarking measures progress against baselines and other models. Hyperparameter search is 'parameter tuning' and the over/underfitting check is 'generalization ability'.",
+  "source": "3.1 slide 6"
+ },
+ {
+  "id": "ch3-008",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Why evaluate",
+  "kind": "concept",
+  "q": "3.1 says evaluation helps you understand a model's strengths and weaknesses. Which example does it give?",
+  "choices": [
+   "A model may work well in high-dimensional spaces but poorly with noisy data",
+   "A model may train quickly on GPUs but slowly on ordinary CPUs",
+   "A model may need more memory on larger datasets than on small ones",
+   "A model may be easier to explain with fewer input features"
+  ],
+  "why": "The slide's example is a model that does well in high-dimensional spaces yet struggles with noisy data; evaluation reveals such behaviour.",
+  "source": "3.1 slide 5"
+ },
+ {
+  "id": "ch3-009",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Metric families",
+  "kind": "concept",
+  "q": "Which set of metrics does 3.1 use for REGRESSION models?",
+  "choices": [
+   "MSE, RMSE, MAE and R²",
+   "Accuracy, precision, recall and F1",
+   "Confusion matrix, accuracy and MSE",
+   "Precision, recall, R² and MAE"
+  ],
+  "why": "Regression predicts numbers, so it uses error-size metrics (MSE, RMSE, MAE) and R². Accuracy, precision, recall, F1 and the confusion matrix are for classification.",
+  "source": "3.1 slide 9"
+ },
+ {
+  "id": "ch3-010",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Metric families",
+  "kind": "trap",
+  "q": "Which pairing of task and metric is WRONG?",
+  "choices": [
+   "Regression evaluated with precision",
+   "Regression evaluated with RMSE",
+   "Classification evaluated with F1-score",
+   "Classification evaluated with recall"
+  ],
+  "why": "Precision counts true and false positives, which only exist when predicting classes. RMSE is a regression metric; F1 and recall are classification metrics.",
+  "source": "3.1 slide 9"
+ },
+ {
+  "id": "ch3-011",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Metric families",
+  "kind": "concept",
+  "q": "On the 3.1 slide 8 diagram, which algorithms appear under BOTH classification and regression?",
+  "choices": [
+   "Decision tree and support vector machine",
+   "Naive Bayes and K-nearest neighbour",
+   "Logistic regression and linear regression",
+   "Ridge regression and stepwise regression"
+  ],
+  "why": "Decision tree and SVM are listed on both sides. Naive Bayes, KNN and logistic regression are under classification only; linear, ridge and stepwise regression under regression only.",
+  "source": "3.1 slide 8"
+ },
+ {
+  "id": "ch3-012",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "MSE",
+  "kind": "concept",
+  "q": "Which formula is the MSE used in the course?",
+  "choices": [
+   "(1/m) Σ (h(x⁽ⁱ⁾) − y⁽ⁱ⁾)²",
+   "(1/m) Σ |h(x⁽ⁱ⁾) − y⁽ⁱ⁾|",
+   "√[(1/m) Σ (h(x⁽ⁱ⁾) − y⁽ⁱ⁾)²]",
+   "1 − Σ(y⁽ⁱ⁾ − h(x⁽ⁱ⁾))² / Σ(y⁽ⁱ⁾ − ȳ)²"
+  ],
+  "why": "MSE is the average squared error. The absolute-value version is MAE, the square-rooted one is RMSE and the 1 − ratio form is R².",
+  "source": "3.1 slide 10"
+ },
+ {
+  "id": "ch3-013",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "MSE",
+  "kind": "concept",
+  "q": "Why does 3.1 call MSE 'sensitive to large errors'?",
+  "choices": [
+   "Each error is squared, so big errors grow much faster than small ones",
+   "It divides by m, so a single large error dominates the average",
+   "It takes the square root, which magnifies the largest errors",
+   "It ignores the sign, so large negative errors are doubled"
+  ],
+  "why": "Squaring makes an error of 10 count 100 while an error of 1 counts 1. Dividing by m and ignoring sign do not single out large errors, and MSE has no square root.",
+  "source": "3.1 slide 10"
+ },
+ {
+  "id": "ch3-014",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "RMSE",
+  "kind": "concept",
+  "q": "What is the main reason to report RMSE instead of MSE?",
+  "choices": [
+   "It gives the error in the same units as the target variable",
+   "It is much less sensitive to outliers than MSE is",
+   "It always produces a value between 0 and 1",
+   "It uses absolute values instead of squared errors"
+  ],
+  "why": "RMSE = √MSE, which undoes the squaring of units (e.g. dollars² → dollars). It is still outlier-sensitive and unbounded; absolute values are MAE.",
+  "source": "3.1 slide 11"
+ },
+ {
+  "id": "ch3-015",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "MAE",
+  "kind": "concept",
+  "q": "According to 3.1, how does MAE compare with MSE?",
+  "choices": [
+   "MAE is less sensitive to large errors than MSE",
+   "MAE is more sensitive to large errors than MSE",
+   "MAE and MSE always rank models the same way",
+   "MAE is the square root of the MSE value"
+  ],
+  "why": "MAE averages absolute errors, so a large error counts linearly rather than squared. The square root of MSE is RMSE, not MAE.",
+  "source": "3.1 slide 12"
+ },
+ {
+  "id": "ch3-016",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "MAE",
+  "kind": "calc",
+  "q": "Predictions h = [2, 4, 6], true values y = [3, 4, 8]. What is the MAE?",
+  "choices": [
+   "1",
+   "5/3 ≈ 1.67",
+   "3",
+   "0.33"
+  ],
+  "why": "Absolute errors are |2−3| = 1, |4−4| = 0, |6−8| = 2. Their mean is 3/3 = 1. 5/3 is the MSE; 3 is the sum, not the mean.",
+  "source": "3.1 slide 12"
+ },
+ {
+  "id": "ch3-017",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "MSE",
+  "kind": "calc",
+  "q": "Predictions h = [2, 4, 6], true values y = [3, 4, 8]. What is the MSE?",
+  "choices": [
+   "5/3 ≈ 1.67",
+   "1",
+   "5",
+   "√(5/3) ≈ 1.29"
+  ],
+  "why": "Squared errors are 1, 0, 4; their sum is 5 and the mean is 5/3. 1 is the MAE, 5 forgets to divide by m, and 1.29 is the RMSE.",
+  "source": "3.1 slide 10"
+ },
+ {
+  "id": "ch3-018",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "RMSE",
+  "kind": "calc",
+  "q": "A model's MSE is 16. What is its RMSE?",
+  "choices": [
+   "4",
+   "8",
+   "256",
+   "16"
+  ],
+  "why": "RMSE = √MSE = √16 = 4.",
+  "source": "3.1 slide 11"
+ },
+ {
+  "id": "ch3-019",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "MSE",
+  "kind": "calc",
+  "q": "Predictions h = [5, 7], true values y = [2, 10]. What are the MSE and MAE?",
+  "choices": [
+   "MSE = 9, MAE = 3",
+   "MSE = 3, MAE = 9",
+   "MSE = 0, MAE = 3",
+   "MSE = 9, MAE = 0"
+  ],
+  "why": "The errors are +3 and −3. Squared: 9 and 9, mean 9. Absolute: 3 and 3, mean 3. A signed average would give 0, which is why the metrics square or take absolute values.",
+  "source": "3.1 slides 10, 12"
+ },
+ {
+  "id": "ch3-020",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "MSE vs MAE",
+  "kind": "trap",
+  "q": "Absolute errors on four points are 1, 1, 1 and 9. Which statement is correct?",
+  "choices": [
+   "MAE = 3 but MSE = 21: the one outlier inflates MSE far more",
+   "MAE = 3 and MSE = 3: both metrics treat the outlier equally",
+   "MAE = 21 but MSE = 3: the outlier inflates MAE far more",
+   "MAE = 12 and MSE = 84: neither metric divides by m"
+  ],
+  "why": "MAE = (1+1+1+9)/4 = 3. MSE = (1+1+1+81)/4 = 84/4 = 21. Squaring makes the single error of 9 dominate MSE.",
+  "source": "3.1 slides 10, 12"
+ },
+ {
+  "id": "ch3-021",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "MSE",
+  "kind": "calc",
+  "q": "In the course notebook, MSE = 11.7. Roughly what RMSE does it print?",
+  "choices": [
+   "About 3.42",
+   "About 5.85",
+   "About 136.9",
+   "About 1.17"
+  ],
+  "why": "RMSE = √11.7 ≈ 3.42. 5.85 is MSE/2 and 136.9 is MSE², neither of which is RMSE.",
+  "source": "Evaluating_ML_Models.ipynb · 3.1 slide 26"
+ },
+ {
+  "id": "ch3-022",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "R²",
+  "kind": "concept",
+  "q": "What does R² represent?",
+  "choices": [
+   "The proportion of variance in the target that the model explains",
+   "The average squared difference between predictions and targets",
+   "The fraction of all predictions that were exactly correct",
+   "The average absolute difference between predictions and targets"
+  ],
+  "why": "R² is the share of the target's variance explained by the model; close to 1 is a good fit. The average squared and absolute differences are MSE and MAE.",
+  "source": "3.1 slide 13"
+ },
+ {
+  "id": "ch3-023",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "R²",
+  "kind": "concept",
+  "q": "What is the CORRECT formula for R²? (ȳ is the mean of the true values.)",
+  "choices": [
+   "1 − Σ(y⁽ⁱ⁾ − h(x⁽ⁱ⁾))² / Σ(y⁽ⁱ⁾ − ȳ)²",
+   "1 − Σ(y⁽ⁱ⁾ − h(x⁽ⁱ⁾))² / Σ(h(x⁽ⁱ⁾) − ȳ)²",
+   "Σ(y⁽ⁱ⁾ − h(x⁽ⁱ⁾))² / Σ(y⁽ⁱ⁾ − ȳ)²",
+   "1 − Σ|y⁽ⁱ⁾ − h(x⁽ⁱ⁾)| / Σ|y⁽ⁱ⁾ − ȳ|"
+  ],
+  "why": "The denominator is the total sum of squares of the TRUE values around their mean. Slide 13 wrongly puts the predictions h(x) there; the notebook's ss_total = sum((y − y_mean)²) is correct.",
+  "source": "3.1 slide 13 (corrected) · notebook"
+ },
+ {
+  "id": "ch3-024",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "R²",
+  "kind": "trap",
+  "q": "3.1 slide 13 prints R² with a mistake. What exactly is wrong?",
+  "choices": [
+   "The denominator uses predictions minus the mean instead of true values minus the mean",
+   "The numerator uses absolute errors instead of squared errors between y and h(x)",
+   "The fraction is added to 1 instead of being subtracted from 1 in the formula",
+   "The mean ȳ is computed from the predictions instead of from the true values"
+  ],
+  "why": "The slide writes Σ(h(x) − ȳ)² in the denominator. It must be Σ(y − ȳ)², the variance of the true targets, as the notebook's ss_total does. Write the correct form in the exam.",
+  "source": "3.1 slide 13 · README"
+ },
+ {
+  "id": "ch3-025",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "R²",
+  "kind": "concept",
+  "q": "What does R² = 0 tell you about a regression model?",
+  "choices": [
+   "It does no better than always predicting the mean of y",
+   "It makes no errors at all on the evaluated data",
+   "It explains exactly half of the variance in y",
+   "It is always worse than predicting the mean of y"
+  ],
+  "why": "With R² = 0 the residual sum of squares equals the total sum of squares, i.e. the error of the 'predict ȳ' baseline. R² = 1 is perfect; R² < 0 means worse than the mean.",
+  "source": "3.1 slide 13 · summary"
+ },
+ {
+  "id": "ch3-026",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "R²",
+  "kind": "trap",
+  "q": "Can R² be negative?",
+  "choices": [
+   "Yes, when the model is worse than simply predicting the mean",
+   "No, because it is a squared quantity it is always ≥ 0",
+   "No, it is always between 0 and 1 by definition",
+   "Yes, but only when the target values are negative"
+  ],
+  "why": "Despite the name, R² = 1 − SS_res/SS_tot. If SS_res > SS_tot the result is below 0, meaning the model loses to the constant-mean baseline. Negative targets have nothing to do with it.",
+  "source": "3.1 slide 13 · summary"
+ },
+ {
+  "id": "ch3-027",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "R²",
+  "kind": "calc",
+  "q": "SS_residual = Σ(y − h(x))² = 10 and SS_total = Σ(y − ȳ)² = 40. What is R²?",
+  "choices": [
+   "0.75",
+   "0.25",
+   "4",
+   "−3"
+  ],
+  "why": "R² = 1 − 10/40 = 1 − 0.25 = 0.75. 0.25 is the ratio alone; 4 and −3 come from flipping the ratio.",
+  "source": "3.1 slide 13 (corrected)"
+ },
+ {
+  "id": "ch3-028",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "R²",
+  "kind": "calc",
+  "q": "True values y = [1, 2, 3], predictions h = [1, 2, 4]. What is R²?",
+  "choices": [
+   "0.5",
+   "0.67",
+   "0.25",
+   "1"
+  ],
+  "why": "ȳ = 2, so SS_total = 1 + 0 + 1 = 2. SS_residual = 0 + 0 + 1 = 1. R² = 1 − 1/2 = 0.5.",
+  "source": "3.1 slide 13 (corrected)"
+ },
+ {
+  "id": "ch3-029",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "R²",
+  "kind": "calc",
+  "q": "True values y = [2, 4, 6]. What is the total sum of squares Σ(y − ȳ)²?",
+  "choices": [
+   "8",
+   "4",
+   "12",
+   "0"
+  ],
+  "why": "ȳ = 4, deviations −2, 0, +2, squares 4, 0, 4, sum 8. This is the R² denominator.",
+  "source": "3.1 slide 13 (corrected)"
+ },
+ {
+  "id": "ch3-030",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Regression metrics",
+  "kind": "trap",
+  "q": "Which statement about 'better' values is correct?",
+  "choices": [
+   "Lower MSE/MAE is better, while higher R² (closer to 1) is better",
+   "Higher MSE/MAE is better, while lower R² (closer to 0) is better",
+   "Lower is better for all four: MSE, RMSE, MAE and R²",
+   "Higher is better for all four: MSE, RMSE, MAE and R²"
+  ],
+  "why": "MSE, RMSE and MAE measure error, so smaller is better. R² measures explained variance, so values near 1 are better.",
+  "source": "3.1 slides 10–13"
+ },
+ {
+  "id": "ch3-031",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Regression metrics",
+  "kind": "concept",
+  "q": "In the notebook, which line computes the R² denominator correctly?",
+  "choices": [
+   "ss_total = np.sum((y - y_mean)**2)",
+   "ss_total = np.sum((h_x - y_mean)**2)",
+   "ss_total = np.sum((y - h_x)**2)",
+   "ss_total = np.mean(np.abs(y - y_mean))"
+  ],
+  "why": "The total sum of squares uses the true y around its mean. (y − h_x)² is the residual sum (numerator); using h_x − y_mean repeats the slide-13 error.",
+  "source": "3.1 slide 26 · notebook"
+ },
+ {
+  "id": "ch3-032",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Confusion matrix",
+  "kind": "concept",
+  "q": "What is a confusion matrix?",
+  "choices": [
+   "A table of predicted versus actual classes: TP, FP, FN and TN counts",
+   "A table of feature correlations used to pick the input variables",
+   "A table of training versus test errors for each hyperparameter",
+   "A table of predicted probabilities for every example and class"
+  ],
+  "why": "It breaks predictions down against true labels into true positives, false positives, false negatives and true negatives.",
+  "source": "3.1 slide 14"
+ },
+ {
+  "id": "ch3-033",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Confusion matrix",
+  "kind": "concept",
+  "q": "What is a FALSE POSITIVE?",
+  "choices": [
+   "The model predicted positive, but the actual class is negative",
+   "The model predicted negative, but the actual class is positive",
+   "The model predicted positive and the actual class is positive",
+   "The model predicted negative and the actual class is negative"
+  ],
+  "why": "'Positive/negative' is what the model said; 'false' means it was wrong. So FP = said positive, really negative.",
+  "source": "3.1 slide 14"
+ },
+ {
+  "id": "ch3-034",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Confusion matrix",
+  "kind": "concept",
+  "q": "What is a FALSE NEGATIVE?",
+  "choices": [
+   "The model predicted negative, but the actual class is positive",
+   "The model predicted positive, but the actual class is negative",
+   "The model predicted negative and the actual class is negative",
+   "The model predicted positive and the actual class is positive"
+  ],
+  "why": "FN = the model said negative and was wrong, so the case was really positive: a missed positive.",
+  "source": "3.1 slide 14"
+ },
+ {
+  "id": "ch3-035",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Banana example",
+  "kind": "concept",
+  "q": "In the 3.1 fruit example, which class is positive?",
+  "choices": [
+   "Banana is positive and apple is negative",
+   "Apple is positive and banana is negative",
+   "Whichever fruit the model predicts more often",
+   "Both fruits count as positive classes"
+  ],
+  "why": "The slide sets Banana = positive, Apple = negative before building the matrix.",
+  "source": "3.1 slide 18"
+ },
+ {
+  "id": "ch3-036",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Banana example",
+  "kind": "calc",
+  "q": "Fruit example: TP = 4, FP = 2, FN = 1, TN = 3. What is the accuracy?",
+  "choices": [
+   "70%",
+   "60%",
+   "80%",
+   "40%"
+  ],
+  "why": "Accuracy = (TP + TN) / total = (4 + 3) / 10 = 70%.",
+  "source": "3.1 slide 20"
+ },
+ {
+  "id": "ch3-037",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Banana example",
+  "kind": "calc",
+  "q": "Fruit example: TP = 4, FP = 2, FN = 1, TN = 3. What is the precision?",
+  "choices": [
+   "4/6 ≈ 0.667",
+   "4/5 = 0.8",
+   "7/10 = 0.7",
+   "3/5 = 0.6"
+  ],
+  "why": "Precision = TP / (TP + FP) = 4 / 6 ≈ 0.667. 4/5 is recall, 7/10 is accuracy.",
+  "source": "3.1 slide 21"
+ },
+ {
+  "id": "ch3-038",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Banana example",
+  "kind": "calc",
+  "q": "Fruit example: TP = 4, FP = 2, FN = 1, TN = 3. What is the recall?",
+  "choices": [
+   "4/5 = 0.8",
+   "4/6 ≈ 0.667",
+   "3/5 = 0.6",
+   "7/10 = 0.7"
+  ],
+  "why": "Recall = TP / (TP + FN) = 4 / 5 = 0.8. 4/6 is precision.",
+  "source": "3.1 slide 23"
+ },
+ {
+  "id": "ch3-039",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Banana example",
+  "kind": "calc",
+  "q": "Fruit example: precision ≈ 0.667 and recall = 0.8. What is the F1-score?",
+  "choices": [
+   "≈ 0.73",
+   "≈ 0.53",
+   "≈ 0.80",
+   "≈ 1.47"
+  ],
+  "why": "F1 = 2·P·R/(P+R) = 2·0.667·0.8 / 1.467 ≈ 1.067/1.467 ≈ 0.73. 0.53 is P·R and 1.47 is P+R.",
+  "source": "3.1 slide 25"
+ },
+ {
+  "id": "ch3-040",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Confusion matrix",
+  "kind": "trap",
+  "q": "The slides put Predicted on the rows and Actual on the columns, but sklearn and the notebook print [[TN, FP], [FN, TP]]. In the sklearn layout, what are the rows?",
+  "choices": [
+   "The actual classes",
+   "The predicted classes",
+   "The feature values",
+   "The probability bins"
+  ],
+  "why": "sklearn's confusion_matrix has rows = actual and columns = predicted, the transpose of the slide-14 layout. Always check the axis labels before reading off TP/FP/FN/TN.",
+  "source": "3.1 slides 14, 27 · notebook"
+ },
+ {
+  "id": "ch3-041",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Confusion matrix",
+  "kind": "trap",
+  "q": "If you accidentally swap FP and FN when reading a confusion matrix, which metrics stay UNCHANGED?",
+  "choices": [
+   "Accuracy and F1",
+   "Precision and recall",
+   "Precision and accuracy",
+   "Recall and F1"
+  ],
+  "why": "Accuracy uses only TP and TN, and F1 treats precision and recall symmetrically, so both survive the swap. Precision and recall trade places. Watch the axis labels in the fruit slides.",
+  "source": "3.1 slides 18–25"
+ },
+ {
+  "id": "ch3-042",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Accuracy",
+  "kind": "concept",
+  "q": "Which formula is accuracy?",
+  "choices": [
+   "(TP + TN) / (TP + TN + FP + FN)",
+   "(TP + FN) / (TP + TN + FP + FN)",
+   "TP / (TP + FP)",
+   "TP / (TP + FN)"
+  ],
+  "why": "Accuracy = correct predictions / total predictions. TP/(TP+FP) is precision, TP/(TP+FN) is recall.",
+  "source": "3.1 slide 20"
+ },
+ {
+  "id": "ch3-043",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Precision",
+  "kind": "concept",
+  "q": "Which formula is precision?",
+  "choices": [
+   "TP / (TP + FP)",
+   "TP / (TP + FN)",
+   "TN / (TN + FP)",
+   "(TP + TN) / total"
+  ],
+  "why": "Precision = true positives among everything predicted positive. TP/(TP+FN) is recall.",
+  "source": "3.1 slide 21"
+ },
+ {
+  "id": "ch3-044",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Recall",
+  "kind": "concept",
+  "q": "Which formula is recall?",
+  "choices": [
+   "TP / (TP + FN)",
+   "TP / (TP + FP)",
+   "FN / (TP + FN)",
+   "(TP + TN) / total"
+  ],
+  "why": "Recall = true positives among all actual positives. TP/(TP+FP) is precision.",
+  "source": "3.1 slide 23"
+ },
+ {
+  "id": "ch3-045",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Recall",
+  "kind": "concept",
+  "q": "What other name does 3.1 give recall?",
+  "choices": [
+   "Sensitivity",
+   "Specificity",
+   "Precision",
+   "Selectivity"
+  ],
+  "why": "The slide titles it 'Recall (Sensitivity)'.",
+  "source": "3.1 slide 23"
+ },
+ {
+  "id": "ch3-046",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "F1",
+  "kind": "concept",
+  "q": "How does 3.1 define the F1-score?",
+  "choices": [
+   "The harmonic mean of precision and recall",
+   "The arithmetic mean of precision and recall",
+   "The geometric mean of accuracy and recall",
+   "The product of precision and recall"
+  ],
+  "why": "F1 = 2·P·R/(P+R), the harmonic mean. It balances the trade-off and gives one number that accounts for both.",
+  "source": "3.1 slide 25"
+ },
+ {
+  "id": "ch3-047",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Precision",
+  "kind": "concept",
+  "q": "Which question does precision answer?",
+  "choices": [
+   "Of all the alarms the model raised, how many were real?",
+   "Of all the real positives, how many did the model catch?",
+   "Of all the predictions made, how many were correct?",
+   "Of all the real negatives, how many were labelled negative?"
+  ],
+  "why": "Precision looks only at predicted positives (the 'alarms'). Catching real positives is recall; all predictions correct is accuracy.",
+  "source": "3.1 slide 22"
+ },
+ {
+  "id": "ch3-048",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Recall",
+  "kind": "concept",
+  "q": "Which question does recall answer?",
+  "choices": [
+   "Of all the real positives out there, how many did the model catch?",
+   "Of all the alarms the model raised, how many were actually real?",
+   "Of all the predictions made, how many of them were correct?",
+   "Of all the negatives predicted, how many were actually negative?"
+  ],
+  "why": "Recall looks only at actual positive cases and asks what fraction was found.",
+  "source": "3.1 slide 24"
+ },
+ {
+  "id": "ch3-049",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Precision",
+  "kind": "trap",
+  "q": "Precision 'ignores the negative predictions entirely'. Which confusion-matrix cells does it use?",
+  "choices": [
+   "TP and FP only",
+   "TP and FN only",
+   "TP and TN only",
+   "FP and FN only"
+  ],
+  "why": "Precision = TP/(TP+FP): both cells are predicted-positive. Recall uses TP and FN (the actual positives).",
+  "source": "3.1 slide 22"
+ },
+ {
+  "id": "ch3-050",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Recall",
+  "kind": "trap",
+  "q": "Recall 'ignores how many false alarms were raised'. Which cells does it use?",
+  "choices": [
+   "TP and FN only",
+   "TP and FP only",
+   "TN and FP only",
+   "TP and TN only"
+  ],
+  "why": "Recall = TP/(TP+FN), the actual-positive column. False alarms (FP) do not enter it at all.",
+  "source": "3.1 slide 24"
+ },
+ {
+  "id": "ch3-051",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Precision vs recall",
+  "kind": "concept",
+  "q": "For SPAM email detection, which metric does 3.1 say to prioritise?",
+  "choices": [
+   "Precision, because a false positive buries a real email in spam",
+   "Recall, because every spam email must be caught at any cost",
+   "Accuracy, because spam and normal email are always balanced",
+   "Recall, because a false negative hides an important email"
+  ],
+  "why": "A false positive here means a job offer or client message lands in spam, which erodes trust. So precision is prioritised over catching every spam.",
+  "source": "3.1 slide 22"
+ },
+ {
+  "id": "ch3-052",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Precision vs recall",
+  "kind": "concept",
+  "q": "For CANCER screening, which metric does 3.1 say matters most?",
+  "choices": [
+   "Recall, because missing a real cancer (FN) can be fatal",
+   "Precision, because a false alarm (FP) can be fatal",
+   "Accuracy, because both kinds of error cost the same",
+   "Precision, because doctors must avoid any extra tests"
+  ],
+  "why": "A missed cancer is far worse than a false alarm that only leads to another test, so doctors accept lower precision for higher recall.",
+  "source": "3.1 slides 22, 24"
+ },
+ {
+  "id": "ch3-053",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Precision vs recall",
+  "kind": "concept",
+  "q": "For AIRPORT weapon detection, which metric matters most and why?",
+  "choices": [
+   "Recall: missing a real threat is catastrophic, an extra bag check is minor",
+   "Precision: flagging an innocent bag is catastrophic, a missed threat is minor",
+   "Accuracy: almost every bag is harmless, so accuracy captures performance",
+   "Precision: security staff can only inspect a small number of bags per day"
+  ],
+  "why": "A false negative (missed weapon) is catastrophic; a false positive just means extra screening. That is the recall case.",
+  "source": "3.1 slide 24"
+ },
+ {
+  "id": "ch3-054",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Precision vs recall",
+  "kind": "concept",
+  "q": "General rule from 3.1: when a FALSE POSITIVE is expensive, embarrassing or harmful, prioritise...",
+  "choices": [
+   "Precision",
+   "Recall",
+   "Accuracy",
+   "R²"
+  ],
+  "why": "Precision penalises false positives (FP is in its denominator). Recall is the choice when false negatives are costly.",
+  "source": "3.1 slides 21–22"
+ },
+ {
+  "id": "ch3-055",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Precision vs recall",
+  "kind": "concept",
+  "q": "General rule from 3.1: when a FALSE NEGATIVE is dangerous, costly or irreversible, prioritise...",
+  "choices": [
+   "Recall",
+   "Precision",
+   "Accuracy",
+   "RMSE"
+  ],
+  "why": "Recall = TP/(TP+FN) drops whenever positives are missed, so it is the metric to protect when misses are costly.",
+  "source": "3.1 slides 23–24"
+ },
+ {
+  "id": "ch3-056",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Accuracy",
+  "kind": "trap",
+  "q": "99% of transactions are legitimate. A model always predicts 'legitimate'. Which is true?",
+  "choices": [
+   "Accuracy is 99% but recall for fraud is 0",
+   "Accuracy is 1% and recall for fraud is 0",
+   "Accuracy is 99% and recall for fraud is 99%",
+   "Accuracy is 50% because there are two classes"
+  ],
+  "why": "It is right on all 99% legitimate cases, so accuracy is 99%, yet it catches no fraud: recall = 0. That is why accuracy misleads on imbalanced data.",
+  "source": "3.1 summary §4"
+ },
+ {
+  "id": "ch3-057",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "F1",
+  "kind": "concept",
+  "q": "Why use F1 rather than just the average of precision and recall?",
+  "choices": [
+   "The harmonic mean is pulled toward the smaller value, so one weak metric can't hide",
+   "The harmonic mean is pulled toward the larger value, rewarding one strong metric",
+   "The harmonic mean ignores recall and focuses on precision for imbalanced data",
+   "The harmonic mean always equals accuracy, so it is easier to interpret"
+  ],
+  "why": "With P = 1 and R = 0.1 the plain mean is 0.55 but F1 ≈ 0.18. F1 punishes being bad at either one.",
+  "source": "3.1 slide 25 · summary"
+ },
+ {
+  "id": "ch3-058",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Precision vs recall",
+  "kind": "trap",
+  "q": "A model flags very few cases as positive, and nearly all of those flags are correct, but it misses most real positives. What does it have?",
+  "choices": [
+   "High precision, low recall",
+   "Low precision, high recall",
+   "High precision, high recall",
+   "Low precision, low recall"
+  ],
+  "why": "Few, correct alarms → FP small → high precision. Most positives missed → FN large → low recall.",
+  "source": "3.1 slides 21–24"
+ },
+ {
+  "id": "ch3-059",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Precision vs recall",
+  "kind": "trap",
+  "q": "A classifier labels EVERY example as positive. What is its recall?",
+  "choices": [
+   "1 (it catches every actual positive)",
+   "0 (it makes no negative predictions)",
+   "Equal to its accuracy on the data",
+   "Undefined, because FP is too large"
+  ],
+  "why": "With everything predicted positive, FN = 0, so recall = TP/(TP+0) = 1. Its precision, however, collapses to the share of positives in the data.",
+  "source": "3.1 slide 23"
+ },
+ {
+  "id": "ch3-060",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Precision",
+  "kind": "calc",
+  "q": "TP = 8, FP = 2, FN = 4, TN = 6. What is the precision?",
+  "choices": [
+   "0.8",
+   "0.667",
+   "0.7",
+   "0.75"
+  ],
+  "why": "Precision = 8/(8+2) = 0.8. 8/12 ≈ 0.667 is the recall; (8+6)/20 = 0.7 is the accuracy.",
+  "source": "3.1 slide 21"
+ },
+ {
+  "id": "ch3-061",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Recall",
+  "kind": "calc",
+  "q": "TP = 6, FP = 3, FN = 2, TN = 5. What is the recall?",
+  "choices": [
+   "0.75",
+   "0.667",
+   "0.8",
+   "0.6875"
+  ],
+  "why": "Recall = 6/(6+2) = 0.75. 6/9 ≈ 0.667 is the precision and (6+5)/16 = 0.6875 is the accuracy.",
+  "source": "3.1 slide 23"
+ },
+ {
+  "id": "ch3-062",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Accuracy",
+  "kind": "calc",
+  "q": "TP = 40, TN = 50, FP = 5, FN = 5. What is the accuracy?",
+  "choices": [
+   "90%",
+   "80%",
+   "89%",
+   "45%"
+  ],
+  "why": "Accuracy = (40 + 50)/100 = 90%.",
+  "source": "3.1 slide 20"
+ },
+ {
+  "id": "ch3-063",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "F1",
+  "kind": "calc",
+  "q": "Precision = 0.5 and recall = 1.0. What is F1?",
+  "choices": [
+   "≈ 0.667",
+   "0.75",
+   "0.5",
+   "1.0"
+  ],
+  "why": "F1 = 2·0.5·1/(0.5+1) = 1/1.5 ≈ 0.667. The arithmetic mean would be 0.75; F1 sits closer to the smaller value.",
+  "source": "3.1 slide 25"
+ },
+ {
+  "id": "ch3-064",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "F1",
+  "kind": "calc",
+  "q": "Precision = 0.6 and recall = 0.6. What is F1?",
+  "choices": [
+   "0.6",
+   "0.36",
+   "1.2",
+   "0.72"
+  ],
+  "why": "When P = R, the harmonic mean equals that value: 2·0.36/1.2 = 0.6.",
+  "source": "3.1 slide 25"
+ },
+ {
+  "id": "ch3-065",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "F1",
+  "kind": "calc",
+  "q": "TP = 3, FP = 1, FN = 3, TN = 3. What is the F1-score?",
+  "choices": [
+   "0.6",
+   "0.75",
+   "0.5",
+   "0.625"
+  ],
+  "why": "Precision = 3/4 = 0.75, recall = 3/6 = 0.5. F1 = 2·0.75·0.5/1.25 = 0.75/1.25 = 0.6.",
+  "source": "3.1 slide 25"
+ },
+ {
+  "id": "ch3-066",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "F1",
+  "kind": "calc",
+  "q": "TP = 5, FP = 0, FN = 5. What is the F1-score?",
+  "choices": [
+   "≈ 0.667",
+   "0.75",
+   "0.5",
+   "1.0"
+  ],
+  "why": "Precision = 5/5 = 1, recall = 5/10 = 0.5. F1 = 2·1·0.5/1.5 ≈ 0.667.",
+  "source": "3.1 slide 25"
+ },
+ {
+  "id": "ch3-067",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Confusion matrix",
+  "kind": "calc",
+  "q": "Predictions h = [1, 1, 0, 0], true labels y = [1, 0, 1, 0]. What is the precision?",
+  "choices": [
+   "0.5",
+   "1.0",
+   "0.25",
+   "0.75"
+  ],
+  "why": "Pairs: (1,1)=TP, (1,0)=FP, (0,1)=FN, (0,0)=TN. Precision = 1/(1+1) = 0.5.",
+  "source": "3.1 slide 27 · notebook"
+ },
+ {
+  "id": "ch3-068",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Notebook example",
+  "kind": "calc",
+  "q": "Notebook classification example: TP = 2, FP = 1, FN = 2, TN = 5. What is the recall?",
+  "choices": [
+   "0.5",
+   "0.667",
+   "0.7",
+   "0.571"
+  ],
+  "why": "Recall = 2/(2+2) = 0.5. 0.667 is precision, 0.7 is accuracy and 0.571 is F1.",
+  "source": "3.1 slide 27 · notebook"
+ },
+ {
+  "id": "ch3-069",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Notebook example",
+  "kind": "trap",
+  "q": "The notebook prints the confusion matrix [[5, 1], [2, 2]] built as [[TN, FP], [FN, TP]]. Which entry is TP?",
+  "choices": [
+   "The bottom-right 2",
+   "The top-left 5",
+   "The top-right 1",
+   "The bottom-left 2"
+  ],
+  "why": "The code builds np.array([[TN, FP], [FN, TP]]), so TP sits bottom-right. The top-left 5 is TN.",
+  "source": "3.1 slide 27 · notebook"
+ },
+ {
+  "id": "ch3-070",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Notebook example",
+  "kind": "concept",
+  "q": "In the notebook, what happens to precision if the model predicts no positives at all (TP + FP = 0)?",
+  "choices": [
+   "The code returns 0 instead of dividing by zero",
+   "The code raises a ZeroDivisionError and stops",
+   "The code returns 1, because no alarm was false",
+   "The code returns the accuracy value instead"
+  ],
+  "why": "Each metric is guarded with '... if denominator > 0 else 0', so an empty denominator gives 0.",
+  "source": "3.1 slide 27 · notebook"
+ },
+ {
+  "id": "ch3-071",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Bayes' theorem",
+  "kind": "concept",
+  "q": "Which is Bayes' theorem as written in 3.2?",
+  "choices": [
+   "P(A|B) = P(B|A)·P(A) / P(B)",
+   "P(A|B) = P(A)·P(B) / P(B|A)",
+   "P(A|B) = P(B|A)·P(B) / P(A)",
+   "P(A|B) = P(A|B)·P(A) / P(B)"
+  ],
+  "why": "Posterior = likelihood × prior / evidence.",
+  "source": "3.2 slide 7"
+ },
+ {
+  "id": "ch3-072",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Bayes' theorem",
+  "kind": "concept",
+  "q": "In P(A|B) = P(B|A)·P(A)/P(B), what is P(A|B) called?",
+  "choices": [
+   "The posterior",
+   "The prior",
+   "The likelihood",
+   "The evidence"
+  ],
+  "why": "P(A|B) is the updated probability of A after seeing B: the posterior. P(A) is the prior, P(B|A) the likelihood, P(B) the evidence.",
+  "source": "3.2 slide 7 · summary"
+ },
+ {
+  "id": "ch3-073",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Bayes' theorem",
+  "kind": "concept",
+  "q": "In Bayes' theorem, what is P(A) called?",
+  "choices": [
+   "The prior",
+   "The posterior",
+   "The likelihood",
+   "The evidence"
+  ],
+  "why": "P(A) is the belief about A before seeing B: the prior. In Naive Bayes it is the class frequency, e.g. P(Buy) = 10/15.",
+  "source": "3.2 slide 7 · summary"
+ },
+ {
+  "id": "ch3-074",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Bayes' theorem",
+  "kind": "concept",
+  "q": "In Bayes' theorem, what is P(B|A) called?",
+  "choices": [
+   "The likelihood",
+   "The prior",
+   "The posterior",
+   "The evidence"
+  ],
+  "why": "P(B|A), the probability of the observation given the class, is the likelihood. The likelihood tables in the shopping example hold exactly these values.",
+  "source": "3.2 slide 7 · summary"
+ },
+ {
+  "id": "ch3-075",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Bayes' theorem",
+  "kind": "calc",
+  "q": "P(B|A) = 0.5, P(A) = 0.2, P(B) = 0.25. What is P(A|B)?",
+  "choices": [
+   "0.4",
+   "0.1",
+   "0.625",
+   "0.025"
+  ],
+  "why": "P(A|B) = 0.5·0.2/0.25 = 0.1/0.25 = 0.4. 0.1 forgets to divide by P(B).",
+  "source": "3.2 slide 7"
+ },
+ {
+  "id": "ch3-076",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Coin example",
+  "kind": "calc",
+  "q": "Two fair coins are tossed. What is P(two heads)?",
+  "choices": [
+   "1/4",
+   "1/2",
+   "3/4",
+   "1/3"
+  ],
+  "why": "The sample space is {HH, HT, TH, TT}; only HH has two heads, so 1/4.",
+  "source": "3.2 slides 5–6"
+ },
+ {
+  "id": "ch3-077",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Coin example",
+  "kind": "calc",
+  "q": "Two fair coins are tossed. What is P(at least one tail)?",
+  "choices": [
+   "3/4",
+   "1/4",
+   "1/2",
+   "2/3"
+  ],
+  "why": "HT, TH and TT contain a tail: 3 of 4 outcomes.",
+  "source": "3.2 slide 6"
+ },
+ {
+  "id": "ch3-078",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Coin example",
+  "kind": "calc",
+  "q": "Two fair coins: what is P(second coin is heads | first coin is tails)?",
+  "choices": [
+   "1/2",
+   "1/4",
+   "3/4",
+   "1"
+  ],
+  "why": "Given the first is T, outcomes are TH and TT; one of two has a second head. Bayes gives (0.5·0.5)/0.5 = 0.5.",
+  "source": "3.2 slides 6, 9"
+ },
+ {
+  "id": "ch3-079",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Coin example",
+  "kind": "trap",
+  "q": "In the coin example, P(2nd = H | 1st = T) = P(2nd = H) = 0.5. What does this show?",
+  "choices": [
+   "The two tosses are independent, so knowing the first changes nothing",
+   "Bayes' theorem gives wrong answers when probabilities are equal",
+   "The first coin toss always determines the second coin toss",
+   "The prior must always be 0.5 for Bayes' theorem to work"
+  ],
+  "why": "Conditioning on B left the probability of A unchanged, which is exactly what independence means.",
+  "source": "3.2 slide 9 · summary"
+ },
+ {
+  "id": "ch3-080",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Coin example",
+  "kind": "calc",
+  "q": "Two fair coins: what is P(two heads | first coin is heads)?",
+  "choices": [
+   "1/2",
+   "1/4",
+   "3/4",
+   "1"
+  ],
+  "why": "Given the first is H, the outcomes are HH and HT; HH is one of two.",
+  "source": "3.2 slide 6"
+ },
+ {
+  "id": "ch3-081",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Naive Bayes basics",
+  "kind": "concept",
+  "q": "Where does the Naive Bayes classifier sit in the ML hierarchy on 3.2 slide 11?",
+  "choices": [
+   "Supervised learning → classification",
+   "Supervised learning → regression",
+   "Unsupervised learning → clustering",
+   "Unsupervised learning → classification"
+  ],
+  "why": "It learns from labelled data and outputs a class, so supervised → classification.",
+  "source": "3.2 slide 11"
+ },
+ {
+  "id": "ch3-082",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Naive Bayes basics",
+  "kind": "concept",
+  "q": "On what principle does the Naive Bayes classifier work, according to 3.2?",
+  "choices": [
+   "Conditional probability, as given by Bayes' theorem",
+   "Distances between points, as in nearest neighbours",
+   "Maximising the margin between two classes of data",
+   "Minimising squared error with gradient descent"
+  ],
+  "why": "Slide 4: the classifier works on the principle of conditional probability given by Bayes' theorem (Thomas Bayes, 1700s).",
+  "source": "3.2 slide 4"
+ },
+ {
+  "id": "ch3-083",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Naive Bayes basics",
+  "kind": "concept",
+  "q": "What is the 'naive' assumption in Naive Bayes?",
+  "choices": [
+   "The features are independent of each other given the class",
+   "Every class has the same prior probability in the data",
+   "Every feature is normally distributed within each class",
+   "The features are irrelevant unless they are continuous"
+  ],
+  "why": "Assuming conditional independence lets the joint likelihood become a product: P(x₁,x₂,x₃|c) = P(x₁|c)·P(x₂|c)·P(x₃|c). Equal priors are not assumed.",
+  "source": "3.2 slides 23, 28 · summary"
+ },
+ {
+  "id": "ch3-084",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "concept",
+  "q": "In the 3.2 shopping example, what are the features and what is predicted?",
+  "choices": [
+   "Features: day, discount, free delivery; predicted: whether the person buys",
+   "Features: price, discount, free delivery; predicted: the day of purchase",
+   "Features: day, price, product type; predicted: whether there is a discount",
+   "Features: buy, discount, day; predicted: whether delivery is free"
+  ],
+  "why": "The problem statement: predict whether a person will purchase given a combination of day (weekday/weekend/holiday), discount and free delivery.",
+  "source": "3.2 slides 13–14"
+ },
+ {
+  "id": "ch3-085",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "calc",
+  "q": "The shopping dataset has 15 records, 10 Buy = Yes and 5 Buy = No. What is the prior P(Buy = Yes)?",
+  "choices": [
+   "10/15 ≈ 0.67",
+   "5/15 ≈ 0.33",
+   "10/5 = 2",
+   "1/2 = 0.5"
+  ],
+  "why": "The prior is the class frequency: 10 of 15 records bought.",
+  "source": "3.2 slide 17"
+ },
+ {
+  "id": "ch3-086",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "concept",
+  "q": "How do you turn a frequency table into a likelihood table P(feature | class)?",
+  "choices": [
+   "Divide each count by its class (column) total",
+   "Divide each count by the grand total of 15 records",
+   "Divide each count by its feature (row) total",
+   "Subtract each count from its class (column) total"
+  ],
+  "why": "P(Weekday | No) = 1/5 divides by the 5 No-records. Dividing by 15 gives a joint probability; dividing by the row total gives P(class | feature).",
+  "source": "3.2 slide 17"
+ },
+ {
+  "id": "ch3-087",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "calc",
+  "q": "Day frequencies (Yes/No): Weekday 4/1, Weekend 2/2, Holiday 4/2. What is P(Weekday | Buy = No)?",
+  "choices": [
+   "1/5 = 0.2",
+   "1/15 ≈ 0.07",
+   "1/4 = 0.25",
+   "4/10 = 0.4"
+  ],
+  "why": "Of the 5 No-records, 1 was a weekday. 4/10 is P(Weekday | Yes).",
+  "source": "3.2 slides 17–18"
+ },
+ {
+  "id": "ch3-088",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "calc",
+  "q": "Discount frequencies: Yes → 8 buy / 2 no; No → 2 buy / 3 no. What is P(Discount = Yes | Buy = Yes)?",
+  "choices": [
+   "8/10 = 0.8",
+   "8/15 ≈ 0.53",
+   "10/15 ≈ 0.67",
+   "2/5 = 0.4"
+  ],
+  "why": "Divide by the 10 buyers: 8/10. 2/5 is P(Discount = Yes | No).",
+  "source": "3.2 slide 21"
+ },
+ {
+  "id": "ch3-089",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "calc",
+  "q": "Free-delivery frequencies: Yes → 9 buy / 2 no; No → 1 buy / 3 no. What is P(Free delivery = Yes | Buy = No)?",
+  "choices": [
+   "2/5 = 0.4",
+   "9/10 = 0.9",
+   "2/11 ≈ 0.18",
+   "3/5 = 0.6"
+  ],
+  "why": "Of the 5 No-records, 2 had free delivery. 2/11 would be P(No | FD = Yes), a different quantity.",
+  "source": "3.2 slide 21"
+ },
+ {
+  "id": "ch3-090",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "calc",
+  "q": "There are 5 weekday, 4 weekend and 6 holiday records out of 15. What is P(Weekday)?",
+  "choices": [
+   "5/15 ≈ 0.33",
+   "4/10 = 0.4",
+   "1/3 of the buyers",
+   "5/10 = 0.5"
+  ],
+  "why": "P(Weekday) is the evidence term: 5 weekday records out of 15.",
+  "source": "3.2 slide 18"
+ },
+ {
+  "id": "ch3-091",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "calc",
+  "q": "Using P(Weekday | No) = 1/5, P(No) = 5/15 and P(Weekday) = 5/15, what is P(No Buy | Weekday)?",
+  "choices": [
+   "0.20",
+   "0.33",
+   "0.80",
+   "0.067"
+  ],
+  "why": "(1/5 · 5/15)/(5/15) = 1/5 = 0.20. Below 0.5, so a weekday customer most likely buys.",
+  "source": "3.2 slide 18"
+ },
+ {
+  "id": "ch3-092",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "calc",
+  "q": "Using P(Weekday | Yes) = 4/10, P(Yes) = 10/15 and P(Weekday) = 5/15, what is P(Buy | Weekday)?",
+  "choices": [
+   "0.80",
+   "0.40",
+   "0.27",
+   "0.67"
+  ],
+  "why": "(4/10 · 10/15)/(5/15) = (4/15)/(5/15) = 4/5 = 0.8, the complement of the slide's 0.20. Directly: 4 of the 5 weekday records bought.",
+  "source": "3.2 slides 17–18"
+ },
+ {
+  "id": "ch3-093",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "trap",
+  "q": "Slide 19 says 'out of the 30 people … 10 of those purchases were made on weekdays.' What do the tables actually show?",
+  "choices": [
+   "15 records, and 4 of the 10 purchases were on weekdays",
+   "30 records, and 10 of the 20 purchases were on weekdays",
+   "15 records, and 10 of the 15 purchases were on weekdays",
+   "30 records, and 4 of the 10 purchases were on weekdays"
+  ],
+  "why": "The dataset has 15 rows; weekday has 4 buys and 1 no-buy. 5/15 is simply P(Weekday). The slide's narrative is muddled but its 0.20 result is right.",
+  "source": "3.2 slide 19 · summary"
+ },
+ {
+  "id": "ch3-094",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "calc",
+  "q": "Query: Holiday, Discount = Yes, Free delivery = Yes. What is the Naive Bayes numerator for Buy = No: P(D=Y|No)·P(FD=Y|No)·P(Hol|No)·P(No)?",
+  "choices": [
+   "(2/5)(2/5)(2/5)(5/15) ≈ 0.0213",
+   "(8/10)(9/10)(4/10)(10/15) ≈ 0.192",
+   "(2/5)(2/5)(2/5) ≈ 0.064 only",
+   "(10/15)(11/15)(6/15) ≈ 0.1956"
+  ],
+  "why": "All three No-likelihoods are 2/5, times the prior 1/3: 0.064/3 ≈ 0.0213. 0.192 is the Yes numerator and 0.1956 is the denominator.",
+  "source": "3.2 slide 23"
+ },
+ {
+  "id": "ch3-095",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "calc",
+  "q": "Same query (Holiday, Discount = Yes, FD = Yes). What is the numerator for Buy = Yes?",
+  "choices": [
+   "(8/10)(9/10)(4/10)(10/15) ≈ 0.192",
+   "(2/5)(2/5)(2/5)(5/15) ≈ 0.0213",
+   "(8/10)(9/10)(4/10) ≈ 0.288 only",
+   "(10/15)(11/15)(6/15) ≈ 0.1956"
+  ],
+  "why": "0.8 · 0.9 · 0.4 = 0.288, times the prior 2/3 gives 0.192. Forgetting the prior leaves 0.288.",
+  "source": "3.2 slide 24"
+ },
+ {
+  "id": "ch3-096",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "calc",
+  "q": "Numerators: Yes ≈ 0.192, No ≈ 0.0213. After normalising, what is P(Buy) for this customer?",
+  "choices": [
+   "≈ 90%",
+   "≈ 10%",
+   "≈ 98%",
+   "≈ 19%"
+  ],
+  "why": "0.192/(0.192 + 0.0213) = 0.192/0.2133 ≈ 0.90. The slides get the same 90% via 0.982/1.09.",
+  "source": "3.2 slide 25"
+ },
+ {
+  "id": "ch3-097",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "trap",
+  "q": "The slides get P(Buy|B) = 0.982 and P(No|B) = 0.109, which sum to 1.09. Why not 1?",
+  "choices": [
+   "The shared denominator was itself computed assuming the features are independent",
+   "The likelihood tables contain an arithmetic mistake in the Holiday row",
+   "Naive Bayes probabilities never sum to 1 when there are three features",
+   "The priors 10/15 and 5/15 were accidentally swapped in the calculation"
+  ],
+  "why": "P(D=Y)·P(FD=Y)·P(Hol) = 0.1956 multiplies marginals as if independent, which is not the true P(B). Normalising (dividing by 1.09) fixes it.",
+  "source": "3.2 slides 23–25 · summary"
+ },
+ {
+  "id": "ch3-098",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "concept",
+  "q": "Exam shortcut: why can you skip the denominator P(B) when classifying with Naive Bayes?",
+  "choices": [
+   "It is the same for every class, so it doesn't change which class wins",
+   "It is always equal to 1 when the features are independent of each other",
+   "It is always smaller than the prior, so it can safely be ignored",
+   "It only matters for regression problems and not for classification"
+  ],
+  "why": "Every class's posterior is divided by the same P(B). Compare the numerators (0.192 vs 0.0213), then normalise if you need percentages.",
+  "source": "3.2 slides 23–25 · summary"
+ },
+ {
+  "id": "ch3-099",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "calc",
+  "q": "Using the shopping tables, classify Weekend, Discount = No, Free delivery = No. (Yes: 2/10, 2/10, 1/10; No: 2/5, 3/5, 3/5.)",
+  "choices": [
+   "No buy: 0.048 vs about 0.0027 for buy",
+   "Buy: about 0.0027 vs 0.048 for no buy",
+   "Buy: 0.048 vs about 0.0027 for no buy",
+   "A tie, because both scores equal 0.048"
+  ],
+  "why": "Yes: 0.2·0.2·0.1·(10/15) ≈ 0.0027. No: 0.4·0.6·0.6·(5/15) = 0.144/3 = 0.048. No buy wins clearly.",
+  "source": "3.2 slide 21"
+ },
+ {
+  "id": "ch3-100",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Shopping example",
+  "kind": "concept",
+  "q": "In 3.2's implementation, how does the naive_bayes() function compute a class score?",
+  "choices": [
+   "Start with the prior, then multiply by the likelihood of each feature",
+   "Start with the evidence, then add the likelihood of each feature",
+   "Start with 1, then divide by the likelihood of each feature",
+   "Start with the prior, then add the log of each feature count"
+  ],
+  "why": "prob = prior(...); then for each feature, prob *= likelihood(...). The two class scores are then normalised to sum to 1.",
+  "source": "3.2 slides 30–31"
+ },
+ {
+  "id": "ch3-101",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Naive Bayes pros/cons",
+  "kind": "concept",
+  "q": "What is the zero-frequency problem in Naive Bayes, and its fix named in 3.2?",
+  "choices": [
+   "An unseen category gets probability 0 and zeroes the product; fix with Laplace smoothing",
+   "A feature with zero variance breaks the Gaussian formula; fix with feature scaling",
+   "A class with zero examples has an undefined prior; fix with oversampling the data",
+   "An empty test set gives zero accuracy; fix with a larger train/test split ratio"
+  ],
+  "why": "Because the likelihoods are multiplied, one zero wipes out the whole score. Laplace smoothing avoids zero counts.",
+  "source": "3.2 slide 28"
+ },
+ {
+  "id": "ch3-102",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Naive Bayes pros/cons",
+  "kind": "calc",
+  "q": "Suppose no buyer ever shopped on a weekend, so P(Weekend | Yes) = 0/10. For a weekend query, what is the Buy = Yes score?",
+  "choices": [
+   "0, whatever the other likelihoods are",
+   "The product of the other two likelihoods",
+   "The prior P(Yes) = 10/15 on its own",
+   "Undefined, because you divide by zero"
+  ],
+  "why": "One zero factor makes the whole product zero. This is the zero-frequency problem that Laplace smoothing addresses.",
+  "source": "3.2 slide 28"
+ },
+ {
+  "id": "ch3-103",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Naive Bayes pros/cons",
+  "kind": "concept",
+  "q": "Which is NOT an advantage of Naive Bayes listed in 3.2?",
+  "choices": [
+   "Its independence assumption matches real-world data well",
+   "It doesn't require as much training data",
+   "It handles both continuous and discrete data",
+   "It is fast and usable for real-time predictions"
+  ],
+  "why": "The independence assumption is listed as a DISADVANTAGE: it rarely holds in real data. The others are on the advantages slide.",
+  "source": "3.2 slides 27–28"
+ },
+ {
+  "id": "ch3-104",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Naive Bayes pros/cons",
+  "kind": "concept",
+  "q": "3.2 says Naive Bayes has 'poor probability calibration'. What does that mean in practice?",
+  "choices": [
+   "Use its outputs for ranking/classifying, not as true confidence scores",
+   "Its outputs are always exactly 0 or 1, so it cannot rank examples",
+   "It needs the probabilities to be calibrated before training starts",
+   "It can only be trained on features that have already been scaled"
+  ],
+  "why": "The output probabilities can be unreliable as confidences, but the ordering is usually good enough to pick a class.",
+  "source": "3.2 slide 28"
+ },
+ {
+  "id": "ch3-105",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Naive Bayes pros/cons",
+  "kind": "concept",
+  "q": "On a heavily imbalanced dataset, how does Naive Bayes tend to behave?",
+  "choices": [
+   "It skews toward the majority class",
+   "It skews toward the minority class",
+   "It ignores the class priors entirely",
+   "It becomes a lazy, distance-based learner"
+  ],
+  "why": "The prior P(class) multiplies every score, so a dominant class gets a head start. 3.2 lists this as 'imbalanced data bias'.",
+  "source": "3.2 slide 28"
+ },
+ {
+  "id": "ch3-106",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Naive Bayes pros/cons",
+  "kind": "concept",
+  "q": "Which statement about Naive Bayes is an ADVANTAGE from 3.2?",
+  "choices": [
+   "It is not sensitive to irrelevant features",
+   "It models interactions between features",
+   "It gives well-calibrated confidence scores",
+   "It never needs any smoothing of counts"
+  ],
+  "why": "Slide 27 lists 'not sensitive to irrelevant features'. It does NOT model feature interactions (independence assumption), is poorly calibrated, and may need Laplace smoothing.",
+  "source": "3.2 slides 27–28"
+ },
+ {
+  "id": "ch3-107",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN basics",
+  "kind": "concept",
+  "q": "Why is KNN called a NON-PARAMETRIC model?",
+  "choices": [
+   "It learns no parameters; it simply memorises the training dataset",
+   "It has no hyperparameters at all, not even the number k",
+   "It assumes the data follows no distribution except a Gaussian",
+   "It learns weights but does not store the training data"
+  ],
+  "why": "KNN does not fit a discriminative function with learned weights; it stores the training set and compares new points to it. It still has hyperparameters (k, distance).",
+  "source": "3.2 slide 33"
+ },
+ {
+  "id": "ch3-108",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN basics",
+  "kind": "concept",
+  "q": "Why is KNN called a 'lazy' algorithm?",
+  "choices": [
+   "There is no real training step; all the work happens at prediction time",
+   "It only looks at the single nearest neighbour to save computation",
+   "It stops training early once the error stops decreasing",
+   "It skips the features it considers irrelevant to save time"
+  ],
+  "why": "KNN just stores the data; distances are computed only when a new point must be predicted.",
+  "source": "3.2 slide 41"
+ },
+ {
+  "id": "ch3-109",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN basics",
+  "kind": "concept",
+  "q": "How does KNN produce a prediction for classification versus regression?",
+  "choices": [
+   "Classification: majority vote of the k labels; regression: average of the k values",
+   "Classification: average of the k labels; regression: majority vote of the k values",
+   "Classification: label of the farthest point; regression: median of all points",
+   "Classification: weighted sum of all labels; regression: value of the nearest only"
+  ],
+  "why": "The slides: the most frequent value among the k neighbours for classification, the average of their values for regression.",
+  "source": "3.2 slide 39"
+ },
+ {
+  "id": "ch3-110",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN basics",
+  "kind": "calc",
+  "q": "KNN regression with k = 3: the three nearest neighbours have values 3, 5 and 7. What is predicted?",
+  "choices": [
+   "5",
+   "7",
+   "15",
+   "3"
+  ],
+  "why": "Regression KNN averages the neighbours: (3+5+7)/3 = 5.",
+  "source": "3.2 slide 39"
+ },
+ {
+  "id": "ch3-111",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN vote",
+  "kind": "calc",
+  "q": "KNN classification with k = 5: the five nearest labels are A, B, A, B, A. What is predicted?",
+  "choices": [
+   "A",
+   "B",
+   "A tie",
+   "A or B at random"
+  ],
+  "why": "Majority vote: A has 3 votes, B has 2.",
+  "source": "3.2 slide 39"
+ },
+ {
+  "id": "ch3-112",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Distance measures",
+  "kind": "concept",
+  "q": "Which distance does 3.2 call the 'default' for KNN, suited to continuous features like height or salary?",
+  "choices": [
+   "Euclidean",
+   "Manhattan",
+   "Hamming",
+   "Cosine"
+  ],
+  "why": "Euclidean is the shortest straight-line distance (Pythagorean theorem) and is the usual default for continuous features.",
+  "source": "3.2 slide 35"
+ },
+ {
+  "id": "ch3-113",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Distance measures",
+  "kind": "concept",
+  "q": "When does 3.2 recommend Manhattan distance?",
+  "choices": [
+   "When movement is grid-like, e.g. features are whole integers",
+   "When features are continuous, like height, weight or salary",
+   "When the features are text and must be compared as strings",
+   "When there is only a single feature and no grid structure"
+  ],
+  "why": "Manhattan sums absolute coordinate differences, like walking city blocks; the slide suggests it for grid-distributed, integer-valued features.",
+  "source": "3.2 slide 36"
+ },
+ {
+  "id": "ch3-114",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Distance measures",
+  "kind": "concept",
+  "q": "In the Minkowski distance, which values of p give Manhattan and Euclidean?",
+  "choices": [
+   "p = 1 → Manhattan, p = 2 → Euclidean",
+   "p = 2 → Manhattan, p = 1 → Euclidean",
+   "p = 0 → Manhattan, p = 1 → Euclidean",
+   "p = 1 → Euclidean, p = ∞ → Manhattan"
+  ],
+  "why": "Minkowski (Σ|xᵢ − yᵢ|ᵖ)^(1/p): p = 1 is the sum of absolute differences, p = 2 is the square root of summed squares.",
+  "source": "3.2 slide 37"
+ },
+ {
+  "id": "ch3-115",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Distance measures",
+  "kind": "trap",
+  "q": "The Minkowski formula on 3.2 slide 37 is printed without an inner exponent. What is the correct form?",
+  "choices": [
+   "(Σ|xᵢ − yᵢ|ᵖ)^(1/p)",
+   "(Σ|xᵢ − yᵢ|)^(1/p)",
+   "Σ(|xᵢ − yᵢ|^(1/p))ᵖ",
+   "(Σ(xᵢ − yᵢ))ᵖ"
+  ],
+  "why": "Each |xᵢ − yᵢ| must be raised to p before summing; otherwise p = 2 would not give Euclidean distance. The slide drops that ᵖ.",
+  "source": "3.2 slide 37 (corrected)"
+ },
+ {
+  "id": "ch3-116",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Distance measures",
+  "kind": "calc",
+  "q": "What is the Euclidean distance between (1, 2) and (4, 6)?",
+  "choices": [
+   "5",
+   "7",
+   "25",
+   "√7 ≈ 2.65"
+  ],
+  "why": "√((4−1)² + (6−2)²) = √(9 + 16) = √25 = 5. 7 is the Manhattan distance; 25 forgets the square root.",
+  "source": "3.2 slide 35"
+ },
+ {
+  "id": "ch3-117",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Distance measures",
+  "kind": "calc",
+  "q": "What is the Manhattan distance between (1, 2) and (4, 6)?",
+  "choices": [
+   "7",
+   "5",
+   "25",
+   "12"
+  ],
+  "why": "|4−1| + |6−2| = 3 + 4 = 7.",
+  "source": "3.2 slide 36"
+ },
+ {
+  "id": "ch3-118",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Distance measures",
+  "kind": "trap",
+  "q": "For the same two points, how do Manhattan and Euclidean distance compare?",
+  "choices": [
+   "Manhattan is greater than or equal to Euclidean",
+   "Euclidean is always greater than Manhattan",
+   "They are always exactly equal to each other",
+   "It depends on whether k is odd or even"
+  ],
+  "why": "The straight line is the shortest path, so walking the grid (Manhattan) is never shorter. In the (1,2)–(4,6) example: 7 ≥ 5.",
+  "source": "3.2 slides 35–36"
+ },
+ {
+  "id": "ch3-119",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Iris example",
+  "kind": "calc",
+  "q": "Iris example: new flower (5.2, 3.1), training flower (5.3, 3.7). What is their Euclidean distance?",
+  "choices": [
+   "≈ 0.608",
+   "≈ 0.70",
+   "≈ 0.37",
+   "≈ 0.36"
+  ],
+  "why": "√((5.2−5.3)² + (3.1−3.7)²) = √(0.01 + 0.36) = √0.37 ≈ 0.608. 0.70 is the Manhattan distance; 0.37 forgets the square root.",
+  "source": "3.2 slide 42"
+ },
+ {
+  "id": "ch3-120",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Iris example",
+  "kind": "concept",
+  "q": "What are the three steps of KNN in the 3.2 iris example, in order?",
+  "choices": [
+   "Find distances → rank them → take the k nearest and vote",
+   "Take the k nearest → find distances → rank them and vote",
+   "Rank the classes → find distances → average the features",
+   "Scale the data → train weights → apply a decision rule"
+  ],
+  "why": "Step 1 find distance, Step 2 find rank, Step 3 find nearest neighbours (then predict the majority).",
+  "source": "3.2 slides 42–44"
+ },
+ {
+  "id": "ch3-121",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Iris example",
+  "kind": "calc",
+  "q": "Iris example, k = 3: the nearest neighbours are Setosa (0.22), Setosa (0.36), Setosa (0.608). What is the prediction for (5.2, 3.1)?",
+  "choices": [
+   "Setosa",
+   "Versicolor",
+   "Virginica",
+   "No decision (tie)"
+  ],
+  "why": "All 3 votes are Setosa, so the new flower is classified as Setosa.",
+  "source": "3.2 slide 44"
+ },
+ {
+  "id": "ch3-122",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Iris example",
+  "kind": "trap",
+  "q": "Iris example: rank 4 is Virginica (0.67) and rank 5 is Setosa (0.707). What would k = 5 predict?",
+  "choices": [
+   "Setosa, with 4 votes against 1",
+   "Virginica, because it is ranked 4th",
+   "A tie between Setosa and Virginica",
+   "Versicolor, the most common in the data"
+  ],
+  "why": "The 5 nearest are Setosa, Setosa, Setosa, Virginica, Setosa: 4 to 1 for Setosa.",
+  "source": "3.2 slide 44"
+ },
+ {
+  "id": "ch3-123",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN vote",
+  "kind": "calc",
+  "q": "Query at (0, 0). Red points: (1, 0), (0, −1). Blue points: (0, 2), (2, 2), (3, 0). Euclidean KNN with k = 3 predicts...",
+  "choices": [
+   "Red",
+   "Blue",
+   "A tie",
+   "Cannot tell"
+  ],
+  "why": "Distances: red 1, red 1, blue 2, blue ≈ 2.83, blue 3. The 3 nearest are red, red, blue → red.",
+  "source": "3.2 slides 39, 42–44"
+ },
+ {
+  "id": "ch3-124",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN vote",
+  "kind": "trap",
+  "q": "Same data: query (0, 0); red at distances 1 and 1; blue at 2, ≈ 2.83 and 3. What does k = 5 predict?",
+  "choices": [
+   "Blue",
+   "Red",
+   "A tie",
+   "Cannot tell"
+  ],
+  "why": "With k = 5 all points vote: 2 red vs 3 blue → blue. Changing k flipped the answer, as in the slide 47 picture.",
+  "source": "3.2 slides 46–47"
+ },
+ {
+  "id": "ch3-125",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Choosing k",
+  "kind": "concept",
+  "q": "In KNN, what happens at the extremes k = 1 and k = N (all points)?",
+  "choices": [
+   "k = 1 uses only the closest point; k = N always predicts the majority class",
+   "k = 1 always predicts the majority class; k = N uses only the closest point",
+   "k = 1 and k = N both give the same predictions on any dataset",
+   "k = 1 averages all points; k = N uses only the farthest point"
+  ],
+  "why": "Slide 46: k can range from 1 (nearest neighbour only) to the dataset size (predicts the majority class of the whole dataset).",
+  "source": "3.2 slide 46"
+ },
+ {
+  "id": "ch3-126",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Choosing k",
+  "kind": "concept",
+  "q": "What is the effect of a very SMALL k in KNN?",
+  "choices": [
+   "It tends to overfit: the boundary is noisy and follows individual points",
+   "It tends to underfit: the boundary becomes too smooth and simple",
+   "It makes KNN stop being lazy and start learning parameters",
+   "It has no effect; only the distance metric changes predictions"
+  ],
+  "why": "Low k reacts to every noisy point (overfitting). Higher k averages over a larger area and smooths the predictions.",
+  "source": "3.2 slide 53"
+ },
+ {
+  "id": "ch3-127",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Choosing k",
+  "kind": "concept",
+  "q": "What is the effect of a LARGER k in KNN, according to 3.2?",
+  "choices": [
+   "It smooths the predictions by averaging over a greater area",
+   "It makes the model memorise individual noisy training points",
+   "It removes the need to store the training dataset in memory",
+   "It always lowers the error, so the largest k is the best"
+  ],
+  "why": "Higher k 'smooths' the prediction values; pushed too far it heads toward always predicting the majority class.",
+  "source": "3.2 slide 53"
+ },
+ {
+  "id": "ch3-128",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Choosing k",
+  "kind": "concept",
+  "q": "In the 3.2 slide 47 picture, what is the new point classified as with k = 3 and with k = 6?",
+  "choices": [
+   "k = 3 → class B; k = 6 → class A",
+   "k = 3 → class A; k = 6 → class B",
+   "Class A for both values of k",
+   "Class B for both values of k"
+  ],
+  "why": "Inside the small circle B has the majority; the larger circle contains more A points, so the answer flips to A.",
+  "source": "3.2 slide 47"
+ },
+ {
+  "id": "ch3-129",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Choosing k",
+  "kind": "concept",
+  "q": "How does 3.2 recommend choosing the optimal k?",
+  "choices": [
+   "Try several k on a train/test split and pick the elbow of the error curve",
+   "Always use k = 1, because the nearest point is the most informative",
+   "Set k equal to the number of features in the training dataset",
+   "Pick the largest k possible, because more votes means less error"
+  ],
+  "why": "Test different k, measure the error, and choose where increasing k gives only a tiny decrease while decreasing it sharply increases error: the elbow point.",
+  "source": "3.2 slide 48"
+ },
+ {
+  "id": "ch3-130",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Choosing k",
+  "kind": "concept",
+  "q": "Why does 3.2 split the data into training and test sets when choosing k?",
+  "choices": [
+   "It allows an objective evaluation of each k on unseen data",
+   "It halves the memory KNN needs to store the training set",
+   "It lets KNN learn weights for each feature before predicting",
+   "It guarantees that the classes are perfectly balanced"
+  ],
+  "why": "Slide 48: separating training and test sets allows an objective model evaluation, linking back to 3.1's goal of measuring performance on unseen data.",
+  "source": "3.2 slide 48"
+ },
+ {
+  "id": "ch3-131",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Choosing k",
+  "kind": "concept",
+  "q": "In the 3.2 error-rate vs k plot, which k is chosen and why?",
+  "choices": [
+   "k = 5, because the error rate becomes almost constant after it",
+   "k = 1, because the error rate is lowest at the very first point",
+   "k = 40, because the largest k always has the lowest error rate",
+   "k = 19, because the error rate peaks there before it drops"
+  ],
+  "why": "After k > 5 the error stabilises, so k = 5 is taken as the optimal (elbow) value.",
+  "source": "3.2 slide 49"
+ },
+ {
+  "id": "ch3-132",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "Choosing k",
+  "kind": "trap",
+  "q": "For binary KNN classification, why is an odd k often recommended? (summary tip, not on the slides)",
+  "choices": [
+   "So the vote between the two classes cannot end in a tie",
+   "So the distance computations run faster on odd numbers",
+   "So the model overfits less than with any even value of k",
+   "So the elbow point is guaranteed to fall on that value"
+  ],
+  "why": "With two classes, an odd number of voters always yields a strict majority. It is a practical tip, not a rule from the deck.",
+  "source": "3.2 summary §7"
+ },
+ {
+  "id": "ch3-133",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN pros/cons",
+  "kind": "concept",
+  "q": "What does 3.2 mean by calling KNN 'adaptable'?",
+  "choices": [
+   "As soon as new training samples are added, predictions take them into account",
+   "It automatically chooses the best distance metric for any kind of dataset",
+   "It adapts the value of k during training to minimise the training error",
+   "It can switch between classification and regression without any changes"
+  ],
+  "why": "Since KNN just stores the data, adding samples immediately changes future predictions without retraining.",
+  "source": "3.2 slide 51"
+ },
+ {
+  "id": "ch3-134",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN pros/cons",
+  "kind": "concept",
+  "q": "Which hyperparameters does KNN need, according to 3.2?",
+  "choices": [
+   "Just k and a distance metric",
+   "A learning rate and number of epochs",
+   "The prior and the likelihood tables",
+   "A kernel and a regularisation constant C"
+  ],
+  "why": "'Easily programmable: kNN requires only a few hyper-parameters — a k value and a distance metric.'",
+  "source": "3.2 slide 51"
+ },
+ {
+  "id": "ch3-135",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN pros/cons",
+  "kind": "concept",
+  "q": "Why is KNN 'difficult to scale'?",
+  "choices": [
+   "It stores all the data and computes distances to every point at prediction time",
+   "It must retrain all of its weights from scratch whenever new data arrives",
+   "It can only handle two features, so larger datasets cannot be used",
+   "It needs an exponential number of epochs as the dataset grows"
+  ],
+  "why": "KNN takes a lot of memory and storage, and each prediction is computationally intensive because it compares against everything.",
+  "source": "3.2 slide 52"
+ },
+ {
+  "id": "ch3-136",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN pros/cons",
+  "kind": "concept",
+  "q": "What is the 'curse of dimensionality' for KNN?",
+  "choices": [
+   "With many dimensions, distances become less meaningful and accuracy drops",
+   "With many training points, the elbow method can no longer find a good k",
+   "With many classes, the majority vote always ends in a tie between them",
+   "With many neighbours, the algorithm forgets the closest training points"
+  ],
+  "why": "A fixed training set cannot keep up as dimensions grow: even 'similar' points end up far apart on other dimensions, so predictions get worse.",
+  "source": "3.2 slide 53"
+ },
+ {
+  "id": "ch3-137",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN pros/cons",
+  "kind": "trap",
+  "q": "Feature 1 is salary (tens of thousands), feature 2 is age (tens). What goes wrong with unscaled KNN? (summary note, not on slides)",
+  "choices": [
+   "Salary dominates every distance, so age barely affects the neighbours",
+   "Age dominates every distance, so salary barely affects the neighbours",
+   "Nothing, because Euclidean distance is unaffected by feature units",
+   "KNN refuses to run until the features have identical ranges"
+  ],
+  "why": "Distances add raw differences, so the large-unit feature swamps the small one. Scale features before KNN.",
+  "source": "3.2 summary §8"
+ },
+ {
+  "id": "ch3-138",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN implementation",
+  "kind": "concept",
+  "q": "In the 3.2 KNN class, what does fit(X_train, y_train) do?",
+  "choices": [
+   "It just stores X_train and y_train; no computation happens",
+   "It computes the distances between all pairs of training points",
+   "It learns one weight per feature using gradient descent",
+   "It sorts the training data by distance from the origin"
+  ],
+  "why": "fit only assigns self.X_train and self.y_train, the 'lazy' behaviour. Distances are computed in _predict.",
+  "source": "3.2 slide 55"
+ },
+ {
+  "id": "ch3-139",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN implementation",
+  "kind": "concept",
+  "q": "In the 3.2 KNN code, how is the predicted label chosen in _predict?",
+  "choices": [
+   "np.argsort(distances)[:k], then the most common label via np.bincount(...).argmax()",
+   "np.argmax(distances)[:k], then the mean of those labels via np.mean(...)",
+   "np.sort(labels)[:k], then the median label via np.median(...)",
+   "np.argmin(distances), then that single label is returned"
+  ],
+  "why": "argsort gives the indices of the k smallest distances; bincount + argmax returns the majority label.",
+  "source": "3.2 slide 55"
+ },
+ {
+  "id": "ch3-140",
+  "chapter": "Week 3 · Evaluation, Naive Bayes, KNN",
+  "topic": "KNN vs NB",
+  "kind": "trap",
+  "q": "Which statement correctly contrasts the two 3.2 classifiers?",
+  "choices": [
+   "Naive Bayes is built from class-conditional probabilities; KNN from distances to stored points",
+   "Naive Bayes stores every training point; KNN builds frequency and likelihood tables",
+   "Both are unsupervised methods that need no labels to make their predictions",
+   "Both assume the features are independent of each other given the class"
+  ],
+  "why": "NB estimates priors and likelihoods and applies Bayes' theorem; KNN memorises the data and votes among the nearest points. Both are supervised; only NB makes the independence assumption.",
+  "source": "3.2 slides 4, 33"
+ }
+]

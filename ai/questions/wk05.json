@@ -1,0 +1,1052 @@
+[
+ {
+  "id": "ch5-001",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Data & pipeline",
+  "kind": "concept",
+  "q": "Which is an example of semi-structured data?",
+  "choices": [
+   "JSON, XML or log files",
+   "A CSV table of customers",
+   "A folder of JPEG images",
+   "Raw audio recordings"
+  ],
+  "why": "Page 6: semi-structured data has a flexible schema: JSON, XML, log files, common in APIs and NoSQL stores.",
+  "source": "5.2 p. 6"
+ },
+ {
+  "id": "ch5-002",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Data & pipeline",
+  "kind": "concept",
+  "q": "Which is structured data?",
+  "choices": [
+   "A SQL table or time series of sensor values",
+   "Emails and social posts",
+   "MRI scans",
+   "Speech recordings"
+  ],
+  "why": "Page 5: structured data fits rows and columns: tabular data, relational databases, time series.",
+  "source": "5.2 p. 5"
+ },
+ {
+  "id": "ch5-003",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Data & pipeline",
+  "kind": "concept",
+  "q": "Roughly what share of a data scientist's time goes into data preparation, per the deck?",
+  "choices": [
+   "60–70%",
+   "10–20%",
+   "About 5%",
+   "95–100%"
+  ],
+  "why": "Page 4: 60–70% of a data scientist's time goes into preparation, not modelling. 'Garbage in, garbage out.'",
+  "source": "5.2 p. 4"
+ },
+ {
+  "id": "ch5-004",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Data & pipeline",
+  "kind": "concept",
+  "q": "The deck's data-preparation pipeline, in order:",
+  "choices": [
+   "Collect → inspect → clean → transform → store → visualize",
+   "Clean → collect → visualize → transform → inspect → store",
+   "Collect → transform → clean → inspect → visualize → store",
+   "Inspect → collect → store → clean → visualize → transform"
+  ],
+  "why": "Page 7: collect, inspect, clean, transform, store, visualize, as a repeatable pipeline.",
+  "source": "5.2 p. 7"
+ },
+ {
+  "id": "ch5-005",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Data & pipeline",
+  "kind": "concept",
+  "q": "Which pandas call gives summary statistics (mean, std, quartiles) during inspection?",
+  "choices": [
+   "df.describe()",
+   "df.shape",
+   "df.dtypes",
+   "df.drop_duplicates()"
+  ],
+  "why": "Page 8: shape = row/column counts, dtypes = types, head() = quick look, describe() = summary statistics.",
+  "source": "5.2 p. 8"
+ },
+ {
+  "id": "ch5-006",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Data & pipeline",
+  "kind": "concept",
+  "q": "'Tashkent', 'tashkent' and 'TASHKENT' in one column is which raw-data problem?",
+  "choices": [
+   "Inconsistency",
+   "Duplicates",
+   "Missing values",
+   "Broken relationships"
+  ],
+  "why": "Page 9: inconsistency means the same value with different spellings.",
+  "source": "5.2 p. 9"
+ },
+ {
+  "id": "ch5-007",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Data & pipeline",
+  "kind": "concept",
+  "q": "A foreign key pointing to a record that no longer exists is called:",
+  "choices": [
+   "A broken relationship",
+   "An outlier",
+   "A near-duplicate",
+   "A wrong format"
+  ],
+  "why": "Page 9 lists six problems: missing values, duplicates, wrong format, outliers, inconsistency, broken relationships.",
+  "source": "5.2 p. 9"
+ },
+ {
+  "id": "ch5-008",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Data & pipeline",
+  "kind": "calc",
+  "q": "A column should have 1,000 values but only 950 are present. Completeness?",
+  "choices": [
+   "95%",
+   "5%",
+   "50%",
+   "105%"
+  ],
+  "why": "Page 16: completeness = available / expected × 100% = 950/1000 = 95%.",
+  "source": "5.2 p. 16"
+ },
+ {
+  "id": "ch5-009",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Data & pipeline",
+  "kind": "concept",
+  "q": "Which data-quality dimension asks 'Do values fall within an allowed range or format?'",
+  "choices": [
+   "Validity",
+   "Timeliness",
+   "Uniqueness",
+   "Completeness"
+  ],
+  "why": "Page 16's six dimensions: completeness, accuracy, consistency, timeliness, uniqueness, validity.",
+  "source": "5.2 p. 16"
+ },
+ {
+  "id": "ch5-010",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Data & pipeline",
+  "kind": "concept",
+  "q": "How are exact duplicate rows removed in pandas, and what catches near-duplicates?",
+  "choices": [
+   "drop_duplicates(); record-linkage tools like recordlinkage or dedupe",
+   "dropna(); KNNImputer",
+   "drop_duplicates(); the IQR rule",
+   "fillna(); SMOTE"
+  ],
+  "why": "Page 12: drop_duplicates() catches exact copies; near-duplicates (typos, formatting) need similarity-based record linkage.",
+  "source": "5.2 p. 12"
+ },
+ {
+  "id": "ch5-011",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Missing values",
+  "kind": "concept",
+  "q": "A sensor briefly goes offline, so some readings are missing. Which mechanism?",
+  "choices": [
+   "MCAR",
+   "MAR",
+   "MNAR",
+   "SMOTE"
+  ],
+  "why": "Page 10: Missing Completely At Random means missingness has no relationship to any variable. The deck's example is a sensor going offline.",
+  "source": "5.2 p. 10"
+ },
+ {
+  "id": "ch5-012",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Missing values",
+  "kind": "concept",
+  "q": "Older respondents skip the income question more often. Which mechanism?",
+  "choices": [
+   "MAR",
+   "MCAR",
+   "MNAR",
+   "Leakage"
+  ],
+  "why": "Page 10: Missing At Random: missingness relates to other observed variables (here age).",
+  "source": "5.2 p. 10"
+ },
+ {
+  "id": "ch5-013",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Missing values",
+  "kind": "concept",
+  "q": "High earners tend to hide their income. Which mechanism?",
+  "choices": [
+   "MNAR",
+   "MAR",
+   "MCAR",
+   "Imbalance"
+  ],
+  "why": "Page 10: Missing Not At Random: missingness depends on the missing value itself.",
+  "source": "5.2 p. 10"
+ },
+ {
+  "id": "ch5-014",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Missing values",
+  "kind": "concept",
+  "q": "Which missingness mechanism does the deck call the hardest case?",
+  "choices": [
+   "MNAR",
+   "MCAR",
+   "MAR",
+   "All are equally hard"
+  ],
+  "why": "Page 10: MNAR, because the reason a value is missing is the value itself, which you cannot observe.",
+  "source": "5.2 p. 10"
+ },
+ {
+  "id": "ch5-015",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Missing values",
+  "kind": "trap",
+  "q": "Missingness depends on another column you can see (e.g. age). Students often call this MCAR. What is it?",
+  "choices": [
+   "MAR: it depends on observed variables",
+   "MCAR: it is random within each age group",
+   "MNAR: it depends on the missing value",
+   "Not a missingness mechanism at all"
+  ],
+  "why": "The names mislead: 'At Random' (MAR) still means related to observed columns. Only MCAR is unrelated to everything.",
+  "source": "5.2 p. 10"
+ },
+ {
+  "id": "ch5-016",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Missing values",
+  "kind": "concept",
+  "q": "Which imputation suits a categorical column like 'embarked'?",
+  "choices": [
+   "Mode (most frequent value)",
+   "Mean",
+   "Min-max scaling",
+   "Z-score"
+  ],
+  "why": "Page 11: mean/median for numeric columns, mode for categorical. The Titanic notebook fills 'embarked' with the mode.",
+  "source": "5.2 p. 11; titanic_data_preparation.ipynb Stage 1"
+ },
+ {
+  "id": "ch5-017",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Missing values",
+  "kind": "concept",
+  "q": "What does IterativeImputer (MICE) do?",
+  "choices": [
+   "Predicts each missing value from the other columns",
+   "Copies the value from the nearest row",
+   "Replaces missing values with the column mean",
+   "Drops every row that has a missing value"
+  ],
+  "why": "Page 11: IterativeImputer predicts each value from other columns (MICE). KNNImputer learns from nearest neighbours.",
+  "source": "5.2 p. 11"
+ },
+ {
+  "id": "ch5-018",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Missing values",
+  "kind": "concept",
+  "q": "What does KNNImputer do?",
+  "choices": [
+   "Fills a gap using the values of the most similar rows",
+   "Fills with the column's mode",
+   "Trains a GAN to generate missing values",
+   "Deletes the column entirely"
+  ],
+  "why": "Page 11: KNNImputer learns from the nearest neighbours. The Titanic notebook uses it for age (~20% missing).",
+  "source": "5.2 p. 11; titanic_data_preparation.ipynb Stage 1"
+ },
+ {
+  "id": "ch5-019",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Missing values",
+  "kind": "concept",
+  "q": "In the Titanic notebook, 'deck' is 77% missing. What is done with it?",
+  "choices": [
+   "Dropped, because too much is missing",
+   "Imputed with KNN",
+   "Filled with the mean",
+   "Oversampled with SMOTE"
+  ],
+  "why": "Stage 1: deck (77% missing) is dropped; age → KNN imputer; embarked → mode; fare → median.",
+  "source": "titanic_data_preparation.ipynb Stage 1"
+ },
+ {
+  "id": "ch5-020",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Missing values",
+  "kind": "trap",
+  "q": "'Drop every row that has a missing value' is listed by the deck as:",
+  "choices": [
+   "A common mistake: diagnose the mechanism and choose a targeted strategy",
+   "The recommended default for all datasets",
+   "The only method that avoids data leakage",
+   "Required before using KNNImputer"
+  ],
+  "why": "Page 36: dropping every row with a missing value throws away valuable data; diagnose MCAR/MAR/MNAR first.",
+  "source": "5.2 p. 36"
+ },
+ {
+  "id": "ch5-021",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Missing values",
+  "kind": "concept",
+  "q": "Which is the deck's 'modern' deep-learning imputation approach?",
+  "choices": [
+   "GAIN (Generative Adversarial Imputation Nets)",
+   "SMOTE",
+   "Isolation Forest",
+   "Borderline-SMOTE"
+  ],
+  "why": "Page 11: deep imputers such as GAIN and datawig learn non-linear patterns across many columns.",
+  "source": "5.2 p. 11"
+ },
+ {
+  "id": "ch5-022",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Outliers",
+  "kind": "concept",
+  "q": "The IQR outlier fences are:",
+  "choices": [
+   "Q1 − 1.5·IQR and Q3 + 1.5·IQR",
+   "Q1 − 3·IQR and Q3 + 3·IQR",
+   "mean ± 1.5·σ",
+   "median ± IQR"
+  ],
+  "why": "Page 13: IQR = Q3 − Q1; points below Q1 − 1.5·IQR or above Q3 + 1.5·IQR are outliers.",
+  "source": "5.2 p. 13"
+ },
+ {
+  "id": "ch5-023",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Outliers",
+  "kind": "calc",
+  "q": "Q1 = 10, Q3 = 30. What are the IQR fences?",
+  "choices": [
+   "−20 and 60",
+   "−10 and 50",
+   "0 and 40",
+   "10 and 30"
+  ],
+  "why": "IQR = 20; 1.5 × 20 = 30. Lower = 10 − 30 = −20, upper = 30 + 30 = 60.",
+  "source": "5.2 p. 13"
+ },
+ {
+  "id": "ch5-024",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Outliers",
+  "kind": "calc",
+  "q": "Q1 = 20, Q3 = 40. Is the value 75 an outlier by the IQR rule?",
+  "choices": [
+   "Yes: the upper fence is 70",
+   "No: the upper fence is 80",
+   "No: the upper fence is 100",
+   "Yes: anything above Q3 is an outlier"
+  ],
+  "why": "IQR = 20, 1.5 × 20 = 30, upper fence = 40 + 30 = 70. 75 > 70, so it is flagged.",
+  "source": "5.2 p. 13"
+ },
+ {
+  "id": "ch5-025",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Outliers",
+  "kind": "calc",
+  "q": "Q1 = 4, Q3 = 8. Which value is flagged as an outlier?",
+  "choices": [
+   "15",
+   "13",
+   "−1",
+   "2"
+  ],
+  "why": "IQR = 4, 1.5 × 4 = 6. Fences: 4 − 6 = −2 and 8 + 6 = 14. Only 15 is outside [−2, 14].",
+  "source": "5.2 p. 13"
+ },
+ {
+  "id": "ch5-026",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Outliers",
+  "kind": "concept",
+  "q": "The Z-score is computed as:",
+  "choices": [
+   "z = (x − μ) / σ",
+   "z = (x − min) / (max − min)",
+   "z = (x − median) / IQR",
+   "z = x / σ"
+  ],
+  "why": "Page 14: z = (x − μ)/σ, the number of standard deviations from the mean.",
+  "source": "5.2 p. 14"
+ },
+ {
+  "id": "ch5-027",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Outliers",
+  "kind": "calc",
+  "q": "μ = 70, σ = 5. What is the z-score of x = 90, and is it an outlier?",
+  "choices": [
+   "z = 4; yes, |z| > 3",
+   "z = 2; no",
+   "z = 4; no, the cutoff is 5",
+   "z = 20; yes"
+  ],
+  "why": "z = (90 − 70)/5 = 4. The common cutoff is |z| > 3.",
+  "source": "5.2 p. 14"
+ },
+ {
+  "id": "ch5-028",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Outliers",
+  "kind": "calc",
+  "q": "μ = 70, σ = 5. Z-score of x = 60?",
+  "choices": [
+   "−2",
+   "2",
+   "−10",
+   "0.5"
+  ],
+  "why": "z = (60 − 70)/5 = −2. Below the mean gives a negative z; |−2| < 3, so not an outlier.",
+  "source": "5.2 p. 14"
+ },
+ {
+  "id": "ch5-029",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Outliers",
+  "kind": "concept",
+  "q": "What does the Z-score method assume, and what is its weakness?",
+  "choices": [
+   "Roughly normal data; extreme outliers pull the mean and σ",
+   "No distribution at all; it is the most robust method",
+   "Uniform data; it cannot handle negative values",
+   "Categorical data; it needs one-hot encoding"
+  ],
+  "why": "Page 14: assumes approximately normal data and is sensitive to extreme outliers pulling the mean; combine with IQR when in doubt.",
+  "source": "5.2 p. 14"
+ },
+ {
+  "id": "ch5-030",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Outliers",
+  "kind": "trap",
+  "q": "Which outlier method does NOT assume a normal distribution?",
+  "choices": [
+   "IQR rule",
+   "Z-score",
+   "Standardization",
+   "Mean ± 3σ"
+  ],
+  "why": "Page 13 calls IQR a robust, distribution-free rule of thumb. The Z-score assumes roughly normal data. (Page 13's 'roughly symmetric' wording is loose.)",
+  "source": "5.2 pp. 13–14; 5.2 summary"
+ },
+ {
+  "id": "ch5-031",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Outliers",
+  "kind": "concept",
+  "q": "How does Isolation Forest detect anomalies?",
+  "choices": [
+   "Anomalies need far fewer random splits to isolate",
+   "It compares local density to neighbours' density",
+   "It flags points with high reconstruction error",
+   "It flags points beyond 1.5·IQR"
+  ],
+  "why": "Page 15: Isolation Forest splits randomly; anomalies get isolated in few splits. LOF is density-based; autoencoders use reconstruction error.",
+  "source": "5.2 p. 15"
+ },
+ {
+  "id": "ch5-032",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Outliers",
+  "kind": "concept",
+  "q": "In the Titanic notebook, why are fare outliers clipped instead of deleted?",
+  "choices": [
+   "First-class passengers genuinely paid high fares",
+   "Deleting rows causes data leakage",
+   "Fare is a categorical column",
+   "The IQR rule cannot delete rows"
+  ],
+  "why": "Stage 4: clipping, not deletion, because the high fares are real. The checklist on page 37 also says: decide to fix, cap or keep.",
+  "source": "titanic_data_preparation.ipynb Stage 4; 5.2 p. 37"
+ },
+ {
+  "id": "ch5-033",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature scaling",
+  "kind": "concept",
+  "q": "Min-max normalization formula and output range:",
+  "choices": [
+   "(x − min)/(max − min), range [0, 1]",
+   "(x − μ)/σ, mean 0 and sd 1",
+   "(x − median)/IQR, unbounded",
+   "x / max, range [−1, 1]"
+  ],
+  "why": "Page 18: x' = (x − min)/(max − min), output in [0, 1].",
+  "source": "5.2 p. 18"
+ },
+ {
+  "id": "ch5-034",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature scaling",
+  "kind": "calc",
+  "q": "min = 10, max = 50. Min-max scaled value of x = 30?",
+  "choices": [
+   "0.5",
+   "0.6",
+   "0.75",
+   "30"
+  ],
+  "why": "(30 − 10)/(50 − 10) = 20/40 = 0.5.",
+  "source": "5.2 p. 18"
+ },
+ {
+  "id": "ch5-035",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature scaling",
+  "kind": "calc",
+  "q": "min = 0, max = 200. Min-max scaled value of x = 50?",
+  "choices": [
+   "0.25",
+   "0.5",
+   "50",
+   "0.2"
+  ],
+  "why": "(50 − 0)/(200 − 0) = 0.25.",
+  "source": "5.2 p. 18"
+ },
+ {
+  "id": "ch5-036",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature scaling",
+  "kind": "calc",
+  "q": "μ = 60, σ = 10. Standardized value of x = 80?",
+  "choices": [
+   "2",
+   "0.8",
+   "20",
+   "−2"
+  ],
+  "why": "(80 − 60)/10 = 2.",
+  "source": "5.2 p. 19"
+ },
+ {
+  "id": "ch5-037",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature scaling",
+  "kind": "calc",
+  "q": "Robust scaling: median = 40, Q1 = 30, Q3 = 50. Scaled value of x = 50?",
+  "choices": [
+   "0.5",
+   "1",
+   "0.25",
+   "10"
+  ],
+  "why": "x' = (x − Q2)/(Q3 − Q1) = (50 − 40)/20 = 0.5.",
+  "source": "5.2 p. 20"
+ },
+ {
+  "id": "ch5-038",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature scaling",
+  "kind": "concept",
+  "q": "After standardization, a feature has:",
+  "choices": [
+   "Mean 0 and standard deviation 1",
+   "Minimum 0 and maximum 1",
+   "Median 0 and IQR 1",
+   "All values between −1 and 1"
+  ],
+  "why": "Page 19: output mean = 0, sd = 1. It does not bound the output, unlike min-max.",
+  "source": "5.2 p. 19"
+ },
+ {
+  "id": "ch5-039",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature scaling",
+  "kind": "concept",
+  "q": "Rank the three scalers from most to least sensitive to outliers.",
+  "choices": [
+   "Min-max > Z-score > Robust",
+   "Robust > Z-score > Min-max",
+   "Z-score > Min-max > Robust",
+   "All three are equally sensitive"
+  ],
+  "why": "Page 20: min-max is very sensitive, Z-score sensitive, robust (median/IQR) resistant.",
+  "source": "5.2 p. 20"
+ },
+ {
+  "id": "ch5-040",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature scaling",
+  "kind": "concept",
+  "q": "A feature has heavy outliers you don't want to delete. Which scaler?",
+  "choices": [
+   "RobustScaler (median and IQR)",
+   "MinMaxScaler",
+   "StandardScaler",
+   "LabelEncoder"
+  ],
+  "why": "Page 20 rule of thumb: start with standardization; switch to robust scaling when a boxplot/IQR check reveals heavy outliers. Titanic uses it for fare.",
+  "source": "5.2 p. 20; titanic_data_preparation.ipynb Stage 3"
+ },
+ {
+  "id": "ch5-041",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature scaling",
+  "kind": "concept",
+  "q": "Which algorithms does the deck say min-max scaling is best for?",
+  "choices": [
+   "Neural networks, KNN and SVM",
+   "Decision trees and random forests",
+   "Naive Bayes only",
+   "None; scaling is never needed"
+  ],
+  "why": "Page 18: best for neural networks, KNN and SVM, which are sensitive to the absolute scale of features.",
+  "source": "5.2 p. 18"
+ },
+ {
+  "id": "ch5-042",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature scaling",
+  "kind": "concept",
+  "q": "Which models does the deck pair with standardization?",
+  "choices": [
+   "Linear/logistic regression and PCA",
+   "Decision trees and random forests",
+   "One-hot encoders",
+   "SMOTE and ADASYN"
+  ],
+  "why": "Page 19: best for linear and logistic regression, PCA and models assuming normally distributed inputs.",
+  "source": "5.2 p. 19"
+ },
+ {
+  "id": "ch5-043",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature scaling",
+  "kind": "trap",
+  "q": "Does standardization remove outliers?",
+  "choices": [
+   "No: an extreme value still distorts the mean and σ",
+   "Yes: values beyond ±3 are clipped",
+   "Yes: it maps everything into [0, 1]",
+   "Only if you use the median"
+  ],
+  "why": "Page 19 'watch out for': standardization does not remove outliers.",
+  "source": "5.2 p. 19"
+ },
+ {
+  "id": "ch5-044",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature scaling",
+  "kind": "trap",
+  "q": "In the Titanic notebook, scaling barely changed random-forest accuracy (±0.5%). Why?",
+  "choices": [
+   "Tree-based models are not affected by feature scale",
+   "The scaler was fitted on the test set",
+   "Titanic has no numeric features",
+   "Random forests standardize inside each tree"
+  ],
+  "why": "The notebook's conclusion: normalization doesn't have much effect on RF because it is tree-based.",
+  "source": "titanic_data_preparation.ipynb Conclusion"
+ },
+ {
+  "id": "ch5-045",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Encoding",
+  "kind": "concept",
+  "q": "When is label encoding appropriate?",
+  "choices": [
+   "Ordinal categories with a real order, e.g. small < medium < large",
+   "Nominal categories like city names",
+   "High-cardinality categories with hundreds of values",
+   "Continuous numeric features"
+  ],
+  "why": "Page 21: label encoding is best for ordinal categories. On unordered ones it invents a false numeric relationship.",
+  "source": "5.2 p. 21"
+ },
+ {
+  "id": "ch5-046",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Encoding",
+  "kind": "trap",
+  "q": "Tashkent = 0, Samarkand = 1, Bukhara = 2 fed into a linear model. What's wrong?",
+  "choices": [
+   "It invents a false order: Bukhara looks 'twice' Samarkand",
+   "Nothing: label encoding suits city names",
+   "It creates too many columns",
+   "It leaks the target into the features"
+  ],
+  "why": "Cities are nominal. Page 36 lists label-encoding unordered categories as a common mistake; use one-hot instead.",
+  "source": "5.2 pp. 21, 36"
+ },
+ {
+  "id": "ch5-047",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Encoding",
+  "kind": "calc",
+  "q": "One-hot encoding a 'city' column with 3 values (Tashkent, Samarkand, Bukhara) produces how many columns?",
+  "choices": [
+   "3",
+   "1",
+   "2",
+   "6"
+  ],
+  "why": "Page 21: one binary column per city (Tsh, Smk, Bkh). (pd.get_dummies with drop_first=True, as in the Titanic notebook, would keep 2.)",
+  "source": "5.2 p. 21"
+ },
+ {
+  "id": "ch5-048",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Encoding",
+  "kind": "concept",
+  "q": "When is one-hot encoding the right choice?",
+  "choices": [
+   "Nominal categories with a manageable number of values",
+   "Ordinal categories with a strict order",
+   "Columns with hundreds of categories",
+   "The target column of a regression"
+  ],
+  "why": "Page 21: one-hot for unordered categories with a manageable number of unique values.",
+  "source": "5.2 p. 21"
+ },
+ {
+  "id": "ch5-049",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Encoding",
+  "kind": "concept",
+  "q": "What does target encoding replace each category with?",
+  "choices": [
+   "The mean of the target for that category",
+   "Its position in alphabetical order",
+   "A one-hot binary vector",
+   "A random dense vector"
+  ],
+  "why": "Page 22: each category becomes the target mean, e.g. a city's average salary. Useful for high-cardinality columns.",
+  "source": "5.2 p. 22"
+ },
+ {
+  "id": "ch5-050",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Encoding",
+  "kind": "trap",
+  "q": "Page 22 runs te.fit_transform(df, df['salary']) on the whole dataset. What's the problem?",
+  "choices": [
+   "It leaks the target: fit the encoder on the training split only",
+   "Target encoding only works on numeric columns",
+   "It should use LabelEncoder instead",
+   "Nothing; encoders are always fitted on all data"
+  ],
+  "why": "Fitting on the full data puts test-set target information into the features, breaking the deck's own golden rule on page 34.",
+  "source": "5.2 pp. 22, 34; 5.2 summary"
+ },
+ {
+  "id": "ch5-051",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Encoding",
+  "kind": "concept",
+  "q": "For a very high-cardinality category inside a neural network, the deck's modern approach is:",
+  "choices": [
+   "Entity embeddings learned during training",
+   "Label encoding",
+   "Min-max scaling",
+   "Dropping the column"
+  ],
+  "why": "Page 22: entity embeddings learn a dense vector per category and capture similarity between categories.",
+  "source": "5.2 p. 22"
+ },
+ {
+  "id": "ch5-052",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Encoding",
+  "kind": "concept",
+  "q": "In the Titanic notebook, 'sex' is label-encoded but 'embarked' is one-hot encoded. Why is that fine?",
+  "choices": [
+   "Sex is binary, so 0/1 adds no false order; embarked has 3 unordered values",
+   "Sex is ordinal; embarked is high-cardinality",
+   "Label encoding is always better for text columns",
+   "One-hot is needed only for columns with missing values"
+  ],
+  "why": "With two categories a single 0/1 column carries no fake ordering. 'embarked' has three nominal values, so one-hot.",
+  "source": "titanic_data_preparation.ipynb Stage 2"
+ },
+ {
+  "id": "ch5-053",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Class imbalance & SMOTE",
+  "kind": "calc",
+  "q": "9,980 normal and 20 fraud transactions. A model always predicts 'Normal'. Accuracy?",
+  "choices": [
+   "99.8%",
+   "0.2%",
+   "50%",
+   "100%"
+  ],
+  "why": "9,980/10,000 = 99.8%, yet it catches zero fraud. Accuracy lies on imbalanced data.",
+  "source": "5.2 p. 24"
+ },
+ {
+  "id": "ch5-054",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Class imbalance & SMOTE",
+  "kind": "concept",
+  "q": "Which metrics does the deck recommend for imbalanced problems?",
+  "choices": [
+   "Precision, recall, F1 or PR-AUC",
+   "Accuracy only",
+   "MSE and R²",
+   "Entropy and information gain"
+  ],
+  "why": "Page 24: evaluate with precision, recall, F1 or PR-AUC; standard accuracy rewards ignoring the minority class.",
+  "source": "5.2 p. 24"
+ },
+ {
+  "id": "ch5-055",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Class imbalance & SMOTE",
+  "kind": "concept",
+  "q": "How does SMOTE create a synthetic sample?",
+  "choices": [
+   "Pick a minority point, find its k nearest minority neighbours, interpolate between them",
+   "Duplicate a random minority point exactly",
+   "Delete random majority points until classes match",
+   "Flip, rotate or crop a minority example"
+  ],
+  "why": "Page 25: the four SMOTE steps; the new point is added to the training set.",
+  "source": "5.2 p. 25"
+ },
+ {
+  "id": "ch5-056",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Class imbalance & SMOTE",
+  "kind": "trap",
+  "q": "Where should SMOTE be applied?",
+  "choices": [
+   "Only on the training data",
+   "On the full dataset before splitting",
+   "On the test set only",
+   "On both train and test so they match"
+  ],
+  "why": "Page 25: SMOTE only on TRAINING data; never resample the test set. Page 36 lists SMOTE on the test set as a common mistake.",
+  "source": "5.2 pp. 25, 36"
+ },
+ {
+  "id": "ch5-057",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Class imbalance & SMOTE",
+  "kind": "concept",
+  "q": "Which SMOTE variant focuses new samples near the decision boundary?",
+  "choices": [
+   "Borderline-SMOTE",
+   "ADASYN",
+   "Class weighting",
+   "Mixup"
+  ],
+  "why": "Page 25: Borderline-SMOTE focuses near the boundary; ADASYN generates more for harder-to-learn minority examples.",
+  "source": "5.2 p. 25"
+ },
+ {
+  "id": "ch5-058",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Class imbalance & SMOTE",
+  "kind": "concept",
+  "q": "Which alternative to resampling does the deck mention?",
+  "choices": [
+   "Reweighting the loss, e.g. class_weight='balanced'",
+   "Standardizing the target",
+   "Label encoding the minority class",
+   "Dropping the minority class"
+  ],
+  "why": "Page 25: class weighting / focal loss reweights the loss function instead of resampling.",
+  "source": "5.2 p. 25"
+ },
+ {
+  "id": "ch5-059",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature engineering & selection",
+  "kind": "concept",
+  "q": "Which feature-selection family scores each feature on its own, independent of any model?",
+  "choices": [
+   "Filter methods (e.g. Pearson correlation, chi-square)",
+   "Wrapper methods (e.g. RFE)",
+   "Embedded methods (e.g. LASSO)",
+   "Augmentation methods (e.g. Mixup)"
+  ],
+  "why": "Page 29: filter methods are model-independent: correlation, chi-square, ANOVA F-test, mutual information.",
+  "source": "5.2 p. 29"
+ },
+ {
+  "id": "ch5-060",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature engineering & selection",
+  "kind": "concept",
+  "q": "Recursive Feature Elimination belongs to which family?",
+  "choices": [
+   "Wrapper methods",
+   "Filter methods",
+   "Embedded methods",
+   "Imputation methods"
+  ],
+  "why": "Page 29: wrappers retrain the model repeatedly to test feature subsets: RFE, forward/backward selection, exhaustive search, BORUTA.",
+  "source": "5.2 p. 29"
+ },
+ {
+  "id": "ch5-061",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature engineering & selection",
+  "kind": "concept",
+  "q": "LASSO and random-forest importance belong to which family?",
+  "choices": [
+   "Embedded methods: selection happens inside training",
+   "Filter methods: scored before training",
+   "Wrapper methods: repeated retraining",
+   "Scaling methods"
+  ],
+  "why": "Page 29: embedded methods select features as part of model training.",
+  "source": "5.2 p. 29"
+ },
+ {
+  "id": "ch5-062",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature engineering & selection",
+  "kind": "trap",
+  "q": "Page 29 lists Ridge (L2) as an embedded selection method. Why is that loose?",
+  "choices": [
+   "L2 shrinks weights but never makes them exactly zero; LASSO (L1) does",
+   "Ridge is a filter method, not embedded",
+   "Ridge only works on categorical features",
+   "Ridge removes the most important features first"
+  ],
+  "why": "Only L1 drives coefficients to exactly zero, which is what removes a feature.",
+  "source": "5.2 p. 29; 5.2 summary"
+ },
+ {
+  "id": "ch5-063",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature engineering & selection",
+  "kind": "concept",
+  "q": "Which is a feature-engineering transform the deck uses for a heavily skewed salary column?",
+  "choices": [
+   "log(income)",
+   "One-hot encoding the salary",
+   "SMOTE on salary",
+   "Dropping salary"
+  ],
+  "why": "Page 28: mathematical transforms; log(income) tames a skewed salary distribution.",
+  "source": "5.2 p. 28"
+ },
+ {
+  "id": "ch5-064",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Feature engineering & selection",
+  "kind": "concept",
+  "q": "In the Titanic notebook, family_size is built as:",
+  "choices": [
+   "sibsp + parch + 1",
+   "sibsp × parch",
+   "sibsp + parch",
+   "parch − sibsp + 1"
+  ],
+  "why": "Stage 5: siblings/spouses + parents/children + 1 (the passenger themself).",
+  "source": "titanic_data_preparation.ipynb Stage 5"
+ },
+ {
+  "id": "ch5-065",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Leakage & splitting",
+  "kind": "concept",
+  "q": "What is the deck's golden rule for scalers, encoders and imputers?",
+  "choices": [
+   "Fit on train only, then transform both train and test",
+   "Fit on the full dataset, then split",
+   "Fit on test, transform train",
+   "Fit separately on train and on test"
+  ],
+  "why": "Page 34: any scaler, encoder, imputer or SMOTE call must fit() only on the training set; test gets transform() only.",
+  "source": "5.2 p. 34"
+ },
+ {
+  "id": "ch5-066",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Leakage & splitting",
+  "kind": "trap",
+  "q": "You fit a StandardScaler on the whole dataset before the train/test split. Consequence?",
+  "choices": [
+   "Test information leaks into training; metrics look better than in production",
+   "Nothing; the mean and σ are the same anyway",
+   "The model can no longer be trained",
+   "Only the test set gets scaled"
+  ],
+  "why": "Page 34: fitting on test data leaks information backward; evaluation looks great but the model fails in production.",
+  "source": "5.2 pp. 18, 34"
+ },
+ {
+  "id": "ch5-067",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Leakage & splitting",
+  "kind": "concept",
+  "q": "How should a time series be split into train and test?",
+  "choices": [
+   "Chronologically, without shuffling",
+   "Randomly, with shuffling",
+   "Stratified by the target class",
+   "By SMOTE resampling"
+  ],
+  "why": "Page 34: never shuffle; split chronologically so the model is only tested on data after its training window.",
+  "source": "5.2 pp. 5, 34"
+ },
+ {
+  "id": "ch5-068",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Leakage & splitting",
+  "kind": "concept",
+  "q": "What does a stratified split preserve?",
+  "choices": [
+   "The class ratios in train and test",
+   "The time order of the rows",
+   "The feature means",
+   "The number of features"
+  ],
+  "why": "Page 34: stratified split preserves class ratios in imbalanced data (train_test_split(..., stratify=y)).",
+  "source": "5.2 p. 34"
+ },
+ {
+  "id": "ch5-069",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Leakage & splitting",
+  "kind": "concept",
+  "q": "Which gives a more robust performance estimate than a single train/test split?",
+  "choices": [
+   "k-fold cross-validation",
+   "Fitting on the test set",
+   "SMOTE on the test set",
+   "A larger learning rate"
+  ],
+  "why": "Page 34: k-fold cross-validation gives a more robust performance estimate.",
+  "source": "5.2 p. 34"
+ },
+ {
+  "id": "ch5-070",
+  "chapter": "Week 5 · Data Preparation",
+  "topic": "Leakage & splitting",
+  "kind": "concept",
+  "q": "What does Andrew Ng's 'data-centric AI' advocate?",
+  "choices": [
+   "Improving the data (labels, coverage, noise) instead of only tuning the model",
+   "Always using the largest model available",
+   "Collecting data only from synthetic sources",
+   "Never cleaning the data, letting the model learn the noise"
+  ],
+  "why": "Page 30: systematically improve the data itself: fix mislabeled examples, add edge cases, remove noisy records.",
+  "source": "5.2 p. 30"
+ }
+]

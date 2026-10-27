@@ -1,0 +1,1712 @@
+[
+ {
+  "id": "ch4-001",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "How does the lecture classify a decision tree as a learning method?",
+  "choices": [
+   "Non-parametric supervised learning, for classification and regression",
+   "Parametric supervised learning, for classification only",
+   "Non-parametric unsupervised learning, for clustering",
+   "Parametric supervised learning, for regression only"
+  ],
+  "why": "Slide 6: a decision tree is a non-parametric supervised approach used for both classification and regression.",
+  "source": "4.1 slide 6"
+ },
+ {
+  "id": "ch4-002",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "Which decision-tree algorithm picks splits using entropy?",
+  "choices": [
+   "ID3",
+   "CART",
+   "K-Means",
+   "Naive Bayes"
+  ],
+  "why": "Slide 8: ID3 measures how mixed the data is at a node with entropy. CART uses Gini impurity.",
+  "source": "4.1 slide 8"
+ },
+ {
+  "id": "ch4-003",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "What does C4.5 add over ID3, according to the slides?",
+  "choices": [
+   "It handles missing data and continuous attributes",
+   "It replaces entropy with the Gini impurity",
+   "It grows many trees and takes a majority vote",
+   "It can only produce binary splits on categorical data"
+  ],
+  "why": "Slide 8: C4.5 is an improved ID3 that can handle missing data and continuous attributes.",
+  "source": "4.1 slide 8"
+ },
+ {
+  "id": "ch4-004",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "Which impurity measure does CART use, and which tasks can it do?",
+  "choices": [
+   "Gini impurity; classification and regression",
+   "Entropy; classification only",
+   "Gini impurity; classification only",
+   "Information gain; regression only"
+  ],
+  "why": "Slide 8: CART uses Gini impurity and works for both classification and regression.",
+  "source": "4.1 slide 8"
+ },
+ {
+  "id": "ch4-005",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "What is a leaf (terminal) node?",
+  "choices": [
+   "A node where no further splitting happens; it gives the final outcome",
+   "The first node, where the whole dataset starts to split",
+   "Any node created by splitting the root, holding an intermediate condition",
+   "A node that has been removed by pruning to prevent overfitting"
+  ],
+  "why": "Slide 11: leaf nodes cannot be split further and carry the final classification; they are also called terminal nodes.",
+  "source": "4.1 slide 11"
+ },
+ {
+  "id": "ch4-006",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "What is the root node of a decision tree?",
+  "choices": [
+   "The top node holding the entire dataset, where splitting starts",
+   "The bottom node that outputs the final class label",
+   "The node with the highest entropy after splitting",
+   "A sub-section of the tree, like a sub-graph"
+  ],
+  "why": "Slide 10: the root node is where the entire population starts dividing based on features.",
+  "source": "4.1 slide 10"
+ },
+ {
+  "id": "ch4-007",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "What do the slides call nodes produced by splitting the root that hold intermediate conditions?",
+  "choices": [
+   "Decision nodes",
+   "Leaf nodes",
+   "Terminal nodes",
+   "Support vectors"
+  ],
+  "why": "Slide 10: nodes resulting from splitting root nodes are decision nodes; they represent intermediate decisions.",
+  "source": "4.1 slide 10"
+ },
+ {
+  "id": "ch4-008",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "What is pruning in a decision tree?",
+  "choices": [
+   "Removing nodes to prevent overfitting and simplify the model",
+   "Adding nodes until every leaf is 100% pure",
+   "Choosing the feature with the highest information gain",
+   "Sampling rows with replacement to build several trees"
+  ],
+  "why": "Slide 12: pruning removes or cuts down specific nodes to prevent overfitting and simplify the model.",
+  "source": "4.1 slide 12"
+ },
+ {
+  "id": "ch4-009",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "According to the slides, how do decision trees fight overfitting?",
+  "choices": [
+   "Pruning and setting appropriate stopping criteria",
+   "Feature scaling and one-hot encoding",
+   "Adding more depth until every node is pure",
+   "Using a larger value of the hyperparameter C"
+  ],
+  "why": "Slide 19: trees overfit when they capture noise; pruning and appropriate stopping criteria address this.",
+  "source": "4.1 slide 19"
+ },
+ {
+  "id": "ch4-010",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "In a tree, a node that is divided into sub-nodes is called the ___, and the sub-nodes are ___.",
+  "choices": [
+   "parent node; child nodes",
+   "leaf node; root nodes",
+   "child node; parent nodes",
+   "root node; support nodes"
+  ],
+  "why": "Slide 13: a node divided into sub-nodes is the parent; the sub-nodes emerging from it are the children.",
+  "source": "4.1 slide 13"
+ },
+ {
+  "id": "ch4-011",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "How is a decision tree built, step by step?",
+  "choices": [
+   "Start at the root, ask the best question, split, repeat until leaves",
+   "Start at the leaves and merge nodes until one root remains",
+   "Pick k centroids, assign points, recompute, repeat",
+   "Fit one hyperplane with maximum margin, then add kernels"
+  ],
+  "why": "Slide 15: start at the root, find the feature that best splits the data, branch, and repeat until reaching leaf nodes.",
+  "source": "4.1 slide 15"
+ },
+ {
+  "id": "ch4-012",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "Why may a decision tree not be the globally optimal tree?",
+  "choices": [
+   "It is built top-down and greedily, choosing the best split at each node only",
+   "It uses random subsets of features at every split",
+   "Entropy is always 1 at the root, so the first split is random",
+   "It needs feature scaling and the slides skip that step"
+  ],
+  "why": "Slide 18: trees use a top-down greedy approach maximising IG at the current node, which may not give the globally optimal tree.",
+  "source": "4.1 slide 18"
+ },
+ {
+  "id": "ch4-013",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "trap",
+  "q": "Slide 17 says decision trees 'assume feature independence'. Which model actually makes that assumption?",
+  "choices": [
+   "Naive Bayes",
+   "Decision tree",
+   "Random forest",
+   "Support vector machine"
+  ],
+  "why": "Feature independence is the Naive Bayes assumption. Trees split on one feature at a time and naturally model interactions; even slide 17 admits they work with correlated features.",
+  "source": "4.1 slide 17; 4.1 summary"
+ },
+ {
+  "id": "ch4-014",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "trap",
+  "q": "Slide 20 suggests trees weight features equally 'unless feature scaling' is applied. What is actually true?",
+  "choices": [
+   "Trees are invariant to feature scaling; a threshold split ignores units",
+   "Trees need min-max scaling or the largest feature dominates",
+   "Trees need standardization because entropy uses the mean",
+   "Trees only work after every feature is one-hot encoded"
+  ],
+  "why": "A split like 'income > 50k' picks the same rows whatever the units, so scaling does not change a tree. SVMs and KNN need scaling; trees do not.",
+  "source": "4.1 slide 20; 4.1 summary"
+ },
+ {
+  "id": "ch4-015",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "trap",
+  "q": "Slide 16 says trees 'typically make binary splits', yet the Play-Tennis tree splits Outlook three ways. Which statement reconciles this?",
+  "choices": [
+   "ID3/C4.5 allow multi-way splits; CART (and sklearn) uses binary splits",
+   "The Play-Tennis tree is wrong; Outlook must be split in two",
+   "Multi-way splits are only allowed for numeric features",
+   "All decision-tree algorithms use three-way splits at the root"
+  ],
+  "why": "ID3 splits a categorical attribute into one branch per value (Sunny/Overcast/Rain). CART-style trees, including sklearn's, are binary only.",
+  "source": "4.1 slides 16, 34; 4.1 summary"
+ },
+ {
+  "id": "ch4-016",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "What does the lecture say about decision trees and sample size?",
+  "choices": [
+   "Small datasets may overfit; large ones may give overly complex trees",
+   "Trees need at least 1000 samples or entropy is undefined",
+   "Sample size has no effect because trees are non-parametric",
+   "Large datasets always give shallower, simpler trees"
+  ],
+  "why": "Slide 20: small datasets may lead to overfitting and large datasets to overly complex trees; balance sample size and depth.",
+  "source": "4.1 slide 20"
+ },
+ {
+  "id": "ch4-017",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Decision tree basics",
+  "kind": "concept",
+  "q": "When is a node turned into a leaf during tree building?",
+  "choices": [
+   "When it is pure (100% one class)",
+   "When its entropy equals 1",
+   "When it holds more than half of the data",
+   "When its information gain is negative"
+  ],
+  "why": "Slide 25: we keep splitting, and when the purity is 100% we make it a leaf node.",
+  "source": "4.1 slide 25"
+ },
+ {
+  "id": "ch4-018",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "concept",
+  "q": "What does entropy measure at a decision-tree node?",
+  "choices": [
+   "Impurity: how mixed (random) the class labels are",
+   "The depth of the node from the root",
+   "The distance between the two closest points",
+   "How many features remain unused"
+  ],
+  "why": "Slide 24: entropy measures the impurity of a node, the degree of randomness in the data.",
+  "source": "4.1 slide 24"
+ },
+ {
+  "id": "ch4-019",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "concept",
+  "q": "Which is the entropy formula on slide 22 (two classes)?",
+  "choices": [
+   "E(S) = −p₊ log p₊ − p₋ log p₋",
+   "E(S) = 1 − p₊² − p₋²",
+   "E(S) = p₊ log p₊ + p₋ log p₋",
+   "E(S) = −log(p₊ · p₋)"
+  ],
+  "why": "E(S) = −p(+)log p(+) − p(−)log p(−). The log is base 2 (the slide omits it). 1 − Σp² is Gini, not entropy.",
+  "source": "4.1 slide 22"
+ },
+ {
+  "id": "ch4-020",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "calc",
+  "q": "Entropy of a pure node, e.g. 4 Yes / 0 No?",
+  "choices": [
+   "0",
+   "1",
+   "0.5",
+   "0.940"
+  ],
+  "why": "p₊ = 1, p₋ = 0: −1·log₂1 − 0 = 0. A pure node has no uncertainty.",
+  "source": "4.1 slides 22, 34"
+ },
+ {
+  "id": "ch4-021",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "calc",
+  "q": "Entropy of a 50/50 node, e.g. 3 Yes / 3 No (log base 2)?",
+  "choices": [
+   "1",
+   "0",
+   "0.5",
+   "0.693"
+  ],
+  "why": "−0.5·log₂0.5 − 0.5·log₂0.5 = 0.5 + 0.5 = 1, the maximum for two classes. (0.693 would be the natural-log answer.)",
+  "source": "4.1 slide 22"
+ },
+ {
+  "id": "ch4-022",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "calc",
+  "q": "Play-Tennis root: 9 Yes, 5 No. What is E(S)?",
+  "choices": [
+   "≈ 0.940",
+   "≈ 0.643",
+   "≈ 0.357",
+   "≈ 1.000"
+  ],
+  "why": "−(9/14)log₂(9/14) − (5/14)log₂(5/14) = 0.410 + 0.530 ≈ 0.940. 0.643 and 0.357 are just the class proportions.",
+  "source": "4.1 slides 32, 34"
+ },
+ {
+  "id": "ch4-023",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "calc",
+  "q": "Entropy of a node with 2 Yes / 3 No (e.g. Outlook = Sunny)?",
+  "choices": [
+   "≈ 0.971",
+   "≈ 0.400",
+   "≈ 0.811",
+   "≈ 0.500"
+  ],
+  "why": "−0.4·log₂0.4 − 0.6·log₂0.6 = 0.529 + 0.442 ≈ 0.971. Rain (3 Yes / 2 No) has the same entropy.",
+  "source": "4.1 slides 33, 34"
+ },
+ {
+  "id": "ch4-024",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "calc",
+  "q": "Slide 26: the node has 5 yes / 2 no. Its entropy is closest to:",
+  "choices": [
+   "≈ 0.86",
+   "≈ 0.29",
+   "≈ 0.97",
+   "≈ 0.50"
+  ],
+  "why": "−(5/7)log₂(5/7) − (2/7)log₂(2/7) ≈ 0.347 + 0.516 ≈ 0.86. The slide prints 0.85 because it rounds 2/7 to 0.28.",
+  "source": "4.1 slide 26"
+ },
+ {
+  "id": "ch4-025",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "calc",
+  "q": "Slide 27: the node has 3 yes / 2 no. Its entropy is closest to:",
+  "choices": [
+   "≈ 0.97",
+   "≈ 0.60",
+   "≈ 0.85",
+   "≈ 0.40"
+  ],
+  "why": "−0.6·log₂0.6 − 0.4·log₂0.4 ≈ 0.442 + 0.529 = 0.971. The slide prints 0.966 because it rounds log₂0.6 to −0.73.",
+  "source": "4.1 slide 27"
+ },
+ {
+  "id": "ch4-026",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "concept",
+  "q": "On slides 24–28 the left child is 5 yes / 2 no and the right is 3 yes / 2 no. Which is purer?",
+  "choices": [
+   "Left: lower entropy (≈0.86 vs ≈0.97)",
+   "Right: lower entropy (≈0.86 vs ≈0.97)",
+   "Both equal, since each still has 2 no",
+   "Neither: both have entropy 1"
+  ],
+  "why": "Slide 28: the left node has lower entropy, i.e. more purity, so it is easier to decide there.",
+  "source": "4.1 slides 26–28"
+ },
+ {
+  "id": "ch4-027",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "concept",
+  "q": "Fill in: the higher the entropy, the ___ the purity and the ___ the impurity.",
+  "choices": [
+   "lower; higher",
+   "higher; lower",
+   "higher; higher",
+   "lower; lower"
+  ],
+  "why": "Slide 28: higher entropy means lower purity and higher impurity.",
+  "source": "4.1 slide 28"
+ },
+ {
+  "id": "ch4-028",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "calc",
+  "q": "Entropy of a node with 1 Yes / 3 No?",
+  "choices": [
+   "≈ 0.811",
+   "≈ 0.250",
+   "≈ 0.971",
+   "≈ 0.500"
+  ],
+  "why": "−0.25·log₂0.25 − 0.75·log₂0.75 = 0.5 + 0.311 ≈ 0.811.",
+  "source": "4.1 slide 22 (formula)"
+ },
+ {
+  "id": "ch4-029",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "trap",
+  "q": "Why is the entropy of a 50/50 two-class node exactly 1 and not 0.693?",
+  "choices": [
+   "Decision-tree entropy uses log base 2",
+   "Entropy is divided by the number of classes",
+   "The formula squares the probabilities",
+   "Entropy is rounded up for balanced nodes"
+  ],
+  "why": "With log₂, −2·0.5·log₂0.5 = 1. With natural log you'd get ln 2 ≈ 0.693. The slide omits the base, but its worked numbers use log₂.",
+  "source": "4.1 slides 22, 26; 4.1 summary"
+ },
+ {
+  "id": "ch4-030",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "concept",
+  "q": "Gini impurity (CART) is written in the notes as:",
+  "choices": [
+   "G = 1 − Σ pᵢ²",
+   "G = −Σ pᵢ log₂ pᵢ",
+   "G = Σ pᵢ²",
+   "G = 1 − max pᵢ"
+  ],
+  "why": "The summary gives G = 1 − Σpᵢ²; the slides name Gini (CART) but do not work it through. −Σp log p is entropy.",
+  "source": "4.1 slide 8; 4.1 summary"
+ },
+ {
+  "id": "ch4-031",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Entropy",
+  "kind": "calc",
+  "q": "Gini impurity of a 50/50 two-class node?",
+  "choices": [
+   "0.5",
+   "1",
+   "0",
+   "0.25"
+  ],
+  "why": "1 − (0.5² + 0.5²) = 1 − 0.5 = 0.5. Gini's maximum for two classes is 0.5, while entropy's is 1.",
+  "source": "4.1 summary (G = 1 − Σpᵢ²)"
+ },
+ {
+  "id": "ch4-032",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Information gain",
+  "kind": "concept",
+  "q": "What does information gain tell you?",
+  "choices": [
+   "How much the parent's entropy drops after splitting on a feature",
+   "How pure a single node is, on a 0–1 scale",
+   "How many leaves the final tree will have",
+   "The probability that a test point is classified correctly"
+  ],
+  "why": "Slide 29: information gain tells how much the parent entropy has decreased after splitting with some feature.",
+  "source": "4.1 slide 29"
+ },
+ {
+  "id": "ch4-033",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Information gain",
+  "kind": "concept",
+  "q": "Which formula is information gain IG(S, a)?",
+  "choices": [
+   "E(S) − Σᵥ (|Sᵥ|/|S|)·E(Sᵥ)",
+   "E(S) + Σᵥ (|Sᵥ|/|S|)·E(Sᵥ)",
+   "Σᵥ E(Sᵥ) − E(S)",
+   "E(S) − Σᵥ E(Sᵥ)"
+  ],
+  "why": "Slide 31: parent entropy minus the size-weighted average of child entropies. Forgetting the |Sᵥ|/|S| weights is the classic mistake.",
+  "source": "4.1 slide 31"
+ },
+ {
+  "id": "ch4-034",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Information gain",
+  "kind": "concept",
+  "q": "ID3 chooses which attribute for a node?",
+  "choices": [
+   "The one with the largest information gain",
+   "The one with the largest weighted child entropy",
+   "The one with the most distinct values",
+   "The one with the smallest information gain"
+  ],
+  "why": "Slide 31: IG decides which attribute becomes the decision or root node; the largest drop in entropy wins.",
+  "source": "4.1 slide 31"
+ },
+ {
+  "id": "ch4-035",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Information gain",
+  "kind": "calc",
+  "q": "Parent: 4 Yes / 4 No. A split gives children 4 Yes / 0 No and 0 Yes / 4 No. Information gain?",
+  "choices": [
+   "1",
+   "0",
+   "0.5",
+   "0.811"
+  ],
+  "why": "E(parent) = 1. Both children are pure (E = 0), so the weighted child entropy is 0 and IG = 1 − 0 = 1.",
+  "source": "4.1 slide 31 (formula)"
+ },
+ {
+  "id": "ch4-036",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Information gain",
+  "kind": "calc",
+  "q": "Parent: 4 Yes / 4 No. A split gives two children of 2 Yes / 2 No each. Information gain?",
+  "choices": [
+   "0",
+   "1",
+   "0.5",
+   "0.25"
+  ],
+  "why": "E(parent) = 1 and each child is still 50/50 (E = 1), so the weighted average is 1 and IG = 1 − 1 = 0. A useless split.",
+  "source": "4.1 slide 31 (formula)"
+ },
+ {
+  "id": "ch4-037",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Information gain",
+  "kind": "calc",
+  "q": "Parent: 4 Yes / 4 No. Children: 3 Yes / 1 No and 1 Yes / 3 No. Information gain?",
+  "choices": [
+   "≈ 0.189",
+   "≈ 0.811",
+   "≈ 0.500",
+   "≈ 1.000"
+  ],
+  "why": "Each child has E ≈ 0.811 and holds half the rows, so the weighted entropy is 0.811. IG = 1 − 0.811 ≈ 0.189.",
+  "source": "4.1 slide 31 (formula)"
+ },
+ {
+  "id": "ch4-038",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Information gain",
+  "kind": "trap",
+  "q": "A student computes IG = E(S) − ΣE(Sᵥ) without the |Sᵥ|/|S| weights. What goes wrong?",
+  "choices": [
+   "Child entropies are summed, not averaged, so IG is too small (even negative)",
+   "Nothing; the weights always add up to 1 so they cancel",
+   "IG becomes too large because the weights shrink each term",
+   "The parent entropy is counted twice"
+  ],
+  "why": "With two impure children the unweighted sum can exceed E(S), giving a negative 'gain'. Each child's entropy must be weighted by its share of the rows.",
+  "source": "4.1 slide 31"
+ },
+ {
+  "id": "ch4-039",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Information gain",
+  "kind": "calc",
+  "q": "Slide 24: parent 8 yes / 4 no. What is its entropy?",
+  "choices": [
+   "≈ 0.918",
+   "≈ 0.667",
+   "≈ 0.940",
+   "≈ 1.000"
+  ],
+  "why": "p₊ = 2/3, p₋ = 1/3: −(2/3)log₂(2/3) − (1/3)log₂(1/3) ≈ 0.390 + 0.528 ≈ 0.918.",
+  "source": "4.1 slides 24–25"
+ },
+ {
+  "id": "ch4-040",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "concept",
+  "q": "In the Play-Tennis data (14 days), how many days are Yes and how many are No?",
+  "choices": [
+   "9 Yes, 5 No",
+   "5 Yes, 9 No",
+   "7 Yes, 7 No",
+   "10 Yes, 4 No"
+  ],
+  "why": "Slide 32's table has 9 Yes and 5 No, which is why the root shows Yes=9, No=5.",
+  "source": "4.1 slides 32, 34"
+ },
+ {
+  "id": "ch4-041",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "calc",
+  "q": "Outlook splits the 14 days into Sunny (2Y/3N), Overcast (4Y/0N), Rain (3Y/2N). Weighted child entropy?",
+  "choices": [
+   "≈ 0.694",
+   "≈ 0.971",
+   "≈ 0.247",
+   "≈ 0.940"
+  ],
+  "why": "(5/14)(0.971) + (4/14)(0) + (5/14)(0.971) ≈ 0.347 + 0 + 0.347 ≈ 0.694.",
+  "source": "4.1 slides 33–34"
+ },
+ {
+  "id": "ch4-042",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "calc",
+  "q": "Information gain of Outlook at the Play-Tennis root?",
+  "choices": [
+   "≈ 0.247",
+   "≈ 0.151",
+   "≈ 0.048",
+   "≈ 0.694"
+  ],
+  "why": "IG = 0.940 − 0.694 ≈ 0.247, the largest of the four attributes, so Outlook becomes the root.",
+  "source": "4.1 slide 34; 4.1 summary"
+ },
+ {
+  "id": "ch4-043",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "calc",
+  "q": "Information gain of Humidity at the root (High 3Y/4N, Normal 6Y/1N)?",
+  "choices": [
+   "≈ 0.151",
+   "≈ 0.247",
+   "≈ 0.048",
+   "≈ 0.029"
+  ],
+  "why": "E(High) ≈ 0.985, E(Normal) ≈ 0.592; weighted = 0.5·0.985 + 0.5·0.592 ≈ 0.789. IG = 0.940 − 0.789 ≈ 0.151.",
+  "source": "4.1 slide 32; 4.1 summary"
+ },
+ {
+  "id": "ch4-044",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "calc",
+  "q": "Information gain of Wind at the root (Weak 6Y/2N, Strong 3Y/3N)?",
+  "choices": [
+   "≈ 0.048",
+   "≈ 0.151",
+   "≈ 0.247",
+   "≈ 0.892"
+  ],
+  "why": "E(Weak) ≈ 0.811, E(Strong) = 1; weighted = (8/14)(0.811) + (6/14)(1) ≈ 0.892. IG = 0.940 − 0.892 ≈ 0.048.",
+  "source": "4.1 slide 32; 4.1 summary"
+ },
+ {
+  "id": "ch4-045",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "concept",
+  "q": "Rank the root information gains in Play Tennis, highest first.",
+  "choices": [
+   "Outlook > Humidity > Wind > Temp",
+   "Humidity > Outlook > Temp > Wind",
+   "Outlook > Wind > Humidity > Temp",
+   "Temp > Outlook > Humidity > Wind"
+  ],
+  "why": "Outlook ≈ 0.247, Humidity ≈ 0.151, Wind ≈ 0.048, Temp ≈ 0.029.",
+  "source": "4.1 slide 32 (data); 4.1 summary"
+ },
+ {
+  "id": "ch4-046",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "concept",
+  "q": "Why is Overcast a leaf right after the first split?",
+  "choices": [
+   "All 4 Overcast days are Yes, so its entropy is 0",
+   "Overcast has the most days of the three branches",
+   "Overcast has the highest information gain",
+   "Temperature is always Hot on overcast days"
+  ],
+  "why": "Overcast → 4 Yes / 0 No is pure (E = 0), so it becomes the leaf 'Yes'.",
+  "source": "4.1 slide 34"
+ },
+ {
+  "id": "ch4-047",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "concept",
+  "q": "Which attribute splits the Sunny branch (2 Yes / 3 No) in the slide-34 tree?",
+  "choices": [
+   "Humidity",
+   "Wind",
+   "Temperature",
+   "Outlook again"
+  ],
+  "why": "Sunny splits on Humidity: High → 0Y/3N (No), Normal → 2Y/0N (Yes). Both children are pure.",
+  "source": "4.1 slides 33–34"
+ },
+ {
+  "id": "ch4-048",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "concept",
+  "q": "Which attribute splits the Rain branch (3 Yes / 2 No) in the slide-34 tree?",
+  "choices": [
+   "Wind",
+   "Humidity",
+   "Temperature",
+   "Outlook again"
+  ],
+  "why": "Rain splits on Wind: Strong → 0Y/2N (No), Weak → 3Y/0N (Yes).",
+  "source": "4.1 slides 33–34"
+ },
+ {
+  "id": "ch4-049",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "calc",
+  "q": "In the Sunny branch, what is the information gain of Humidity?",
+  "choices": [
+   "≈ 0.971",
+   "≈ 0.571",
+   "≈ 0.020",
+   "≈ 0.151"
+  ],
+  "why": "E(Sunny) ≈ 0.971 and Humidity makes both children pure (High 0/3, Normal 2/0), so IG = 0.971 − 0 = 0.971, the maximum possible here.",
+  "source": "4.1 slides 33–34"
+ },
+ {
+  "id": "ch4-050",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "calc",
+  "q": "Slide 34: X_test = {Outlook: Sunny, Humidity: High, Temp: Hot, Wind: Weak}. Prediction?",
+  "choices": [
+   "No",
+   "Yes",
+   "Cannot tell, Temp is not in the tree",
+   "Yes, because Wind is Weak"
+  ],
+  "why": "Sunny → Humidity; High → leaf 0 Yes / 3 No → No. Wind is only tested in the Rain branch, and Temp never appears.",
+  "source": "4.1 slide 34"
+ },
+ {
+  "id": "ch4-051",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "calc",
+  "q": "Using the slide-34 tree, classify {Outlook: Rain, Humidity: High, Temp: Mild, Wind: Weak}.",
+  "choices": [
+   "Yes",
+   "No",
+   "Cannot tell, Humidity is High",
+   "No, because Temp is Mild"
+  ],
+  "why": "Rain → Wind; Weak → 3 Yes / 0 No → Yes. Humidity is only tested under Sunny.",
+  "source": "4.1 slide 34"
+ },
+ {
+  "id": "ch4-052",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "trap",
+  "q": "Which Play-Tennis attribute never appears in the final slide-34 tree?",
+  "choices": [
+   "Temperature",
+   "Humidity",
+   "Wind",
+   "Outlook"
+  ],
+  "why": "The tree uses Outlook, Humidity (under Sunny) and Wind (under Rain). Temp has the lowest gain and is never needed.",
+  "source": "4.1 slide 34"
+ },
+ {
+  "id": "ch4-053",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Play-Tennis worked example",
+  "kind": "concept",
+  "q": "Slide 33 lists two subsets of rows. What are they?",
+  "choices": [
+   "The 5 Sunny days and the 5 Rain days, split next",
+   "The training set and the test set",
+   "The Yes days and the No days",
+   "Two bootstrap samples for a random forest"
+  ],
+  "why": "Slide 33: the Sunny rows (D1, D2, D8, D9, D11) for the left node and the Rain rows (D4, D5, D6, D10, D14) for the right node.",
+  "source": "4.1 slide 33"
+ },
+ {
+  "id": "ch4-054",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Random forest",
+  "kind": "concept",
+  "q": "What is a random forest?",
+  "choices": [
+   "An ensemble of many decision trees whose predictions are combined",
+   "One very deep decision tree grown without pruning",
+   "A decision tree that splits on random thresholds",
+   "A kernel SVM that uses trees as its kernel"
+  ],
+  "why": "Slide 37: many decision trees, each seeing random parts of the data, combined by voting or averaging — an ensemble technique.",
+  "source": "4.1 slide 37"
+ },
+ {
+  "id": "ch4-055",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Random forest",
+  "kind": "concept",
+  "q": "How does a random forest combine its trees' outputs?",
+  "choices": [
+   "Majority vote for classification, average for regression",
+   "Average for classification, majority vote for regression",
+   "It keeps only the tree with the highest accuracy",
+   "It multiplies the trees' probabilities together"
+  ],
+  "why": "Slide 40: classification uses majority voting; regression averages the trees' predictions.",
+  "source": "4.1 slide 40"
+ },
+ {
+  "id": "ch4-056",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Random forest",
+  "kind": "concept",
+  "q": "What is a bootstrapped dataset?",
+  "choices": [
+   "Rows sampled with replacement from the original, same size",
+   "Rows sampled without replacement, half the original size",
+   "The original rows sorted by the target label",
+   "The original rows with every feature standardized"
+  ],
+  "why": "Slide 42: each bootstrapped dataset is drawn from the original with replacement, so some rows repeat (e.g. D5 twice) and some are missing.",
+  "source": "4.1 slides 41–42"
+ },
+ {
+  "id": "ch4-057",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Random forest",
+  "kind": "concept",
+  "q": "In bootstrapped dataset 1, D5 and D7 appear twice while D4 and D11 are missing. Why?",
+  "choices": [
+   "Rows are sampled with replacement",
+   "Duplicates were added to fix class imbalance",
+   "D4 and D11 were outliers removed by IQR",
+   "The table has a copy-paste error"
+  ],
+  "why": "Sampling with replacement naturally repeats some rows and leaves others out.",
+  "source": "4.1 slide 42"
+ },
+ {
+  "id": "ch4-058",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Random forest",
+  "kind": "concept",
+  "q": "Besides random rows, what second kind of randomness does a random forest use?",
+  "choices": [
+   "Each split looks at only a random subset of features",
+   "Each tree uses a random entropy formula",
+   "Each tree gets random class labels",
+   "Each tree is pruned to a random depth"
+  ],
+  "why": "Slide 39: when building each tree it picks a few features at random to decide splits, which keeps the trees different.",
+  "source": "4.1 slide 39"
+ },
+ {
+  "id": "ch4-059",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Random forest",
+  "kind": "concept",
+  "q": "In the slide-42 example, which column is blanked out in bootstrapped dataset 1?",
+  "choices": [
+   "Temp",
+   "Wind",
+   "Outlook",
+   "PlayTennis"
+  ],
+  "why": "Dataset 1 hides Temp (and dataset 3 hides Wind): a picture of feature randomness. Tree 1 therefore uses only Outlook, Humidity and Wind.",
+  "source": "4.1 slides 42–43"
+ },
+ {
+  "id": "ch4-060",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Random forest",
+  "kind": "concept",
+  "q": "Why does a random forest overfit less than a single deep tree?",
+  "choices": [
+   "Random rows and features make diverse trees, and combining them cancels errors",
+   "Each tree is trained on the full dataset with all features",
+   "It uses a soft margin with a penalty parameter C",
+   "It removes all outliers before building each tree"
+  ],
+  "why": "Slide 40: random data and features for each tree help avoid overfitting; combining diverse trees gives a more accurate, trustworthy prediction.",
+  "source": "4.1 slide 40"
+ },
+ {
+  "id": "ch4-061",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Random forest",
+  "kind": "calc",
+  "q": "Slide 46: x = {Sunny, Cool, High humidity, Strong wind}. Trees 1, 2, 3 all say No. Forest output?",
+  "choices": [
+   "No",
+   "Yes",
+   "A tie, so no prediction",
+   "The average, 0.5"
+  ],
+  "why": "Majority vote of three No's is No.",
+  "source": "4.1 slide 46"
+ },
+ {
+  "id": "ch4-062",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Random forest",
+  "kind": "calc",
+  "q": "Three trees vote Yes, No, Yes for a test point. What does a random-forest classifier output?",
+  "choices": [
+   "Yes",
+   "No",
+   "0.67",
+   "Tree 1's answer only"
+  ],
+  "why": "Majority voting: 2 of 3 trees say Yes.",
+  "source": "4.1 slide 40"
+ },
+ {
+  "id": "ch4-063",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Random forest",
+  "kind": "calc",
+  "q": "Slide 44, bootstrapped dataset 2: under Temp = Mild, the High-humidity rows are D4 Yes, D8 No, D8 No, D12 Yes, D14 No. Counts?",
+  "choices": [
+   "2 Yes / 3 No",
+   "3 Yes / 2 No",
+   "3 Yes / 3 No",
+   "1 Yes / 4 No"
+  ],
+  "why": "Count them: Yes = D4, D12; No = D8, D8, D14. The slide's tree prints Yes=3, No=2 for this node, which is a typo (the parent Mild node, 3Y/3N, only adds up with 2Y/3N + 1Y/0N).",
+  "source": "4.1 slide 44"
+ },
+ {
+  "id": "ch4-064",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Random forest",
+  "kind": "concept",
+  "q": "Which is NOT listed as a key feature of random forest?",
+  "choices": [
+   "It needs every feature to be scaled to [0, 1] first",
+   "It shows feature importance",
+   "It works for both classification and regression",
+   "It handles big and complex data"
+  ],
+  "why": "Slide 48 lists: handles missing data, shows feature importance, works with big/complex data, used for different tasks. Scaling is not needed for trees.",
+  "source": "4.1 slide 48"
+ },
+ {
+  "id": "ch4-065",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Random forest",
+  "kind": "concept",
+  "q": "Which is an assumption of random forest listed on slide 50?",
+  "choices": [
+   "Enough data is needed so the trees differ and learn varied patterns",
+   "All features must be independent given the class",
+   "The data must be linearly separable",
+   "The classes must be perfectly balanced"
+  ],
+  "why": "Slide 50: each tree decides on its own, random parts of data are used, enough data is needed, and different predictions improve accuracy.",
+  "source": "4.1 slide 50"
+ },
+ {
+  "id": "ch4-066",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Random forest",
+  "kind": "trap",
+  "q": "Slide 48 says random forest 'handles missing data'. What's the caveat from the notes?",
+  "choices": [
+   "True for C4.5-style trees; classic sklearn random forests needed imputation",
+   "False: random forests delete every row with a missing value",
+   "Only true if the missing values are MNAR",
+   "Only true for regression, never for classification"
+  ],
+  "why": "The summary notes that sklearn's RandomForestClassifier needed imputation until v1.4, so don't take the slide literally for sklearn.",
+  "source": "4.1 slide 48; 4.1 summary"
+ },
+ {
+  "id": "ch4-067",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "Main difference between logistic regression and SVM, per the lecture?",
+  "choices": [
+   "LR is probabilistic; SVM is a geometric, margin-based approach",
+   "LR is geometric; SVM is a probabilistic approach",
+   "LR is unsupervised; SVM is supervised",
+   "LR uses kernels; SVM cannot use kernels"
+  ],
+  "why": "Slide 4: both find a hyperplane, but LR is probabilistic while SVM is geometric and margin-based.",
+  "source": "4.2 slide 4"
+ },
+ {
+  "id": "ch4-068",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "Among all hyperplanes that separate the classes, which does SVM pick?",
+  "choices": [
+   "The one with the maximum margin to the nearest points of both classes",
+   "The one passing through the class means",
+   "The one that minimises the sum of squared errors",
+   "The first one found by gradient descent"
+  ],
+  "why": "Slides 4 and 13: SVM picks the hyperplane with the maximum distance from both classes.",
+  "source": "4.2 slides 4, 13"
+ },
+ {
+  "id": "ch4-069",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "What does the lecture advise trying first on a new classification problem?",
+  "choices": [
+   "Logistic regression, then an SVM without a kernel",
+   "An RBF-kernel SVM, then logistic regression",
+   "A random forest, then a sigmoid-kernel SVM",
+   "A polynomial-kernel SVM of degree 5"
+  ],
+  "why": "Slide 5: first try logistic regression; if accuracy is poor, try SVM without any kernel. The two perform similarly.",
+  "source": "4.2 slide 5"
+ },
+ {
+  "id": "ch4-070",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "What are support vectors?",
+  "choices": [
+   "The training points closest to the hyperplane, which define it",
+   "The vectors w and b that describe the hyperplane",
+   "All misclassified training points",
+   "The points farthest from the decision boundary"
+  ],
+  "why": "Slide 9: support vectors are the points closest to the hyperplane; the separating line is defined with their help.",
+  "source": "4.2 slide 9"
+ },
+ {
+  "id": "ch4-071",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "Which points does the SVM decision boundary depend on, versus logistic regression?",
+  "choices": [
+   "SVM: only the support vectors; LR: all the points",
+   "SVM: all the points; LR: only the support vectors",
+   "Both use only the points closest to the boundary",
+   "Both use only the misclassified points"
+  ],
+  "why": "Slide 11: SVM is defined by the support vectors only; logistic regression's classifier is defined over all points.",
+  "source": "4.2 slide 11"
+ },
+ {
+  "id": "ch4-072",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "When does the lecture say a plain linear SVM can be used?",
+  "choices": [
+   "When the data is perfectly linearly separable",
+   "When the data forms concentric circles",
+   "Only when there are more than 2 features",
+   "Only when the classes are imbalanced"
+  ],
+  "why": "Slide 7: linear SVM when data is perfectly linearly separable; otherwise non-linear SVM with the kernel trick.",
+  "source": "4.2 slide 7"
+ },
+ {
+  "id": "ch4-073",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "What is the margin in an SVM?",
+  "choices": [
+   "The distance between the hyperplane and the closest points (support vectors)",
+   "The number of misclassified training points",
+   "The angle between w and the x-axis",
+   "The value of the bias b"
+  ],
+  "why": "Slide 9: the margin is the distance between the hyperplane and the observations closest to it; a large margin is considered good.",
+  "source": "4.2 slide 9"
+ },
+ {
+  "id": "ch4-074",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "What is the equation of the SVM hyperplane and what is w?",
+  "choices": [
+   "w·x + b = 0; w is normal (perpendicular) to the hyperplane",
+   "w·x + b = 1; w lies along the hyperplane",
+   "w·x − b = 2; w is the margin width",
+   "w·x = 0; w is a support vector"
+  ],
+  "why": "Slide 24: hyperplane w·x + b = 0, where w is a vector normal to the hyperplane and b is an offset.",
+  "source": "4.2 slide 24"
+ },
+ {
+  "id": "ch4-075",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "With w perpendicular to the boundary at distance c, a point X is classified positive when:",
+  "choices": [
+   "X·w > c",
+   "X·w = c",
+   "X·w < c",
+   "X·w = 0"
+  ],
+  "why": "Slide 21: X·w = c on the boundary, > c positive, < c negative. Replacing −c by b gives the w·x + b ≥ 0 rule.",
+  "source": "4.2 slides 21, 25"
+ },
+ {
+  "id": "ch4-076",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "The SVM decision rule from slide 25 is:",
+  "choices": [
+   "y = +1 if w·x + b ≥ 0, otherwise −1",
+   "y = +1 if w·x + b ≥ 1, otherwise 0",
+   "y = +1 if w·x ≥ b, otherwise +1",
+   "y = sigmoid(w·x + b) rounded"
+  ],
+  "why": "Slide 25: putting −c as b, predict +1 if X·w + b ≥ 0 and −1 if X·w + b < 0.",
+  "source": "4.2 slide 25"
+ },
+ {
+  "id": "ch4-077",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "calc",
+  "q": "w = (2, −1), b = −1. Classify x = (2, 1) with the SVM decision rule.",
+  "choices": [
+   "+1 (w·x + b = 2)",
+   "−1 (w·x + b = −2)",
+   "+1 (w·x + b = 0)",
+   "On the boundary"
+  ],
+  "why": "w·x = 4 − 1 = 3; 3 + (−1) = 2 ≥ 0 → +1. In fact 2 ≥ 1, so it also sits outside the margin.",
+  "source": "4.2 slide 25"
+ },
+ {
+  "id": "ch4-078",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "In the derivation, the two margin lines L1 and L2 are:",
+  "choices": [
+   "w·x + b = +1 and w·x + b = −1",
+   "w·x + b = 0 and w·x + b = 1",
+   "w·x = +b and w·x = −b",
+   "w·x + b = +2 and w·x + b = −2"
+  ],
+  "why": "Slide 26: assume L1 is w·x + b = 1 and L2 is w·x + b = −1; the hyperplane w·x + b = 0 sits between them.",
+  "source": "4.2 slide 26"
+ },
+ {
+  "id": "ch4-079",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "The two hard-margin constraints are combined into one. Which?",
+  "choices": [
+   "yᵢ(w·xᵢ + b) ≥ 1",
+   "yᵢ(w·xᵢ + b) ≤ −1",
+   "w·xᵢ + b ≥ yᵢ",
+   "yᵢ(w·xᵢ + b) = 0"
+  ],
+  "why": "Slides 28–29: green points need w·x + b ≥ 1, red points ≤ −1. With y = ±1 both become yᵢ(w·xᵢ + b) ≥ 1.",
+  "source": "4.2 slides 28–29"
+ },
+ {
+  "id": "ch4-080",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "calc",
+  "q": "A point has y = −1 and w·x + b = −0.5. Does it meet the hard-margin constraint?",
+  "choices": [
+   "No: y(w·x + b) = 0.5 < 1, it is inside the margin",
+   "Yes: it is on the correct (negative) side",
+   "No: it is misclassified on the positive side",
+   "Yes: y(w·x + b) = 0.5 ≥ 0"
+  ],
+  "why": "−1 × −0.5 = 0.5. It is correctly classified (negative side) but inside the margin, so the constraint ≥ 1 fails.",
+  "source": "4.2 slide 29"
+ },
+ {
+  "id": "ch4-081",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "What is the SVM margin width d in terms of w?",
+  "choices": [
+   "2 / ‖w‖",
+   "1 / ‖w‖",
+   "‖w‖ / 2",
+   "2‖w‖"
+  ],
+  "why": "Slide 35: projecting (x₂ − x₁) on w/‖w‖ and using w·x = ±1 − b gives d = 2/‖w‖.",
+  "source": "4.2 slide 35"
+ },
+ {
+  "id": "ch4-082",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "calc",
+  "q": "If w = (3, 4), what is the margin width 2/‖w‖?",
+  "choices": [
+   "0.4",
+   "0.2",
+   "2.5",
+   "10"
+  ],
+  "why": "‖w‖ = √(9 + 16) = 5, so d = 2/5 = 0.4.",
+  "source": "4.2 slide 35"
+ },
+ {
+  "id": "ch4-083",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "Why is maximising 2/‖w‖ written as minimising ½‖w‖²?",
+  "choices": [
+   "Both are smallest-‖w‖ problems; the squared form is easier to minimise",
+   "Because ½‖w‖² equals the number of support vectors",
+   "Because the margin must be negative for minimisation",
+   "They are different problems; slide 36 is a mistake"
+  ],
+  "why": "Maximising 2/‖w‖ means making ‖w‖ small; minimising ½‖w‖² does the same and is a smooth cost. Slide 39 also notes max f = min 1/f.",
+  "source": "4.2 slides 36, 39"
+ },
+ {
+  "id": "ch4-084",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "Why do we divide w by ‖w‖ when projecting (x₂ − x₁) onto it?",
+  "choices": [
+   "A projection needs a unit vector so only the direction counts",
+   "To make the margin equal to 1",
+   "To turn the dot product into a cross product",
+   "To guarantee w passes through the origin"
+  ],
+  "why": "Slides 18 and 32: to get just the projection, use the unit vector of w (magnitude 1), i.e. w/‖w‖.",
+  "source": "4.2 slides 18, 32"
+ },
+ {
+  "id": "ch4-085",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "Why does the SVM derivation use a vector w perpendicular to the boundary?",
+  "choices": [
+   "It gives one standard direction to project every point and compare distances",
+   "Because w must always be the largest support vector",
+   "Because the boundary passes through the origin",
+   "So that the dot product returns a vector, not a scalar"
+  ],
+  "why": "Slide 22: there are infinitely many points on the boundary to measure from, so we take the perpendicular as a reference and project all points on it.",
+  "source": "4.2 slide 22"
+ },
+ {
+  "id": "ch4-086",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "SVM margin & support vectors",
+  "kind": "concept",
+  "q": "What does the dot product of two vectors return?",
+  "choices": [
+   "A scalar: |A||B|cos θ",
+   "A vector perpendicular to both",
+   "A unit vector along A",
+   "The angle θ between them"
+  ],
+  "why": "Slides 15–17: the dot product gives a scalar, A·B = |A||B|cos θ; the cross product gives a vector.",
+  "source": "4.2 slides 15–17"
+ },
+ {
+  "id": "ch4-087",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Soft margin, hinge loss & C",
+  "kind": "concept",
+  "q": "What is the hard-margin SVM's big limitation?",
+  "choices": [
+   "It only works when the data is perfectly linearly separable",
+   "It cannot be written as an optimisation problem",
+   "It always uses an RBF kernel",
+   "It ignores the support vectors"
+  ],
+  "why": "Slide 37: real data is hardly ever perfectly separable, so the hard-margin condition fails; soft margin fixes this.",
+  "source": "4.2 slide 37"
+ },
+ {
+  "id": "ch4-088",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Soft margin, hinge loss & C",
+  "kind": "concept",
+  "q": "What does a soft-margin SVM change?",
+  "choices": [
+   "It allows a few misclassifications, paying a penalty for each",
+   "It forces every point to lie exactly on the margin lines",
+   "It removes the bias term b",
+   "It maximises ‖w‖ instead of minimising it"
+  ],
+  "why": "Slide 39: modify the objective so that it allows a few points to be wrongly classified.",
+  "source": "4.2 slide 39"
+ },
+ {
+  "id": "ch4-089",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Soft margin, hinge loss & C",
+  "kind": "concept",
+  "q": "The soft-margin objective on slide 40 is:",
+  "choices": [
+   "J = ½‖w‖² + C Σ max(0, 1 − yᵢ(wᵀxᵢ + b))",
+   "J = ½‖w‖² − C Σ max(0, 1 − yᵢ(wᵀxᵢ + b))",
+   "J = C‖w‖² + Σ (yᵢ − wᵀxᵢ − b)²",
+   "J = ½‖w‖² + C Σ log(1 + e^(−yᵢ(wᵀxᵢ + b)))"
+  ],
+  "why": "Slide 40: the margin term plus C times the sum of hinge losses. The log term would be logistic loss.",
+  "source": "4.2 slide 40"
+ },
+ {
+  "id": "ch4-090",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Soft margin, hinge loss & C",
+  "kind": "calc",
+  "q": "Hinge loss max(0, 1 − y·f(x)) for y = +1 and f(x) = 0.5?",
+  "choices": [
+   "0.5",
+   "0",
+   "1.5",
+   "1"
+  ],
+  "why": "1 − 1·0.5 = 0.5 > 0. Correct side but inside the margin, so it pays a small penalty.",
+  "source": "4.2 slide 40"
+ },
+ {
+  "id": "ch4-091",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Soft margin, hinge loss & C",
+  "kind": "calc",
+  "q": "Hinge loss for y = +1 and f(x) = 2?",
+  "choices": [
+   "0",
+   "1",
+   "−1",
+   "2"
+  ],
+  "why": "1 − 2 = −1, and max(0, −1) = 0. Outside the margin on the correct side costs nothing.",
+  "source": "4.2 slide 40"
+ },
+ {
+  "id": "ch4-092",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Soft margin, hinge loss & C",
+  "kind": "calc",
+  "q": "Hinge loss for y = −1 and f(x) = 0.5?",
+  "choices": [
+   "1.5",
+   "0.5",
+   "0",
+   "−0.5"
+  ],
+  "why": "1 − (−1)(0.5) = 1.5. The point is on the wrong side, so the loss is above 1.",
+  "source": "4.2 slide 40"
+ },
+ {
+  "id": "ch4-093",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Soft margin, hinge loss & C",
+  "kind": "concept",
+  "q": "What is zeta (ζᵢ) for a correctly classified point outside the margin?",
+  "choices": [
+   "0",
+   "1",
+   "C",
+   "Its distance to the hyperplane"
+  ],
+  "why": "Slide 42: for correctly classified points zeta = 0; for wrongly classified ones it is the distance from the correct margin line.",
+  "source": "4.2 slide 42"
+ },
+ {
+  "id": "ch4-094",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Soft margin, hinge loss & C",
+  "kind": "concept",
+  "q": "Large C in a soft-margin SVM leads to:",
+  "choices": [
+   "Smaller margin, fewer training misclassifications, risk of overfitting",
+   "Wider margin, more violations, smoother boundary",
+   "No change; C only affects training speed",
+   "A hard limit on the number of support vectors"
+  ],
+  "why": "Slide 41: large C penalises violations strongly → smaller margin, fewer misclassifications. The notebook adds the overfitting risk.",
+  "source": "4.2 slide 41; kernel_svm_from_scratch.ipynb §6c"
+ },
+ {
+  "id": "ch4-095",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Soft margin, hinge loss & C",
+  "kind": "concept",
+  "q": "Small C in a soft-margin SVM leads to:",
+  "choices": [
+   "Wider margin, more violations allowed, smoother boundary",
+   "Narrower margin, fewer violations, wigglier boundary",
+   "A hard-margin SVM",
+   "An error unless the data is linearly separable"
+  ],
+  "why": "Slide 41: small C allows more violations → wider margin. The notebook: small C gives a smoother boundary, more tolerant of noise.",
+  "source": "4.2 slide 41; kernel_svm_from_scratch.ipynb §6c"
+ },
+ {
+  "id": "ch4-096",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Soft margin, hinge loss & C",
+  "kind": "trap",
+  "q": "As C → ∞, the soft-margin SVM behaves like:",
+  "choices": [
+   "A hard-margin SVM (no violations tolerated)",
+   "A logistic regression",
+   "A model with the widest possible margin",
+   "A random forest of linear stumps"
+  ],
+  "why": "Infinite C makes any hinge loss infinitely expensive, so the solution must satisfy yᵢ(w·xᵢ + b) ≥ 1 for all points.",
+  "source": "4.2 slides 36, 41"
+ },
+ {
+  "id": "ch4-097",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Soft margin, hinge loss & C",
+  "kind": "concept",
+  "q": "In the from-scratch SVM notebook, why are labels converted from {0, 1} to {−1, +1}?",
+  "choices": [
+   "The hinge loss and constraint yᵢ(w·xᵢ + b) ≥ 1 need y = ±1",
+   "sklearn crashes on zero labels",
+   "To balance the two classes",
+   "So the accuracy score can be computed"
+  ],
+  "why": "The notebook comment: converting to {−1, +1} is required for SVM hinge loss; the derivation assumes y = −1 and +1.",
+  "source": "SVM.ipynb (from scratch); 4.2 slide 29"
+ },
+ {
+  "id": "ch4-098",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Soft margin, hinge loss & C",
+  "kind": "trap",
+  "q": "Slide 49 claims 'SVM is not sensitive to outliers'. What's the fair correction?",
+  "choices": [
+   "Hard-margin SVM is very sensitive; soft margin with moderate C is more robust",
+   "It is true for every SVM regardless of C",
+   "SVMs are only sensitive to outliers in the test set",
+   "Only kernel SVMs are sensitive; linear SVMs never are"
+  ],
+  "why": "A single outlier can become a support vector or make the hard-margin problem infeasible. The soft margin limits its influence.",
+  "source": "4.2 slide 49; 4.2 summary"
+ },
+ {
+  "id": "ch4-099",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "concept",
+  "q": "What does the kernel trick do?",
+  "choices": [
+   "Computes K(x, x') = φ(x)·φ(x') without ever building φ(x)",
+   "Removes features until the data is linearly separable",
+   "Replaces the hinge loss with squared error",
+   "Shrinks the data into a lower-dimensional space"
+  ],
+  "why": "Slide 45: map to a higher-dimensional space where a hyperplane works; the kernel returns the dot product there directly (notebook §2).",
+  "source": "4.2 slides 44–45; kernel_svm_from_scratch.ipynb §2"
+ },
+ {
+  "id": "ch4-100",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "concept",
+  "q": "Slide 44 shows inner green points ringed by red crosses. Why use a kernel here?",
+  "choices": [
+   "No straight line can separate them, but a higher-dimensional mapping can",
+   "There are too many points for a linear SVM",
+   "The classes are imbalanced",
+   "The features need standardizing first"
+  ],
+  "why": "Slide 45: we cannot draw a single line, so convert the lower-dimensional space into a higher one where a decision boundary divides the points.",
+  "source": "4.2 slides 44–45"
+ },
+ {
+  "id": "ch4-101",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "concept",
+  "q": "How is the kernel chosen, according to slide 45?",
+  "choices": [
+   "By hyperparameter tuning",
+   "Always RBF by definition",
+   "By the number of support vectors",
+   "By the class balance"
+  ],
+  "why": "Slide 45: which kernel to use is purely determined by hyperparameter tuning (e.g. a grid search over C and γ).",
+  "source": "4.2 slide 45"
+ },
+ {
+  "id": "ch4-102",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "concept",
+  "q": "Polynomial kernel formula on slide 47 and the role of d?",
+  "choices": [
+   "(x₁ᵀx₂ + 1)^d; d is the degree, set manually",
+   "exp(−d‖x₁ − x₂‖²); d is the width",
+   "tanh(d·x₁ᵀx₂ + 1); d is the slope",
+   "(x₁ᵀx₂)/d; d normalises the dot product"
+  ],
+  "why": "Slide 47: f(X1, X2) = (X1ᵀX2 + 1)^d, where d is the polynomial degree specified manually.",
+  "source": "4.2 slide 47"
+ },
+ {
+  "id": "ch4-103",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "calc",
+  "q": "x = (1, 2), z = (3, −1). Compute the polynomial kernel (xᵀz + 1)².",
+  "choices": [
+   "4",
+   "1",
+   "16",
+   "9"
+  ],
+  "why": "xᵀz = 3 − 2 = 1; (1 + 1)² = 4.",
+  "source": "4.2 slide 47"
+ },
+ {
+  "id": "ch4-104",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "calc",
+  "q": "x = (1, 2), z = (3, −1). Compute (xᵀz)² and the explicit φ(x)·φ(z) with φ(x) = (x₁², √2x₁x₂, x₂²).",
+  "choices": [
+   "Both equal 1",
+   "4 and 1",
+   "Both equal 4",
+   "1 and 9"
+  ],
+  "why": "xᵀz = 1, so (xᵀz)² = 1. φ(x) = (1, 2√2, 4), φ(z) = (9, −3√2, 1): 9 − 12 + 4 = 1. Same number, no φ needed: the kernel trick.",
+  "source": "kernel_svm_from_scratch.ipynb §3a"
+ },
+ {
+  "id": "ch4-105",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "concept",
+  "q": "The RBF (Gaussian) kernel is:",
+  "choices": [
+   "exp(−γ‖x − x'‖²)",
+   "(γ x·x' + r)^d",
+   "tanh(γ x·x' + r)",
+   "x·x'"
+  ],
+  "why": "RBF only appears as a figure in the slides; the notebook gives K(x, z) = exp(−γ‖x − z‖²).",
+  "source": "kernel_svm_from_scratch.ipynb §3b; 4.2 summary"
+ },
+ {
+  "id": "ch4-106",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "calc",
+  "q": "RBF kernel value K(x, x) for any point x (with itself)?",
+  "choices": [
+   "1",
+   "0",
+   "γ",
+   "Depends on ‖x‖"
+  ],
+  "why": "‖x − x‖² = 0 and exp(0) = 1. Similarity is 1 at distance 0 and decays towards 0 far away.",
+  "source": "kernel_svm_from_scratch.ipynb §3b"
+ },
+ {
+  "id": "ch4-107",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "concept",
+  "q": "What happens with a very large γ in an RBF SVM?",
+  "choices": [
+   "Narrow bumps: boundary hugs each point, overfitting, many support vectors",
+   "Wide bumps: boundary becomes almost linear, underfitting",
+   "The kernel becomes the polynomial kernel",
+   "C is ignored and the margin becomes hard"
+  ],
+  "why": "Notebook §6a: too large γ makes each point an isolated island; the boundary hugs samples and nearly every point becomes a support vector.",
+  "source": "kernel_svm_from_scratch.ipynb §6a"
+ },
+ {
+  "id": "ch4-108",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "concept",
+  "q": "What happens with a very small γ in an RBF SVM?",
+  "choices": [
+   "Bumps are wide; the boundary is almost linear (underfit)",
+   "Bumps are narrow; the boundary hugs every point (overfit)",
+   "Every training point becomes a support vector",
+   "Training is impossible without a hard margin"
+  ],
+  "why": "Notebook §6a: too small γ → everything is similar to everything → nearly linear boundary, underfitting.",
+  "source": "kernel_svm_from_scratch.ipynb §6a"
+ },
+ {
+  "id": "ch4-109",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "concept",
+  "q": "Which two hyperparameters does slide 49 name as hard to tune for SVM?",
+  "choices": [
+   "C (cost) and gamma",
+   "Depth and number of trees",
+   "k and the distance metric",
+   "Learning rate and epochs"
+  ],
+  "why": "Slide 49 (disadvantages): the SVM hyperparameters are cost C and gamma; their impact is hard to visualise.",
+  "source": "4.2 slide 49"
+ },
+ {
+  "id": "ch4-110",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "trap",
+  "q": "Slide 48 says the sigmoid kernel maps inputs 'to a value of 0 and 1'. What's actually true?",
+  "choices": [
+   "It uses tanh, whose range is (−1, 1)",
+   "It uses the logistic sigmoid, range (0, 1)",
+   "It outputs only the integers 0 and 1",
+   "Its range is (0, ∞)"
+  ],
+  "why": "The sigmoid kernel is tanh(γ x·x' + r), and tanh ranges over (−1, 1), not (0, 1).",
+  "source": "4.2 slide 48; 4.2 summary"
+ },
+ {
+  "id": "ch4-111",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "concept",
+  "q": "Which kernel does the lecture describe as a proxy for neural networks?",
+  "choices": [
+   "Sigmoid kernel",
+   "Polynomial kernel",
+   "Linear kernel",
+   "RBF kernel"
+  ],
+  "why": "Slide 48: the sigmoid kernel can be used as a proxy for neural networks.",
+  "source": "4.2 slide 48"
+ },
+ {
+  "id": "ch4-112",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "concept",
+  "q": "Which pair is a listed advantage and a listed disadvantage of SVM?",
+  "choices": [
+   "Effective in high dimensions; poor results on big datasets",
+   "Fast on huge datasets; poor in high dimensions",
+   "Needs no hyperparameters; can't classify images",
+   "Gives probabilities directly; can't use kernels"
+  ],
+  "why": "Slide 49: advantages include effectiveness in high dimensions and image classification; disadvantages include kernel choice, big datasets and tuning C/γ.",
+  "source": "4.2 slide 49"
+ },
+ {
+  "id": "ch4-113",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "trap",
+  "q": "Which preprocessing step matters for SVMs but not for decision trees?",
+  "choices": [
+   "Feature scaling, because the margin is a distance",
+   "One-hot encoding of the target",
+   "Removing duplicate rows",
+   "Sorting the data by the label"
+  ],
+  "why": "The notebook's rule of thumb: always standardize features before kernels. Trees are invariant to scaling.",
+  "source": "kernel_svm_from_scratch.ipynb §8; 4.2 summary"
+ },
+ {
+  "id": "ch4-114",
+  "chapter": "Week 4 · Decision Trees & SVM",
+  "topic": "Kernels",
+  "kind": "concept",
+  "q": "An RBF SVM has train accuracy far above test accuracy and nearly every point is a support vector. What should you do?",
+  "choices": [
+   "Reduce γ or C",
+   "Increase γ and C",
+   "Switch to a hard margin",
+   "Add more polynomial degree"
+  ],
+  "why": "Notebook rule 3: many support vectors relative to N, or train ≫ test accuracy, means overfitting: reduce γ or C.",
+  "source": "kernel_svm_from_scratch.ipynb §8"
+ }
+]

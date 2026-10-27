@@ -1,0 +1,857 @@
+[
+ {
+  "id": "ch1-001",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "What is AI",
+  "kind": "concept",
+  "q": "How does the 1.1 deck define Artificial Intelligence?",
+  "choices": [
+   "The field of building systems that perform tasks normally requiring human intelligence",
+   "The field of building systems that learn only from labelled input–output examples",
+   "The field of building multi-layer neural networks that learn abstract features",
+   "The field of building faster hardware to run hand-written human programs"
+  ],
+  "why": "AI is the broad goal: systems that perceive, reason, learn and act, by any means. Learning from labels is supervised ML, and multi-layer networks are deep learning; both are only subsets.",
+  "source": "1.1 slide 16"
+ },
+ {
+  "id": "ch1-002",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Four capabilities",
+  "kind": "concept",
+  "q": "Which is NOT one of the four AI capabilities listed in 1.1?",
+  "choices": [
+   "Compile",
+   "Perceive",
+   "Reason",
+   "Act"
+  ],
+  "why": "The four are Perceive, Reason, Learn and Act. 'Compile' is not among them.",
+  "source": "1.1 slide 16"
+ },
+ {
+  "id": "ch1-003",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Four capabilities",
+  "kind": "concept",
+  "q": "A spam filter that gets sharper over time is the deck's example of which capability?",
+  "choices": [
+   "Learn",
+   "Perceive",
+   "Reason",
+   "Act"
+  ],
+  "why": "Learn means improving performance from experience. The deck's other examples: Perceive is recognising a face, Reason is diagnosing a fault, Act is a self-driving car steering and braking.",
+  "source": "1.1 slide 16"
+ },
+ {
+  "id": "ch1-004",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "History of AI",
+  "kind": "concept",
+  "q": "What happened in 1956 on the deck's AI timeline?",
+  "choices": [
+   "The Dartmouth Workshop coined the term 'Artificial Intelligence'",
+   "Turing proposed the 'Imitation Game' as a test of machine intelligence",
+   "Deep Blue defeated the world chess champion Garry Kasparov",
+   "The first 'AI winter' began as funding and hype collapsed"
+  ],
+  "why": "1956 is the Dartmouth Workshop. The Imitation Game was 1950, Deep Blue was 1997, and the two AI winters were in the 1970s–80s.",
+  "source": "1.1 slide 17"
+ },
+ {
+  "id": "ch1-005",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "History of AI",
+  "kind": "concept",
+  "q": "In which year did Turing propose the 'Imitation Game'?",
+  "choices": [
+   "1950",
+   "1956",
+   "1959",
+   "1997"
+  ],
+  "why": "1950 is Turing. 1956 is the Dartmouth Workshop, 1959 is Arthur Samuel's ML definition (1.2), and 1997 is Deep Blue.",
+  "source": "1.1 slide 17"
+ },
+ {
+  "id": "ch1-006",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "History of AI",
+  "kind": "concept",
+  "q": "Which 2012 event 'ignited the deep learning boom' on the timeline?",
+  "choices": [
+   "AlexNet",
+   "AlphaGo",
+   "Deep Blue",
+   "ChatGPT"
+  ],
+  "why": "AlexNet was 2012. AlphaGo beat Lee Sedol in 2016, Deep Blue beat Kasparov in 1997, and ChatGPT brought generative AI mainstream in 2022.",
+  "source": "1.1 slide 17"
+ },
+ {
+  "id": "ch1-007",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "History of AI",
+  "kind": "concept",
+  "q": "What were the two 'AI winters' of the 1970s–80s?",
+  "choices": [
+   "Periods when AI funding and hype collapsed",
+   "Periods when governments banned AI research",
+   "Periods when neural networks beat humans at games",
+   "Periods when AI hardware was replaced by GPUs"
+  ],
+  "why": "The timeline describes them as funding and hype collapsing. GPUs and game-playing wins come much later (2012, 2016).",
+  "source": "1.1 slide 17"
+ },
+ {
+  "id": "ch1-008",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "AI vs ML vs DL",
+  "kind": "trap",
+  "q": "Which nesting of AI, machine learning and deep learning is correct?",
+  "choices": [
+   "DL ⊂ ML ⊂ AI",
+   "ML ⊂ DL ⊂ AI",
+   "AI ⊂ ML ⊂ DL",
+   "DL ⊂ AI ⊂ ML"
+  ],
+  "why": "AI is the broadest goal, ML is a subset of AI, and DL is a subset of ML that uses multi-layer neural networks.",
+  "source": "1.1 slide 18 · 1.2 slide 4"
+ },
+ {
+  "id": "ch1-009",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "AI vs ML vs DL",
+  "kind": "trap",
+  "q": "A chess program built only from hand-coded expert rules, with no learning from data, is…",
+  "choices": [
+   "AI, but not machine learning",
+   "Machine learning, but not AI",
+   "Deep learning, since it plays games",
+   "Neither AI nor machine learning"
+  ],
+  "why": "AI covers intelligent behaviour 'however that's achieved, including hand-coded rules'. ML specifically learns patterns from data instead of following hand-written rules, so this is AI but not ML.",
+  "source": "1.1 slide 18"
+ },
+ {
+  "id": "ch1-010",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "AI vs ML vs DL",
+  "kind": "concept",
+  "q": "What distinguishes deep learning within machine learning?",
+  "choices": [
+   "Multi-layer neural networks learning increasingly abstract representations",
+   "Hand-written expert rules organised into a very deep decision tree",
+   "Agents learning from rewards and penalties in an environment",
+   "Algorithms grouping unlabelled data by similarity into clusters"
+  ],
+  "why": "The deck defines DL as a subset of ML that uses multi-layer neural networks to learn increasingly abstract representations. The other options describe rule-based AI, RL and clustering.",
+  "source": "1.1 slide 18"
+ },
+ {
+  "id": "ch1-011",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Six disciplines",
+  "kind": "concept",
+  "q": "Which is NOT one of the six disciplines said to compose most of AI?",
+  "choices": [
+   "Database administration",
+   "Knowledge representation",
+   "Automated reasoning",
+   "Robotics"
+  ],
+  "why": "The six are NLP, knowledge representation, automated reasoning, machine learning, computer vision and speech recognition, and robotics.",
+  "source": "1.1 slide 19"
+ },
+ {
+  "id": "ch1-012",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "ML pipeline",
+  "kind": "concept",
+  "q": "What is the order of the deck's five-stage machine learning pipeline?",
+  "choices": [
+   "Collect → Train → Evaluate → Deploy & predict → Monitor & retrain",
+   "Collect → Evaluate → Train → Monitor & retrain → Deploy & predict",
+   "Train → Collect → Deploy & predict → Evaluate → Monitor & retrain",
+   "Collect → Train → Deploy & predict → Evaluate → Monitor & retrain"
+  ],
+  "why": "You evaluate on unseen data before deploying, then monitor and retrain. The deck stresses that this is a loop: production models are retrained as new data arrives.",
+  "source": "1.1 slide 21"
+ },
+ {
+  "id": "ch1-013",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Learning paradigms",
+  "kind": "concept",
+  "q": "Supervised learning learns from…",
+  "choices": [
+   "Labelled examples: each input paired with its correct answer",
+   "Unlabelled data, which it groups or compresses by similarity",
+   "Rewards and penalties received from acting in an environment",
+   "Hand-written rules supplied directly by a domain expert"
+  ],
+  "why": "Supervised learning sees many (input, correct output) pairs and learns the mapping. The second option is unsupervised learning and the third is reinforcement learning.",
+  "source": "1.1 slide 22"
+ },
+ {
+  "id": "ch1-014",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Learning paradigms",
+  "kind": "trap",
+  "q": "Flagging unusual patterns in network traffic or transactions is the deck's example of which paradigm?",
+  "choices": [
+   "Unsupervised learning",
+   "Supervised learning",
+   "Reinforcement learning",
+   "Generative AI"
+  ],
+  "why": "Anomaly detection is listed under unsupervised learning, next to customer segmentation and topic discovery. There are no labels: the model finds structure on its own.",
+  "source": "1.1 slide 23"
+ },
+ {
+  "id": "ch1-015",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Learning paradigms",
+  "kind": "concept",
+  "q": "Which loop describes reinforcement learning?",
+  "choices": [
+   "Observe state → act and receive a reward → update strategy to maximise reward",
+   "Feed unlabelled data → group it by similarity → patterns emerge on their own",
+   "Show (input, output) pairs → learn the mapping → predict labels for new inputs",
+   "Tokenize text → predict the next token → generate output one token at a time"
+  ],
+  "why": "RL is an agent acting in an environment and learning from rewards and penalties (e.g. AlphaGo, robots learning to walk, data-centre cooling). The others are unsupervised, supervised and LLM pipelines.",
+  "source": "1.1 slide 24"
+ },
+ {
+  "id": "ch1-016",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Deep learning: why now",
+  "kind": "concept",
+  "q": "Deep learning has existed in theory since the 1980s. Which three things converged around 2012 to make it practical?",
+  "choices": [
+   "Data, compute and algorithms",
+   "Data, regulation and funding",
+   "Compute, robotics and translation",
+   "Algorithms, ethics and agents"
+  ],
+  "why": "An explosion of digital data, GPUs/TPUs for compute, and better algorithms (CNNs, Transformers) and training tricks all came together.",
+  "source": "1.1 slide 25"
+ },
+ {
+  "id": "ch1-017",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Modern systems",
+  "kind": "concept",
+  "q": "Judging whether customer reviews are positive or negative (sentiment analysis) belongs to which field?",
+  "choices": [
+   "Natural language processing",
+   "Computer vision",
+   "Reinforcement learning",
+   "Robotics"
+  ],
+  "why": "NLP enables machines to understand, interpret and generate human language; its listed examples are translation, sentiment analysis, voice assistants and chatbots.",
+  "source": "1.1 slide 28"
+ },
+ {
+  "id": "ch1-018",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Generative AI & LLMs",
+  "kind": "concept",
+  "q": "What makes generative AI different from an ordinary classifier?",
+  "choices": [
+   "It creates new content instead of only predicting a label",
+   "It works only on labelled images rather than on any text",
+   "It follows hand-coded rules instead of learning from data",
+   "It predicts continuous numbers instead of a category"
+  ],
+  "why": "Generative AI creates new text, images, audio or code rather than just classifying or predicting a label. LLMs like GPT are trained on massive text corpora to generate human-like language.",
+  "source": "1.1 slide 29"
+ },
+ {
+  "id": "ch1-019",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Generative AI & LLMs",
+  "kind": "concept",
+  "q": "What is an LLM trained to do?",
+  "choices": [
+   "Predict the next token given everything before it",
+   "Look up each answer in a database of verified facts",
+   "Classify every sentence as either positive or negative",
+   "Translate each token into one of a fixed set of labels"
+  ],
+  "why": "Training is next-token prediction on enormous corpora; grammar, facts and patterns emerge from scale. At use time it generates one token at a time by sampling from predicted probabilities.",
+  "source": "1.1 slide 30"
+ },
+ {
+  "id": "ch1-020",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Generative AI & LLMs",
+  "kind": "concept",
+  "q": "What is the order of the deck's four simplified LLM steps?",
+  "choices": [
+   "Tokenize → Predict next token → Learn from scale → Generate",
+   "Generate → Tokenize → Learn from scale → Predict next token",
+   "Learn from scale → Tokenize → Generate → Predict next token",
+   "Tokenize → Generate → Predict next token → Learn from scale"
+  ],
+  "why": "Text is broken into tokens (word pieces), the model is trained to predict the next token, it learns from huge corpora, and at use time it generates token by token.",
+  "source": "1.1 slide 30"
+ },
+ {
+  "id": "ch1-021",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Limitations",
+  "kind": "trap",
+  "q": "Why can LLMs confidently state false information ('hallucination')?",
+  "choices": [
+   "They predict plausible text rather than 'knowing' facts like a database",
+   "Their training corpora deliberately contain no factual text at all",
+   "They are trained only on small datasets of a few hundred documents",
+   "They copy answers from a fact database that is out of date"
+  ],
+  "why": "The deck's caveat: LLMs predict plausible text and do not know facts the way a database does, so they can produce confident, fluent falsehoods.",
+  "source": "1.1 slides 30, 42"
+ },
+ {
+  "id": "ch1-022",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Limitations",
+  "kind": "concept",
+  "q": "'Small, unexpected changes to the input cause surprisingly large errors' describes which limitation?",
+  "choices": [
+   "Brittleness",
+   "Hallucination",
+   "Data dependency",
+   "Lack of true understanding"
+  ],
+  "why": "That is brittleness. Hallucination is confident false statements, data dependency is inheriting the data's biases and gaps, and lack of understanding is pattern matching without comprehension.",
+  "source": "1.1 slide 42"
+ },
+ {
+  "id": "ch1-023",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Bias & fairness",
+  "kind": "concept",
+  "q": "Why did facial recognition historically show higher error rates for women and people with darker skin?",
+  "choices": [
+   "Those groups were underrepresented in the training datasets",
+   "The cameras used could not capture those faces at all",
+   "The algorithms were explicitly coded to treat them differently",
+   "Those groups were overrepresented in the training datasets"
+  ],
+  "why": "The deck attributes it largely to underrepresentation in training data: models inherit and can amplify the gaps in their data.",
+  "source": "1.1 slide 43"
+ },
+ {
+  "id": "ch1-024",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Bias & fairness",
+  "kind": "concept",
+  "q": "According to the deck, fair AI requires…",
+  "choices": [
+   "Diverse data, testing across subgroups and ongoing auditing after deployment",
+   "Bigger models, more GPUs and longer training on the same historical data",
+   "Removing all human oversight once the model has been deployed",
+   "Training only on historical records so that decisions stay consistent"
+  ],
+  "why": "That is the slide's takeaway. Training on historical data is exactly how hiring tools learned gender-correlated bias.",
+  "source": "1.1 slide 43"
+ },
+ {
+  "id": "ch1-025",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "State of the art",
+  "kind": "concept",
+  "q": "What was Waymo's 2018 milestone as cited in the deck?",
+  "choices": [
+   "10 million public-road miles, with a human taking over about once every 6,000 miles",
+   "1 million public-road miles, with a human taking over about once every 600 miles",
+   "10 million public-road miles, with no human safety driver ever on board",
+   "100 million test-track miles, with a human taking over about every 60 miles"
+  ],
+  "why": "Waymo test vehicles passed 10 million miles on public roads without a serious accident, with a human driver stepping in only once every 6,000 miles.",
+  "source": "1.1 slide 33"
+ },
+ {
+  "id": "ch1-026",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "State of the art",
+  "kind": "concept",
+  "q": "wakil.ai, the deck's 'national product' by HumblebeeAI, applies AI to which field?",
+  "choices": [
+   "Law",
+   "Medicine",
+   "Machine translation",
+   "Ride-hailing"
+  ],
+  "why": "It appears under 'Law: Our national product'. Medicine cites image-based diagnosis, translation cites 100+ languages, and ride-hailing is the planning example.",
+  "source": "1.1 slide 40"
+ },
+ {
+  "id": "ch1-027",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Future trends",
+  "kind": "concept",
+  "q": "The EU AI Act is the deck's example of which trend to watch?",
+  "choices": [
+   "Growing regulation",
+   "Multimodal AI",
+   "Autonomous agents",
+   "Smaller, efficient models"
+  ],
+  "why": "The four trends are multimodal AI, autonomous agents, smaller on-device models, and growing regulation 'like the EU AI Act'.",
+  "source": "1.1 slide 44"
+ },
+ {
+  "id": "ch1-028",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Key takeaways",
+  "kind": "concept",
+  "q": "Per the deck's key takeaways, what unlocked today's generative AI boom?",
+  "choices": [
+   "Transformers plus large-scale data and compute",
+   "Hand-coded expert rules plus faster CPUs",
+   "Reinforcement learning plus legged robots",
+   "Decision trees plus small curated datasets"
+  ],
+  "why": "The takeaway reads: Transformers plus large-scale data and compute unlocked the generative AI boom.",
+  "source": "1.1 slide 46"
+ },
+ {
+  "id": "ch1-029",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "What is ML",
+  "kind": "concept",
+  "q": "Who defined ML as 'the field of study that gives computers the ability to learn without being explicitly programmed', and when?",
+  "choices": [
+   "Arthur Samuel, 1959",
+   "Alan Turing, 1950",
+   "Andrew Ng, 2012",
+   "The Dartmouth Workshop, 1956"
+  ],
+  "why": "Arthur Samuel, 1959. Turing (1950) proposed the Imitation Game, Dartmouth (1956) coined 'AI', and Andrew Ng is credited for the gradient-descent figure.",
+  "source": "1.2 slide 3"
+ },
+ {
+  "id": "ch1-030",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "What is ML",
+  "kind": "concept",
+  "q": "Besides supervised, unsupervised and reinforcement learning, which fourth branch of ML does 1.2 list?",
+  "choices": [
+   "Recommender systems",
+   "Expert systems",
+   "Generative AI",
+   "Fuzzy logic"
+  ],
+  "why": "Slide 5 branches ML into supervised, unsupervised, reinforcement learning and recommender systems.",
+  "source": "1.2 slide 5"
+ },
+ {
+  "id": "ch1-031",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "ML taxonomy",
+  "kind": "trap",
+  "q": "In the 1.2 taxonomy, Logistic Regression is listed under…",
+  "choices": [
+   "Supervised → classification",
+   "Supervised → regression",
+   "Unsupervised → clustering",
+   "Unsupervised → dimensionality reduction"
+  ],
+  "why": "Despite its name, logistic regression outputs a class, so it sits with Decision Tree, Naive Bayes, KNN and SVM under classification. The regression list is Linear, Ridge and Stepwise Regression.",
+  "source": "1.2 slide 7"
+ },
+ {
+  "id": "ch1-032",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "ML taxonomy",
+  "kind": "concept",
+  "q": "Which algorithm does 1.2 list for regression problems?",
+  "choices": [
+   "Ridge Regression",
+   "Naive Bayes",
+   "K-Nearest Neighbor",
+   "Support Vector Machine"
+  ],
+  "why": "Regression: Linear, Ridge and Stepwise Regression. Naive Bayes, KNN and SVM are listed under classification.",
+  "source": "1.2 slide 7"
+ },
+ {
+  "id": "ch1-033",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "ML taxonomy",
+  "kind": "concept",
+  "q": "Which pair are the deck's examples of regression problems?",
+  "choices": [
+   "Stock market prediction and rainfall prediction",
+   "Email spam detection and speech recognition",
+   "Customer segmentation and topic discovery",
+   "Fraud detection and tumour classification"
+  ],
+  "why": "Regression predicts a continuous number. Spam detection and speech recognition are the classification examples; segmentation and topic discovery are unsupervised.",
+  "source": "1.2 slide 7"
+ },
+ {
+  "id": "ch1-034",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Classification vs regression",
+  "kind": "concept",
+  "q": "A model takes 45 °C and outputs 113 °F. What kind of problem is this?",
+  "choices": [
+   "Regression: the output is a continuous number",
+   "Classification: the output is a category",
+   "Clustering: the output is a group of inputs",
+   "Dimensionality reduction: fewer features come out"
+  ],
+  "why": "This is the deck's regression picture. Its classification picture outputs a category (apple vs banana).",
+  "source": "1.2 slides 8–9"
+ },
+ {
+  "id": "ch1-035",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "ML taxonomy",
+  "kind": "trap",
+  "q": "Which method does 1.2 list under dimensionality reduction rather than clustering?",
+  "choices": [
+   "Linear Discriminant Analysis (LDA)",
+   "K-Means",
+   "MeanShift",
+   "Logistic Regression"
+  ],
+  "why": "Dimensionality reduction: PCA, LDA and Autoencoders. Clustering: K-Means and MeanShift. Logistic regression is supervised classification.",
+  "source": "1.2 slide 11"
+ },
+ {
+  "id": "ch1-036",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Notation",
+  "kind": "concept",
+  "q": "In the course notation, what does m stand for?",
+  "choices": [
+   "The number of training examples",
+   "The number of features",
+   "The slope of the hypothesis",
+   "The learning rate"
+  ],
+  "why": "m is the number of training examples (rows). Features are counted by n, the slope is θ₁, and the learning rate is α.",
+  "source": "1.2 slide 16"
+ },
+ {
+  "id": "ch1-037",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Notation",
+  "kind": "trap",
+  "q": "What does x⁽²⁾ mean in the course notation?",
+  "choices": [
+   "The input of the 2nd training example",
+   "The input value squared",
+   "The 2nd feature of every example",
+   "The 2nd parameter, θ₂"
+  ],
+  "why": "The superscript in parentheses indexes the training example: (x⁽ⁱ⁾, y⁽ⁱ⁾) is the i-th example. It is not a power, and a feature is written with a subscript (x₂).",
+  "source": "1.2 slide 16"
+ },
+ {
+  "id": "ch1-038",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Hypothesis",
+  "kind": "concept",
+  "q": "In h_θ(x) = θ₀ + θ₁x, written as y = b + wx, what are θ₀ and θ₁?",
+  "choices": [
+   "θ₀ = b (intercept), θ₁ = w (slope)",
+   "θ₀ = w (slope), θ₁ = b (intercept)",
+   "θ₀ = x (input), θ₁ = y (target)",
+   "θ₀ = m (examples), θ₁ = α (rate)"
+  ],
+  "why": "θ₀ is the intercept/bias b and θ₁ is the slope/weight w. For the temperature data they are 32 and 1.8.",
+  "source": "1.2 slide 17"
+ },
+ {
+  "id": "ch1-039",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Hypothesis",
+  "kind": "calc",
+  "q": "With θ₀ = 1 and θ₁ = 0.5, what is h_θ(x) at x = 3?",
+  "choices": [
+   "2.5",
+   "1.5",
+   "3.5",
+   "4.5"
+  ],
+  "why": "h = 1 + 0.5·3 = 2.5. 1.5 forgets θ₀; 3.5 and 4.5 come from adding the wrong terms.",
+  "source": "1.2 slide 18"
+ },
+ {
+  "id": "ch1-040",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Hypothesis",
+  "kind": "concept",
+  "q": "Which parameter values give the flat line h(x) = 1.5?",
+  "choices": [
+   "θ₀ = 1.5, θ₁ = 0",
+   "θ₀ = 0, θ₁ = 1.5",
+   "θ₀ = 1.5, θ₁ = 1.5",
+   "θ₀ = 0, θ₁ = 0.5"
+  ],
+  "why": "A zero slope makes the line horizontal at the intercept. θ₀ = 0, θ₁ = 0.5 is the deck's line through the origin.",
+  "source": "1.2 slide 18"
+ },
+ {
+  "id": "ch1-041",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Hypothesis",
+  "kind": "calc",
+  "q": "The learned temperature model is h(x) = 32 + 1.8x. What does it predict for 35 °C?",
+  "choices": [
+   "95 °F",
+   "113 °F",
+   "63 °F",
+   "88 °F"
+  ],
+  "why": "32 + 1.8·35 = 32 + 63 = 95, which is the green point on the deck's plot. 113 °F is the answer for 45 °C, and 63 forgets the +32.",
+  "source": "1.2 slide 14"
+ },
+ {
+  "id": "ch1-042",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Cost function",
+  "kind": "concept",
+  "q": "Which is the squared-error cost function used in 1.2?",
+  "choices": [
+   "J(θ₀,θ₁) = (1/2m) Σ (h_θ(x⁽ⁱ⁾) − y⁽ⁱ⁾)²",
+   "J(θ₀,θ₁) = (1/m) Σ |h_θ(x⁽ⁱ⁾) − y⁽ⁱ⁾|",
+   "J(θ₀,θ₁) = (1/2m) Σ (h_θ(x⁽ⁱ⁾) − y⁽ⁱ⁾)",
+   "J(θ₀,θ₁) = (2/m) Σ (h_θ(x⁽ⁱ⁾) − y⁽ⁱ⁾)²"
+  ],
+  "why": "The 'squared error function' averages squared residuals with a 1/2m factor. The goal is to minimise it over θ₀ and θ₁.",
+  "source": "1.2 slide 19"
+ },
+ {
+  "id": "ch1-043",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Cost function",
+  "kind": "trap",
+  "q": "Why does the cost function square the error and divide by 2m?",
+  "choices": [
+   "Squaring stops + and − errors cancelling; the 2 cancels when differentiating",
+   "Squaring makes J negative near the minimum; the 2 halves the training set",
+   "Squaring speeds training up; the 2 counts the two parameters θ₀ and θ₁",
+   "Squaring keeps J below 1; the 2 doubles the effective learning rate"
+  ],
+  "why": "Squared errors are never negative, so they can't cancel. The ½ is a convenience: it cancels the 2 that comes down when you differentiate the square.",
+  "source": "1.2 summary · slide 19"
+ },
+ {
+  "id": "ch1-044",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Cost function",
+  "kind": "calc",
+  "q": "Points (1,1), (2,2), (3,3), with h = θ₁x (θ₀ = 0). What is J(0.5)?",
+  "choices": [
+   "≈ 0.58",
+   "≈ 2.33",
+   "0",
+   "≈ 1.17"
+  ],
+  "why": "Predictions 0.5, 1, 1.5 give squared errors 0.25 + 1 + 2.25 = 3.5, and 3.5/(2·3) ≈ 0.58. 1.17 forgets the 2 in 2m; 2.33 is J(0); 0 is J(1).",
+  "source": "1.2 slide 21"
+ },
+ {
+  "id": "ch1-045",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Cost function",
+  "kind": "calc",
+  "q": "Points (1,2) and (2,4), with h = θ₁x and θ₁ = 1. What is J(θ₁)?",
+  "choices": [
+   "1.25",
+   "2.5",
+   "5",
+   "0.75"
+  ],
+  "why": "Errors are (1−2) and (2−4), so squares 1 + 4 = 5, and 5/(2·2) = 1.25. 2.5 divides by m only; 5 forgets the averaging.",
+  "source": "1.2 slide 21 (method)"
+ },
+ {
+  "id": "ch1-046",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Cost function",
+  "kind": "concept",
+  "q": "Plotting J(θ₁) for the (1,1), (2,2), (3,3) data gives…",
+  "choices": [
+   "A bowl-shaped parabola with its minimum at θ₁ = 1",
+   "A straight line that keeps falling as θ₁ grows",
+   "An S-shaped curve crossing 0.5 at θ₁ = 0",
+   "A parabola with its maximum at θ₁ = 1"
+  ],
+  "why": "J(1) = 0, J(0.5) = J(1.5) ≈ 0.58, J(0) = J(2) ≈ 2.33: a symmetric bowl whose bottom is the correct slope θ₁ = 1. With both θ₀ and θ₁ free it becomes a 3-D bowl.",
+  "source": "1.2 slide 21"
+ },
+ {
+  "id": "ch1-047",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Gradient descent",
+  "kind": "concept",
+  "q": "In θⱼ := θⱼ − α·∂J/∂θⱼ, what is α?",
+  "choices": [
+   "The learning rate",
+   "The derivative term",
+   "The number of examples",
+   "The regularization parameter"
+  ],
+  "why": "The slide labels α as the learning rate and ∂J/∂θⱼ as the derivative part. The update repeats until convergence, for j = 0 and j = 1.",
+  "source": "1.2 slide 24"
+ },
+ {
+  "id": "ch1-048",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Gradient descent",
+  "kind": "concept",
+  "q": "At the current θ₁ the slope of J(θ₁) is positive. One gradient-descent step will…",
+  "choices": [
+   "Decrease θ₁, moving it left toward the minimum",
+   "Increase θ₁, moving it right toward the minimum",
+   "Leave θ₁ unchanged until the slope reaches zero",
+   "Flip θ₁ to the negative of its current value"
+  ],
+  "why": "θ₁ − α·(positive) is smaller, so θ₁ moves left and downhill. With a negative slope you subtract a negative, so θ₁ increases.",
+  "source": "1.2 slide 25"
+ },
+ {
+  "id": "ch1-049",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Gradient descent",
+  "kind": "concept",
+  "q": "If θ₁ already sits at a local minimum, a gradient-descent step…",
+  "choices": [
+   "Leaves θ₁ unchanged, because the derivative is 0",
+   "Moves θ₁ exactly α units in the negative direction",
+   "Restarts θ₁ from zero to search for a better minimum",
+   "Doubles θ₁ because the slope changes its sign there"
+  ],
+  "why": "At a local optimum the slope is 0, so θ₁ := θ₁ − α·0 = θ₁.",
+  "source": "1.2 slide 27"
+ },
+ {
+  "id": "ch1-050",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Learning rate",
+  "kind": "concept",
+  "q": "What happens if the learning rate α is too large?",
+  "choices": [
+   "It can overshoot the minimum, fail to converge or even diverge",
+   "It converges very slowly, taking many tiny steps to the minimum",
+   "It always lands exactly on the global minimum in one step",
+   "It stops after one iteration because the slope becomes zero"
+  ],
+  "why": "Too large overshoots and may diverge. Too small is the slow-but-steady case.",
+  "source": "1.2 slide 26"
+ },
+ {
+  "id": "ch1-051",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Learning rate",
+  "kind": "trap",
+  "q": "Do you need to decrease α over time for gradient descent to converge?",
+  "choices": [
+   "No: the derivative shrinks near a minimum, so the steps shrink on their own",
+   "Yes: a fixed α always overshoots once it gets close to the minimum",
+   "Yes: α has to be halved every iteration or the algorithm diverges",
+   "No: once the cost starts falling, α is ignored by the update"
+  ],
+  "why": "Gradient descent can converge to a local minimum with α fixed, because the steps automatically get smaller as the slope flattens.",
+  "source": "1.2 slide 28"
+ },
+ {
+  "id": "ch1-052",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Gradient descent",
+  "kind": "concept",
+  "q": "For h = θ₀ + θ₁x, what is ∂J/∂θ₁?",
+  "choices": [
+   "(1/m) Σ (h_θ(x⁽ⁱ⁾) − y⁽ⁱ⁾)·x⁽ⁱ⁾",
+   "(1/m) Σ (h_θ(x⁽ⁱ⁾) − y⁽ⁱ⁾)",
+   "(1/2m) Σ (h_θ(x⁽ⁱ⁾) − y⁽ⁱ⁾)²·x⁽ⁱ⁾",
+   "(1/m) Σ (y⁽ⁱ⁾ − h_θ(x⁽ⁱ⁾))·θ₁"
+  ],
+  "why": "The θ₁ derivative carries the extra ·x⁽ⁱ⁾ factor. Without it you have ∂J/∂θ₀; the squared form is J itself.",
+  "source": "1.2 slide 30"
+ },
+ {
+  "id": "ch1-053",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Gradient descent",
+  "kind": "trap",
+  "q": "When updating θ₀ and θ₁ in one iteration, you should…",
+  "choices": [
+   "Compute both new values from the old θs, then assign both",
+   "Update θ₀ first, then use the new θ₀ when computing θ₁",
+   "Update only θ₁, because θ₀ stays fixed at its start value",
+   "Update θ₁ first, then recompute J before updating θ₀"
+  ],
+  "why": "Both parameters are updated together in each iteration, using the old values. Using the freshly updated θ₀ inside the θ₁ update is the classic mistake.",
+  "source": "1.2 slide 31"
+ },
+ {
+  "id": "ch1-054",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Gradient descent",
+  "kind": "calc",
+  "q": "Data (1,2) and (2,4); start θ₀ = θ₁ = 0 with α = 0.1. After one gradient-descent step, what is θ₁?",
+  "choices": [
+   "0.5",
+   "1.0",
+   "−0.5",
+   "0.3"
+  ],
+  "why": "h = 0, so the errors are −2 and −4. ∂J/∂θ₁ = (1/2)(−2·1 − 4·2) = −5, so θ₁ = 0 − 0.1·(−5) = 0.5. 1.0 forgets the 1/m, −0.5 flips the sign, and 0.3 is the new θ₀.",
+  "source": "1.2 slide 31 (method)"
+ },
+ {
+  "id": "ch1-055",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Gradient descent",
+  "kind": "calc",
+  "q": "Same setup: data (1,2) and (2,4), θ₀ = θ₁ = 0, α = 0.1. After one step, what is θ₀?",
+  "choices": [
+   "0.3",
+   "0.6",
+   "−0.3",
+   "0.5"
+  ],
+  "why": "∂J/∂θ₀ = (1/2)(−2 − 4) = −3, so θ₀ = 0 − 0.1·(−3) = 0.3. 0.6 forgets the 1/m, and 0.5 is the new θ₁.",
+  "source": "1.2 slide 31 (method)"
+ },
+ {
+  "id": "ch1-056",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Gradient descent",
+  "kind": "concept",
+  "q": "Running gradient descent on the temperature data from θ₀ = θ₁ = 0 converges to…",
+  "choices": [
+   "θ₀ = 32, θ₁ = 1.8",
+   "θ₀ = 1.8, θ₁ = 32",
+   "θ₀ = 0, θ₁ = 1.8",
+   "θ₀ = 32, θ₁ = 0"
+  ],
+  "why": "It rediscovers F = 32 + 1.8·t from data alone: the intercept is 32 and the slope is 1.8.",
+  "source": "1.2 slides 29, 32"
+ },
+ {
+  "id": "ch1-057",
+  "chapter": "Week 1 · Intro to AI & ML",
+  "topic": "Gradient descent",
+  "kind": "concept",
+  "q": "On the bumpy J(θ₀, θ₁) surface (from Andrew Ng's course), two gradient-descent runs that start at nearby points…",
+  "choices": [
+   "Can end up in different local minima",
+   "Always reach the same global minimum",
+   "Never move, because the surface is flat",
+   "Climb to the nearest peak instead"
+  ],
+  "why": "The figure shows two paths from neighbouring starts that descend into different valleys. Gradient descent finds a local minimum, which depends on where you start.",
+  "source": "1.2 slide 23"
+ }
+]

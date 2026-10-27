@@ -1,0 +1,1007 @@
+[
+ {
+  "id": "ch2-001",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Two solution methods",
+  "kind": "concept",
+  "q": "Which two approaches does 2.1 give for solving linear regression?",
+  "choices": [
+   "Gradient descent and the normal equation",
+   "Gradient descent and the sigmoid function",
+   "The normal equation and one-vs-all",
+   "Polynomial features and regularization"
+  ],
+  "why": "Slide 3 sets up the lecture as gradient descent (iterative) vs the normal equation θ = (XᵀX)⁻¹Xᵀy (closed form).",
+  "source": "2.1 slide 3"
+ },
+ {
+  "id": "ch2-002",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Multivariable hypothesis",
+  "kind": "concept",
+  "q": "With n features, the multivariable hypothesis is…",
+  "choices": [
+   "h(x) = θ₀ + Σᵢ₌₁ⁿ θᵢxᵢ",
+   "h(x) = θ₀ · Σᵢ₌₁ⁿ θᵢxᵢ",
+   "h(x) = Σᵢ₌₁ᵐ θᵢ + xᵢ",
+   "h(x) = θ₀ + θ₁x + θ₁x²"
+  ],
+  "why": "Each feature gets its own weight; n is the number of features. For the deck's 3-feature data it is θ₀ + θ₁x₁ + θ₂x₂ + θ₃x₃. The last option is polynomial in a single x.",
+  "source": "2.1 slide 6"
+ },
+ {
+  "id": "ch2-003",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Vectorisation",
+  "kind": "concept",
+  "q": "Why add a column x₀ = 1 to the data?",
+  "choices": [
+   "So θ₀ becomes an ordinary weight and h(x) = Xθ works as one product",
+   "So that every feature is scaled to the same range before training",
+   "So the matrix XᵀX becomes the identity and needs no inversion",
+   "So the cost J(θ) can never become exactly zero during training"
+  ],
+  "why": "θ₀x₀ = θ₀ when x₀ = 1, so the intercept folds into the matrix product h(x) = Xθ.",
+  "source": "2.1 slides 9–10"
+ },
+ {
+  "id": "ch2-004",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Vectorisation",
+  "kind": "calc",
+  "q": "A dataset has 5 examples and 3 features. After adding the x₀ column, what are the shapes of X and θ?",
+  "choices": [
+   "X is 5×4, θ is 4×1",
+   "X is 5×3, θ is 3×1",
+   "X is 4×5, θ is 5×1",
+   "X is 5×4, θ is 5×1"
+  ],
+  "why": "One row per example and one column per feature plus the ones column gives 5×4. θ needs one entry per column (4×1), so Xθ is 5×1, one prediction per example.",
+  "source": "2.1 slide 11"
+ },
+ {
+  "id": "ch2-005",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Vectorisation",
+  "kind": "calc",
+  "q": "θ = [32, 1.8, 0, 0] and one row of X is [1, 10, 12, 5]. What is the prediction h(x)?",
+  "choices": [
+   "50",
+   "18",
+   "82",
+   "32"
+  ],
+  "why": "1·32 + 10·1.8 + 12·0 + 5·0 = 32 + 18 = 50, which matches y = 50 for that row. The normal-equation model predicts exactly 50 for this input.",
+  "source": "2.1 slides 10, 43"
+ },
+ {
+  "id": "ch2-006",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Vectorisation",
+  "kind": "calc",
+  "q": "θ = [1, 2, 0, 1] and x = [1, 3, 5, 2] (x₀ = 1 first). What is h(x) = xθ?",
+  "choices": [
+   "9",
+   "14",
+   "19",
+   "7"
+  ],
+  "why": "1·1 + 3·2 + 5·0 + 2·1 = 1 + 6 + 0 + 2 = 9.",
+  "source": "2.1 slide 12 (method)"
+ },
+ {
+  "id": "ch2-007",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Worked example",
+  "kind": "calc",
+  "q": "Temperature data y = [50, 59, 68, 77, 86], starting θ = 0 (so every prediction is 0). What is J(θ)?",
+  "choices": [
+   "2393",
+   "4786",
+   "23930",
+   "340"
+  ],
+  "why": "The squared residuals sum to 2500 + 3481 + 4624 + 5929 + 7396 = 23930, and 23930/(2·5) = 2393. 4786 divides by m only; 340 is Σy.",
+  "source": "2.1 slide 19"
+ },
+ {
+  "id": "ch2-008",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Vectorised update",
+  "kind": "concept",
+  "q": "What is the vectorised gradient-descent update for linear regression?",
+  "choices": [
+   "θ := θ − α·(1/m)·Xᵀ·(h(x) − y)",
+   "θ := θ − α·(1/m)·X·(h(x) − y)",
+   "θ := θ + α·(1/m)·Xᵀ·(h(x) − y)",
+   "θ := (XᵀX)⁻¹·Xᵀ·(h(x) − y)"
+  ],
+  "why": "Xᵀ(h − y) gives every partial sum Σ(h − y)·xⱼ in one product. You need Xᵀ, not X, for the shapes to match; the sign is minus to go downhill; and the last option mixes in the normal equation.",
+  "source": "2.1 slide 20"
+ },
+ {
+  "id": "ch2-009",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Worked example",
+  "kind": "calc",
+  "q": "In the worked example Xᵀ(h − y) = [−340, −7250, −7635, −1845], with α = 0.001 and m = 5. What is θ₁ after one step from θ = 0?",
+  "choices": [
+   "1.45",
+   "7.25",
+   "−1.45",
+   "0.068"
+  ],
+  "why": "θ₁ = 0 − 0.001·(1/5)·(−7250) = 1.45. 7.25 forgets the 1/m, −1.45 drops the minus sign, and 0.068 is θ₀.",
+  "source": "2.1 slide 23"
+ },
+ {
+  "id": "ch2-010",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Worked example",
+  "kind": "trap",
+  "q": "Same step: the first entry of Xᵀ(h − y) is −340. What is θ₀ after the update, exactly?",
+  "choices": [
+   "0.068",
+   "0.06",
+   "0.34",
+   "−0.068"
+  ],
+  "why": "0.001·(1/5)·340 = 0.068. The slide prints 0.06 (truncated), but its next predictions such as 34.737 were computed with 0.068.",
+  "source": "2.1 slides 23, 26"
+ },
+ {
+  "id": "ch2-011",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Worked example",
+  "kind": "concept",
+  "q": "In the 2.1 example, what does the first entry of Xᵀ(h − y) equal?",
+  "choices": [
+   "The plain sum of the residuals, because the x₀ row of Xᵀ is all ones",
+   "The sum of the squared residuals divided by twice the number of examples",
+   "The residual of the first training example multiplied by its x₁ value",
+   "The mean of the target vector y, because θ starts at zero"
+  ],
+  "why": "The first row of Xᵀ is [1,1,1,1,1], so that entry is Σ(h − y) = −340: the θ₀ gradient before the 1/m.",
+  "source": "2.1 slides 22–23"
+ },
+ {
+  "id": "ch2-012",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Worked example",
+  "kind": "concept",
+  "q": "How did J change over the first three gradient-descent iterations in 2.1 (α = 0.001)?",
+  "choices": [
+   "2393 → 62.625 → 61.25",
+   "2393 → 1196.5 → 598.25",
+   "62.625 → 2393 → 61.25",
+   "2393 → 2393 → 2393"
+  ],
+  "why": "After the first update the predictions jump from 0 to about 35–93, so J drops sharply to 62.625 and then to 61.25. It keeps falling (about 14 by iteration 900 in the code).",
+  "source": "2.1 slides 28–29"
+ },
+ {
+  "id": "ch2-013",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Normal equation",
+  "kind": "concept",
+  "q": "What is the normal equation?",
+  "choices": [
+   "θ = (Xᵀ·X)⁻¹·(Xᵀ·y)",
+   "θ = (X·Xᵀ)⁻¹·(X·y)",
+   "θ = (Xᵀ·y)⁻¹·(Xᵀ·X)",
+   "θ = Xᵀ·(X·θ − y)"
+  ],
+  "why": "It solves for the optimal θ in one shot. The order matters: invert XᵀX, then multiply by Xᵀy.",
+  "source": "2.1 slide 32"
+ },
+ {
+  "id": "ch2-014",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Normal equation",
+  "kind": "calc",
+  "q": "For a design matrix X with a leading ones column and m = 5 rows, what is the top-left entry of XᵀX?",
+  "choices": [
+   "5",
+   "1",
+   "25",
+   "100"
+  ],
+  "why": "That entry is the dot product of the ones column with itself, Σ1 = m = 5. The slide's XᵀX starts with 5, and its next entry 100 is Σx₁.",
+  "source": "2.1 slide 40"
+ },
+ {
+  "id": "ch2-015",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Normal equation",
+  "kind": "calc",
+  "q": "In the 2.1 example, what is the first entry of Xᵀy?",
+  "choices": [
+   "340, the sum of all targets",
+   "50, the first target",
+   "68, the mean target",
+   "5, the number of examples"
+  ],
+  "why": "The ones row of Xᵀ times y adds up the targets: 50 + 59 + 68 + 77 + 86 = 340.",
+  "source": "2.1 slide 40"
+ },
+ {
+  "id": "ch2-016",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Normal equation",
+  "kind": "trap",
+  "q": "The normal equation returns θ = [32, 1.8, 2.8e−14, −1.7e−13]. How should you read the last two values?",
+  "choices": [
+   "As floating-point noise: those features carry no information",
+   "As small but real weights that slightly improve predictions",
+   "As a sign the matrix inversion failed and θ is invalid",
+   "As the learning rate and number of iterations it used"
+  ],
+  "why": "Values around 10⁻¹⁴ are numerically zero. The model recovered F = 32 + 1.8·C exactly and correctly ignores x₂ and x₃.",
+  "source": "2.1 slides 41, 43"
+ },
+ {
+  "id": "ch2-017",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "GD vs normal equation",
+  "kind": "concept",
+  "q": "Which is true of the normal equation compared with gradient descent?",
+  "choices": [
+   "No learning rate and no iterations, but very slow with very many features",
+   "Needs a learning rate, but works best when there are very many features",
+   "Needs many iterations, but never has to invert any matrix at all",
+   "No learning rate, and it is fastest when there are very many features"
+  ],
+  "why": "Normal equation: no α, no iterations, must compute (XᵀX)⁻¹, slow when n is large. Gradient descent: choose α, many iterations, very good with many features.",
+  "source": "2.1 slide 42"
+ },
+ {
+  "id": "ch2-018",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "GD vs normal equation",
+  "kind": "trap",
+  "q": "You have a very large number of features. Which method does 2.1 recommend, and why?",
+  "choices": [
+   "Gradient descent, because computing (XᵀX)⁻¹ becomes too slow",
+   "Normal equation, because it needs no learning rate to tune",
+   "Normal equation, because it finishes without any iterations",
+   "Gradient descent, because the normal equation needs a learning rate"
+  ],
+  "why": "No α and no iterations are real advantages of the normal equation, but inverting XᵀX gets very slow as n grows. That is where gradient descent wins.",
+  "source": "2.1 slide 42"
+ },
+ {
+  "id": "ch2-019",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Implementation",
+  "kind": "concept",
+  "q": "In the 2.1 code, what does X_fin = np.hstack((np.ones((5,1)), X)) do?",
+  "choices": [
+   "Adds the x₀ = 1 column, turning a 5×3 X into 5×4",
+   "Stacks y under X to form one 10×3 array",
+   "Normalises X so each column has mean 0",
+   "Transposes X from 5×3 into a 3×5 matrix"
+  ],
+  "why": "hstack places the ones column beside the 3 features, giving the (5, 4) design matrix printed on the slide.",
+  "source": "2.1 slide 30"
+ },
+ {
+  "id": "ch2-020",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Implementation",
+  "kind": "concept",
+  "q": "In the training loop, which lines implement one gradient-descent step?",
+  "choices": [
+   "delta = np.dot(X_fin.T, error); theta = theta − learning_rate*delta/m",
+   "delta = np.dot(X_fin, error); theta = theta + learning_rate*delta*m",
+   "delta = np.sum(error**2)/(2*m); theta = theta − learning_rate*delta",
+   "delta = np.linalg.inv(X_fin.T.dot(X_fin)); theta = delta.dot(error)"
+  ],
+  "why": "That is θ := θ − α·(1/m)·Xᵀ(h − y). The third option computes the loss, not the gradient; the fourth is the normal equation.",
+  "source": "2.1 slide 31"
+ },
+ {
+  "id": "ch2-021",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Implementation",
+  "kind": "concept",
+  "q": "In the linear_regression notebook's normalization section, how is the test set standardised?",
+  "choices": [
+   "With the training set's mean and standard deviation",
+   "With the test set's own mean and standard deviation",
+   "With the mean and std of the train and test sets combined",
+   "It isn't: only the training inputs are standardised"
+  ],
+  "why": "The notebook computes x_mean and x_std on x_train and reuses them for x_test ('use train mean/std for test too').",
+  "source": "linear_regression.ipynb"
+ },
+ {
+  "id": "ch2-022",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Polynomial regression",
+  "kind": "concept",
+  "q": "What is the 'core trick' of polynomial regression?",
+  "choices": [
+   "Build new features x², x³, … from x, then train ordinary linear regression on them",
+   "Replace the squared-error cost with a polynomial cost of the same degree",
+   "Fit a separate straight line to each region of x and join them together",
+   "Apply the sigmoid to x before fitting so the curve can bend smoothly"
+  ],
+  "why": "Original feature x → extension x, x², x³ → linear model w₁x + w₂x² + w₃x³ + b. The solver is unchanged.",
+  "source": "2.1 slide 46"
+ },
+ {
+  "id": "ch2-023",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Polynomial regression",
+  "kind": "trap",
+  "q": "Is the model w₁x + w₂x² + w₃x³ + b linear or nonlinear?",
+  "choices": [
+   "Linear in the parameters w; 'polynomial' describes only the features",
+   "Nonlinear in w, so it needs a completely different solver",
+   "Linear in x, because every power of x is added together",
+   "Nonlinear in both x and w, so the normal equation fails"
+  ],
+  "why": "The key point on the slide: the model is still linear with respect to w. That is why linear regression machinery, gradient descent or the normal equation, still works.",
+  "source": "2.1 slide 46"
+ },
+ {
+  "id": "ch2-024",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Polynomial regression",
+  "kind": "concept",
+  "q": "What does PolynomialFeatures(degree=2) map a single input x to?",
+  "choices": [
+   "[1, x, x²]",
+   "[x, x²]",
+   "[x², x⁴]",
+   "[1, 2x, x²]"
+  ],
+  "why": "The code comment on the slide: PolynomialFeatures: x -> [1, x, x^2]. The 1 is the bias column.",
+  "source": "2.1 slide 47"
+ },
+ {
+  "id": "ch2-025",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Polynomial regression",
+  "kind": "concept",
+  "q": "In poly_model = make_pipeline(PolynomialFeatures(degree=2), LinearRegression()), what does make_pipeline do?",
+  "choices": [
+   "Chains the steps into a single model you can fit and predict with",
+   "Splits the data into separate training and test pipelines",
+   "Runs both models in parallel and averages their predictions",
+   "Searches automatically for the best polynomial degree"
+  ],
+  "why": "It combines feature generation and regression into one model, 'convenient and error-free'. It does not choose the degree for you.",
+  "source": "2.1 slide 47"
+ },
+ {
+  "id": "ch2-026",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Polynomial regression",
+  "kind": "concept",
+  "q": "The slide calls degree 'the main hyperparameter — it must be chosen correctly'. What goes wrong with a degree that is far too high?",
+  "choices": [
+   "The curve overfits: it follows the training points but generalises badly",
+   "The curve underfits: it stays a straight line whatever the data shows",
+   "Training cannot start because PolynomialFeatures rejects high degrees",
+   "Nothing changes, because the model stays linear in its parameters"
+  ],
+  "why": "Too high a degree overfits (high variance); too low underfits (high bias). 2.2's housing example shows a degree-4 curve wiggling through every point.",
+  "source": "2.1 slide 47 · 2.2 slide 40"
+ },
+ {
+  "id": "ch2-027",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Polynomial regression",
+  "kind": "calc",
+  "q": "A polynomial model has w₁ = 1, w₂ = 2, w₃ = 0, b = 1. What does it predict at x = 2?",
+  "choices": [
+   "11",
+   "7",
+   "9",
+   "6"
+  ],
+  "why": "w₁x + w₂x² + w₃x³ + b = 2 + 2·4 + 0 + 1 = 11. 7 uses 2x instead of x², and 6 forgets b.",
+  "source": "2.1 slide 46 (method)"
+ },
+ {
+  "id": "ch2-028",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Classification",
+  "kind": "concept",
+  "q": "In binary classification with y ∈ {0, 1}, what does y = 0 denote in the tumour example?",
+  "choices": [
+   "The negative class: a benign tumour",
+   "The positive class: a malignant tumour",
+   "An unlabelled example to be ignored",
+   "A tumour whose size is exactly zero"
+  ],
+  "why": "0 is the 'negative class' (benign) and 1 is the 'positive class' (malignant). Multi-class labels look like y ∈ {0, 1, 2, 3}.",
+  "source": "2.2 slide 5"
+ },
+ {
+  "id": "ch2-029",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Why not linear regression",
+  "kind": "concept",
+  "q": "Why does thresholding a linear regression fit at 0.5 fail for tumour classification?",
+  "choices": [
+   "One far-away point tilts the line and moves the 0.5 crossing, misclassifying others",
+   "The 0.5 threshold can only be applied to models trained on images, not sizes",
+   "Linear regression cannot be fitted to labels that are only 0 or 1 at all",
+   "The fitted line is always horizontal when every label is 0 or 1"
+  ],
+  "why": "Adding one large malignant tumour flattens the fitted line, so the 0.5 point shifts right and earlier malignant cases are now predicted benign.",
+  "source": "2.2 slides 6–8"
+ },
+ {
+  "id": "ch2-030",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Why not linear regression",
+  "kind": "concept",
+  "q": "What output range does logistic regression guarantee that linear regression does not?",
+  "choices": [
+   "0 ≤ h_θ(x) ≤ 1",
+   "h_θ(x) ≥ 0 only",
+   "−1 ≤ h_θ(x) ≤ 1",
+   "h_θ(x) ∈ {0, 1}"
+  ],
+  "why": "A linear h can be above 1 or below 0, which makes no sense as a probability. The sigmoid keeps outputs between 0 and 1. It outputs a probability, not a hard 0/1.",
+  "source": "2.2 slide 9"
+ },
+ {
+  "id": "ch2-031",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Sigmoid",
+  "kind": "concept",
+  "q": "What is the logistic (sigmoid) function?",
+  "choices": [
+   "g(z) = 1 / (1 + e⁻ᶻ)",
+   "g(z) = 1 / (1 − e⁻ᶻ)",
+   "g(z) = e⁻ᶻ / (1 + e⁻ᶻ)",
+   "g(z) = 1 / (1 + e^z²)"
+  ],
+  "why": "h_θ(x) = g(Xθ) = 1/(1 + e^(−Xθ)). The third option equals 1 − g(z), which is the mirror image.",
+  "source": "2.2 slide 10"
+ },
+ {
+  "id": "ch2-032",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Sigmoid",
+  "kind": "calc",
+  "q": "What is g(0) for the sigmoid?",
+  "choices": [
+   "0.5",
+   "0",
+   "1",
+   "0.693"
+  ],
+  "why": "g(0) = 1/(1 + e⁰) = 1/2. That is why every prediction is 0.5 when θ starts at zero. 0.693 is the resulting cost, not the output.",
+  "source": "2.2 slides 10, 20"
+ },
+ {
+  "id": "ch2-033",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Sigmoid",
+  "kind": "calc",
+  "q": "Using e^(−ln 3) = 1/3, what is g(ln 3)?",
+  "choices": [
+   "0.75",
+   "0.25",
+   "0.33",
+   "0.5"
+  ],
+  "why": "g = 1/(1 + 1/3) = 3/4 = 0.75. 0.25 would be g(−ln 3).",
+  "source": "2.2 slide 10 (method)"
+ },
+ {
+  "id": "ch2-034",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Sigmoid",
+  "kind": "concept",
+  "q": "As z → +∞ and z → −∞, the sigmoid g(z) approaches…",
+  "choices": [
+   "1 and 0",
+   "0 and 1",
+   "+∞ and −∞",
+   "0.5 and 0.5"
+  ],
+  "why": "It is an S-curve squashing all reals into (0, 1): near 1 for large positive z and near 0 for large negative z, crossing 0.5 at z = 0.",
+  "source": "2.2 slides 10, 12"
+ },
+ {
+  "id": "ch2-035",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Interpretation",
+  "kind": "concept",
+  "q": "What does h_θ(x) = 0.7 mean for a patient with x = [1, tumorSize]?",
+  "choices": [
+   "An estimated 70% chance that the tumour is malignant (y = 1)",
+   "An estimated 70% chance that the tumour is benign (y = 0)",
+   "The tumour is 70% of the size threshold for malignancy",
+   "The model is wrong on 70% of the training examples"
+  ],
+  "why": "h_θ(x) = P(y = 1 | x; θ), the estimated probability of the positive class, which here is malignant.",
+  "source": "2.2 slide 11"
+ },
+ {
+  "id": "ch2-036",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Interpretation",
+  "kind": "calc",
+  "q": "If h_θ(x) = P(y = 1 | x; θ) = 0.7, what is P(y = 0 | x; θ)?",
+  "choices": [
+   "0.3",
+   "0.7",
+   "0.5",
+   "1.7"
+  ],
+  "why": "The two probabilities sum to 1, so P(y = 0) = 1 − 0.7 = 0.3.",
+  "source": "2.2 slide 11"
+ },
+ {
+  "id": "ch2-037",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Decision rule",
+  "kind": "trap",
+  "q": "To predict y = 1 with logistic regression, which check is enough?",
+  "choices": [
+   "Xθ ≥ 0",
+   "Xθ ≥ 0.5",
+   "Xθ ≥ 1",
+   "e^(−Xθ) ≥ 1"
+  ],
+  "why": "g(z) ≥ 0.5 exactly when z ≥ 0, so you can skip the sigmoid and check the sign of Xθ. 0.5 is the threshold on h, not on z. e^(−z) ≥ 1 means z ≤ 0, the opposite.",
+  "source": "2.2 slide 12"
+ },
+ {
+  "id": "ch2-038",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Decision boundary",
+  "kind": "concept",
+  "q": "h_θ(x) = g(θ₀ + θ₁x₁ + θ₂x₂) with θ = [−3, 1, 1]. What is the decision boundary?",
+  "choices": [
+   "x₁ + x₂ = 3",
+   "x₁ + x₂ = −3",
+   "x₁ + x₂ = 0.5",
+   "x₁ = x₂"
+  ],
+  "why": "Set −3 + x₁ + x₂ = 0. Predict y = 1 when x₁ + x₂ ≥ 3 and y = 0 when x₁ + x₂ < 3. On the line, h_θ(x) = 0.5.",
+  "source": "2.2 slide 13"
+ },
+ {
+  "id": "ch2-039",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Decision boundary",
+  "kind": "calc",
+  "q": "With θ = [−3, 1, 1], what is predicted for the point (x₁, x₂) = (1, 1)?",
+  "choices": [
+   "y = 0, since −3 + 1 + 1 = −1 < 0",
+   "y = 1, since 1 + 1 > 0",
+   "y = 1, since g(−1) > 0",
+   "It lies exactly on the boundary"
+  ],
+  "why": "z = −1 < 0, so h = g(−1) < 0.5 and the prediction is 0. The point is below the line x₁ + x₂ = 3. g(−1) is positive, but it is below 0.5.",
+  "source": "2.2 slide 13 (method)"
+ },
+ {
+  "id": "ch2-040",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Decision boundary",
+  "kind": "calc",
+  "q": "With θ = [−3, 1, 1], what is h_θ(x) at the point (2, 1)?",
+  "choices": [
+   "0.5",
+   "0",
+   "1",
+   "0.73"
+  ],
+  "why": "z = −3 + 2 + 1 = 0 and g(0) = 0.5: the point lies exactly on the decision boundary x₁ + x₂ = 3.",
+  "source": "2.2 slide 13 (method)"
+ },
+ {
+  "id": "ch2-041",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Decision boundary",
+  "kind": "calc",
+  "q": "θ = [−4, 2, 0] for h = g(θ₀ + θ₁x₁ + θ₂x₂). Where is the decision boundary?",
+  "choices": [
+   "The vertical line x₁ = 2",
+   "The horizontal line x₂ = 2",
+   "The line x₁ + x₂ = 4",
+   "The vertical line x₁ = −2"
+  ],
+  "why": "−4 + 2x₁ = 0 gives x₁ = 2; x₂ has weight 0 so it plays no part. Predict 1 when x₁ ≥ 2.",
+  "source": "2.2 slide 13 (method)"
+ },
+ {
+  "id": "ch2-042",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Cost function",
+  "kind": "concept",
+  "q": "What is the logistic regression cost for a single example?",
+  "choices": [
+   "−log(h_θ(x)) if y = 1;  −log(1 − h_θ(x)) if y = 0",
+   "−log(1 − h_θ(x)) if y = 1;  −log(h_θ(x)) if y = 0",
+   "½(h_θ(x) − y)² for both y = 1 and y = 0",
+   "log(h_θ(x)) if y = 1;  log(1 − h_θ(x)) if y = 0"
+  ],
+  "why": "This log loss is 0 when you predict the right class with certainty and grows without bound as you approach the wrong one. The last option has the sign wrong, so the cost would be negative.",
+  "source": "2.2 slide 15"
+ },
+ {
+  "id": "ch2-043",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Cost function",
+  "kind": "trap",
+  "q": "y = 1 but the model outputs h_θ(x) close to 0. What happens to the cost?",
+  "choices": [
+   "It shoots toward infinity: confident and wrong is punished hardest",
+   "It approaches 0, because log of a small number is small",
+   "It is capped at 1, as it is for any wrong prediction",
+   "It equals 0.693, as it does for any wrong prediction"
+  ],
+  "why": "For y = 1 the cost is −log(h), and −log(h) → ∞ as h → 0. The y = 1 curve on the slide rises steeply near h = 0.",
+  "source": "2.2 slide 15"
+ },
+ {
+  "id": "ch2-044",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Cost function",
+  "kind": "concept",
+  "q": "Which single formula combines both cases of the logistic cost?",
+  "choices": [
+   "−y·log(h_θ(x)) − (1 − y)·log(1 − h_θ(x))",
+   "−y·log(1 − h_θ(x)) − (1 − y)·log(h_θ(x))",
+   "−log(h_θ(x)) − log(1 − h_θ(x))",
+   "y·log(h_θ(x)) + (1 − y)·log(1 − h_θ(x))"
+  ],
+  "why": "When y = 1 the second term vanishes; when y = 0 the first vanishes. The last option is missing the minus sign.",
+  "source": "2.2 slide 16"
+ },
+ {
+  "id": "ch2-045",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Cost function",
+  "kind": "trap",
+  "q": "Which cost function does 2.2 use for logistic regression?",
+  "choices": [
+   "Log loss averaged over examples, −(1/m)Σ[y log h + (1 − y) log(1 − h)]",
+   "The squared-error cost (1/2m)Σ(h − y)², the same as linear regression",
+   "The absolute error (1/m)Σ|h − y| between prediction and label",
+   "The count of misclassified examples divided by m"
+  ],
+  "why": "Logistic regression replaces squared error with log loss. Only the gradient-descent update ends up looking like linear regression's.",
+  "source": "2.2 slides 16–17"
+ },
+ {
+  "id": "ch2-046",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Cost function",
+  "kind": "calc",
+  "q": "One example has y = 0 and the model outputs h = 0.5. What is its cost?",
+  "choices": [
+   "≈ 0.693 (= ln 2)",
+   "0",
+   "0.5",
+   "≈ 0.25"
+  ],
+  "why": "For y = 0 the cost is −log(1 − 0.5) = −log 0.5 = ln 2 ≈ 0.693. 0.25 is the squared error, which logistic regression doesn't use.",
+  "source": "2.2 slides 15, 23"
+ },
+ {
+  "id": "ch2-047",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Cost function",
+  "kind": "calc",
+  "q": "y = 1 and the model outputs h_θ(x) = 1. What is the cost?",
+  "choices": [
+   "0",
+   "1",
+   "≈ 0.693",
+   "∞"
+  ],
+  "why": "−log(1) = 0. A perfectly confident correct prediction costs nothing. ∞ is the y = 1, h → 0 case.",
+  "source": "2.2 slide 15"
+ },
+ {
+  "id": "ch2-048",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Worked example",
+  "kind": "calc",
+  "q": "θ starts at all zeros for a 5-example logistic problem. What is the first value of J(θ)?",
+  "choices": [
+   "0.693",
+   "0",
+   "0.5",
+   "2.5"
+  ],
+  "why": "Every h = g(0) = 0.5 and every example costs −log 0.5 ≈ 0.693, so the average is 0.693 (= ln 2). A useful check: starting from zero weights, the first cost should be 0.693.",
+  "source": "2.2 slides 20–24"
+ },
+ {
+  "id": "ch2-049",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Gradient descent",
+  "kind": "trap",
+  "q": "How does the logistic regression gradient-descent update compare with linear regression's?",
+  "choices": [
+   "Same form, θ := θ − α(1/m)Xᵀ(h − y); only h is now the sigmoid of Xθ",
+   "Completely different: it needs second derivatives of the log loss",
+   "Same form, except the sign flips to + because of the minus in log loss",
+   "Same form, but logistic regression has no 1/m factor in the update"
+  ],
+  "why": "The update is identical in form; what changed is h_θ(x) = 1/(1 + e^(−Xθ)) instead of Xθ. (Slides 17 and 25 drop the 1/m in the sum form, but the boxed vectorised rule on slide 26 has it.)",
+  "source": "2.2 slides 17, 26"
+ },
+ {
+  "id": "ch2-050",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Worked example",
+  "kind": "calc",
+  "q": "θ = 0 and y = [1, 0, 0, 1, 1]. What is h(x) − y on the first iteration?",
+  "choices": [
+   "[−0.5, 0.5, 0.5, −0.5, −0.5]",
+   "[0.5, −0.5, −0.5, 0.5, 0.5]",
+   "[−1, 0, 0, −1, −1]",
+   "[0.5, 0.5, 0.5, 0.5, 0.5]"
+  ],
+  "why": "Every h is 0.5, so h − y is 0.5 − 1 = −0.5 where y = 1 and 0.5 − 0 = 0.5 where y = 0.",
+  "source": "2.2 slide 28"
+ },
+ {
+  "id": "ch2-051",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Worked example",
+  "kind": "calc",
+  "q": "In 2.2's example Xᵀ(h − y) = [−0.5, 1.5, −3.5], with α = 0.1, m = 5 and θ = 0. What is θ after one step?",
+  "choices": [
+   "[0.01, −0.03, 0.07]",
+   "[−0.01, 0.03, −0.07]",
+   "[0.05, −0.15, 0.35]",
+   "[0.1, −0.3, 0.7]"
+  ],
+  "why": "α/m = 0.02, so the step is 0.02·[−0.5, 1.5, −3.5] = [−0.01, 0.03, −0.07], and θ = 0 − step = [0.01, −0.03, 0.07]. The second option forgets to subtract; the third forgets the 1/m.",
+  "source": "2.2 slide 29"
+ },
+ {
+  "id": "ch2-052",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Worked example",
+  "kind": "calc",
+  "q": "Two examples: x⁽¹⁾ = [1, 0], y⁽¹⁾ = 1 and x⁽²⁾ = [1, 2], y⁽²⁾ = 0. Starting from θ = [0, 0] with α = 0.2, what is θ₁ after one step?",
+  "choices": [
+   "−0.1",
+   "0.1",
+   "−0.2",
+   "0"
+  ],
+  "why": "h = 0.5 for both, so h − y = [−0.5, 0.5]. The θ₁ gradient is (1/2)(−0.5·0 + 0.5·2) = 0.5, so θ₁ = 0 − 0.2·0.5 = −0.1. (θ₀'s gradient is 0.)",
+  "source": "2.2 slide 26 (method)"
+ },
+ {
+  "id": "ch2-053",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Worked example",
+  "kind": "concept",
+  "q": "What happened to J over the first three iterations of 2.2's worked example?",
+  "choices": [
+   "0.693 → 0.638 → 0.595",
+   "0.693 → 0.693 → 0.693",
+   "0.595 → 0.638 → 0.693",
+   "2393 → 62.6 → 61.25"
+  ],
+  "why": "The cost falls each iteration, as it should. 2393 → 62.6 → 61.25 is the linear regression example from 2.1.",
+  "source": "2.2 slide 30"
+ },
+ {
+  "id": "ch2-054",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Multi-class",
+  "kind": "concept",
+  "q": "Which is one of 2.2's multi-class classification examples?",
+  "choices": [
+   "Email foldering into Work, Friends, Family, Hobby",
+   "Email filtering into Spam or Not spam",
+   "Tumour detection as Benign or Malignant",
+   "Transactions flagged as Fraud or Not fraud"
+  ],
+  "why": "Multi-class examples: email foldering (4 classes), medical diagnosis Not ill/Cold/Flu, and weather Sunny/Cloudy/Rain/Snow. The others are binary.",
+  "source": "2.2 slide 33"
+ },
+ {
+  "id": "ch2-055",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "One-vs-all",
+  "kind": "concept",
+  "q": "How does one-vs-all (one-vs-rest) handle a problem with 3 classes?",
+  "choices": [
+   "Train 3 binary logistic classifiers, one per class against all the others",
+   "Train 1 logistic classifier whose output is rounded to 1, 2 or 3",
+   "Train 2 classifiers and treat the leftover examples as the third class",
+   "Train 3 classifiers, one for each pair of classes, and take a vote"
+  ],
+  "why": "Each h⁽ⁱ⁾_θ(x) estimates P(y = i | x; θ) for its class versus the rest, so K classes need K classifiers. A pairwise vote is not the method taught.",
+  "source": "2.2 slides 35–36"
+ },
+ {
+  "id": "ch2-056",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "One-vs-all",
+  "kind": "calc",
+  "q": "Three one-vs-all classifiers output h⁽¹⁾ = 0.2, h⁽²⁾ = 0.7, h⁽³⁾ = 0.4 for a new x. Which class is predicted?",
+  "choices": [
+   "Class 2",
+   "Class 1",
+   "Class 3",
+   "None, since no output is above 0.8"
+  ],
+  "why": "Pick the class i that maximises h⁽ⁱ⁾_θ(x): the largest output wins, with no extra threshold.",
+  "source": "2.2 slide 36"
+ },
+ {
+  "id": "ch2-057",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "One-vs-all",
+  "kind": "concept",
+  "q": "In the 2.2 one-vs-all code, how is the label vector prepared to train the classifier for class c?",
+  "choices": [
+   "y_c = np.where(y == c, 1, 0): class c becomes 1, every other class 0",
+   "y_c = y / c, so that class c's labels become exactly 1",
+   "y_c = y[y == c], keeping only the examples that belong to class c",
+   "y_c = np.argmax(y), so each example is labelled with the top class"
+  ],
+  "why": "Each binary classifier sees its class as positive and the rest as negative. Prediction later uses np.argmax over the sigmoid outputs.",
+  "source": "2.2 slide 37"
+ },
+ {
+  "id": "ch2-058",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Overfitting",
+  "kind": "concept",
+  "q": "How does 2.2 define overfitting?",
+  "choices": [
+   "Fitting the training set very well (J ≈ 0) but failing to generalise to new examples",
+   "Failing to fit even the training set because the model is far too simple",
+   "Training for so many iterations that the cost starts rising again",
+   "Using a learning rate so large that gradient descent diverges"
+  ],
+  "why": "With too many features the hypothesis can drive training cost near zero yet predict new prices badly. Too simple a model is underfitting.",
+  "source": "2.2 slide 41"
+ },
+ {
+  "id": "ch2-059",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Bias vs variance",
+  "kind": "trap",
+  "q": "Which pairing is correct?",
+  "choices": [
+   "Underfit → high bias; overfit → high variance",
+   "Underfit → high variance; overfit → high bias",
+   "Underfit → low bias; overfit → low variance",
+   "Underfit → high bias; overfit → low variance"
+  ],
+  "why": "The straight line θ₀ + θ₁x underfits (high bias). The degree-4 curve through every point overfits (high variance).",
+  "source": "2.2 slides 40, 42"
+ },
+ {
+  "id": "ch2-060",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Bias vs variance",
+  "kind": "concept",
+  "q": "In 2.2's housing-price example, which hypothesis is shown as the good fit?",
+  "choices": [
+   "θ₀ + θ₁x + θ₂x²",
+   "θ₀ + θ₁x",
+   "θ₀ + θ₁x + θ₂x² + θ₃x³ + θ₄x⁴",
+   "θ₀ alone"
+  ],
+  "why": "The quadratic follows the data. The straight line underfits and the quartic wiggles through every point (overfits).",
+  "source": "2.2 slide 40"
+ },
+ {
+  "id": "ch2-061",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Addressing overfitting",
+  "kind": "concept",
+  "q": "What are 2.2's two options for addressing overfitting?",
+  "choices": [
+   "Reduce the number of features, or apply regularization",
+   "Increase the learning rate, or run more iterations",
+   "Add more polynomial features, or remove the bias term",
+   "Switch to the normal equation, or lower the threshold"
+  ],
+  "why": "Option 1: reduce features (manually, or with a model-selection algorithm later in the course). Option 2: regularization.",
+  "source": "2.2 slide 43"
+ },
+ {
+  "id": "ch2-062",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Regularization",
+  "kind": "concept",
+  "q": "What does regularization do, according to 2.2?",
+  "choices": [
+   "Keeps all features but shrinks the magnitude of the parameters θⱼ",
+   "Removes the least useful features before training begins",
+   "Rescales every input feature to lie between 0 and 1",
+   "Adds more training examples so the model sees more data"
+  ],
+  "why": "It adds a penalty term to the cost so weights stay small, which improves generalisation. It works well when many features each contribute a bit to predicting y.",
+  "source": "2.2 slides 43–44"
+ },
+ {
+  "id": "ch2-063",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Regularization",
+  "kind": "concept",
+  "q": "What is the difference between L1 and L2 regularization penalties?",
+  "choices": [
+   "L1 (Lasso) adds λΣ|θⱼ|; L2 (Ridge) adds λΣθⱼ²",
+   "L1 (Ridge) adds λΣ|θⱼ|; L2 (Lasso) adds λΣθⱼ²",
+   "L1 (Lasso) adds λΣθⱼ²; L2 (Ridge) adds λΣ|θⱼ|",
+   "L1 adds λ·m; L2 adds λ·m², with no θ involved"
+  ],
+  "why": "L1 = Lasso = absolute values of the weights; L2 = Ridge = squares of the weights.",
+  "source": "2.2 slide 44"
+ },
+ {
+  "id": "ch2-064",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Regularization",
+  "kind": "concept",
+  "q": "Linear regression with L2 regularization is better known as…",
+  "choices": [
+   "Ridge regression",
+   "Lasso regression",
+   "Logistic regression",
+   "Stepwise regression"
+  ],
+  "why": "Slide 45: Linear Regression (L2-regularization) → Ridge Regression. Lasso is the L1 version.",
+  "source": "2.2 slide 45"
+ },
+ {
+  "id": "ch2-065",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Regularization",
+  "kind": "trap",
+  "q": "In the L2 penalty Σⱼ θⱼ², why does the sum start at j = 1?",
+  "choices": [
+   "The bias θ₀ is not regularized, so it gets its own update without λ",
+   "θ₀ is always zero, so including it would change nothing",
+   "Indexing starts at 1 in the formula, but θ₀ is still penalised",
+   "θ₀ is the learning rate, so it cannot be squared"
+  ],
+  "why": "The penalty runs over θ₁…θₙ. That is why the gradient-descent rules write θ₀'s update separately, with no λ term.",
+  "source": "2.2 slides 45–46"
+ },
+ {
+  "id": "ch2-066",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Regularization",
+  "kind": "calc",
+  "q": "θ = [θ₀, θ₁, θ₂] = [5, 1, 2] and λ = 1. What is the L2 penalty λΣⱼ₌₁ⁿ θⱼ²?",
+  "choices": [
+   "5",
+   "30",
+   "3",
+   "8"
+  ],
+  "why": "Skip θ₀: 1² + 2² = 5. 30 wrongly includes θ₀² = 25; 3 sums without squaring (that is the L1 penalty).",
+  "source": "2.2 slides 44–45 (method)"
+ },
+ {
+  "id": "ch2-067",
+  "chapter": "Week 2 · Multivariable, Polynomial & Logistic Regression",
+  "topic": "Regularization",
+  "kind": "concept",
+  "q": "Which term does L2 add to the logistic regression cost?",
+  "choices": [
+   "+ (λ/2m)·Σⱼ₌₁ⁿ θⱼ²",
+   "+ (λ/2m)·Σⱼ₌₀ⁿ θⱼ²",
+   "− (λ/m)·Σⱼ₌₁ⁿ |θⱼ|",
+   "+ λ·Σᵢ₌₁ᵐ (h − y)²"
+  ],
+  "why": "The regularized logistic cost is the log loss plus (λ/2m)Σθⱼ² from j = 1, where λ is the regularization parameter. Starting at j = 0 would wrongly penalise the bias.",
+  "source": "2.2 slide 46"
+ }
+]

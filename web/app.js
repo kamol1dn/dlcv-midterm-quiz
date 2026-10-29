@@ -158,7 +158,7 @@ async function openDeck(key) {
   app.innerHTML = `<p class="muted">Loading ${esc(deck.title)}…</p>`;
   cards = await (await fetch(`decks/${key}.json`)).json();
   prog = store.get(progKey(key), emptyProg());
-  settings = { units: [], mix: false, missed: false, starred: false, ...store.get(setKey(key), {}) };
+  settings = { units: [], mix: false, missed: false, starred: true, ...store.get(setKey(key), {}) };  // ★ on by default
   location.hash = key;
   setup();
 }
@@ -234,7 +234,7 @@ function weakTopics() {
 function poolNow() {
   let pool = settings.units.length ? cards.filter(c => settings.units.includes(unitOf(c))) : cards;
   if (settings.missed) pool = pool.filter(c => prog.cards[c.id] && prog.cards[c.id].box <= 1);
-  if (settings.starred) pool = pool.filter(c => c.star);
+  if (settings.starred && cards.some(c => c.star)) pool = pool.filter(c => c.star);
   return pool;
 }
 

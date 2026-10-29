@@ -7,7 +7,8 @@ const FIRST_TRY_BOX = 3, MASTERED = 4, COOLDOWN = 10;
 const LETTERS = "abcd";
 
 const app = document.getElementById("app");
-let decks = [], deck = null, cards = [], prog = null, session = null, current = null, settings = null;
+let decks = [], deck = null, cards = [], prog = null, session = null, current = null, settings = null, view = "home";
+function setView(v) { view = v; app.classList.toggle("playing", v === "play"); }
 
 // ---------------------------------------------------------------- storage
 
@@ -131,7 +132,7 @@ function deckStats(d) {
 }
 
 function home() {
-  deck = null; current = null;
+  deck = null; current = null; setView("home");
   app.innerHTML = `
     <h1>Midterm flashcards</h1>
     <p class="muted">Inha University in Tashkent · Fall 2026. Cards are written from the professors' own study guides.
@@ -146,6 +147,7 @@ function home() {
         <div class="meta" style="margin-top:6px">${s.seen} seen · ${s.mastered} mastered</div>
       </button>`;
     }).join("")}
+    <div class="keys">Keyboard: <kbd>1</kbd>–<kbd>${decks.length}</kbd> opens a deck, in the order shown</div>
     <footer>Not official course material: unofficial study aid made by students, checked against each guide but it can still be wrong.
     Questions and fixes: <a href="https://github.com/kamol1dn/dlcv-midterm-quiz">GitHub</a>.</footer>`;
   app.querySelectorAll("[data-deck]").forEach(b => (b.onclick = () => openDeck(b.dataset.deck)));
@@ -155,6 +157,7 @@ function home() {
 async function openDeck(key) {
   deck = decks.find(d => d.key === key);
   if (!deck) return home();
+  setView("loading");
   app.innerHTML = `<p class="muted">Loading ${esc(deck.title)}…</p>`;
   cards = await (await fetch(`decks/${key}.json`)).json();
   prog = store.get(progKey(key), emptyProg());
@@ -164,7 +167,7 @@ async function openDeck(key) {
 }
 
 function setup() {
-  current = null;
+  current = null; setView("setup");
   const all = units();
   const states = prog.cards;
   const rows = all.map(([u, chapter]) => {
@@ -194,6 +197,7 @@ function setup() {
       <p class="meta" style="margin-top:10px">Course order teaches from the first idea to the last. Random mix spreads cards by
       how much of the exam each part covers: best for the last drill before the exam.</p>
       <button class="btn primary" id="start" style="margin-top:4px">Start</button>
+      <div class="keys"><kbd>Enter</kbd> start · <kbd>o</kbd> course order · <kbd>m</kbd> mix · <kbd>x</kbd> only missed${cards.some(c => c.star) ? " · <kbd>s</kbd> ★ only" : ""} · <kbd>Esc</kbd> back</div>
     </div>
     <div class="card">
       <h2>Progress</h2>
@@ -253,39 +257,52 @@ function next() {
   drawCard();
 }
 
-function drawCard(chosen = null) {
-  const { card, order, tag, done } = current;
+function drawCard() {
+  setView("play");
+  const { card, order, tag } = current;
   const states = prog.cards;
   const seen = cards.filter(c => states[c.id]).length, mastered = cards.filter(c => states[c.id] && states[c.id].box >= MASTERED).length;
-  const correctPos = order.indexOf(0);
-  let verdict = "";
-  if (done) {
-    verdict = chosen === null ? `<div class="verdict show">Answer: ${LETTERS[correctPos]}) ${esc(card.choices[0])}</div>`
-      : order[chosen] === 0 ? `<div class="verdict good">Correct</div>` : `<div class="verdict bad">Wrong</div>`;
-  }
   app.innerHTML = `
-    <div class="top"><button class="btn link" id="quit">← Stop</button><span class="meta">session ${session.n} · ${session.right} right</span></div>
-    <div class="card">
+    <div class="top"><button class="btn link" id="quit">← Stop</button><span class="meta" id="sess">session ${session.n} · ${session.right} right</span></div>
+    <div class="card enter">
       <div class="top"><span class="meta">${esc(card.chapter)} · ${esc(card.topic)}</span><span>${card.star ? `<span class="tag star" title="The professor stressed this in the lecture">★ PROF STRESSED</span> ` : ""}${tag}</span></div>
       <div class="question">${esc(card.q)}</div>
-      ${order.map((idx, pos) => {
-        let cls = "";
-        if (done) cls = idx === 0 ? "right" : pos === chosen ? "wrong" : "dim";
-        return `<button class="choice ${cls}" data-pos="${pos}" ${done ? "disabled" : ""}><span class="key">${LETTERS[pos]}</span><span>${esc(card.choices[idx])}</span></button>`;
-      }).join("")}
-      ${done ? `${verdict}<div class="why">${esc(card.why)}${card.source ? `<div class="meta" style="margin-top:6px">${esc(card.source)}</div>` : ""}${card.star_note ? `<div class="meta star-note">★ ${esc(card.star_note)}</div>` : ""}</div>
-        <div class="row" style="margin-top:14px"><button class="btn primary" id="next">Next</button>
-        ${chosen !== null && order[chosen] !== 0 ? `<button class="btn" id="typo">Mis-tap, I knew it</button>` : ""}</div>`
-        : `<button class="btn" id="show" style="margin-top:6px">Don't know, show me</button>`}
-      <div class="keys"><kbd>a</kbd>–<kbd>d</kbd> answer · <kbd>Enter</kbd> ${done ? "next" : "show"} ${done ? "· <kbd>k</kbd> mis-tap" : ""} · <kbd>Esc</kbd> stop</div>
+      ${order.map((idx, pos) => `<button class="choice" data-pos="${pos}"><span class="key">${LETTERS[pos]}</span><span>${esc(card.choices[idx])}</span></button>`).join("")}
+      <div id="feedback"></div>
+      <div class="keys"><kbd>a</kbd>–<kbd>d</kbd> answer · <kbd>Enter</kbd> show / next · <kbd>k</kbd> mis-tap · <kbd>Esc</kbd> stop</div>
     </div>
-    <p class="meta">${seen}/${cards.length} seen · ${mastered} mastered</p>`;
+    <p class="meta">${seen}/${cards.length} seen · ${mastered} mastered</p>
+    <div class="dock" id="dock"><div class="dock-inner"><button class="btn wide" id="show">Don't know, show me</button></div></div>`;
   app.querySelector("#quit").onclick = summary;
-  app.querySelectorAll(".choice:not(:disabled)").forEach(b => (b.onclick = () => answer(+b.dataset.pos)));
-  app.querySelector("#show")?.addEventListener("click", () => answer(null));
-  app.querySelector("#next")?.addEventListener("click", next);
-  app.querySelector("#typo")?.addEventListener("click", typo);
-  window.scrollTo({ top: 0 });
+  app.querySelectorAll(".choice").forEach(b => (b.onclick = () => answer(+b.dataset.pos)));
+  app.querySelector("#show").onclick = () => answer(null);
+  window.scrollTo(0, 0);
+}
+
+// Show the result in place: no re-render, so the page doesn't jump and the dock's Next stays under the thumb.
+function reveal(chosen) {
+  const { card, order } = current;
+  const right = chosen !== null && order[chosen] === 0;
+  app.querySelectorAll(".choice").forEach((b, pos) => {
+    b.disabled = true;
+    b.classList.add(order[pos] === 0 ? "right" : pos === chosen ? "wrong" : "dim");
+  });
+  app.querySelector("#sess").textContent = `session ${session.n} · ${session.right} right`;
+  const fb = app.querySelector("#feedback");
+  fb.innerHTML = `<div class="why">${esc(card.why)}${card.source ? `<div class="meta" style="margin-top:6px">${esc(card.source)}</div>` : ""}${card.star_note ? `<div class="meta star-note">★ ${esc(card.star_note)}</div>` : ""}</div>`;
+  const cls = right ? "good" : chosen === null ? "show" : "bad";
+  const head = right ? "Correct" : `${chosen === null ? "Answer" : "Wrong, it's"} ${LETTERS[order.indexOf(0)]}`;
+  const dock = app.querySelector("#dock");
+  dock.className = `dock ${cls}`;
+  dock.innerHTML = `<div class="dock-inner"><div class="verdict ${cls}">${head}</div>
+    <div class="dock-row">${chosen !== null && !right ? `<button class="btn" id="typo">Mis-tap, I knew it</button>` : ""}<button class="btn primary wide" id="next">Next</button></div></div>`;
+  // A quick second tap on the same spot ("show me", then Next) shouldn't skip the card unread.
+  const readyAt = performance.now() + 300;
+  const guard = fn => () => { if (performance.now() >= readyAt) fn(); };
+  dock.querySelector("#next").onclick = guard(next);
+  dock.querySelector("#typo")?.addEventListener("click", guard(typo));
+  if (!right && navigator.vibrate) navigator.vibrate(30);
+  fb.firstElementChild.scrollIntoView({ block: "nearest", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
 }
 
 function answer(pos) {
@@ -297,7 +314,7 @@ function answer(pos) {
   store.set(progKey(deck.key), prog);
   session.n++; session.right += right;
   current.done = true; current.chosen = pos;
-  drawCard(pos);
+  reveal(pos);
 }
 
 function typo() {
@@ -311,6 +328,7 @@ function typo() {
 
 function summary() {
   if (!session || !session.n) { session = null; return setup(); }
+  current = null; setView("summary");
   const mastered = Object.values(prog.cards).filter(s => s.box >= MASTERED).length;
   app.innerHTML = `
     <h1>Session done</h1>
@@ -318,22 +336,39 @@ function summary() {
       <p><b>${session.n}</b> cards · <b>${session.right}</b> right (${pct(session.right, session.n)}%)</p>
       <p class="muted">Mastered ${mastered}/${cards.length} (+${mastered - session.masteredBefore}). Saved on this device.</p>
       <div class="row"><button class="btn primary" id="again">Keep going</button><button class="btn" id="menu">Deck menu</button></div>
+      <div class="keys"><kbd>Enter</kbd> keep going · <kbd>Esc</kbd> deck menu</div>
     </div>`;
   session = null;
   app.querySelector("#again").onclick = start;
   app.querySelector("#menu").onclick = setup;
 }
 
+// Keyboard, CLI style: every screen can be driven without the mouse. Held keys don't repeat.
 document.addEventListener("keydown", e => {
-  if (!current || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
   const k = e.key.toLowerCase();
-  if (k === "escape") return summary();
-  if (!current.done) {
-    const i = "abcd".indexOf(k) >= 0 ? "abcd".indexOf(k) : "1234".indexOf(k);
-    if (i >= 0) answer(i);
-    else if (k === "enter") { e.preventDefault(); answer(null); }
-  } else if (k === "enter" || k === " ") { e.preventDefault(); next(); }
-  else if (k === "k" && current.chosen !== null && current.order[current.chosen] !== 0) typo();
+  const tap = sel => { const b = app.querySelector(sel); if (b) { e.preventDefault(); b.click(); } };
+  const go = k === "enter" || k === " ";
+  if (view === "home") {
+    const i = parseInt(k, 10);
+    if (i >= 1 && i <= decks.length) openDeck(decks[i - 1].key);
+  } else if (view === "setup") {
+    const toggles = { o: "#order", m: "#mix", x: "#missed", s: "#starred" };
+    if (go) tap("#start");
+    else if (k === "escape" || k === "backspace") tap("#back");
+    else if (toggles[k]) tap(toggles[k]);
+  } else if (view === "summary") {
+    if (go) tap("#again");
+    else if (k === "escape" || k === "backspace") tap("#menu");
+  } else if (view === "play" && current) {
+    if (k === "escape" || k === "q") return summary();
+    if (!current.done) {
+      const i = "abcd".indexOf(k) >= 0 ? "abcd".indexOf(k) : "1234".indexOf(k);
+      if (i >= 0) answer(i);
+      else if (go) { e.preventDefault(); answer(null); }
+    } else if (go || k === "n" || k === "arrowright") { e.preventDefault(); next(); }
+    else if (k === "k" && current.chosen !== null && current.order[current.chosen] !== 0) typo();
+  }
 });
 
 window.addEventListener("hashchange", () => { const k = location.hash.slice(1); if (k && (!deck || deck.key !== k)) openDeck(k); else if (!k) home(); });

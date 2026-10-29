@@ -1,9 +1,76 @@
 [
  {
+  "key": "distinguished",
+  "title": "Distinguished Lecture",
+  "subtitle": "Critical thinking · 30 MCQ, 60 min · short cram deck",
+  "exam": "Fri 30 Oct, 09:30",
+  "unit": "Ch.",
+  "share": [
+   [
+    [
+     5
+    ],
+    0.3
+   ],
+   [
+    [
+     1,
+     6,
+     10,
+     12
+    ],
+    0.6
+   ],
+   [
+    [
+     2,
+     4,
+     11
+    ],
+    0.1
+   ]
+  ],
+  "count": 204
+ },
+ {
+  "key": "distinguished-full",
+  "title": "Distinguished Lecture: full bank",
+  "subtitle": "All 703 cards the short deck was cut from",
+  "exam": "Fri 30 Oct, 09:30",
+  "unit": "Ch.",
+  "share": [
+   [
+    [
+     5
+    ],
+    0.3
+   ],
+   [
+    [
+     1,
+     6,
+     10,
+     12
+    ],
+    0.6
+   ],
+   [
+    [
+     2,
+     4,
+     11
+    ],
+    0.1
+   ]
+  ],
+  "store": "distinguished",
+  "count": 703
+ },
+ {
   "key": "embedded",
   "title": "Embedded Software",
   "subtitle": "Lessons 00–08 · 33 MCQ, 60 min",
-  "exam": "Wed 28 Oct, 09:30",
+  "exam": "Midterm done 28 Oct",
   "unit": "Lesson",
   "share": null,
   "count": 698
@@ -12,7 +79,7 @@
   "key": "multimedia",
   "title": "Multimedia Computing",
   "subtitle": "L2–L7, L9–L12 · 10 MCQ + 8 problems",
-  "exam": "Wed 28 Oct, 12:30",
+  "exam": "Midterm done 28 Oct",
   "unit": "L",
   "share": null,
   "count": 406
@@ -62,39 +129,6 @@
    ]
   ],
   "count": 603
- },
- {
-  "key": "distinguished",
-  "title": "Distinguished Lecture",
-  "subtitle": "Critical thinking · 30 MCQ, 60 min",
-  "exam": "Fri 30 Oct, 09:30",
-  "unit": "Ch.",
-  "share": [
-   [
-    [
-     5
-    ],
-    0.3
-   ],
-   [
-    [
-     1,
-     6,
-     10,
-     12
-    ],
-    0.6
-   ],
-   [
-    [
-     2,
-     4,
-     11
-    ],
-    0.1
-   ]
-  ],
-  "count": 696
  },
  {
   "key": "dl",

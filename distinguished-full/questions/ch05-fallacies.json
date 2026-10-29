@@ -1,0 +1,3377 @@
+[
+ {
+  "id": "ch5-001",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "What is a fallacy",
+  "kind": "concept",
+  "q": "How does the lecture define a fallacy?",
+  "choices": [
+   "A faulty argument that at first appears to be correct",
+   "An argument built on premises that are all false",
+   "Any claim that goes against popular opinion",
+   "A correct argument that sounds wrong at first"
+  ],
+  "why": "A fallacy looks right when you first hear it but turns out to be incorrect on closer examination. The last option is the reverse.",
+  "source": "Lecture 4 [04:07]"
+ },
+ {
+  "id": "ch5-002",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "What is a fallacy",
+  "kind": "concept",
+  "q": "In the lecture, an argument is described as...",
+  "choices": [
+   "supporting a conclusion with reasons or evidence (premises)",
+   "a heated disagreement between two or more people about a claim",
+   "any statement that expresses a personal opinion",
+   "a conclusion that is accepted without needing reasons"
+  ],
+  "why": "An argument supports a conclusion with premises. It goes wrong when the premises are mistaken or don't actually support the conclusion.",
+  "source": "Lecture 4 [04:07]"
+ },
+ {
+  "id": "ch5-003",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "What is a fallacy",
+  "kind": "concept",
+  "q": "Why does the lecture say it is worth learning to identify informal fallacies?",
+  "choices": [
+   "They can lead us to unsupported conclusions and poor life choices",
+   "Any argument that contains a fallacy must have a false conclusion",
+   "Using a fallacy in a public argument is a legal offence",
+   "Only people with poor language skills are ever really affected by them"
+  ],
+  "why": "Fallacies lead us to accept unsupported conclusions and make bad choices, as Shannon did. Careful: a fallacy means the conclusion isn't supported, not that it is false.",
+  "source": "Lecture 4 [06:12]"
+ },
+ {
+  "id": "ch5-004",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Formal vs informal",
+  "kind": "concept",
+  "q": "What is a formal fallacy?",
+  "choices": [
+   "Reasoning in which the form of the argument itself is invalid",
+   "Reasoning that is emotionally persuasive but logically incorrect",
+   "An argument that hides weak evidence behind technical language",
+   "An argument made in an official setting such as a court"
+  ],
+  "why": "Formal means the structure (form) is invalid, whatever the content. 'Emotionally persuasive but logically incorrect' is the definition of an informal fallacy.",
+  "source": "Lecture 4 [04:07]"
+ },
+ {
+  "id": "ch5-005",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Formal vs informal",
+  "kind": "concept",
+  "q": "What is an informal fallacy?",
+  "choices": [
+   "Reasoning that is psychologically or emotionally persuasive but logically incorrect",
+   "Reasoning in which the form of the argument itself is invalid, whatever its content",
+   "A reasoning mistake made in casual everyday conversation rather than in formal writing",
+   "An argument whose conclusion is true even though its premises are false"
+  ],
+  "why": "Informal fallacies persuade through psychology or emotion while being logically wrong. An invalid form is a formal fallacy.",
+  "source": "Lecture 4 [06:12]"
+ },
+ {
+  "id": "ch5-006",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Formal vs informal",
+  "kind": "concept",
+  "q": "What makes an informal fallacy 'informal'?",
+  "choices": [
+   "The fault isn't the form; it persuades psychologically while being logically wrong",
+   "It only ever happens in spoken conversation, never in written texts or speeches",
+   "Its structure is invalid in a way that can be shown with symbols, like a syllogism",
+   "It is a minor slip that never affects whether the conclusion is supported"
+  ],
+  "why": "Informal fallacies are about content and persuasion, not structure. An argument can look fine in form and still commit one.",
+  "source": "Lecture 4 [06:12]"
+ },
+ {
+  "id": "ch5-007",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Formal vs informal",
+  "kind": "application",
+  "q": "'Some high school dropouts are men. No doctors are high school dropouts. Therefore, no doctors are men.' What is wrong with this argument, according to the lecture?",
+  "choices": [
+   "It's a formal fallacy: the form of the argument is invalid",
+   "It's equivocation: 'dropouts' changes meaning halfway through",
+   "It's a fallacy of relevance: the premises play on emotion",
+   "It's begging the question: the conclusion restates a premise"
+  ],
+  "why": "This is the lecture's example of a formal fallacy. Both premises can be true while the conclusion is false, purely because of the structure.",
+  "source": "Lecture 4 [04:07]"
+ },
+ {
+  "id": "ch5-008",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Shannon Townsend case",
+  "kind": "concept",
+  "q": "The lecture opens with the case of Shannon Townsend. What happened to her?",
+  "choices": [
+   "After a 3.9 GPA first year she dropped out to join a nomadic cult",
+   "She failed her first year after joining a student pyramid scheme",
+   "She became a physician but lost her licence after trusting a fake study",
+   "She was expelled from university for using fallacies in essays"
+  ],
+  "why": "Shannon, a top University of Colorado student who planned to be a physician, joined the Jim Roberts Group ('the Brethren'), which renounces family and possessions. Her family hasn't seen her since.",
+  "source": "Lecture 4 [00:03]"
+ },
+ {
+  "id": "ch5-009",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Shannon Townsend case",
+  "kind": "concept",
+  "q": "What lesson does the lecturer draw from the Shannon Townsend case?",
+  "choices": [
+   "Cults hide their aims behind fallacies; stay informed and ask questions",
+   "Students with high grades are naturally protected from being manipulated",
+   "Religious belief is itself an example of the popular appeal fallacy",
+   "Parents should stop their children from moving away for university"
+  ],
+  "why": "Cults mask their real objectives with fallacious reasoning, and such groups dislike people who reason and ask hard questions. Shannon's 3.9 GPA didn't protect her.",
+  "source": "Lecture 4 [02:05]",
+  "star": true,
+  "star_note": "[00:03]-[02:05] spends 2+ min on the opening Shannon Townsend case; says such sects exist 'even in our country' and the value of critical thinking is 'very high'"
+ },
+ {
+  "id": "ch5-010",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Shannon Townsend case",
+  "kind": "concept",
+  "q": "Why, according to the lecture, do cults especially target young people starting university?",
+  "choices": [
+   "They're in transition, away from parents and new to independence",
+   "They usually have more spare money and fewer expenses than older adults",
+   "They have not yet taken a university course in formal logic",
+   "They are required by law to join at least one student organisation"
+  ],
+  "why": "The lecture stresses the transition period: separating from parents and adjusting to an independent, grown-up life, which can feel overwhelming.",
+  "source": "Lecture 4 [02:05]"
+ },
+ {
+  "id": "ch5-011",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Three families",
+  "kind": "concept",
+  "q": "Into which three families does the lecture sort informal fallacies?",
+  "choices": [
+   "Ambiguity, relevance, and unwarranted assumptions",
+   "Ambiguity, induction errors, and deduction errors",
+   "Relevance, emotion, and authority",
+   "Formal, informal, and unwarranted assumptions"
+  ],
+  "why": "The three families are fallacies of ambiguity, fallacies of relevance, and fallacies involving unwarranted assumptions. Formal fallacies are a separate category, not an informal family.",
+  "source": "Lecture 4 [06:12]"
+ },
+ {
+  "id": "ch5-012",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Three families",
+  "kind": "concept",
+  "q": "Which family of fallacies comes from ambiguous words or phrases, sloppy grammar, or confusion between two closely related concepts?",
+  "choices": [
+   "Fallacies of ambiguity",
+   "Fallacies of relevance",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "That is the lecture's description of fallacies of ambiguity: equivocation, amphiboly, accent and division.",
+  "source": "Lecture 4 [06:12]"
+ },
+ {
+  "id": "ch5-013",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Three families",
+  "kind": "concept",
+  "q": "In which family is a premise logically irrelevant to the conclusion, even though it feels psychologically relevant?",
+  "choices": [
+   "Fallacies of relevance",
+   "Fallacies of ambiguity",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "Fallacies of relevance work because the premise seems related to the conclusion, even though logically it isn't.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-014",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Three families",
+  "kind": "concept",
+  "q": "Which family covers arguments that rest on an assumption not supported by evidence, which weakens the whole argument?",
+  "choices": [
+   "Fallacies involving unwarranted assumptions",
+   "Fallacies of relevance",
+   "Fallacies of ambiguity",
+   "Formal fallacies"
+  ],
+  "why": "An unwarranted assumption is unjustified, so everything built on it is weakened.",
+  "source": "Lecture 4 [30:45]"
+ },
+ {
+  "id": "ch5-015",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Three families",
+  "kind": "concept",
+  "q": "According to the lecture, who is most likely to commit or fall for fallacies of ambiguity?",
+  "choices": [
+   "People with poor communication skills",
+   "People who place too much trust in celebrities and bloggers",
+   "People with unusually high self-esteem",
+   "People who have been trained in formal logic"
+  ],
+  "why": "Ambiguity fallacies come from sloppy wording and grammar, so weak language and communication skills make people more vulnerable.",
+  "source": "Lecture 4 [06:12]"
+ },
+ {
+  "id": "ch5-016",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Three families",
+  "kind": "concept",
+  "q": "Why do fallacies of relevance work on people even though the premise is irrelevant?",
+  "choices": [
+   "Psychologically, the premise and conclusion seem related",
+   "The premise uses a word that has two meanings",
+   "The conclusion simply restates the premise",
+   "The argument has a perfectly valid logical form"
+  ],
+  "why": "The lecture says we fall for them because, psychologically, premise and conclusion seem relevant to each other. A word with two meanings is an ambiguity problem.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-017",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Three families",
+  "kind": "concept",
+  "q": "Which list contains exactly the four fallacies of ambiguity?",
+  "choices": [
+   "Equivocation, amphiboly, accent, division",
+   "Equivocation, amphiboly, accent, straw man",
+   "Amphiboly, accent, division, hasty generalisation",
+   "Equivocation, accent, loaded question, red herring"
+  ],
+  "why": "The ambiguity family is equivocation, amphiboly, accent and division. Straw man, hasty generalisation and red herring are relevance; loaded question is unwarranted assumption.",
+  "source": "Slides"
+ },
+ {
+  "id": "ch5-018",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Three families",
+  "kind": "concept",
+  "q": "Which of these is NOT a fallacy of relevance?",
+  "choices": [
+   "Slippery slope",
+   "Straw man",
+   "Appeal to ignorance",
+   "Hasty generalisation"
+  ],
+  "why": "Slippery slope is a fallacy involving unwarranted assumptions. The other three are all fallacies of relevance in this lecture.",
+  "source": "Slides"
+ },
+ {
+  "id": "ch5-019",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Three families",
+  "kind": "concept",
+  "q": "Which of these belongs to the fallacies involving unwarranted assumptions?",
+  "choices": [
+   "Loaded question",
+   "Red herring",
+   "Amphiboly",
+   "Appeal to pity"
+  ],
+  "why": "Loaded question smuggles in an unsupported assumption. Red herring and appeal to pity are relevance; amphiboly is ambiguity.",
+  "source": "Slides"
+ },
+ {
+  "id": "ch5-020",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Three families",
+  "kind": "concept",
+  "q": "Which of these is NOT one of the fallacies involving unwarranted assumptions?",
+  "choices": [
+   "Appeal to ignorance",
+   "Naturalistic fallacy",
+   "False dilemma",
+   "Begging the question"
+  ],
+  "why": "Appeal to ignorance sounds like an assumption problem, but the lecture lists it under fallacies of relevance. The other three are unwarranted assumptions.",
+  "source": "Slides"
+ },
+ {
+  "id": "ch5-021",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Three families",
+  "kind": "concept",
+  "q": "Which of these is NOT a fallacy of ambiguity?",
+  "choices": [
+   "Hasty generalisation",
+   "Fallacy of division",
+   "Fallacy of accent",
+   "Amphiboly"
+  ],
+  "why": "Hasty generalisation is a fallacy of relevance. Division is about groups too, but it sits in the ambiguity family.",
+  "source": "Slides"
+ },
+ {
+  "id": "ch5-022",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Equivocation",
+  "kind": "concept",
+  "q": "Which fallacy occurs when a key term in an argument changes meaning during the course of the argument?",
+  "choices": [
+   "Equivocation",
+   "Amphiboly",
+   "Fallacy of accent",
+   "Begging the question"
+  ],
+  "why": "Equivocation is a shift in a word's meaning. Amphiboly is about grammar, accent about which word is stressed.",
+  "source": "Lecture 4 [08:15]"
+ },
+ {
+  "id": "ch5-023",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Equivocation",
+  "kind": "concept",
+  "q": "What is the fallacy of equivocation?",
+  "choices": [
+   "A key word shifts meaning partway through the argument",
+   "Sloppy grammar lets a sentence support two conclusions",
+   "The meaning changes depending on which word is stressed",
+   "A trait of a whole group is assumed for each member"
+  ],
+  "why": "Equivocation: one key term, two meanings, used as if it were one. The other options describe amphiboly, accent and division.",
+  "source": "Lecture 4 [08:15]"
+ },
+ {
+  "id": "ch5-024",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Equivocation",
+  "kind": "concept",
+  "q": "Equivocation belongs to which family of fallacies?",
+  "choices": [
+   "Fallacies of ambiguity",
+   "Fallacies of relevance",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "It turns on an ambiguous word, so it is a fallacy of ambiguity.",
+  "source": "Lecture 4 [06:12]"
+ },
+ {
+  "id": "ch5-025",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Equivocation",
+  "kind": "concept",
+  "q": "Besides words with two meanings, what else does the lecture say can produce equivocation?",
+  "choices": [
+   "Misusing relative terms such as tall, small, big or good",
+   "Stressing a different word than the speaker intended",
+   "Placing a modifier in the wrong part of a sentence",
+   "Quoting an expert from an unrelated field"
+  ],
+  "why": "Relative terms change meaning with context (tall for a toddler vs tall for an adult). Stress is accent; misplaced modifiers are amphiboly.",
+  "source": "Lecture 4 [08:15]"
+ },
+ {
+  "id": "ch5-026",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Equivocation",
+  "kind": "concept",
+  "q": "How does the lecture say you can avoid equivocation?",
+  "choices": [
+   "Define ambiguous terms first; don't reuse relative terms across contexts",
+   "Ask the speaker which word they meant to put the emphasis on",
+   "Go back to the original argument and check that it wasn't oversimplified",
+   "Judge each claim by the character and record of the person who makes it"
+  ],
+  "why": "Equivocation is fixed by defining terms. Asking about emphasis fixes accent; going back to the original argument fixes a straw man.",
+  "source": "Lecture 4 [10:19]"
+ },
+ {
+  "id": "ch5-027",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Equivocation",
+  "kind": "application",
+  "q": "'The sign on the door says No Animals Allowed. We'll find another place for lunch, since humans are also animals.' Which fallacy is this?",
+  "choices": [
+   "Equivocation",
+   "Amphiboly",
+   "Fallacy of accent",
+   "Fallacy of division"
+  ],
+  "why": "'Animals' slides from its everyday sense (pets, non-humans) to its biological sense, which includes humans. This is the lecture's example.",
+  "source": "Lecture 4 [08:15]"
+ },
+ {
+  "id": "ch5-028",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Equivocation",
+  "kind": "application",
+  "q": "'Two-year-old Katie is very tall. Her father is only average in height. Therefore Katie is taller than her father.' Which fallacy is committed?",
+  "choices": [
+   "Equivocation",
+   "Hasty generalisation",
+   "Amphiboly",
+   "Questionable cause"
+  ],
+  "why": "'Tall' is a relative term: tall for a two-year-old isn't tall for an adult. Misusing relative terms is equivocation.",
+  "source": "Lecture 4 [08:15]"
+ },
+ {
+  "id": "ch5-029",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Equivocation",
+  "kind": "application",
+  "q": "'Nothing is better than eternal happiness. A plate of cold plov is better than nothing. So a plate of cold plov is better than eternal happiness.' Which fallacy is this?",
+  "choices": [
+   "Equivocation",
+   "Begging the question",
+   "Amphiboly",
+   "False dilemma"
+  ],
+  "why": "'Nothing' means 'no single thing' in the first premise and 'having nothing at all' in the second. The key term shifts meaning.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-030",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Equivocation",
+  "kind": "application",
+  "q": "A recruiter says: 'We only hire candidates who are fit for the job. Akmal can't even run one kilometre, so he isn't fit, and we won't hire him.' Which fallacy is this?",
+  "choices": [
+   "Equivocation",
+   "Personal attack (ad hominem)",
+   "Hasty generalisation",
+   "Fallacy of accent"
+  ],
+  "why": "'Fit for the job' means suitable; the running test uses 'fit' as physically fit. The word changes meaning mid-argument.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-031",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Equivocation",
+  "kind": "application",
+  "q": "'A feather is light. Whatever is light cannot be dark. Therefore a feather cannot be dark.' Which fallacy is this?",
+  "choices": [
+   "Equivocation",
+   "Amphiboly",
+   "Fallacy of division",
+   "Naturalistic fallacy"
+  ],
+  "why": "'Light' means 'not heavy' in the first premise and 'bright' in the second. It is one word with two meanings, not a grammar problem.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-032",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Amphiboly",
+  "kind": "concept",
+  "q": "Which fallacy occurs when a grammatical mistake in an argument allows more than one conclusion to be drawn?",
+  "choices": [
+   "Amphiboly",
+   "Equivocation",
+   "Fallacy of accent",
+   "Loaded question"
+  ],
+  "why": "Amphiboly is ambiguity in sentence structure, not in one word's meaning (equivocation) or in emphasis (accent).",
+  "source": "Lecture 4 [10:19]"
+ },
+ {
+  "id": "ch5-033",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Amphiboly",
+  "kind": "concept",
+  "q": "What is amphiboly?",
+  "choices": [
+   "Ambiguous grammar lets a sentence support more than one conclusion",
+   "One key word is used in two different senses in the same argument",
+   "The meaning shifts depending on which word in the sentence is emphasised",
+   "A question assumes the answer to another question nobody asked"
+  ],
+  "why": "Amphiboly is a grammatical ambiguity. Two senses of one word is equivocation; shifting emphasis is accent.",
+  "source": "Lecture 4 [10:19]"
+ },
+ {
+  "id": "ch5-034",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Amphiboly",
+  "kind": "concept",
+  "q": "Amphiboly belongs to which family of fallacies?",
+  "choices": [
+   "Fallacies of ambiguity",
+   "Fallacies of relevance",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "Its problem is ambiguous grammar, so it is a fallacy of ambiguity.",
+  "source": "Lecture 4 [06:12]"
+ },
+ {
+  "id": "ch5-035",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Amphiboly",
+  "kind": "application",
+  "q": "'Mary's mother and her husband have opposing views.' Which fallacy of ambiguity does this sentence illustrate?",
+  "choices": [
+   "Amphiboly",
+   "Equivocation",
+   "Fallacy of accent",
+   "Fallacy of division"
+  ],
+  "why": "The grammar leaves it unclear whose husband is meant, Mary's or her mother's. No single word changes meaning, so it isn't equivocation.",
+  "source": "Lecture 4 [10:19]"
+ },
+ {
+  "id": "ch5-036",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Amphiboly",
+  "kind": "application",
+  "q": "A perfume ad says 'Wear it and be happy.' The lecture says the advertiser is exploiting which fallacy?",
+  "choices": [
+   "Amphiboly",
+   "Equivocation",
+   "Fallacy of accent",
+   "Popular appeal"
+  ],
+  "why": "The grammatical 'and' can join two unrelated ideas or imply a cause ('wear it and you'll be happy'). The ad hopes you read in the cause.",
+  "source": "Lecture 4 [10:19]",
+  "star": true,
+  "star_note": "[10:19]-[12:21] spends ~2 min on the 'Wear it and be happy' ad, walking through the sue-the-company scenario"
+ },
+ {
+  "id": "ch5-037",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Amphiboly",
+  "kind": "concept",
+  "q": "In the 'Wear it and be happy' example, how could the company defend itself if an unhappy customer sued?",
+  "choices": [
+   "Say 'and' just joined two unrelated ideas, not a promise of cause",
+   "Point out that most of its other customers said they felt happy wearing it",
+   "Argue that nobody has proven the perfume fails to cause happiness",
+   "Note that a famous footballer had endorsed the perfume on TV"
+  ],
+  "why": "That deniability is why advertisers like amphiboly. The other defences would just be new fallacies (popular appeal, appeal to ignorance, snob appeal).",
+  "source": "Lecture 4 [12:21]"
+ },
+ {
+  "id": "ch5-038",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Amphiboly",
+  "kind": "application",
+  "q": "A notice says: 'Students who cheat on exams frequently will be expelled.' Bekzod concludes: 'So cheating once is safe.' What fallacy makes his reading possible?",
+  "choices": [
+   "Amphiboly",
+   "Equivocation",
+   "Slippery slope",
+   "Appeal to ignorance"
+  ],
+  "why": "'Frequently' could attach to 'cheat' or to 'will be expelled'. It is the sentence structure, not a word's meaning, that creates two readings.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-039",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Amphiboly",
+  "kind": "application",
+  "q": "'Dilnoza told her sister that she had passed the driving test, so Dilnoza can drive us to Samarkand.' What fallacy is hiding in this argument?",
+  "choices": [
+   "Amphiboly",
+   "Equivocation",
+   "Fallacy of division",
+   "Begging the question"
+  ],
+  "why": "'She' could refer to Dilnoza or to her sister. The grammar allows two conclusions about who can drive.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-040",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Amphiboly",
+  "kind": "application",
+  "q": "'The professor said on Friday that he would announce the grades.' One student expects the grades on Friday; another says they could come any day. What is behind the confusion?",
+  "choices": [
+   "Amphiboly",
+   "Equivocation",
+   "Fallacy of accent",
+   "False dilemma"
+  ],
+  "why": "'On Friday' can modify 'said' or 'announce'. That's a structural, grammatical ambiguity.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-041",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Amphiboly",
+  "kind": "concept",
+  "q": "What does the lecture recommend to avoid amphiboly?",
+  "choices": [
+   "Use grammar carefully and ask the speaker to rephrase unclear statements",
+   "Never use relative terms such as tall, big or good anywhere in an argument",
+   "Check whether the opponent's argument has been oversimplified",
+   "Look for a third option besides the two that are offered"
+  ],
+  "why": "Clear grammar prevents amphiboly, and asking for a rephrase resolves it. Avoiding relative terms targets equivocation.",
+  "source": "Lecture 4 [12:21]"
+ },
+ {
+  "id": "ch5-042",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Accent",
+  "kind": "concept",
+  "q": "Which fallacy occurs when the meaning of an argument changes depending on which word or phrase is emphasised?",
+  "choices": [
+   "Fallacy of accent",
+   "Amphiboly",
+   "Equivocation",
+   "Straw man"
+  ],
+  "why": "Accent is about stress or emphasis. Amphiboly is about grammar; equivocation is about a word's meaning.",
+  "source": "Lecture 4 [12:21]"
+ },
+ {
+  "id": "ch5-043",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Accent",
+  "kind": "concept",
+  "q": "What is the fallacy of accent?",
+  "choices": [
+   "Meaning changes according to which word or phrase is stressed",
+   "A key term takes on a different meaning later in the argument",
+   "A sentence's grammar allows two different conclusions",
+   "An opponent's position is reworded to make it easier to attack"
+  ],
+  "why": "Accent: put the stress on a different word and the claim seems to say something else.",
+  "source": "Lecture 4 [12:21]"
+ },
+ {
+  "id": "ch5-044",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Accent",
+  "kind": "concept",
+  "q": "The fallacy of accent belongs to which family?",
+  "choices": [
+   "Fallacies of ambiguity",
+   "Fallacies of relevance",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "Ambiguity of emphasis makes it a fallacy of ambiguity.",
+  "source": "Lecture 4 [06:12]"
+ },
+ {
+  "id": "ch5-045",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Accent",
+  "kind": "application",
+  "q": "'The university is going to crack down on off-campus drinking. Glad to hear they're OK with on-campus drinking.' Which fallacy is this?",
+  "choices": [
+   "Fallacy of accent",
+   "Equivocation",
+   "Amphiboly",
+   "Fallacy of division"
+  ],
+  "why": "The speaker stresses 'off-campus' and infers the opposite about on-campus. Neither the grammar nor any word's meaning changed. This is the lecture's example.",
+  "source": "Lecture 4 [12:21]"
+ },
+ {
+  "id": "ch5-046",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Accent",
+  "kind": "application",
+  "q": "Mother: 'Didn't I tell you not to play with matches?' Daughter: 'I wasn't playing with them. I was using them to burn down Mr Murphy's shed.' Which fallacy is the daughter committing?",
+  "choices": [
+   "Fallacy of accent",
+   "Red herring",
+   "Amphiboly",
+   "Fallacy of division"
+  ],
+  "why": "She shifts the stress onto 'play', as if only playing were forbidden. The lecture gives this as an example of accent.",
+  "source": "Lecture 4 [12:21]"
+ },
+ {
+  "id": "ch5-047",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Accent",
+  "kind": "application",
+  "q": "The syllabus says 'Phones must not be used during the exam.' Rustam announces: 'Great, so we can use them during the lecture.' Which fallacy is this?",
+  "choices": [
+   "Fallacy of accent",
+   "Slippery slope",
+   "Amphiboly",
+   "Hasty generalisation"
+  ],
+  "why": "He puts the stress on 'during the exam' and reads in permission everywhere else, like the off-campus drinking example.",
+  "source": "Lecture 4 [12:21]"
+ },
+ {
+  "id": "ch5-048",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Accent",
+  "kind": "application",
+  "q": "A manager writes: 'We should not fire Jasur.' A colleague repeats it to the team as 'We should not fire JASUR', implying someone else should be fired instead. Which fallacy is this?",
+  "choices": [
+   "Fallacy of accent",
+   "Amphiboly",
+   "Equivocation",
+   "Questionable cause"
+  ],
+  "why": "Changing which word is emphasised changes what the sentence seems to mean. The words and grammar are identical.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-049",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Accent",
+  "kind": "application",
+  "q": "A shop banner reads 'SMARTPHONES 70% OFF' in huge letters, with 'on selected cases and chargers' in tiny print below. A shopper concludes the phones themselves are 70% off. Which fallacy does the banner exploit?",
+  "choices": [
+   "Fallacy of accent",
+   "Popular appeal",
+   "Equivocation",
+   "Hasty generalisation"
+  ],
+  "why": "Emphasis (here, the typography) makes one part of the message dominate and changes what it seems to say. That is accent, a favourite advertising trick.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-050",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Accent",
+  "kind": "concept",
+  "q": "What should you do when you're unsure which word in a statement was meant to be emphasised?",
+  "choices": [
+   "Ask the person who made it to repeat or explain what they meant",
+   "Assume the most literal meaning of each individual word in the sentence",
+   "Look up the dictionary definition of each key term in the statement",
+   "Treat the statement as false until it is proven true"
+  ],
+  "why": "The lecture's fix for accent is to ask the speaker to repeat or explain. Defining terms is the fix for equivocation.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-051",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Division",
+  "kind": "concept",
+  "q": "Which fallacy assumes that a characteristic of an entire group must be a characteristic of each member of that group?",
+  "choices": [
+   "Fallacy of division",
+   "Hasty generalisation",
+   "Equivocation",
+   "Popular appeal"
+  ],
+  "why": "Division goes from the whole to the part. Hasty generalisation goes the other way, from a few cases to the whole group.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-052",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Division",
+  "kind": "concept",
+  "q": "What is the fallacy of division?",
+  "choices": [
+   "Assuming a trait of a whole group belongs to each of its members",
+   "Generalising about a whole group from a sample that is too small",
+   "Splitting a complex issue into only two possible options",
+   "Breaking an opponent's argument into pieces and attacking one"
+  ],
+  "why": "Division: whole group to individual member. The second option is hasty generalisation and the third is false dilemma.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-053",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Division",
+  "kind": "concept",
+  "q": "The fallacy of division belongs to which family?",
+  "choices": [
+   "Fallacies of ambiguity",
+   "Fallacies of relevance",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "The lecture files division under ambiguity (confusing a group with its members). Hasty generalisation, which also involves groups, is in the relevance family.",
+  "source": "Lecture 4 [06:12]"
+ },
+ {
+  "id": "ch5-054",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Division",
+  "kind": "application",
+  "q": "'Canadians are really nice people. Therefore Derek, who is from Vancouver, must be really nice.' Which fallacy is this?",
+  "choices": [
+   "Fallacy of division",
+   "Hasty generalisation",
+   "Popular appeal",
+   "Amphiboly"
+  ],
+  "why": "A trait of the group (Canadians) is assumed for one member (Derek). It runs from group to individual, so it is not hasty generalisation. This is the lecture's example.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-055",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Division",
+  "kind": "application",
+  "q": "In the lecture, Prof. Muratov said that reasoning 'there are many criminals from Russia, so Russians must be bad people' commits which fallacy?",
+  "choices": [
+   "Fallacy of division",
+   "Equivocation",
+   "Appeal to pity",
+   "Red herring"
+  ],
+  "why": "He used national stereotypes like this to illustrate division. Strictly, division runs from the whole group to a member (like the Derek example); reasoning from some members to the whole group is closer to hasty generalisation.",
+  "source": "Lecture 4 [14:21]",
+  "star": true,
+  "star_note": "[14:21] adds his own example beyond the slide (many criminals from Russia, so Russians are bad)"
+ },
+ {
+  "id": "ch5-056",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Division",
+  "kind": "application",
+  "q": "'Inha University in Tashkent is one of the best universities in the country, so every professor who works there must be excellent.' Which fallacy is this?",
+  "choices": [
+   "Fallacy of division",
+   "Hasty generalisation",
+   "Inappropriate appeal to authority",
+   "Begging the question"
+  ],
+  "why": "A quality of the whole institution is assumed for each member. That is division, not a generalisation from a small sample.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-057",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Division",
+  "kind": "application",
+  "q": "A tourist says: 'Uzbeks are famous for their hospitality, so the taxi driver picking me up at the airport will surely invite me home for plov.' Which fallacy is this?",
+  "choices": [
+   "Fallacy of division",
+   "Hasty generalisation",
+   "Questionable cause",
+   "Appeal to ignorance"
+  ],
+  "why": "A trait of the nation as a whole is assumed for one particular person.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-058",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Division",
+  "kind": "application",
+  "q": "'Real Madrid is the strongest football team in Spain, so each of its players must be the best in Spain at his position.' Which fallacy is this?",
+  "choices": [
+   "Fallacy of division",
+   "Hasty generalisation",
+   "Popular appeal",
+   "False dilemma"
+  ],
+  "why": "The team's strength as a whole is assumed to belong to each individual player.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-059",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Division",
+  "kind": "concept",
+  "q": "What is the key difference between the fallacy of division and hasty generalisation?",
+  "choices": [
+   "Division goes from the whole group to a member; hasty generalisation goes from a few cases to the whole group",
+   "Division goes from a few cases to the whole group; hasty generalisation goes from the whole group to a member",
+   "Division is a formal fallacy, while hasty generalisation is an informal fallacy",
+   "Division concerns emotional appeals, while hasty generalisation concerns word meanings"
+  ],
+  "why": "Think of direction: division is group to individual (Canadians to Derek); hasty generalisation is a few individuals to the group (a few abusive men to all men).",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-060",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Personal attack",
+  "kind": "concept",
+  "q": "Which fallacy occurs when, instead of offering a counterargument, we attack the character of the person who made the argument?",
+  "choices": [
+   "Personal attack (ad hominem)",
+   "Straw man",
+   "Red herring",
+   "Appeal to force (scare tactics)"
+  ],
+  "why": "Ad hominem targets the person. A straw man targets a distorted version of their argument.",
+  "source": "Lecture 4 [16:22]"
+ },
+ {
+  "id": "ch5-061",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Personal attack",
+  "kind": "concept",
+  "q": "What is a personal attack (ad hominem) fallacy?",
+  "choices": [
+   "Rejecting an argument by attacking the person who made it",
+   "Misrepresenting the opponent's argument to knock it down",
+   "Threatening the opponent so that they back down from their view",
+   "Changing the subject to avoid answering a hard question"
+  ],
+  "why": "Ad hominem tries to create disapproval of the person instead of answering the argument. The others are straw man, appeal to force and red herring.",
+  "source": "Lecture 4 [16:22]"
+ },
+ {
+  "id": "ch5-062",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Personal attack",
+  "kind": "concept",
+  "q": "Personal attack (ad hominem) belongs to which family?",
+  "choices": [
+   "Fallacies of relevance",
+   "Fallacies of ambiguity",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "The person's character is logically irrelevant to whether their argument is sound.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-063",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Personal attack",
+  "kind": "application",
+  "q": "In a TV debate about a tax plan, a candidate says: 'Why would anyone listen to my opponent on taxes? He's been divorced twice and failed at running his own business.' Which fallacy is this?",
+  "choices": [
+   "Personal attack (ad hominem)",
+   "Straw man",
+   "Appeal to force (scare tactics)",
+   "Hasty generalisation"
+  ],
+  "why": "The opponent's private life is attacked instead of his tax plan. His argument isn't restated or distorted, so it's not a straw man.",
+  "source": "Lecture 4 [16:22]"
+ },
+ {
+  "id": "ch5-064",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Personal attack",
+  "kind": "application",
+  "q": "A blogger posts a detailed argument for more bike lanes in Tashkent. The top comment says: 'Who cares what you think? You're 19 and still live with your parents.' Which fallacy is this?",
+  "choices": [
+   "Personal attack (ad hominem)",
+   "Appeal to pity",
+   "Popular appeal",
+   "Begging the question"
+  ],
+  "why": "The commenter attacks the blogger's age and situation instead of the argument. The lecture mentions comment sections as a typical place for this.",
+  "source": "Lecture 4 [16:22]"
+ },
+ {
+  "id": "ch5-065",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Personal attack",
+  "kind": "application",
+  "q": "In a group project meeting, Sardor says: 'Let's ignore Malika's idea for the presentation. She's always late to class anyway.' Which fallacy is this?",
+  "choices": [
+   "Personal attack (ad hominem)",
+   "Fallacy of division",
+   "Appeal to ignorance",
+   "False dilemma"
+  ],
+  "why": "Being late says nothing about whether her idea is good. Her character is attacked in place of her idea.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-066",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Personal attack",
+  "kind": "application",
+  "q": "'Of course the professor wants a longer semester. He's just a boring old man with no life outside the university.' Which fallacy is this?",
+  "choices": [
+   "Personal attack (ad hominem)",
+   "Questionable cause",
+   "Straw man",
+   "Slippery slope"
+  ],
+  "why": "The professor is insulted rather than his reasons for a longer semester being answered.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-067",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Personal attack",
+  "kind": "application",
+  "q": "In a class debate, every time her opponent speaks, Nodira rolls her eyes and smirks at the audience instead of responding to his points. Which fallacy is she committing without words?",
+  "choices": [
+   "Personal attack (ad hominem)",
+   "Appeal to pity",
+   "Popular appeal",
+   "Begging the question"
+  ],
+  "why": "The lecture notes that personal attacks (and appeals to force) can be non-verbal: eye-rolling, glaring, looking or walking away. She belittles the person instead of answering.",
+  "source": "Lecture 4 [47:07]"
+ },
+ {
+  "id": "ch5-068",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Personal attack",
+  "kind": "concept",
+  "q": "The strategy 'don't confuse the soundness of an argument with the character or circumstances of the person making it' mainly protects you against which fallacy?",
+  "choices": [
+   "Personal attack (ad hominem)",
+   "Equivocation",
+   "Questionable cause",
+   "False dilemma"
+  ],
+  "why": "Judging an argument by the person who makes it is exactly what ad hominem does.",
+  "source": "Lecture 4 [45:02]"
+ },
+ {
+  "id": "ch5-069",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to force",
+  "kind": "concept",
+  "q": "Which fallacy uses, or threatens to use, physical, psychological or legal force to make someone accept a conclusion or back down?",
+  "choices": [
+   "Appeal to force (scare tactics)",
+   "Appeal to pity",
+   "Personal attack (ad hominem)",
+   "Slippery slope"
+  ],
+  "why": "Threats in place of reasons are an appeal to force. The lecture stresses that the force can be physical, psychological or legal.",
+  "source": "Lecture 4 [16:22]"
+ },
+ {
+  "id": "ch5-070",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to force",
+  "kind": "concept",
+  "q": "What is an appeal to force (scare tactics)?",
+  "choices": [
+   "Using threats or fear to get someone to accept a conclusion",
+   "Evoking sympathy when sympathy is irrelevant to the point",
+   "Predicting that one small step will lead to disaster down the line",
+   "Attacking the character of the person who is arguing"
+  ],
+  "why": "Appeal to force is about threats and fear. Predicting disaster from one small step is slippery slope.",
+  "source": "Lecture 4 [16:22]"
+ },
+ {
+  "id": "ch5-071",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to force",
+  "kind": "concept",
+  "q": "Appeal to force (scare tactics) belongs to which family?",
+  "choices": [
+   "Fallacies of relevance",
+   "Fallacies of ambiguity",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "A threat is logically irrelevant to whether the conclusion is true, but it feels persuasive.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-072",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to force",
+  "kind": "application",
+  "q": "A father tells his daughter: 'You don't get to disagree with me while I'm paying your university tuition and putting a roof over your head.' Which fallacy is this?",
+  "choices": [
+   "Appeal to force (scare tactics)",
+   "Appeal to pity",
+   "Begging the question",
+   "Popular appeal"
+  ],
+  "why": "This is the lecture's own example: an implied threat (losing tuition and housing) shuts down disagreement instead of giving a reason why he's right.",
+  "source": "Lecture 4 [18:24]",
+  "star": true,
+  "star_note": "[18:24] his own example: parents saying you can't disagree while they pay your housing and tuition"
+ },
+ {
+  "id": "ch5-073",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to force",
+  "kind": "application",
+  "q": "A restaurant owner messages a customer: 'Delete your negative Google Maps review, or our lawyers will sue you for defamation.' Which fallacy is this?",
+  "choices": [
+   "Appeal to force (scare tactics)",
+   "Red herring",
+   "Appeal to ignorance",
+   "Straw man"
+  ],
+  "why": "A legal threat is used to make the customer back down. The lecture counts legal force alongside physical and psychological force.",
+  "source": "Lecture 4 [16:22]"
+ },
+ {
+  "id": "ch5-074",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to force",
+  "kind": "application",
+  "q": "At a meeting, the boss says: 'Anyone who thinks the new overtime policy is unfair can explain that at their contract renewal.' Which fallacy is this?",
+  "choices": [
+   "Appeal to force (scare tactics)",
+   "Loaded question",
+   "Fallacy of accent",
+   "Appeal to pity"
+  ],
+  "why": "It's a veiled threat to people's jobs, used instead of a reason why the policy is fair. The lecture names employers among those who use this tactic.",
+  "source": "Lecture 4 [16:22]"
+ },
+ {
+  "id": "ch5-075",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to force",
+  "kind": "application",
+  "q": "A bigger student leans over a classmate's desk, cracks his knuckles and says: 'You'll agree my answer is right, if you know what's good for you.' Which fallacy is this?",
+  "choices": [
+   "Appeal to force (scare tactics)",
+   "Personal attack (ad hominem)",
+   "Popular appeal",
+   "Hasty generalisation"
+  ],
+  "why": "An implied physical threat replaces any reason the answer is right. He isn't attacking the classmate's character, so it's not ad hominem.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-076",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to force",
+  "kind": "application",
+  "q": "The lecture uses AI company CEOs, who warn that AI could doom humanity within a decade, as an example of which fallacy?",
+  "choices": [
+   "Appeal to force (scare tactics)",
+   "Appeal to ignorance",
+   "Naturalistic fallacy",
+   "Appeal to pity"
+  ],
+  "why": "He presents the doom predictions of figures like Sam Altman and Dario Amodei as scare tactics: fear is used to win acceptance of a conclusion.",
+  "source": "Lecture 4 [18:24]",
+  "star": true,
+  "star_note": "[18:24] own current example (AI CEOs Sam Altman, Dario Amodei and doom claims), then asks students to reflect on whether to believe them and why they say it"
+ },
+ {
+  "id": "ch5-077",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to force",
+  "kind": "concept",
+  "q": "After describing AI CEOs' doom predictions, what did the lecturer ask students to do?",
+  "choices": [
+   "Ask whether to believe them, and why the CEOs make such claims",
+   "Accept the predictions, since the CEOs are experts in their own field",
+   "Dismiss the claims outright, because the CEOs personally profit from AI",
+   "Find out how many people agree with the predictions"
+  ],
+  "why": "He wanted critical reflection on motive and evidence. Dismissing the claims just because of who makes them would itself be an ad hominem.",
+  "source": "Lecture 4 [18:24]"
+ },
+ {
+  "id": "ch5-078",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to force",
+  "kind": "application",
+  "q": "A senior manager says nothing, but stands over a junior colleague's desk and glares at her until she withdraws her objection to his plan. Which fallacy is conveyed through his body language?",
+  "choices": [
+   "Appeal to force (scare tactics)",
+   "Appeal to pity",
+   "Red herring",
+   "Begging the question"
+  ],
+  "why": "The lecture notes that appeals to force can be non-verbal, such as glaring. Intimidation, not reasons, makes her back down.",
+  "source": "Lecture 4 [47:07]"
+ },
+ {
+  "id": "ch5-079",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to pity",
+  "kind": "concept",
+  "q": "Which fallacy evokes pity in another person when pity is irrelevant to the conclusion?",
+  "choices": [
+   "Appeal to pity",
+   "Appeal to force (scare tactics)",
+   "Popular appeal",
+   "Red herring"
+  ],
+  "why": "That is the definition of appeal to pity. The key word is irrelevant.",
+  "source": "Lecture 4 [18:24]"
+ },
+ {
+  "id": "ch5-080",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to pity",
+  "kind": "concept",
+  "q": "What is an appeal to pity?",
+  "choices": [
+   "Trying to win agreement by evoking sympathy that's irrelevant to the point",
+   "Trying to win agreement by threatening the other person with consequences",
+   "Trying to win agreement by pointing out that almost everyone already agrees",
+   "Trying to win agreement by citing an expert from a completely different field"
+  ],
+  "why": "Appeal to pity uses irrelevant sympathy. The others describe appeal to force, popular appeal and inappropriate appeal to authority.",
+  "source": "Lecture 4 [18:24]"
+ },
+ {
+  "id": "ch5-081",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to pity",
+  "kind": "concept",
+  "q": "Appeal to pity belongs to which family?",
+  "choices": [
+   "Fallacies of relevance",
+   "Fallacies of ambiguity",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "Pity that has nothing to do with the conclusion is logically irrelevant, yet emotionally powerful.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-082",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to pity",
+  "kind": "application",
+  "q": "Stopped for speeding, a driver tells the police officer: 'Please understand, something terrible just happened at home and I'm not in a good state.' According to the lecture, which fallacy is this?",
+  "choices": [
+   "Appeal to pity",
+   "Appeal to ignorance",
+   "Appeal to force (scare tactics)",
+   "Personal attack (ad hominem)"
+  ],
+  "why": "The driver tries to evoke the officer's sympathy, which is irrelevant to whether he was speeding. This is the lecture's example.",
+  "source": "Lecture 4 [20:27]"
+ },
+ {
+  "id": "ch5-083",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to pity",
+  "kind": "application",
+  "q": "A student emails the professor: 'Please change my F to a B. My family has had a hard year, and my father will be so disappointed.' Which fallacy is this?",
+  "choices": [
+   "Appeal to pity",
+   "Appeal to force (scare tactics)",
+   "Loaded question",
+   "Popular appeal"
+  ],
+  "why": "The family's hardship may be real, but it is irrelevant to what grade the work deserves.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-084",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to pity",
+  "kind": "application",
+  "q": "A job applicant says: 'You should hire me rather than the more qualified candidates. I've been unemployed for six months and my rent is due.' Which fallacy is this?",
+  "choices": [
+   "Appeal to pity",
+   "False dilemma",
+   "Hasty generalisation",
+   "Inappropriate appeal to authority"
+  ],
+  "why": "Sympathy for his situation doesn't show he is the best person for the job.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-085",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to pity",
+  "kind": "application",
+  "q": "At Chorsu Bazaar, a seller insists: 'This melon is worth 60,000 som. I've been standing in the heat since 5 a.m. and my kids need new shoes.' Which fallacy is he using?",
+  "choices": [
+   "Appeal to pity",
+   "Popular appeal",
+   "Begging the question",
+   "Fallacy of accent"
+  ],
+  "why": "His hard day doesn't make the melon worth more. He uses sympathy instead of reasons about the melon.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-086",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to pity",
+  "kind": "application",
+  "q": "A defence lawyer argues: 'My client could not have stolen the car. Just look at how much he has suffered since childhood.' Which fallacy is this?",
+  "choices": [
+   "Appeal to pity",
+   "Appeal to ignorance",
+   "Questionable cause",
+   "Straw man"
+  ],
+  "why": "A hard childhood is irrelevant to whether he stole the car. This isn't the court exception to appeal to ignorance either, since nothing is said about proof.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-087",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to pity",
+  "kind": "concept",
+  "q": "When is appealing to someone's pity NOT a fallacy?",
+  "choices": [
+   "When pity is relevant to the conclusion, as in a flood-relief appeal",
+   "When the person telling the sad story is being completely honest about it",
+   "When the listener ends up agreeing with the speaker's conclusion anyway",
+   "When the appeal is made in a formal setting such as a court"
+  ],
+  "why": "By definition the fallacy is evoking pity when it's irrelevant. A true sad story is still fallacious if it doesn't bear on the conclusion, like the speeding driver's.",
+  "source": "Lecture 4 [18:24]"
+ },
+ {
+  "id": "ch5-088",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Popular appeal",
+  "kind": "concept",
+  "q": "Which fallacy appeals to popular opinion to gain support for a conclusion?",
+  "choices": [
+   "Popular appeal",
+   "Inappropriate appeal to authority",
+   "Hasty generalisation",
+   "Appeal to ignorance"
+  ],
+  "why": "Popular appeal relies on what the crowd thinks. Its main forms are the bandwagon and snob appeal.",
+  "source": "Lecture 4 [20:27]"
+ },
+ {
+  "id": "ch5-089",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Popular appeal",
+  "kind": "concept",
+  "q": "What is the fallacy of popular appeal?",
+  "choices": [
+   "Treating a conclusion as true because many people believe it or do it",
+   "Treating a conclusion as true because an expert in another field says so",
+   "Treating a conclusion as true because no one has proven it false",
+   "Treating a conclusion as true because a small sample supports it"
+  ],
+  "why": "Popularity isn't evidence. The other options describe inappropriate appeal to authority, appeal to ignorance and hasty generalisation.",
+  "source": "Lecture 4 [20:27]"
+ },
+ {
+  "id": "ch5-090",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Popular appeal",
+  "kind": "concept",
+  "q": "Popular appeal (bandwagon, snob appeal) belongs to which family?",
+  "choices": [
+   "Fallacies of relevance",
+   "Fallacies of ambiguity",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "How many people believe something is logically irrelevant to whether it is true.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-091",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Popular appeal",
+  "kind": "concept",
+  "q": "What is the bandwagon approach, the most common form of popular appeal?",
+  "choices": [
+   "Assuming a conclusion is true simply because everyone believes it or does it",
+   "Linking a product to admired celebrities so that people want to be like them",
+   "Assuming that once one step is allowed, everything else will follow",
+   "Quoting a famous person on a topic as if they were an expert in it"
+  ],
+  "why": "Bandwagon means 'everyone's doing it, so it must be right'. Linking products to celebrities is snob appeal, the other form the lecture mentions.",
+  "source": "Lecture 4 [20:27]"
+ },
+ {
+  "id": "ch5-092",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Popular appeal",
+  "kind": "concept",
+  "q": "In the lecture, what is snob appeal?",
+  "choices": [
+   "Popular appeal using footballers or celebrities to make you want a product",
+   "A personal attack that mocks people from a lower social class or with less income",
+   "An appeal to force in which wealthy, powerful people threaten poorer people",
+   "An equivocation in which luxury words quietly change their meaning"
+  ],
+  "why": "The lecture treats snob appeal as a form of popular appeal: you are meant to want the product because admired people have it.",
+  "source": "Lecture 4 [22:31]"
+ },
+ {
+  "id": "ch5-093",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Popular appeal",
+  "kind": "application",
+  "q": "'God must exist. After all, most people believe in God.' Which fallacy does the lecture say this is?",
+  "choices": [
+   "Popular appeal",
+   "Begging the question",
+   "Appeal to ignorance",
+   "Inappropriate appeal to authority"
+  ],
+  "why": "Bandwagon: God's existence doesn't depend on how many people believe. It's not appeal to ignorance, since nothing is said about a lack of proof.",
+  "source": "Lecture 4 [20:27]"
+ },
+ {
+  "id": "ch5-094",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Popular appeal",
+  "kind": "application",
+  "q": "'Everyone in our group uses ChatGPT to write their essays, so it must be fine.' Which fallacy is this?",
+  "choices": [
+   "Popular appeal",
+   "Hasty generalisation",
+   "Naturalistic fallacy",
+   "Red herring"
+  ],
+  "why": "Bandwagon: 'everyone is doing it' is offered as the reason it's acceptable.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-095",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Popular appeal",
+  "kind": "application",
+  "q": "A TV ad shows a famous Uzbek national-team footballer drinking a soda, with the slogan 'Drink what champions drink.' According to the lecture, which fallacy is the ad using?",
+  "choices": [
+   "Popular appeal",
+   "Appeal to pity",
+   "Hasty generalisation",
+   "Equivocation"
+  ],
+  "why": "The lecture's example of snob appeal, a type of popular appeal: footballers and celebrities advertising products so you'll want what they have.",
+  "source": "Lecture 4 [22:31]"
+ },
+ {
+  "id": "ch5-096",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Popular appeal",
+  "kind": "application",
+  "q": "'All the top students at the presidential school wear this watch brand. Buy one and join the elite.' Which fallacy is the ad using?",
+  "choices": [
+   "Popular appeal",
+   "Fallacy of division",
+   "Appeal to force (scare tactics)",
+   "Begging the question"
+  ],
+  "why": "Snob appeal: the product is sold through association with an admired, elite group.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-097",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Popular appeal",
+  "kind": "application",
+  "q": "'Ten million people downloaded this messaging app this month, so it must be the safest one to use.' Which fallacy is this?",
+  "choices": [
+   "Popular appeal",
+   "Appeal to ignorance",
+   "Questionable cause",
+   "Fallacy of division"
+  ],
+  "why": "Bandwagon: popularity is treated as proof of safety.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-098",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Popular appeal",
+  "kind": "concept",
+  "q": "What separates snob appeal from an inappropriate appeal to authority?",
+  "choices": [
+   "Snob appeal sells through admired people; inappropriate authority uses an expert outside their field",
+   "Snob appeal uses an expert outside their field; inappropriate authority sells through admired people",
+   "Snob appeal is a fallacy of ambiguity; inappropriate authority is a fallacy of relevance",
+   "Snob appeal relies on threats; inappropriate authority relies on evoking pity"
+  ],
+  "why": "Snob appeal (a relevance fallacy) says 'want it because admired people have it'. Inappropriate appeal to authority (an unwarranted assumption) takes someone's word on a subject outside their expertise.",
+  "source": "Lecture 4 [22:31], [34:53]"
+ },
+ {
+  "id": "ch5-099",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to ignorance",
+  "kind": "concept",
+  "q": "Which fallacy claims something is true because no one has proven it false, or false because no one has proven it true?",
+  "choices": [
+   "Appeal to ignorance",
+   "Begging the question",
+   "Hasty generalisation",
+   "Questionable cause"
+  ],
+  "why": "Treating a lack of proof as proof of the opposite is appeal to ignorance.",
+  "source": "Lecture 4 [22:31]"
+ },
+ {
+  "id": "ch5-100",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to ignorance",
+  "kind": "concept",
+  "q": "What is an appeal to ignorance?",
+  "choices": [
+   "Taking a lack of proof as proof of the opposite",
+   "Dismissing an argument because the person making it is uneducated",
+   "Ignoring the opponent's argument and changing the subject instead",
+   "Relying on what most uninformed people happen to believe"
+  ],
+  "why": "It is about absence of proof. Calling the arguer uneducated would be a personal attack.",
+  "source": "Lecture 4 [22:31]"
+ },
+ {
+  "id": "ch5-101",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to ignorance",
+  "kind": "concept",
+  "q": "Appeal to ignorance belongs to which family?",
+  "choices": [
+   "Fallacies of relevance",
+   "Fallacies of ambiguity",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "It can sound like an unwarranted assumption, but the lecture lists it under relevance: a lack of proof is irrelevant to whether a claim is true.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-102",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to ignorance",
+  "kind": "concept",
+  "q": "In 'appeal to ignorance', what does 'ignorance' mean?",
+  "choices": [
+   "Lacking the means to prove or disprove something",
+   "Being stupid, uneducated or poorly informed in general",
+   "Ignoring what the other person is actually saying",
+   "Not knowing what the majority of people think"
+  ],
+  "why": "The lecture is explicit: it does not mean we are stupid. It means we don't have the means of proving or disproving the claim.",
+  "source": "Lecture 4 [22:31]"
+ },
+ {
+  "id": "ch5-103",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to ignorance",
+  "kind": "concept",
+  "q": "What important exception to the appeal-to-ignorance fallacy does the lecture mention?",
+  "choices": [
+   "In court, a defendant is presumed innocent until proven guilty",
+   "In science, a theory is accepted until someone disproves it",
+   "In religion, beliefs need no proof of any kind",
+   "In advertising, claims are true until a regulator rejects them"
+  ],
+  "why": "In law, 'not proven guilty' legitimately means treated as innocent, because the burden of proof is on the prosecution.",
+  "source": "Lecture 4 [24:34]",
+  "star": true,
+  "star_note": "[22:31]-[24:34] calls it 'an important exception' (presumed innocent, burden on prosecution) and says 'we should think about such cases'"
+ },
+ {
+  "id": "ch5-104",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to ignorance",
+  "kind": "concept",
+  "q": "In a court of law, according to the lecture, who carries the burden of proof?",
+  "choices": [
+   "The prosecution",
+   "The defendant",
+   "The judge",
+   "The witnesses"
+  ],
+  "why": "The defendant is presumed innocent, and it is the prosecution that must prove guilt. That is why the court case is an exception to appeal to ignorance.",
+  "source": "Lecture 4 [24:34]"
+ },
+ {
+  "id": "ch5-105",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to ignorance",
+  "kind": "application",
+  "q": "A juror says: 'The prosecution never proved he was at the crime scene, so we have to find him not guilty.' Is this an appeal to ignorance?",
+  "choices": [
+   "No: in court, innocence is presumed and the prosecution must prove guilt",
+   "Yes: a lack of proof of guilt doesn't show that he is actually innocent",
+   "No, because a juror's reasoning counts as an appeal to expert authority",
+   "Yes, because jurors must convict unless the defendant proves his own innocence"
+  ],
+  "why": "This is exactly the court exception. Outside a courtroom, 'not proven, so false' would be an appeal to ignorance.",
+  "source": "Lecture 4 [24:34]"
+ },
+ {
+  "id": "ch5-106",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to ignorance",
+  "kind": "application",
+  "q": "'UFOs don't exist, as no one has been able to prove that they do.' Which fallacy is this?",
+  "choices": [
+   "Appeal to ignorance",
+   "Hasty generalisation",
+   "Begging the question",
+   "Popular appeal"
+  ],
+  "why": "The lecture's example: no proof that UFOs exist doesn't prove they don't. We simply don't know.",
+  "source": "Lecture 4 [22:31]"
+ },
+ {
+  "id": "ch5-107",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to ignorance",
+  "kind": "application",
+  "q": "'No scientist has ever proven that 5G towers are completely safe, so they must be harmful.' Which fallacy is this?",
+  "choices": [
+   "Appeal to ignorance",
+   "Questionable cause",
+   "Slippery slope",
+   "Naturalistic fallacy"
+  ],
+  "why": "A lack of proof of safety is treated as proof of harm.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-108",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to ignorance",
+  "kind": "application",
+  "q": "Your roommate says: 'You can't prove I ate your samsa, so I didn't eat it.' Which fallacy is this?",
+  "choices": [
+   "Appeal to ignorance",
+   "Red herring",
+   "Loaded question",
+   "Begging the question"
+  ],
+  "why": "A lack of proof that he ate it doesn't show he didn't. This is a dorm room, not a courtroom, so the legal exception doesn't apply.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-109",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Appeal to ignorance",
+  "kind": "application",
+  "q": "'There's no evidence that this new energy drink is harmful, so it's definitely safe for children.' Which fallacy is this?",
+  "choices": [
+   "Appeal to ignorance",
+   "Naturalistic fallacy",
+   "Inappropriate appeal to authority",
+   "Fallacy of division"
+  ],
+  "why": "No evidence of harm is treated as proof of safety. It may simply not have been tested.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-110",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Hasty generalisation",
+  "kind": "concept",
+  "q": "Which fallacy draws a generalisation from a sample that is too small or biased?",
+  "choices": [
+   "Hasty generalisation",
+   "Fallacy of division",
+   "Popular appeal",
+   "Questionable cause"
+  ],
+  "why": "Small or biased sample, sweeping conclusion: hasty generalisation. Division goes from the group to a member instead.",
+  "source": "Lecture 4 [24:34]"
+ },
+ {
+  "id": "ch5-111",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Hasty generalisation",
+  "kind": "concept",
+  "q": "What is a hasty generalisation?",
+  "choices": [
+   "Generalising about a group from a sample that is too small or biased",
+   "Assuming each member of a group has the traits of the group as a whole",
+   "Assuming that because one event came first, it caused the second",
+   "Concluding something is true because most people believe it"
+  ],
+  "why": "Hasty generalisation is a few cases stretched to the group. The second option is division, the reverse direction.",
+  "source": "Lecture 4 [24:34]"
+ },
+ {
+  "id": "ch5-112",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Hasty generalisation",
+  "kind": "concept",
+  "q": "Hasty generalisation belongs to which family?",
+  "choices": [
+   "Fallacies of relevance",
+   "Fallacies of ambiguity",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "In this lecture it is a fallacy of relevance. Don't mix it up with division, which is a fallacy of ambiguity.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-113",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Hasty generalisation",
+  "kind": "concept",
+  "q": "What does the lecture say about generalisation in general?",
+  "choices": [
+   "Used properly, it's a valuable tool in the physical and social sciences",
+   "Any generalisation about a group of people is automatically a fallacy",
+   "A generalisation is only valid when everyone agrees with it",
+   "Generalising is a formal fallacy rather than an informal one, so avoid it"
+  ],
+  "why": "Generalising is fine and useful. It only becomes a fallacy when the sample is too small or biased.",
+  "source": "Lecture 4 [24:34]"
+ },
+ {
+  "id": "ch5-114",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Hasty generalisation",
+  "kind": "application",
+  "q": "A woman whose father and brothers were abusive concludes that all men are abusers. According to the lecture, which fallacy is this?",
+  "choices": [
+   "Hasty generalisation",
+   "Fallacy of division",
+   "Personal attack (ad hominem)",
+   "Appeal to pity"
+  ],
+  "why": "A few personal cases (a small, biased sample) are stretched to cover all men. Division would go the other way, from a group trait to one member.",
+  "source": "Lecture 4 [24:34]",
+  "star": true,
+  "star_note": "[24:34] spends ~2 min on his own examples: abusive father/brothers so all men are abusers; post-9/11 scapegoating of all Muslims"
+ },
+ {
+  "id": "ch5-115",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Hasty generalisation",
+  "kind": "application",
+  "q": "After the 9/11 attacks, some people treated all Muslims as potential terrorists. Which fallacy does the lecture say this scapegoating involves?",
+  "choices": [
+   "Hasty generalisation",
+   "Popular appeal",
+   "Appeal to ignorance",
+   "Straw man"
+  ],
+  "why": "The actions of a few were generalised to a whole religious group. This is the lecture's example.",
+  "source": "Lecture 4 [24:34]"
+ },
+ {
+  "id": "ch5-116",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Hasty generalisation",
+  "kind": "application",
+  "q": "'I had two rude taxi drivers this week, so all taxi drivers in Tashkent are rude.' Which fallacy is this?",
+  "choices": [
+   "Hasty generalisation",
+   "Fallacy of division",
+   "Questionable cause",
+   "Popular appeal"
+  ],
+  "why": "Two drivers is far too small a sample to judge thousands.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-117",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Hasty generalisation",
+  "kind": "application",
+  "q": "'I asked five friends in my dorm, and all of them prefer Python to Java. So Inha students prefer Python.' Which fallacy is this?",
+  "choices": [
+   "Hasty generalisation",
+   "Popular appeal",
+   "Fallacy of division",
+   "Begging the question"
+  ],
+  "why": "Five friends from one dorm is a small and probably biased sample of the whole student body.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-118",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Hasty generalisation",
+  "kind": "application",
+  "q": "A YouTuber polls her own subscribers, finds that 95% love her videos, and announces that the whole country loves her content. Which fallacy is this?",
+  "choices": [
+   "Hasty generalisation",
+   "Popular appeal",
+   "Appeal to ignorance",
+   "Equivocation"
+  ],
+  "why": "Her subscribers are a biased sample: people who already like her. The lecture's definition covers samples that are too small or biased.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-119",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Straw man",
+  "kind": "concept",
+  "q": "Which fallacy distorts or misrepresents an opponent's argument to make it easier to refute?",
+  "choices": [
+   "Straw man",
+   "Red herring",
+   "Personal attack (ad hominem)",
+   "Begging the question"
+  ],
+  "why": "Straw man: build a weaker copy of the argument, then knock it down. A red herring changes the subject instead.",
+  "source": "Lecture 4 [26:38]"
+ },
+ {
+  "id": "ch5-120",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Straw man",
+  "kind": "concept",
+  "q": "What is a straw man fallacy?",
+  "choices": [
+   "Attacking a distorted version of the opponent's argument",
+   "Changing the subject to a different issue to escape the original argument",
+   "Attacking the opponent's character instead of the argument they made",
+   "Using one weak example to make a generalisation about everyone"
+  ],
+  "why": "The straw man is the distorted version of the argument. The other options describe red herring, ad hominem and hasty generalisation.",
+  "source": "Lecture 4 [26:38]"
+ },
+ {
+  "id": "ch5-121",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Straw man",
+  "kind": "concept",
+  "q": "The straw man fallacy belongs to which family?",
+  "choices": [
+   "Fallacies of relevance",
+   "Fallacies of ambiguity",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "Refuting a distorted version is irrelevant to whether the real argument holds.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-122",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Straw man",
+  "kind": "application",
+  "q": "'Mamdani wants free public transport and to tax the rich. He supports socialism. But socialism was already tried and failed in the Soviet Union. Therefore his argument is invalid.' Which fallacy is this?",
+  "choices": [
+   "Straw man",
+   "Red herring",
+   "Hasty generalisation",
+   "Appeal to pity"
+  ],
+  "why": "Specific proposals (free transit, taxing the rich) are recast as 'Soviet socialism', a distorted version that's easier to knock down. This is the lecture's own example.",
+  "source": "Lecture 4 [26:38]",
+  "star": true,
+  "star_note": "[26:38] 'here I made a real-life example' (Mamdani), then ~1.5 min on the NYC mayor context"
+ },
+ {
+  "id": "ch5-123",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Straw man",
+  "kind": "application",
+  "q": "The student council proposes allowing laptops in open-book exams. An opponent replies: 'So basically they want exams with no rules at all, where anyone can cheat.' Which fallacy is this?",
+  "choices": [
+   "Straw man",
+   "Red herring",
+   "Appeal to pity",
+   "Loaded question"
+  ],
+  "why": "A limited proposal (laptops in open-book exams) is recast as 'no rules at all', which is easy to reject. The topic hasn't changed, so it's not a red herring.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-124",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Straw man",
+  "kind": "application",
+  "q": "Wife: 'I think we should eat out a bit less this month.' Husband: 'So you want us to never have fun again and sit at home eating plain bread?' Which fallacy is the husband committing?",
+  "choices": [
+   "Straw man",
+   "Begging the question",
+   "Personal attack (ad hominem)",
+   "Fallacy of accent"
+  ],
+  "why": "He exaggerates 'eat out a bit less' into 'never have fun again', which is easier to attack.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-125",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Straw man",
+  "kind": "application",
+  "q": "City planners propose limiting cars in the historic centre on weekends. A critic posts: 'The planners want to ban all cars and force everyone to walk to work in the middle of winter!' Which fallacy is this?",
+  "choices": [
+   "Straw man",
+   "Appeal to force (scare tactics)",
+   "Hasty generalisation",
+   "Amphiboly"
+  ],
+  "why": "A weekend limit in one area becomes a total ban on cars, a misrepresentation built to be knocked down.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-126",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Straw man",
+  "kind": "application",
+  "q": "A student argues that evolution should be taught in school. His opponent replies: 'He thinks your grandmother was a monkey at the zoo. Nobody sane believes that.' Which fallacy is this?",
+  "choices": [
+   "Straw man",
+   "Red herring",
+   "Equivocation",
+   "Questionable cause"
+  ],
+  "why": "The theory of evolution is caricatured into something absurd, then rejected. The opponent stays on topic, so it's not a red herring.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-127",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Straw man",
+  "kind": "concept",
+  "q": "According to the lecture, how do you avoid committing or falling for a straw man?",
+  "choices": [
+   "Recheck the original argument for distortions or omissions",
+   "Define all of the ambiguous terms before the discussion begins in earnest",
+   "Ask whether there are more than the two options being offered",
+   "Check whether the person making the argument has a good character"
+  ],
+  "why": "Ask: has the argument been reworded or oversimplified to the point of misrepresentation? Have key parts been omitted or key words changed?",
+  "source": "Lecture 4 [28:40]"
+ },
+ {
+  "id": "ch5-128",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Straw man",
+  "kind": "concept",
+  "q": "What is the difference between a straw man and a red herring?",
+  "choices": [
+   "A straw man attacks a distorted version of the argument; a red herring changes the subject to another issue",
+   "A straw man changes the subject to another issue; a red herring attacks a distorted version of the argument",
+   "A straw man attacks the person's character; a red herring attacks the person's family or friends",
+   "A straw man is a fallacy of relevance; a red herring is a fallacy of ambiguity"
+  ],
+  "why": "Both are fallacies of relevance. The straw man stays on topic but distorts it; the red herring leaves the topic.",
+  "source": "Lecture 4 [28:40]"
+ },
+ {
+  "id": "ch5-129",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Red herring",
+  "kind": "concept",
+  "q": "Which fallacy tries to sidetrack an argument by going off on a tangent and raising a different issue?",
+  "choices": [
+   "Red herring",
+   "Straw man",
+   "False dilemma",
+   "Loaded question"
+  ],
+  "why": "Sidetracking to a different issue is a red herring. A straw man stays on the issue but distorts it.",
+  "source": "Lecture 4 [28:40]"
+ },
+ {
+  "id": "ch5-130",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Red herring",
+  "kind": "concept",
+  "q": "According to the slides, what is a red herring?",
+  "choices": [
+   "A response aimed at a different conclusion from the original argument's",
+   "A response that restates the original conclusion in slightly different words",
+   "A response that attacks the character of the person who made the argument",
+   "A response that exaggerates the original argument so it is easy to defeat"
+  ],
+  "why": "A red herring answers a different question. Exaggerating the argument is a straw man; restating the conclusion is begging the question.",
+  "source": "Slides"
+ },
+ {
+  "id": "ch5-131",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Red herring",
+  "kind": "concept",
+  "q": "The red herring belongs to which family?",
+  "choices": [
+   "Fallacies of relevance",
+   "Fallacies of ambiguity",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "The new issue is logically irrelevant to the original conclusion.",
+  "source": "Lecture 4 [14:21]"
+ },
+ {
+  "id": "ch5-132",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Red herring",
+  "kind": "application",
+  "q": "'Why are you upset about my driving after a few drinks? It's not a big deal. Look at all the accidents caused by people talking on their phones.' Which fallacy is this?",
+  "choices": [
+   "Red herring",
+   "Straw man",
+   "Appeal to ignorance",
+   "Begging the question"
+  ],
+  "why": "Instead of defending drink-driving, the speaker drags attention to phone use, a different issue. Nobody's argument is distorted, so it's not a straw man. This is the lecture's example.",
+  "source": "Lecture 4 [28:40]"
+ },
+ {
+  "id": "ch5-133",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Red herring",
+  "kind": "application",
+  "q": "A journalist asks a minister why electricity prices rose 30% this year. The minister replies: 'Let's not forget that our country just hosted a hugely successful international summit.' Which fallacy is this?",
+  "choices": [
+   "Red herring",
+   "Straw man",
+   "Popular appeal",
+   "False dilemma"
+  ],
+  "why": "The minister dodges a hard question by bringing up an unrelated success. The lecture notes this is common in politics.",
+  "source": "Lecture 4 [28:40]"
+ },
+ {
+  "id": "ch5-134",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Red herring",
+  "kind": "application",
+  "q": "Caught copying an essay, a student tells the dean: 'Why focus on me? The cafeteria food here is terrible and nobody does anything about that.' Which fallacy is this?",
+  "choices": [
+   "Red herring",
+   "Appeal to pity",
+   "Personal attack (ad hominem)",
+   "Questionable cause"
+  ],
+  "why": "Cafeteria food has nothing to do with plagiarism. He is changing the subject.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-135",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Red herring",
+  "kind": "application",
+  "q": "Parent: 'Why did you get a C in calculus?' Teenager: 'Did you know Aziz's parents just bought him a new iPhone?' Which fallacy is the teenager using?",
+  "choices": [
+   "Red herring",
+   "Straw man",
+   "Loaded question",
+   "Hasty generalisation"
+  ],
+  "why": "The teenager throws the conversation off the scent of the grade.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-136",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Red herring",
+  "kind": "concept",
+  "q": "Where does the name 'red herring' come from, according to the lecture?",
+  "choices": [
+   "UK fox hunting: a smelly fish was used to throw hounds off the scent",
+   "Norwegian fish markets, where cheap fish were dyed red to fool the buyers",
+   "A British navy code name for a decoy ship sent to mislead enemy fleets",
+   "A Russian folk tale about a fish that tricked a hungry bear"
+  ],
+  "why": "With fox hounds, a strong-smelling herring was used to pull the dogs' attention away from the real trail. The fallacy pulls an argument away from the real issue.",
+  "source": "Lecture 4 [30:45]"
+ },
+ {
+  "id": "ch5-137",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Begging the question",
+  "kind": "concept",
+  "q": "In which fallacy is the conclusion simply a rewording of a premise?",
+  "choices": [
+   "Begging the question",
+   "Loaded question",
+   "Equivocation",
+   "Straw man"
+  ],
+  "why": "Restating the premise as the conclusion is begging the question. A loaded question hides an assumption inside a question.",
+  "source": "Lecture 4 [30:45]"
+ },
+ {
+  "id": "ch5-138",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Begging the question",
+  "kind": "concept",
+  "q": "What is begging the question?",
+  "choices": [
+   "Assuming the conclusion is true by making it the same as a premise",
+   "Asking a question that presumes the answer to an unasked question",
+   "Asking so many questions that the opponent eventually gives up",
+   "Reducing a complex issue to just two possible choices for the listener"
+  ],
+  "why": "Despite the name, it has nothing to do with asking questions. A question that presumes an answer is a loaded question.",
+  "source": "Lecture 4 [30:45]"
+ },
+ {
+  "id": "ch5-139",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Begging the question",
+  "kind": "concept",
+  "q": "Begging the question is also known as...",
+  "choices": [
+   "Circular reasoning",
+   "Post hoc reasoning",
+   "Either/or reasoning",
+   "Ad hominem reasoning"
+  ],
+  "why": "The argument goes in a circle: the conclusion is used to support itself. Post hoc is questionable cause; either/or is false dilemma.",
+  "source": "Lecture 4 [32:49]"
+ },
+ {
+  "id": "ch5-140",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Begging the question",
+  "kind": "concept",
+  "q": "Begging the question belongs to which family?",
+  "choices": [
+   "Fallacies involving unwarranted assumptions",
+   "Fallacies of ambiguity",
+   "Fallacies of relevance",
+   "Formal fallacies"
+  ],
+  "why": "It assumes the very conclusion it should be proving, which is an unsupported assumption.",
+  "source": "Lecture 4 [30:45]"
+ },
+ {
+  "id": "ch5-141",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Begging the question",
+  "kind": "application",
+  "q": "'Capital punishment is wrong because it is immoral to inflict death as a punishment for a crime.' Which fallacy is this?",
+  "choices": [
+   "Begging the question",
+   "Naturalistic fallacy",
+   "Loaded question",
+   "Hasty generalisation"
+  ],
+  "why": "'Immoral to inflict death as punishment' just restates 'capital punishment is wrong'. It defines the key term rather than giving a reason. This is the lecture's example.",
+  "source": "Lecture 4 [32:49]"
+ },
+ {
+  "id": "ch5-142",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Begging the question",
+  "kind": "application",
+  "q": "'Smoking is unhealthy because it is bad for your health.' Which fallacy is this?",
+  "choices": [
+   "Begging the question",
+   "Naturalistic fallacy",
+   "Questionable cause",
+   "Appeal to ignorance"
+  ],
+  "why": "'Unhealthy' and 'bad for your health' mean the same thing. The premise is the conclusion in different words.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-143",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Begging the question",
+  "kind": "application",
+  "q": "'Our university's attendance rules are fair because they are just.' Which fallacy is this?",
+  "choices": [
+   "Begging the question",
+   "Equivocation",
+   "Inappropriate appeal to authority",
+   "Popular appeal"
+  ],
+  "why": "'Fair' and 'just' are synonyms here, so no independent reason is given. The meaning doesn't shift, so it isn't equivocation.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-144",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Begging the question",
+  "kind": "application",
+  "q": "'Rustam is the best candidate for class president, because none of the other candidates is as good as he is.' Which fallacy is this?",
+  "choices": [
+   "Begging the question",
+   "False dilemma",
+   "Personal attack (ad hominem)",
+   "Hasty generalisation"
+  ],
+  "why": "'Best candidate' and 'no one else is as good' say the same thing. It's a circle, not a reason.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-145",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Begging the question",
+  "kind": "application",
+  "q": "'This news channel always tells the truth. I know because the channel itself says it is the most truthful source in the country.' Which fallacy is this?",
+  "choices": [
+   "Begging the question",
+   "Popular appeal",
+   "Red herring",
+   "Fallacy of division"
+  ],
+  "why": "The channel's honesty is proven by trusting the channel, which assumes what it set out to prove. That's circular reasoning.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-146",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Begging the question",
+  "kind": "concept",
+  "q": "Why does the lecture say begging the question can be hard to spot?",
+  "choices": [
+   "It seems logical until you notice premise and conclusion say the same",
+   "It is always hidden inside a question rather than stated openly as a claim",
+   "It relies on stressing one word in a way that listeners easily miss",
+   "It only ever appears in written texts and never in spoken arguments"
+  ],
+  "why": "At first glance there seems to be a logical argument. On closer evaluation the premise and the conclusion say essentially the same thing.",
+  "source": "Lecture 4 [32:49]"
+ },
+ {
+  "id": "ch5-147",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Begging the question",
+  "kind": "concept",
+  "q": "How does begging the question differ from a loaded question?",
+  "choices": [
+   "Begging the question restates its premise as its conclusion; a loaded question hides an assumption inside a question",
+   "Begging the question hides an assumption inside a question; a loaded question restates its premise as its conclusion",
+   "Begging the question is a fallacy of relevance; a loaded question is a fallacy of ambiguity",
+   "Begging the question attacks the person; a loaded question attacks the person's argument"
+  ],
+  "why": "Both belong to the unwarranted assumptions family, which is why they are easy to mix up. Only the loaded question is actually a question.",
+  "source": "Lecture 4 [34:53]"
+ },
+ {
+  "id": "ch5-148",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Inappropriate appeal to authority",
+  "kind": "concept",
+  "q": "Which fallacy looks to an authority in a field other than the one under investigation?",
+  "choices": [
+   "Inappropriate appeal to authority",
+   "Popular appeal",
+   "Begging the question",
+   "Personal attack (ad hominem)"
+  ],
+  "why": "Citing an expert is fine when they are an expert on this topic. Citing them on a different field is the fallacy.",
+  "source": "Lecture 4 [32:49]"
+ },
+ {
+  "id": "ch5-149",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Inappropriate appeal to authority",
+  "kind": "concept",
+  "q": "What is an inappropriate appeal to authority?",
+  "choices": [
+   "Relying on an expert from the wrong field",
+   "Rejecting an expert's view because of the expert's personal life or past",
+   "Assuming something is true because the majority believes it",
+   "Using a powerful person's threat to force someone to agree"
+  ],
+  "why": "The fault is borrowing authority from the wrong field. Rejecting an expert over their private life would be ad hominem.",
+  "source": "Lecture 4 [32:49]"
+ },
+ {
+  "id": "ch5-150",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Inappropriate appeal to authority",
+  "kind": "concept",
+  "q": "Inappropriate appeal to authority belongs to which family?",
+  "choices": [
+   "Fallacies involving unwarranted assumptions",
+   "Fallacies of ambiguity",
+   "Fallacies of relevance",
+   "Formal fallacies"
+  ],
+  "why": "It assumes, without evidence, that expertise in one field carries over to another.",
+  "source": "Lecture 4 [30:45]"
+ },
+ {
+  "id": "ch5-151",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Inappropriate appeal to authority",
+  "kind": "concept",
+  "q": "According to the lecture, when is it appropriate to use the testimony of an authority?",
+  "choices": [
+   "When the person is an expert in the very field under discussion",
+   "When the person is famous and widely trusted by the public",
+   "When the person holds a high position in the government or ministry",
+   "When the person has a very large following on social media"
+  ],
+  "why": "Testimony from a genuine expert in the field is generally appropriate. Fame, rank or followers don't make someone an authority on the topic.",
+  "source": "Lecture 4 [32:49]"
+ },
+ {
+  "id": "ch5-152",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Inappropriate appeal to authority",
+  "kind": "application",
+  "q": "A popular lifestyle blogger is invited onto a podcast as 'today's expert' and explains how the national economy should be managed. Listeners treat her advice as authoritative. Which fallacy is this?",
+  "choices": [
+   "Inappropriate appeal to authority",
+   "Personal attack (ad hominem)",
+   "Appeal to ignorance",
+   "Begging the question"
+  ],
+  "why": "The lecture specifically mentions celebrities and bloggers given the microphone on podcasts to talk about politics, family or money, outside their field.",
+  "source": "Lecture 4 [34:53]",
+  "star": true,
+  "star_note": "[32:49]-[34:53] long own commentary: celebrities and bloggers handed the microphone on podcasts to talk politics, family, money; IT sub-fields"
+ },
+ {
+  "id": "ch5-153",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Inappropriate appeal to authority",
+  "kind": "application",
+  "q": "'A Nobel Prize-winning physicist said in an interview that this diet cures diabetes, so it must work.' Which fallacy is this?",
+  "choices": [
+   "Inappropriate appeal to authority",
+   "Questionable cause",
+   "Hasty generalisation",
+   "Naturalistic fallacy"
+  ],
+  "why": "A physicist is a real expert, but in physics, not medicine or nutrition.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-154",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Inappropriate appeal to authority",
+  "kind": "application",
+  "q": "In a debate about computer graphics, a student argues: 'My uncle is a senior network engineer, and he says ray tracing is a dead end, so it must be.' Which fallacy is this?",
+  "choices": [
+   "Inappropriate appeal to authority",
+   "Popular appeal",
+   "Fallacy of division",
+   "Red herring"
+  ],
+  "why": "The lecture warns that IT has many sub-fields. Expertise in networking doesn't make someone an authority on graphics rendering.",
+  "source": "Lecture 4 [32:49]"
+ },
+ {
+  "id": "ch5-155",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Inappropriate appeal to authority",
+  "kind": "application",
+  "q": "A famous actor tells viewers which presidential candidate has the best foreign policy, and the TV host adds: 'Who would know better than him?' Which fallacy is this?",
+  "choices": [
+   "Inappropriate appeal to authority",
+   "Appeal to force (scare tactics)",
+   "Straw man",
+   "False dilemma"
+  ],
+  "why": "Acting fame is treated as expertise in foreign policy. The host explicitly frames him as an authority.",
+  "source": "Lecture 4 [34:53]"
+ },
+ {
+  "id": "ch5-156",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Inappropriate appeal to authority",
+  "kind": "application",
+  "q": "'A world chess champion says vaccines weaken the immune system, and he's a genius, so we shouldn't vaccinate our kids.' Which fallacy is this?",
+  "choices": [
+   "Inappropriate appeal to authority",
+   "Naturalistic fallacy",
+   "Slippery slope",
+   "Appeal to pity"
+  ],
+  "why": "Brilliance at chess gives no authority on immunology.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-157",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Loaded question",
+  "kind": "concept",
+  "q": "Which fallacy presumes a particular answer to another, unasked question?",
+  "choices": [
+   "Loaded question",
+   "Begging the question",
+   "False dilemma",
+   "Straw man"
+  ],
+  "why": "A loaded question carries a hidden assumption. Begging the question restates the premise as the conclusion.",
+  "source": "Lecture 4 [34:53]"
+ },
+ {
+  "id": "ch5-158",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Loaded question",
+  "kind": "concept",
+  "q": "What is a loaded question?",
+  "choices": [
+   "A question that already assumes the answer to a question nobody asked",
+   "An argument whose conclusion just repeats one of its premises",
+   "A question that offers only two answers to a complex issue",
+   "A question asked to move the discussion away from the real issue at hand"
+  ],
+  "why": "The hidden, unasked question is the trap. Offering only two options is false dilemma.",
+  "source": "Lecture 4 [34:53]"
+ },
+ {
+  "id": "ch5-159",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Loaded question",
+  "kind": "concept",
+  "q": "The loaded question belongs to which family?",
+  "choices": [
+   "Fallacies involving unwarranted assumptions",
+   "Fallacies of ambiguity",
+   "Fallacies of relevance",
+   "Formal fallacies"
+  ],
+  "why": "The question rests on an unsupported assumption (e.g. that you did beat your wife).",
+  "source": "Lecture 4 [30:45]"
+ },
+ {
+  "id": "ch5-160",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Loaded question",
+  "kind": "application",
+  "q": "In court, a lawyer demands: 'Have you stopped beating your wife? Answer yes or no.' Which fallacy is this?",
+  "choices": [
+   "Loaded question",
+   "Begging the question",
+   "Appeal to force (scare tactics)",
+   "Fallacy of accent"
+  ],
+  "why": "Either answer admits he has beaten her. The question presumes the answer to the unasked question 'Did you ever beat her?'. This is the lecture's example.",
+  "source": "Lecture 4 [34:53]"
+ },
+ {
+  "id": "ch5-161",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Loaded question",
+  "kind": "application",
+  "q": "A journalist asks the minister: 'When will you stop lying to the public about the budget?' Which fallacy is this?",
+  "choices": [
+   "Loaded question",
+   "Straw man",
+   "Red herring",
+   "Slippery slope"
+  ],
+  "why": "The question assumes, without evidence, that the minister has been lying.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-162",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Loaded question",
+  "kind": "application",
+  "q": "With no evidence, a teacher asks a student: 'Why did you copy your essay from the internet?' Which fallacy is this?",
+  "choices": [
+   "Loaded question",
+   "Hasty generalisation",
+   "Appeal to ignorance",
+   "Begging the question"
+  ],
+  "why": "It presumes the answer to the unasked question 'Did you copy it?'.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-163",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Loaded question",
+  "kind": "application",
+  "q": "A mother asks her son: 'Are you still wasting all your time on video games?' Which fallacy is this?",
+  "choices": [
+   "Loaded question",
+   "False dilemma",
+   "Appeal to pity",
+   "Questionable cause"
+  ],
+  "why": "Answering yes or no both admit he was wasting all his time. The yes/no format isn't what makes it a false dilemma; the hidden assumption is the problem.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-164",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Loaded question",
+  "kind": "application",
+  "q": "A survey asks residents: 'How much has the mayor's corruption harmed your mahalla?' Which fallacy is built into the question?",
+  "choices": [
+   "Loaded question",
+   "Popular appeal",
+   "Equivocation",
+   "Fallacy of division"
+  ],
+  "why": "The question assumes the mayor is corrupt, which nobody has established.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-165",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Loaded question",
+  "kind": "concept",
+  "q": "What distinguishes a loaded question from a false dilemma?",
+  "choices": [
+   "A loaded question smuggles in an unproven assumption; a false dilemma squeezes a complex issue into two options",
+   "A loaded question squeezes a complex issue into two options; a false dilemma smuggles in an unproven assumption",
+   "A loaded question is a fallacy of relevance; a false dilemma is a fallacy of ambiguity",
+   "A loaded question is only used in courts; a false dilemma is only used in politics"
+  ],
+  "why": "Both are unwarranted assumptions. 'Have you stopped beating your wife?' is loaded because of what it presumes, not because it demands yes or no.",
+  "source": "Lecture 4 [34:53]"
+ },
+ {
+  "id": "ch5-166",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "False dilemma",
+  "kind": "concept",
+  "q": "Which fallacy reduces the responses to a complex issue to an either/or choice?",
+  "choices": [
+   "False dilemma",
+   "Slippery slope",
+   "Loaded question",
+   "Straw man"
+  ],
+  "why": "Either/or thinking on a complex issue is a false dilemma.",
+  "source": "Lecture 4 [34:53]"
+ },
+ {
+  "id": "ch5-167",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "False dilemma",
+  "kind": "concept",
+  "q": "What is a false dilemma?",
+  "choices": [
+   "Presenting only two options when more exist",
+   "Predicting that one step will lead to extremes",
+   "Assuming the answer to an unasked question",
+   "Distorting the opponent's view to defeat it"
+  ],
+  "why": "A false dilemma hides the other options. The rest describe slippery slope, loaded question and straw man.",
+  "source": "Lecture 4 [34:53]"
+ },
+ {
+  "id": "ch5-168",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "False dilemma",
+  "kind": "concept",
+  "q": "The false dilemma belongs to which family?",
+  "choices": [
+   "Fallacies involving unwarranted assumptions",
+   "Fallacies of ambiguity",
+   "Fallacies of relevance",
+   "Formal fallacies"
+  ],
+  "why": "It assumes, without evidence, that only two options exist.",
+  "source": "Lecture 4 [30:45]"
+ },
+ {
+  "id": "ch5-169",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "False dilemma",
+  "kind": "concept",
+  "q": "According to the lecture, what does a false dilemma do to a debate?",
+  "choices": [
+   "It polarises positions and ignores common ground or other solutions",
+   "It makes the key terms shift their meaning partway through the debate",
+   "It forces the debate back to the original argument",
+   "It replaces real evidence with appeals to what most people think is true"
+  ],
+  "why": "By offering only two sides, it pushes people to extremes and hides compromise or third options.",
+  "source": "Lecture 4 [34:53]"
+ },
+ {
+  "id": "ch5-170",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "False dilemma",
+  "kind": "application",
+  "q": "'Why do you complain about our politics? If you don't like our policies, you can leave the country.' Which fallacy is this?",
+  "choices": [
+   "False dilemma",
+   "Slippery slope",
+   "Loaded question",
+   "Fallacy of accent"
+  ],
+  "why": "It offers only two choices, accept everything or leave, and ignores voting, debate or reform. This is the lecture's example.",
+  "source": "Lecture 4 [36:53]",
+  "star": true,
+  "star_note": "[36:53] after the slide example asks 'did we hear such arguments?' and ties it to social media and politics"
+ },
+ {
+  "id": "ch5-171",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "False dilemma",
+  "kind": "application",
+  "q": "'Either you support every decision the dean makes, or you're against this university.' Which fallacy is this?",
+  "choices": [
+   "False dilemma",
+   "Personal attack (ad hominem)",
+   "Begging the question",
+   "Hasty generalisation"
+  ],
+  "why": "You can support the university and still disagree with some decisions. Those middle positions are ignored.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-172",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "False dilemma",
+  "kind": "application",
+  "q": "'Either we build a highway through the city park, or traffic in Tashkent will never improve.' Which fallacy is this?",
+  "choices": [
+   "False dilemma",
+   "Slippery slope",
+   "Questionable cause",
+   "Naturalistic fallacy"
+  ],
+  "why": "Metro lines, buses, bike lanes and congestion pricing are all ignored. Only two options are offered.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-173",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "False dilemma",
+  "kind": "application",
+  "q": "A father tells his daughter: 'You either get into medical school or you'll be a failure in life.' Which fallacy is this?",
+  "choices": [
+   "False dilemma",
+   "Appeal to pity",
+   "Slippery slope",
+   "Fallacy of division"
+  ],
+  "why": "There are countless successful paths besides medicine. The father reduces them to two.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-174",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "False dilemma",
+  "kind": "application",
+  "q": "'Either you post about this cause on Instagram, or you clearly don't care about it at all.' Which fallacy is this?",
+  "choices": [
+   "False dilemma",
+   "Popular appeal",
+   "Loaded question",
+   "Red herring"
+  ],
+  "why": "People can care by donating, volunteering or acting offline. Those options are left out.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-175",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Questionable cause",
+  "kind": "concept",
+  "q": "Which fallacy assumes, without sufficient evidence, that one thing is the cause of another?",
+  "choices": [
+   "Questionable cause",
+   "Slippery slope",
+   "Hasty generalisation",
+   "Begging the question"
+  ],
+  "why": "An unsupported causal claim is questionable cause, also called post hoc.",
+  "source": "Lecture 4 [36:53]"
+ },
+ {
+  "id": "ch5-176",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Questionable cause",
+  "kind": "concept",
+  "q": "What is the fallacy of questionable cause?",
+  "choices": [
+   "Assuming without evidence that one thing caused another",
+   "Assuming that allowing one action will lead to all its extreme forms",
+   "Assuming that something natural must be good or acceptable",
+   "Assuming that a group's traits belong to each of its members"
+  ],
+  "why": "Questionable cause is about unsupported causal links. The others are slippery slope, naturalistic fallacy and division.",
+  "source": "Lecture 4 [36:53]"
+ },
+ {
+  "id": "ch5-177",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Questionable cause",
+  "kind": "concept",
+  "q": "Questionable cause (post hoc) belongs to which family?",
+  "choices": [
+   "Fallacies involving unwarranted assumptions",
+   "Fallacies of ambiguity",
+   "Fallacies of relevance",
+   "Formal fallacies"
+  ],
+  "why": "It assumes a causal link that no evidence supports.",
+  "source": "Lecture 4 [30:45]"
+ },
+ {
+  "id": "ch5-178",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Questionable cause",
+  "kind": "concept",
+  "q": "What is the 'post hoc' form of questionable cause?",
+  "choices": [
+   "Assuming that because one event came before another, it caused it",
+   "Assuming that because something is natural, it is morally good",
+   "Assuming that because no one disproved a claim, it must therefore be true",
+   "Assuming that because a few cases agree, all cases will agree"
+  ],
+  "why": "Post hoc is short for 'after this, therefore because of this'. Coming first doesn't make something a cause.",
+  "source": "Lecture 4 [36:53]"
+ },
+ {
+  "id": "ch5-179",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Questionable cause",
+  "kind": "concept",
+  "q": "Which principle does the lecture use to sum up the problem with questionable cause?",
+  "choices": [
+   "Correlation does not always mean causation",
+   "Absence of evidence is evidence of absence",
+   "The majority is usually right",
+   "What is natural is good"
+  ],
+  "why": "Two things happening together, or one after the other, doesn't prove one caused the other. The second option is itself the appeal-to-ignorance mistake.",
+  "source": "Lecture 4 [38:54]"
+ },
+ {
+  "id": "ch5-180",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Questionable cause",
+  "kind": "concept",
+  "q": "Why are we prone to questionable cause, according to the lecture?",
+  "choices": [
+   "Our brains tend to impose order, so we see causal links that aren't there",
+   "We trust experts too much, even when they speak well outside their own fields",
+   "We are afraid of being left out of what the majority of our friends believe",
+   "We don't define our key terms clearly before starting to argue"
+  ],
+  "why": "Our brains impose order on how we see the world, so we see causes where none exist. Superstitions are the classic result.",
+  "source": "Lecture 4 [36:53]"
+ },
+ {
+  "id": "ch5-181",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Questionable cause",
+  "kind": "application",
+  "q": "'I wore my lucky jacket to the exam and got an A, so I'll wear it to every exam from now on.' According to the lecture, this superstition is an example of which fallacy?",
+  "choices": [
+   "Questionable cause",
+   "Naturalistic fallacy",
+   "Appeal to ignorance",
+   "Slippery slope"
+  ],
+  "why": "Wearing the jacket came before the A, so it's assumed to have caused it. The lecture uses the lucky jacket and the lucky route to the exam as examples.",
+  "source": "Lecture 4 [36:53]",
+  "star": true,
+  "star_note": "[36:53]-[38:54] own superstition examples (favourite jacket/cap, a certain route to the exam), adds 'correlation may not always mean causation'"
+ },
+ {
+  "id": "ch5-182",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Questionable cause",
+  "kind": "application",
+  "q": "Classmates avoid sitting near a student with a skin condition that isn't contagious, assuming they'll catch it if they get close. Which fallacy does the lecture link this to?",
+  "choices": [
+   "Questionable cause",
+   "Fallacy of division",
+   "Appeal to pity",
+   "Popular appeal"
+  ],
+  "why": "They assume, without evidence, that being near her will cause them to get the condition. The lecture blames unfamiliarity with the condition.",
+  "source": "Lecture 4 [38:54]"
+ },
+ {
+  "id": "ch5-183",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Questionable cause",
+  "kind": "application",
+  "q": "'Ever since the new rector arrived, our university football team keeps winning. He must be the reason.' Which fallacy is this?",
+  "choices": [
+   "Questionable cause",
+   "Inappropriate appeal to authority",
+   "Hasty generalisation",
+   "Red herring"
+  ],
+  "why": "The wins came after his arrival, but nothing shows he caused them (post hoc).",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-184",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Questionable cause",
+  "kind": "application",
+  "q": "'Ice cream sales and drownings both rise in summer, so eating ice cream causes drowning.' Which fallacy is this?",
+  "choices": [
+   "Questionable cause",
+   "Slippery slope",
+   "Equivocation",
+   "Popular appeal"
+  ],
+  "why": "Correlation isn't causation. Hot weather drives both.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-185",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Questionable cause",
+  "kind": "application",
+  "q": "'I drank green tea with lemon, and the next morning my cold was gone. So green tea cures colds.' Which fallacy is this?",
+  "choices": [
+   "Questionable cause",
+   "Naturalistic fallacy",
+   "Appeal to ignorance",
+   "False dilemma"
+  ],
+  "why": "Colds go away on their own. The tea came first, so it's assumed to be the cause.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-186",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Questionable cause",
+  "kind": "concept",
+  "q": "What is the difference between questionable cause and slippery slope?",
+  "choices": [
+   "Questionable cause asserts an unproven causal link; slippery slope says allowing one step leads to the extremes",
+   "Questionable cause says allowing one step leads to the extremes; slippery slope asserts an unproven causal link",
+   "Questionable cause is a fallacy of relevance; slippery slope is a fallacy of ambiguity",
+   "Questionable cause concerns only past events; slippery slope concerns only natural events"
+  ],
+  "why": "Both involve causes, which is why they get confused. Slippery slope is specifically about permitting one action and predicting a chain to its most extreme form.",
+  "source": "Lecture 4 [38:54]"
+ },
+ {
+  "id": "ch5-187",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Slippery slope",
+  "kind": "concept",
+  "q": "Which fallacy assumes that if a certain action is permitted, then all actions of this type, even the most extreme, will soon be permissible?",
+  "choices": [
+   "Slippery slope",
+   "Questionable cause",
+   "False dilemma",
+   "Hasty generalisation"
+  ],
+  "why": "Allow one thing and everything follows: that's slippery slope.",
+  "source": "Lecture 4 [38:54]"
+ },
+ {
+  "id": "ch5-188",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Slippery slope",
+  "kind": "concept",
+  "q": "What is a slippery slope fallacy?",
+  "choices": [
+   "Claiming one allowed step will lead to the extremes",
+   "Claiming that one event caused another because it happened first",
+   "Claiming that only two options are available on a complex, many-sided issue",
+   "Claiming that one bad case proves that a whole group is bad"
+  ],
+  "why": "The slope is the imagined chain from a small step to the extreme. The others describe questionable cause, false dilemma and hasty generalisation.",
+  "source": "Lecture 4 [38:54]"
+ },
+ {
+  "id": "ch5-189",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Slippery slope",
+  "kind": "concept",
+  "q": "The slippery slope belongs to which family?",
+  "choices": [
+   "Fallacies involving unwarranted assumptions",
+   "Fallacies of ambiguity",
+   "Fallacies of relevance",
+   "Formal fallacies"
+  ],
+  "why": "It assumes, without evidence, that one small step will lead all the way to the extreme.",
+  "source": "Lecture 4 [30:45]"
+ },
+ {
+  "id": "ch5-190",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Slippery slope",
+  "kind": "application",
+  "q": "A neighbour warns: 'If you let your son skip one family dinner to play football, next he'll skip school, and he'll end up a criminal.' Which fallacy is this?",
+  "choices": [
+   "Slippery slope",
+   "False dilemma",
+   "Fallacy of division",
+   "Appeal to pity"
+  ],
+  "why": "One small permission is said to lead to the most extreme result. The lecture uses parenting examples like this.",
+  "source": "Lecture 4 [38:54]",
+  "star": true,
+  "star_note": "[38:54] asks students to pause the video and think of examples, then gives his own parenting example"
+ },
+ {
+  "id": "ch5-191",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Slippery slope",
+  "kind": "application",
+  "q": "'If we listen to the students' complaints about the dormitory just once, tomorrow they'll take over the whole university and go on strike.' Which fallacy is this?",
+  "choices": [
+   "Slippery slope",
+   "Straw man",
+   "Appeal to ignorance",
+   "Loaded question"
+  ],
+  "why": "This mirrors the lecture's example about giving young people a voice 'just once'. A single concession is assumed to snowball.",
+  "source": "Lecture 4 [40:57]",
+  "star": true,
+  "star_note": "[40:57] his own second slippery-slope example: hearing young people's worries 'just once' leads to strikes"
+ },
+ {
+  "id": "ch5-192",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Slippery slope",
+  "kind": "application",
+  "q": "'If the police let drivers go 10 km/h over the limit, soon nobody in the city will obey any traffic law at all.' Which fallacy is this?",
+  "choices": [
+   "Slippery slope",
+   "Hasty generalisation",
+   "Popular appeal",
+   "Begging the question"
+  ],
+  "why": "A small tolerance is assumed to lead to total lawlessness, with no evidence for the chain.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-193",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Slippery slope",
+  "kind": "application",
+  "q": "'If we let one employee work from home on Fridays, soon everyone will stay home all week and the company will collapse.' Which fallacy is this?",
+  "choices": [
+   "Slippery slope",
+   "False dilemma",
+   "Fallacy of division",
+   "Appeal to force (scare tactics)"
+  ],
+  "why": "One permission is assumed to lead straight to the most extreme outcome.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-194",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Slippery slope",
+  "kind": "application",
+  "q": "A professor refuses a quiz retake: 'If I let you retake this quiz, next you'll demand to retake every exam, and grades will mean nothing.' Which fallacy is this?",
+  "choices": [
+   "Slippery slope",
+   "Loaded question",
+   "Red herring",
+   "Amphiboly"
+  ],
+  "why": "There may be good reasons to refuse, but this one assumes an unproven chain from one retake to meaningless grades.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-195",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Naturalistic fallacy",
+  "kind": "concept",
+  "q": "Which fallacy rests on the assumption that what is natural is good or morally acceptable, and what is unnatural is bad?",
+  "choices": [
+   "Naturalistic fallacy",
+   "Popular appeal",
+   "Begging the question",
+   "Questionable cause"
+  ],
+  "why": "Natural = good, unnatural = bad is the naturalistic fallacy.",
+  "source": "Lecture 4 [40:57]"
+ },
+ {
+  "id": "ch5-196",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Naturalistic fallacy",
+  "kind": "concept",
+  "q": "What is the naturalistic fallacy?",
+  "choices": [
+   "Assuming that what is natural is good and what is unnatural is bad",
+   "Assuming that a cause must naturally come before its effect",
+   "Assuming that natural scientists are experts on every topic",
+   "Assuming that the traits of nature must apply to every single living thing"
+  ],
+  "why": "It is the unwarranted jump from 'natural' to 'good' (or 'unnatural' to 'bad').",
+  "source": "Lecture 4 [40:57]"
+ },
+ {
+  "id": "ch5-197",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Naturalistic fallacy",
+  "kind": "concept",
+  "q": "The naturalistic fallacy belongs to which family?",
+  "choices": [
+   "Fallacies involving unwarranted assumptions",
+   "Fallacies of ambiguity",
+   "Fallacies of relevance",
+   "Formal fallacies"
+  ],
+  "why": "It rests on the unwarranted assumption that natural means good.",
+  "source": "Lecture 4 [30:45]"
+ },
+ {
+  "id": "ch5-198",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Naturalistic fallacy",
+  "kind": "concept",
+  "q": "Which counterexamples did the lecture give to show that 'natural' doesn't always mean 'good'?",
+  "choices": [
+   "Tobacco, hurricanes and earthquakes",
+   "Fruit, vegetables and natural vitamins",
+   "Junk food and artificial medicines",
+   "Plastic, cars and factories"
+  ],
+  "why": "Tobacco is natural yet harmful; hurricanes and earthquakes are natural yet dangerous. Fruit and vegetables were his examples of natural things that usually are good.",
+  "source": "Lecture 4 [42:58]"
+ },
+ {
+  "id": "ch5-199",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Naturalistic fallacy",
+  "kind": "application",
+  "q": "'Predators hunt other animals in nature, and humans are predators too, so hunting rare animals is perfectly acceptable.' Which fallacy is this?",
+  "choices": [
+   "Naturalistic fallacy",
+   "Fallacy of division",
+   "Popular appeal",
+   "Slippery slope"
+  ],
+  "why": "Hunting being natural is taken to make it morally fine, even for rare species. This is the lecture's example.",
+  "source": "Lecture 4 [42:58]",
+  "star": true,
+  "star_note": "[42:58] ~2 min of own examples for naturalistic fallacy (tobacco, hurricanes/earthquakes, hunting rare animals)"
+ },
+ {
+  "id": "ch5-200",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Naturalistic fallacy",
+  "kind": "application",
+  "q": "'This herbal supplement is 100% natural, so it can't have any harmful side effects.' Which fallacy is this?",
+  "choices": [
+   "Naturalistic fallacy",
+   "Popular appeal",
+   "Begging the question",
+   "Questionable cause"
+  ],
+  "why": "Natural doesn't mean safe. Tobacco and poisonous plants are natural too.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-201",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Naturalistic fallacy",
+  "kind": "application",
+  "q": "'Vaccines are made of artificial chemicals, so they must be bad for children.' Which fallacy is this?",
+  "choices": [
+   "Naturalistic fallacy",
+   "Appeal to ignorance",
+   "Hasty generalisation",
+   "Fallacy of accent"
+  ],
+  "why": "This is the reverse form: unnatural is assumed to be bad.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-202",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Naturalistic fallacy",
+  "kind": "application",
+  "q": "'It's natural for people to get angry, so shouting at your colleagues is morally fine.' Which fallacy is this?",
+  "choices": [
+   "Naturalistic fallacy",
+   "Appeal to force (scare tactics)",
+   "Red herring",
+   "Equivocation"
+  ],
+  "why": "That anger is natural doesn't make acting on it acceptable.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-203",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Naturalistic fallacy",
+  "kind": "application",
+  "q": "'Mushrooms grow wild in nature, so any mushroom you find in the forest is safe to eat.' Which fallacy is this?",
+  "choices": [
+   "Naturalistic fallacy",
+   "Hasty generalisation",
+   "Appeal to pity",
+   "Popular appeal"
+  ],
+  "why": "Being natural is taken as proof of being good or safe, yet many wild mushrooms are poisonous.",
+  "source": "Textbook"
+ },
+ {
+  "id": "ch5-204",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "concept",
+  "q": "Which of these is one of the lecture's nine strategies for avoiding fallacies?",
+  "choices": [
+   "Don't be set on winning",
+   "Always side with the majority view",
+   "Trust any well-known expert",
+   "Avoid topics you disagree on"
+  ],
+  "why": "'Don't be set on winning' is strategy nine. The others would push you into popular appeal or inappropriate appeal to authority.",
+  "source": "Lecture 4 [42:58]"
+ },
+ {
+  "id": "ch5-205",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "concept",
+  "q": "Which of these is NOT one of the nine strategies for avoiding fallacies?",
+  "choices": [
+   "Rely on popular opinion to settle disagreements",
+   "Know yourself",
+   "Do not confuse the soundness of an argument with the character of the person making it",
+   "Avoid ambiguous and vague terms and faulty grammar"
+  ],
+  "why": "Relying on popular opinion is the popular appeal fallacy. The other three are on the lecture's list.",
+  "source": "Lecture 4 [42:58]"
+ },
+ {
+  "id": "ch5-206",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "concept",
+  "q": "What does the strategy 'know yourself' mean in this lecture?",
+  "choices": [
+   "Learn which fallacies you are most likely to fall for or commit",
+   "Trust your own views over the views of other people",
+   "Research your own background before entering a debate",
+   "Only argue about topics drawn from your own experience"
+  ],
+  "why": "Self-knowledge of your weak spots makes you less vulnerable to lapses in critical thinking.",
+  "source": "Lecture 4 [42:58]"
+ },
+ {
+  "id": "ch5-207",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "concept",
+  "q": "Why does building self-confidence and self-esteem help you avoid fallacies?",
+  "choices": [
+   "Confident people back down less under fallacies and get less defensive",
+   "Confident people don't need to listen to anyone else's arguments",
+   "Confident people can win any argument through sheer force of personality",
+   "Confident people automatically become experts in the topic"
+  ],
+  "why": "Self-confident people are less likely to give in when a fallacy is used on them, or to get defensive and use fallacies on others.",
+  "source": "Lecture 4 [45:02]"
+ },
+ {
+  "id": "ch5-208",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "concept",
+  "q": "The strategy 'cultivate good listening skills' asks you to...",
+  "choices": [
+   "be a respectful listener even when you disagree",
+   "listen only to people who are experts in the field",
+   "stay silent until the other person runs out of arguments",
+   "listen for words you can later use against the speaker"
+  ],
+  "why": "Good listening means respecting others' views, including ones you disagree with.",
+  "source": "Lecture 4 [45:02]"
+ },
+ {
+  "id": "ch5-209",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "concept",
+  "q": "The strategy 'avoid ambiguous and vague terms and faulty grammar' is mainly a defence against which family of fallacies?",
+  "choices": [
+   "Fallacies of ambiguity",
+   "Fallacies of relevance",
+   "Fallacies involving unwarranted assumptions",
+   "Formal fallacies"
+  ],
+  "why": "Defining key terms, using grammar carefully and asking when something is unclear targets equivocation, amphiboly, accent and division.",
+  "source": "Lecture 4 [45:02]"
+ },
+ {
+  "id": "ch5-210",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "concept",
+  "q": "What exception did the lecturer mention to 'don't confuse the soundness of an argument with the character of the person making it'?",
+  "choices": [
+   "In criminal investigations, a suspect's past crimes can be relevant",
+   "In politics, a candidate's private life is always relevant",
+   "In families, parents' views should outweigh their children's",
+   "In science, only famous scientists' arguments deserve attention"
+  ],
+  "why": "He noted that police investigators may look at a person's criminal history. In general arguments, though, stick to the argument itself.",
+  "source": "Lecture 4 [45:02]"
+ },
+ {
+  "id": "ch5-211",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "concept",
+  "q": "What does the strategy 'know your topic' advise?",
+  "choices": [
+   "Research and investigate before you conclude",
+   "Only argue about topics that you formally studied at university",
+   "Memorise the names of all the fallacies before any debate",
+   "Let the most knowledgeable person in the room decide the issue for everyone"
+  ],
+  "why": "Knowing your subject lets you bring real evidence and better examples instead of jumping to conclusions.",
+  "source": "Lecture 4 [47:07]"
+ },
+ {
+  "id": "ch5-212",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "concept",
+  "q": "What does 'adopt a position of scepticism' mean in the lecture?",
+  "choices": [
+   "Stay sceptical yet open-minded, and doubt your own views too",
+   "Reject every claim until it has been proven beyond any possible doubt",
+   "Doubt everyone else's claims but trust your own carefully formed views",
+   "Accept claims from authorities in any field without asking questions"
+  ],
+  "why": "Scepticism isn't a closed mind: keep claims open unless clear evidence contradicts them, don't just take people's word, and apply the same doubt to yourself.",
+  "source": "Lecture 4 [47:07]"
+ },
+ {
+  "id": "ch5-213",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "concept",
+  "q": "Why does the lecture include 'watch your body language' as a strategy?",
+  "choices": [
+   "Personal attacks and threats can be non-verbal, e.g. eye-rolling or glaring",
+   "Confident posture makes an argument logically stronger and much harder to refute",
+   "Body language reliably reveals whether the other person is lying to you",
+   "Fallacies of ambiguity are mostly caused by unclear hand gestures"
+  ],
+  "why": "Fallacies need not be spoken: rolling your eyes, glaring, looking away or walking away can carry an ad hominem or a threat.",
+  "source": "Lecture 4 [47:07]"
+ },
+ {
+  "id": "ch5-214",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "concept",
+  "q": "According to the lecture, why shouldn't you be set on 'winning' an argument?",
+  "choices": [
+   "Arguing to win, not to find truth, pushes you to fallacies when stuck",
+   "Winning arguments damages friendships, and friendships matter more than truth",
+   "The person who wins an argument is usually the one committing the fallacies",
+   "Arguments can never truly be won, only postponed until a later time"
+  ],
+  "why": "If the goal is winning, you're more likely to fall back on fallacies and rhetoric when you can't rationally defend your position.",
+  "source": "Lecture 4 [47:07]"
+ },
+ {
+  "id": "ch5-215",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "application",
+  "q": "Before a class debate on whether Tashkent should charge drivers to enter the city centre, Jasur spends a week reading studies from other cities. Which strategy is he following?",
+  "choices": [
+   "Know your topic",
+   "Know yourself",
+   "Watch your body language",
+   "Build self-confidence and self-esteem"
+  ],
+  "why": "Researching before concluding is 'know your topic'.",
+  "source": "Lecture 4 [47:07]"
+ },
+ {
+  "id": "ch5-216",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "application",
+  "q": "Aziza notices she always gives in when her older brother raises his voice, so she decides to watch out for appeals to force in their arguments. Which strategy is she using?",
+  "choices": [
+   "Know yourself",
+   "Know your topic",
+   "Cultivate good listening skills",
+   "Don't be set on winning"
+  ],
+  "why": "Identifying which fallacy you personally tend to fall for is 'know yourself'.",
+  "source": "Lecture 4 [42:58]"
+ },
+ {
+  "id": "ch5-217",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "application",
+  "q": "In a team meeting, Timur realises his plan has a serious flaw, but keeps arguing anyway so he won't lose face in front of his colleagues. Which strategy is he ignoring?",
+  "choices": [
+   "Don't be set on winning",
+   "Know your topic",
+   "Cultivate good listening skills",
+   "Avoid ambiguous terms and faulty grammar"
+  ],
+  "why": "He is arguing to win rather than to find the truth, which is when people start reaching for fallacies.",
+  "source": "Lecture 4 [47:07]"
+ },
+ {
+  "id": "ch5-218",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "application",
+  "q": "In a group discussion, Laylo stops and asks: 'When you say the plan is cheap, cheap compared to what?' Which strategy is she applying?",
+  "choices": [
+   "Avoid ambiguous terms and faulty grammar",
+   "Don't be set on winning",
+   "Know yourself",
+   "Watch your body language"
+  ],
+  "why": "'Cheap' is a vague, relative term. Asking for it to be defined is the strategy against ambiguity.",
+  "source": "Lecture 4 [45:02]"
+ },
+ {
+  "id": "ch5-219",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "application",
+  "q": "Kamola strongly disagrees with her classmate's view on AI regulation, but she lets him finish, nods, and summarises his point before responding. Which strategy is she showing?",
+  "choices": [
+   "Cultivate good listening skills",
+   "Know your topic",
+   "Know yourself",
+   "Avoid ambiguous terms and faulty grammar"
+  ],
+  "why": "Being a respectful listener even when you disagree is the listening-skills strategy.",
+  "source": "Lecture 4 [45:02]"
+ },
+ {
+  "id": "ch5-220",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Strategies for avoiding fallacies",
+  "kind": "application",
+  "q": "After reading an article that supports his own opinion, Doston checks its evidence just as carefully as he would for an article he disagreed with. Which strategy is he applying?",
+  "choices": [
+   "Adopt a position of scepticism",
+   "Know yourself",
+   "Cultivate good listening skills",
+   "Watch your body language"
+  ],
+  "why": "The lecture's scepticism strategy explicitly includes staying sceptical of your own views.",
+  "source": "Lecture 4 [47:07]"
+ },
+ {
+  "id": "ch5-301",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Popular appeal",
+  "kind": "application",
+  "q": "A TV ad shows a famous footballer and a pop singer using a shampoo, with the slogan 'Use what the stars use.' According to the lecture, which fallacy is the ad relying on?",
+  "choices": [
+   "Popular appeal (snob appeal)",
+   "Inappropriate appeal to authority",
+   "Hasty generalisation",
+   "Appeal to pity"
+  ],
+  "why": "This is the lecture's snob appeal: footballers or celebrities advertise a product so you want to be like them, a form of popular appeal. It isn't an inappropriate appeal to authority, because the stars aren't presented as experts settling a question; they are admired people attached to a product.",
+  "source": "Lecture 4 [22:31]",
+  "star": true,
+  "star_note": "[22:31] after snob appeal (footballers, celebrities in ads) he asks students to pause the video and think of real-life examples"
+ },
+ {
+  "id": "ch5-302",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Inappropriate appeal to authority",
+  "kind": "application",
+  "q": "A famous footballer is invited onto a popular podcast and explains how the government should fight inflation. The host says: 'If he says so, it must be right.' Which fallacy is this?",
+  "choices": [
+   "Inappropriate appeal to authority",
+   "Popular appeal (snob appeal)",
+   "Personal attack (ad hominem fallacy)",
+   "Begging the question"
+  ],
+  "why": "He is treated as an authority on economics, a field outside his expertise; the lecture's example is celebrities and bloggers given the microphone on podcasts to talk about politics or money. It isn't snob appeal, which uses admired people to sell a product rather than to settle a factual question.",
+  "source": "Lecture 4 [34:53]"
+ },
+ {
+  "id": "ch5-303",
+  "chapter": "Ch.5 Informal Fallacies",
+  "topic": "Straw man",
+  "kind": "application",
+  "q": "A senator proposes cutting the defence budget by 5%. His rival responds: 'So my opponent wants to leave our country with no army at all.' Which fallacy is the rival committing?",
+  "choices": [
+   "Straw man",
+   "Slippery slope",
+   "False dilemma",
+   "Red herring"
+  ],
+  "why": "The modest proposal is distorted into an extreme position (no army) that is easier to attack, which is a straw man. It isn't slippery slope, which predicts a chain of steps ('cut 5% now and soon we'll cut everything'); here the rival simply misrepresents what was proposed.",
+  "source": "Lecture 4 [26:38]"
+ }
+]

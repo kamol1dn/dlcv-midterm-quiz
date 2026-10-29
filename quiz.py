@@ -6,9 +6,11 @@
     python quiz.py 5 6          several weeks
     python quiz.py --missed     only cards you got wrong and haven't fixed yet
     python quiz.py --mix        new cards in random order, weighted by exam share
+    python quiz.py --star       only ★ cards: points the professor stressed in the lectures
                                 (default: course order, week 0 first, as the guide teaches it)
     python quiz.py stats        progress per week + weakest topics
-    python quiz.py --deck embedded       another deck: dl (default), embedded, distinguished, ai, multimedia;
+    python quiz.py --deck embedded       another deck: dl (default), embedded, distinguished, ai, multimedia,
+                                         distinguished-full (the whole 696-card bank);
                                          combine with the options above, each deck has its own progress
     python quiz.py reset        wipe all progress
 
@@ -56,6 +58,9 @@ DECKS = {
     "embedded": ("embedded/questions", "progress-embedded.json", "answers-embedded.jsonl", None),
     "distinguished": ("distinguished/questions", "progress-distinguished.json", "answers-distinguished.jsonl",
                       {(5,): 0.30, (1, 6, 10, 12): 0.60, (2, 4, 11): 0.10}),
+    # The full bank the short deck was cut from. Same card ids, so it shares the short deck's progress.
+    "distinguished-full": ("distinguished-full/questions", "progress-distinguished.json",
+                           "answers-distinguished.jsonl", {(5,): 0.30, (1, 6, 10, 12): 0.60, (2, 4, 11): 0.10}),
     # A guess: no split was announced. Decision trees, K-Means and PCA are the topics flagged for the exam.
     "ai": ("ai/questions", "progress-ai.json", "answers-ai.jsonl",
            {(1,): 0.10, (2,): 0.17, (3,): 0.17, (4,): 0.20, (5,): 0.12, (6,): 0.24}),
@@ -401,7 +406,8 @@ def draw(card: dict, order: list[int], prog: dict, cards: list[dict], session: d
     seen = sum(1 for c in cards if c["id"] in states)
 
     print("\033[2J\033[H", end="")
-    print(f" {DIM}{card['chapter']} · {card['topic']}{RESET}   {tag}")
+    star = f"   {YELLOW}{BOLD}★ PROF STRESSED{RESET}" if card.get("star") else ""
+    print(f" {DIM}{card['chapter']} · {card['topic']}{RESET}   {tag}{star}")
     print(f" {DIM}session {session['n']} ({session['right']} right) · seen {seen}/{len(cards)}"
           f" · mastered {mastered}/{len(cards)}{RESET}")
     print(" " + "─" * (width() - 1))
@@ -461,6 +467,8 @@ def play(cards: list[dict], prog: dict, in_order: bool = True) -> None:
             print(wrap(card["why"]))
             if card.get("source"):
                 print(f" {DIM}{card['source']}{RESET}")
+            if card.get("star_note"):
+                print(f" {YELLOW}★ {card['star_note']}{RESET}")
             hint = "Enter next · q quit" + ("" if right else " · k typo, I knew it")
             print(f"\n {DIM}{hint}{RESET}")
 
@@ -547,6 +555,8 @@ def main(argv: list[str]) -> None:
         cards = [c for c in cards if str(c["chnum"]) in weeks or c["week"] in weeks]
     if "--missed" in argv:
         cards = [c for c in cards if prog["cards"].get(c["id"], {}).get("box", 99) <= 1]
+    if "--star" in argv:
+        cards = [c for c in cards if c.get("star")]
     if not cards:
         sys.exit("Nothing to ask with those filters.")
     play(cards, prog, in_order="--mix" not in argv)

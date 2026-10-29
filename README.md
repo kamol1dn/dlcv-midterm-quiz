@@ -17,6 +17,8 @@ python quiz.py --mix      # random order weighted by exam share
 python quiz.py --missed   # only what you got wrong
 python quiz.py stats      # progress per week
 python quiz.py --deck embedded        # other decks: embedded, distinguished, ai (dl is the default)
+python quiz.py --deck distinguished --star   # only ★ cards: points the professor stressed in the lectures
+python quiz.py --deck distinguished-full    # the whole Distinguished Lecture bank (short deck shares its progress)
 ```
 
 **Web version, no install:** https://iut-midterm-flashcards.vercel.app (progress saved in your browser).

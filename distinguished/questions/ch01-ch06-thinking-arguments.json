@@ -1,65 +1,5 @@
 [
  {
-  "id": "ch1-001",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Obedience cases",
-  "kind": "concept",
-  "q": "At his 1960 trial, what did Nazi war criminal Adolf Eichmann claim in his defence?",
-  "choices": [
-   "He was just following his superiors' orders",
-   "He had never known what was happening to the Jews",
-   "He had acted in self-defence during wartime",
-   "He had been forced to sign a false confession"
-  ],
-  "why": "Eichmann said he was only obeying orders. The court found him guilty anyway, which sets up the lecture's question: inhuman monster, or ordinary man following orders?",
-  "source": "Lecture 1 [00:02]"
- },
- {
-  "id": "ch1-002",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Obedience cases",
-  "kind": "concept",
-  "q": "What were the results of Stanley Milgram's 1961 obedience experiment at Yale?",
-  "choices": [
-   "All participants gave at least 300 V, and 65% went to 450 V",
-   "Only a few obeyed, just as Milgram's colleagues had predicted",
-   "About 65% refused to go beyond 300 V once the student protested",
-   "Most stopped as soon as they heard the student bang on the wall"
-  ],
-  "why": "100% gave at least 300 V and 65% went all the way to the 'life-threatening' 450 V. His colleagues had predicted only a few would obey, which is why the result was so shocking.",
-  "source": "Lecture 1 [06:09]"
- },
- {
-  "id": "ch1-003",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Obedience cases",
-  "kind": "concept",
-  "q": "In the Milgram experiment, who was the real test subject?",
-  "choices": [
-   "The volunteer who played the 'teacher'",
-   "The 'student' strapped to a chair in the next room",
-   "The experimenter wearing the lab coat",
-   "The colleagues who predicted the outcome"
-  ],
-  "why": "The experimenter and the 'student' were both actors, and the student never got real shocks (a tape recorder played the reactions). The volunteer 'teacher' was the one being tested for obedience.",
-  "source": "Lecture 1 [04:08]"
- },
- {
-  "id": "ch1-004",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Obedience cases",
-  "kind": "concept",
-  "q": "Why was Milgram's experiment criticised, and why are its findings still taken seriously?",
-  "choices": [
-   "It deceived people, yet replications found similar results",
-   "It used only paid actors, so its results could never be replicated by anyone",
-   "It paid volunteers too much, but the payments were later returned",
-   "Its shocks were real, but nobody was seriously injured"
-  ],
-  "why": "Critics called it unethical because it deceived people into what seemed like real violence. Yet it was replicated many times, with different populations, and gave similar findings.",
-  "source": "Lecture 1 [06:09]"
- },
- {
   "id": "ch1-005",
   "chapter": "Ch.1 Critical Thinking",
   "topic": "Obedience cases",
@@ -75,36 +15,6 @@
   "source": "Lecture 1 [10:17]"
  },
  {
-  "id": "ch1-006",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Obedience cases",
-  "kind": "concept",
-  "q": "The Stanford Prison Experiment was planned to last two weeks. What actually happened?",
-  "choices": [
-   "It was shut down after only six days",
-   "It ran the full two weeks without any serious incidents",
-   "It was extended to a month because the results were so promising",
-   "It was cancelled on the first day when the Navy withdrew its grant"
-  ],
-  "why": "Guards abused their power within a day and several prisoners broke down. Zimbardo ended it on day six after his girlfriend, a former student, saw the conditions and confronted him.",
-  "source": "Lecture 1 [12:19]"
- },
- {
-  "id": "ch1-007",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Obedience cases",
-  "kind": "concept",
-  "q": "Which later criticism led many to call the Stanford Prison Experiment 'a drama rather than an experiment'?",
-  "choices": [
-   "Recordings show the guards were coached to act tough",
-   "Participants were screened to be mentally healthy",
-   "Roles were assigned to students by a coin flip",
-   "Each participant was paid $15 a day"
-  ],
-  "why": "Transcripts show Zimbardo's team told guards to be tough, prisoner 8612 later called it an improv exercise, and the prison consultant said the crueller treatments weren't the guards' own idea. Screening, the coin flip and the pay are just design details.",
-  "source": "Lecture 1 [14:22]"
- },
- {
   "id": "ch1-008",
   "chapter": "Ch.1 Critical Thinking",
   "topic": "Obedience cases",
@@ -117,22 +27,9 @@
    "Psychology experiments tell us nothing about real life"
   ],
   "why": "The slide says it directly: many people uncritically follow those in authority. That is the cost of lacking critical thinking, which the rest of the chapter addresses.",
-  "source": "Slides; Lecture 1 [14:22]"
- },
- {
-  "id": "ch1-009",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Obedience cases",
-  "kind": "application",
-  "q": "A new bank employee is told by her manager to backdate some loan documents. She feels it's wrong but does it, telling herself, 'It's not my responsibility, I'm only doing what I'm told.' What does this most closely mirror from Lecture 1?",
-  "choices": [
-   "The uncritical obedience of Eichmann and Milgram's 'teachers'",
-   "Open-minded skepticism, Descartes' method of doubt",
-   "Collaborative learning that seeks a solution good for both sides",
-   "Perry's commitment stage, deciding on the best evidence"
-  ],
-  "why": "Like Eichmann and Milgram's volunteers, she hands moral responsibility to the person in power. The lecture asks exactly this: when a superior asked you to act against your standards, what did you do and how did you justify it?",
-  "source": "Lecture 1 [16:22]"
+  "source": "Slides; Lecture 1 [14:22]",
+  "star": true,
+  "star_note": "[14:22-16:22] 'the point is...' many uncritically follow those in power; then asks students to reflect on times superiors ordered them against their beliefs and how they justified it"
  },
  {
   "id": "ch1-010",
@@ -147,7 +44,9 @@
    "They start relying too much on reason and evidence"
   ],
   "why": "He warns that without critical thinking, others can persuade us into careers, universities or even marriages we later regret. Good critical thinking supports a better standard of living.",
-  "source": "Lecture 1 [16:22]"
+  "source": "Lecture 1 [16:22]",
+  "star": true,
+  "star_note": "[16:22-18:23] spends ~2 min on his own examples: others push agendas so you end up in careers, universities, even marriages you don't want"
  },
  {
   "id": "ch1-011",
@@ -162,7 +61,9 @@
    "The single skill of spotting and pointing out other people's mistakes"
   ],
   "why": "Critical thinking is a collection of everyday skills needed for full intellectual and personal development. The 'methods and principles' wording defines logic, which is only one part of it.",
-  "source": "Slides; Lecture 1 [18:23]"
+  "source": "Slides; Lecture 1 [18:23]",
+  "star": true,
+  "star_note": "[18:23] asks students to pause and think what CT is; stresses 'not just one skill, a collection of skills' and repeats it at [24:32-26:33]"
  },
  {
   "id": "ch1-012",
@@ -195,21 +96,6 @@
   "source": "Slides; Lecture 1 [18:23]"
  },
  {
-  "id": "ch1-014",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Definitions & purpose",
-  "kind": "concept",
-  "q": "How does the lecture describe the relationship between logic and critical thinking?",
-  "choices": [
-   "Logic is one part of critical thinking",
-   "They are two names for exactly the same thing",
-   "Critical thinking is one small branch of logic",
-   "Logic opposes critical thinking because it ignores feelings"
-  ],
-  "why": "Critical thinking, like logic, needs good analytical skills, and logic is a part of critical thinking. They are not synonyms.",
-  "source": "Lecture 1 [18:23]"
- },
- {
   "id": "ch1-015",
   "chapter": "Ch.1 Critical Thinking",
   "topic": "Definitions & purpose",
@@ -223,36 +109,6 @@
   ],
   "why": "An opinion rests solely on personal feelings rather than reason or fact. That's what separates it from logic and critical thinking.",
   "source": "Slides; Lecture 1 [18:23]"
- },
- {
-  "id": "ch1-016",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Definitions & purpose",
-  "kind": "application",
-  "q": "A classmate insists, 'Samarkand plov is better than Tashkent plov. I don't need reasons, I just feel it.' In the lecture's terms, this is…",
-  "choices": [
-   "An opinion",
-   "A logical argument",
-   "An analysis at the third tier",
-   "Open-minded skepticism"
-  ],
-  "why": "He offers no reasons or facts, only a feeling, which is exactly the lecture's definition of an opinion.",
-  "source": "Lecture 1 [18:23]"
- },
- {
-  "id": "ch1-017",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Perry's stages",
-  "kind": "concept",
-  "q": "Whose research on the cognitive development of college students is the source of the dualism, relativism and commitment stages?",
-  "choices": [
-   "William Perry Jr., an education researcher",
-   "Stanley Milgram, a social psychologist",
-   "Philip Zimbardo, a Stanford professor",
-   "René Descartes, a French philosopher"
-  ],
-  "why": "William Perry Jr. studied college students' cognitive development; later researchers condensed his stages into three levels.",
-  "source": "Lecture 1 [20:25]"
  },
  {
   "id": "ch1-018",
@@ -297,7 +153,9 @@
    "Absolutism"
   ],
   "why": "Relativism rejects the dualist worldview and treats all truth as relative or a matter of opinion. Absolutism is a narrow-mindedness barrier, much closer to dualism.",
-  "source": "Slides; Lecture 1 [22:30]"
+  "source": "Slides; Lecture 1 [22:30]",
+  "star": true,
+  "star_note": "[22:30-24:32] restates relativism in his own words ('there is no truth... everything is relative'); calls back to it at [41:00] when explaining his quizzes"
  },
  {
   "id": "ch1-021",
@@ -313,21 +171,6 @@
   ],
   "why": "At commitment you realise not all thinking is equally valid and authorities can be wrong, yet you still commit to positions based on reason and the best available evidence.",
   "source": "Lecture 1 [24:32]"
- },
- {
-  "id": "ch1-022",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Perry's stages",
-  "kind": "application",
-  "q": "A first-year student says: 'Just tell me which answer is right. The professor knows it, so why should I think about it myself?' Which stage is she in?",
-  "choices": [
-   "Dualism",
-   "Relativism",
-   "Commitment",
-   "Collaborative learning"
-  ],
-  "why": "She sees knowledge as something outside herself that an authority holds. That is the dualist stage.",
-  "source": "Lecture 1 [20:25]"
  },
  {
   "id": "ch1-023",
@@ -375,21 +218,6 @@
   "source": "Lecture 1 [22:30]"
  },
  {
-  "id": "ch1-026",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Perry's stages",
-  "kind": "application",
-  "q": "Before an election, Bekzod follows only Telegram channels that praise his favourite candidate and mutes any channel that reports criticism of him. What is this?",
-  "choices": [
-   "Confirmation bias",
-   "Tolerance for ambiguity",
-   "Open-minded skepticism",
-   "Collaborative learning"
-  ],
-  "why": "He seeks only information that supports his view and shuts out whatever contradicts it.",
-  "source": "Lecture 1 [22:30]"
- },
- {
   "id": "ch1-027",
   "chapter": "Ch.1 Critical Thinking",
   "topic": "Characteristics of a critical thinker",
@@ -420,21 +248,6 @@
   "source": "Lecture 1 [28:37]"
  },
  {
-  "id": "ch1-029",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Characteristics of a critical thinker",
-  "kind": "application",
-  "q": "A viral Instagram post says a herbal tea 'cures diabetes in 7 days'. Instead of sharing it, Dilshod comments: 'Interesting, but what evidence shows this works?' Which characteristic is he showing?",
-  "choices": [
-   "Open-minded skepticism",
-   "Creative problem solving",
-   "Effective communication",
-   "Flexibility and tolerance for ambiguity"
-  ],
-  "why": "He neither swallows nor dismisses the claim; he asks for it to be shown true. That's the method of doubt.",
-  "source": "Lecture 1 [28:37]"
- },
- {
   "id": "ch1-030",
   "chapter": "Ch.1 Critical Thinking",
   "topic": "Characteristics of a critical thinker",
@@ -447,51 +260,6 @@
    "Open-minded skepticism"
   ],
   "why": "That's the lecture's description of analytical skills, the first characteristic on the list.",
-  "source": "Lecture 1 [26:33]"
- },
- {
-  "id": "ch1-031",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Characteristics of a critical thinker",
-  "kind": "application",
-  "q": "A friend argues, 'My grandfather smoked every day and lived to 95, so smoking can't be that harmful.' Aziza explains why one case can't support such a general claim. Which characteristic is she using most directly?",
-  "choices": [
-   "Analytical skills",
-   "Collaborative learning",
-   "Attentive, mindful and curious",
-   "Creative problem solving"
-  ],
-  "why": "She is evaluating the reasoning in someone else's argument so she isn't taken in by it, which is what analytical skills are for.",
-  "source": "Lecture 1 [26:33]"
- },
- {
-  "id": "ch1-032",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Characteristics of a critical thinker",
-  "kind": "concept",
-  "q": "Which characteristic of a good critical thinker covers skills in writing, speaking and listening?",
-  "choices": [
-   "Effective communication",
-   "Collaborative learning",
-   "Analytical skills",
-   "Attentive, mindful and curious"
-  ],
-  "why": "Effective communication. The professor skipped the details because students covered them in last year's communication course.",
-  "source": "Lecture 1 [26:33]"
- },
- {
-  "id": "ch1-033",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Characteristics of a critical thinker",
-  "kind": "application",
-  "q": "Before choosing a laptop for university, Sardor reads independent reviews, compares benchmark tests and checks warranty terms instead of buying the first one a seller recommends. Which characteristic is this?",
-  "choices": [
-   "Research and inquiry skills",
-   "Open-minded skepticism",
-   "Creative problem solving",
-   "Flexibility and tolerance for ambiguity"
-  ],
-  "why": "He goes and finds the facts before concluding, which is research and inquiry. Skepticism is the attitude of doubting a claim; the stress here is on gathering information.",
   "source": "Lecture 1 [26:33]"
  },
  {
@@ -510,21 +278,6 @@
   "source": "Lecture 1 [28:37]"
  },
  {
-  "id": "ch1-035",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Characteristics of a critical thinker",
-  "kind": "application",
-  "q": "Economists disagree about whether a new tax rule will help Uzbek IT startups. Instead of giving up or simply copying her professor's view, Nodira patiently works through the conflicting claims and is comfortable that the picture is still unclear. Which characteristic is this?",
-  "choices": [
-   "Flexibility and tolerance for ambiguity",
-   "Collaborative learning",
-   "Effective communication",
-   "Attentive, mindful and curious"
-  ],
-  "why": "She copes with unclear, conflicting views without deferring to authority or refusing to engage. That's tolerance for ambiguity.",
-  "source": "Lecture 1 [28:37]"
- },
- {
   "id": "ch1-036",
   "chapter": "Ch.1 Critical Thinking",
   "topic": "Characteristics of a critical thinker",
@@ -540,36 +293,6 @@
   "source": "Lecture 1 [28:37]"
  },
  {
-  "id": "ch1-037",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Characteristics of a critical thinker",
-  "kind": "application",
-  "q": "A student team's delivery app flops at launch. Instead of quitting, they treat the failure as information, sketch three new designs and imagine how users would react to each. Which characteristic is this?",
-  "choices": [
-   "Creative problem solving",
-   "Analytical skills",
-   "Open-minded skepticism",
-   "Effective communication"
-  ],
-  "why": "Multiple perspectives, foreseeing scenarios and accepting failure as part of the process are the marks of creative problem solving.",
-  "source": "Lecture 1 [30:41]"
- },
- {
-  "id": "ch1-038",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Characteristics of a critical thinker",
-  "kind": "application",
-  "q": "In a heated group-chat argument, Kamola notices she is getting defensive and asks herself why this topic upsets her so much before replying. Which characteristic is she showing?",
-  "choices": [
-   "Attentive, mindful and curious",
-   "Effective communication",
-   "Analytical skills",
-   "Creative problem solving"
-  ],
-  "why": "Critical thinkers are attentive and mindful not only of what's around them but of their own thoughts and feelings, and curious about them.",
-  "source": "Lecture 1 [30:41]"
- },
- {
   "id": "ch1-039",
   "chapter": "Ch.1 Critical Thinking",
   "topic": "Characteristics of a critical thinker",
@@ -582,22 +305,9 @@
    "Dividing up the research so that each member covers one part"
   ],
   "why": "He stresses it's not meant literally. Critical thinking happens in social situations, so you listen to others, anticipate their reactions, lower your own barriers and look for solutions that benefit both sides.",
-  "source": "Lecture 1 [30:41]"
- },
- {
-  "id": "ch1-040",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Characteristics of a critical thinker",
-  "kind": "application",
-  "q": "Two dorm roommates clash over quiet study hours versus having guests. Akbar listens to Sherzod's reasons, anticipates how he'll react, drops his own defensiveness and proposes a schedule that suits them both. Which characteristic is this?",
-  "choices": [
-   "Collaborative learning",
-   "Effective communication",
-   "Flexibility and tolerance for ambiguity",
-   "Research and inquiry skills"
-  ],
-  "why": "Listening, anticipating reactions, lowering your barriers and finding a solution good for both sides is the lecture's collaborative learning. Communication skills help, but the defining feature is the two-sided problem solving.",
-  "source": "Lecture 1 [30:41]"
+  "source": "Lecture 1 [30:41]",
+  "star": true,
+  "star_note": "[30:41] explicitly corrects a misreading: 'we do not just mean... study together... not in the literal terms'; long elaboration on social context"
  },
  {
   "id": "ch1-041",
@@ -612,22 +322,9 @@
    "Analysis → interpretation → experience"
   ],
   "why": "First something happens (experience), then you make sense of it (interpretation), then you raise the level and critically examine that interpretation (analysis).",
-  "source": "Slides; Lecture 1 [32:50]"
- },
- {
-  "id": "ch1-042",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Three-tier model",
-  "kind": "application",
-  "q": "'You went to a job interview and were rejected.' At which level of the three-tier model is this?",
-  "choices": [
-   "Experience",
-   "Interpretation",
-   "Analysis",
-   "Resistance"
-  ],
-  "why": "It's just the raw event or fact, with no explanation added yet, so it's the experience level.",
-  "source": "Lecture 1 [32:50]"
+  "source": "Slides; Lecture 1 [32:50]",
+  "star": true,
+  "star_note": "[32:50-36:53] asks students to pause and think of barriers, then spends ~4 min on the three tiers with his own job-interview and young-voters examples (other barrier lists he skips)"
  },
  {
   "id": "ch1-043",
@@ -660,21 +357,6 @@
   "source": "Lecture 1 [34:50]"
  },
  {
-  "id": "ch1-045",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Three-tier model",
-  "kind": "concept",
-  "q": "What does the analysis level of the three-tier model require?",
-  "choices": [
-   "Asking questions to test your own and others' interpretations",
-   "Settling on the first simple explanation that makes sense of the event",
-   "Recording exactly what happened without adding any meaning to it",
-   "Adopting whichever interpretation an authority figure prefers"
-  ],
-  "why": "Analysis raises the level of thinking: you critically examine your interpretation and others', refusing readings that are too narrow or too broad.",
-  "source": "Lecture 1 [34:50]"
- },
- {
   "id": "ch1-046",
   "chapter": "Ch.1 Critical Thinking",
   "topic": "Resistance",
@@ -702,22 +384,9 @@
    "When you research the facts before deciding"
   ],
   "why": "Wrestling with an issue is a normal part of analysis. But when people get lost in details and what-ifs, achieve nothing and lose time, the struggle has become resistance.",
-  "source": "Lecture 1 [38:53]"
- },
- {
-  "id": "ch1-048",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Resistance",
-  "kind": "application",
-  "q": "Laziz must choose a capstone topic. For three weeks he keeps listing what-ifs and reading more about every option, misses the deadline, and still hasn't chosen. Which type of resistance is this?",
-  "choices": [
-   "Struggling",
-   "Avoidance",
-   "Distractions",
-   "Denial"
-  ],
-  "why": "He is caught up in details and what-ifs and accomplishes nothing. The lecture notes that procrastinators are especially prone to this kind of struggling.",
-  "source": "Lecture 1 [38:53]"
+  "source": "Lecture 1 [38:53]",
+  "star": true,
+  "star_note": "[36:53-38:53] 'Let me just comment on the struggling point' - the only resistance type he explains; adds procrastinators"
  },
  {
   "id": "ch1-049",
@@ -732,112 +401,9 @@
    "Collaborative learning means consulting everyone before acting"
   ],
   "why": "He saw the danger was serious and acted at once; ten more minutes might have been fatal. It's the counter-example to struggling as resistance.",
-  "source": "Lecture 1 [38:53]"
- },
- {
-  "id": "ch1-050",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Resistance",
-  "kind": "application",
-  "q": "Since starting university, Shohruh joins only chats and clubs where everyone shares his views, and skips any event where he might hear the other side. Which type of resistance is this?",
-  "choices": [
-   "Avoidance",
-   "Conformity",
-   "Ignorance",
-   "Denial"
-  ],
-  "why": "Avoidance means staying away from people and situations that might challenge your worldview. Conformity would mean changing what you say to go along with a group.",
-  "source": "Textbook; listed in Lecture 1 [36:53]"
- },
- {
-  "id": "ch1-051",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Resistance",
-  "kind": "application",
-  "q": "When a classmate questions his claim during a discussion, Ravshan raises his voice, calls her stupid and refuses to continue. Which type of resistance is this?",
-  "choices": [
-   "Anger",
-   "Denial",
-   "Clichés",
-   "Distractions"
-  ],
-  "why": "Meeting a challenge to your views with hostility shuts the discussion down instead of engaging with the reasons. That's anger used as a defense mechanism.",
-  "source": "Textbook; listed in Lecture 1 [36:53]"
- },
- {
-  "id": "ch1-052",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Resistance",
-  "kind": "application",
-  "q": "Whenever a hard moral question comes up, Zarina ends the discussion with 'Everything happens for a reason' or 'Things always work out in the end.' Which type of resistance is this?",
-  "choices": [
-   "Clichés",
-   "Distractions",
-   "Denial",
-   "Ignorance"
-  ],
-  "why": "Stock phrases like these close a discussion without any real thinking about the issue. That's resorting to clichés.",
-  "source": "Textbook; listed in Lecture 1 [36:53]"
- },
- {
-  "id": "ch1-053",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Resistance",
-  "kind": "application",
-  "q": "Bobur has failed two midterms and games until 4 a.m. every night, yet insists, 'I don't have a gaming problem. I can stop whenever I want.' Which type of resistance is this?",
-  "choices": [
-   "Denial",
-   "Distractions",
-   "Struggling",
-   "Avoidance"
-  ],
-  "why": "He refuses to admit a problem the evidence clearly shows. Distractions would mean using games to avoid thinking about some other issue; here the point is his insistence that there's no problem.",
-  "source": "Textbook; listed in Lecture 1 [36:53]"
- },
- {
-  "id": "ch1-054",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Resistance",
-  "kind": "application",
-  "q": "A friend offers Lola an article on working conditions in fast-fashion factories. She refuses to read anything on the topic so she never has to think about where her clothes come from. Which type of resistance is this?",
-  "choices": [
-   "Ignorance",
-   "Anger",
-   "Conformity",
-   "Struggling"
-  ],
-  "why": "Deliberately refusing to learn more about an issue, on the idea that what you don't know can't hurt you, is ignorance used as a defense.",
-  "source": "Textbook; listed in Lecture 1 [36:53]"
- },
- {
-  "id": "ch1-055",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Resistance",
-  "kind": "application",
-  "q": "Everyone in Nilufar's friend group calls the new elective 'useless', so she says the same, even though she actually found it interesting, just to avoid standing out. Which barrier is this?",
-  "choices": [
-   "Conformity",
-   "Avoidance",
-   "Clichés",
-   "Egocentrism"
-  ],
-  "why": "She goes along with the group instead of thinking for herself. That's conformity.",
-  "source": "Textbook; listed in Lecture 1 [36:53]"
- },
- {
-  "id": "ch1-056",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Resistance",
-  "kind": "application",
-  "q": "Whenever Akmal starts wondering whether his major is right for him, he opens TikTok or puts on a series so he doesn't have to face the question. Which type of resistance is this?",
-  "choices": [
-   "Distractions",
-   "Struggling",
-   "Denial",
-   "Ignorance"
-  ],
-  "why": "He keeps himself busy with entertainment to avoid thinking about the issue. Struggling would mean getting lost in the details of the question itself.",
-  "source": "Textbook; listed in Lecture 1 [36:53]"
+  "source": "Lecture 1 [38:53]",
+  "star": true,
+  "star_note": "[38:53] his own current-news example (Nepal school director, 900 pupils) to illustrate not struggling"
  },
  {
   "id": "ch1-057",
@@ -870,216 +436,6 @@
   "source": "Slides; Lecture 1 [38:53]"
  },
  {
-  "id": "ch1-059",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Narrow-mindedness",
-  "kind": "concept",
-  "q": "Absolutism, a type of narrow-mindedness, is the belief that…",
-  "choices": [
-   "There are absolute right answers and certain authorities know them",
-   "The self is the centre of all things",
-   "Humans are the most significant beings in the universe",
-   "Every opinion is just as valid as any other"
-  ],
-  "why": "Absolutists believe in black-and-white answers held by authorities, much like Perry's dualist stage. The other choices describe egocentrism, anthropocentrism and relativism.",
-  "source": "Textbook; listed in Lecture 1 [40:59]"
- },
- {
-  "id": "ch1-060",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Narrow-mindedness",
-  "kind": "application",
-  "q": "Whenever a teammate questions part of her code, Shahnoza feels personally attacked and worries that being wrong will make her look stupid, so she won't reconsider anything. Which barrier is this?",
-  "choices": [
-   "Fear of challenge",
-   "Egocentrism",
-   "Absolutism",
-   "Conformity"
-  ],
-  "why": "She treats any challenge to her views as a threat and fears being wrong, which keeps her from re-examining her work.",
-  "source": "Textbook; listed in Lecture 1 [40:59]"
- },
- {
-  "id": "ch1-061",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Narrow-mindedness",
-  "kind": "application",
-  "q": "Jamshid insists the group meet only at times that suit his gym schedule and judges every class discussion purely by how it affects him. Which narrow-mindedness barrier does this show?",
-  "choices": [
-   "Egocentrism",
-   "Ethnocentrism",
-   "Absolutism",
-   "Fear of challenge"
-  ],
-  "why": "Egocentrism is the belief that the self is the centre of all things. Ethnocentrism is the same idea applied to your own group or culture.",
-  "source": "Textbook; listed in Lecture 1 [40:59]"
- },
- {
-  "id": "ch1-062",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Narrow-mindedness",
-  "kind": "application",
-  "q": "A speaker tells foreign visitors, 'Our customs are the only civilised way to live; other nations' traditions are simply backward.' Which barrier is this?",
-  "choices": [
-   "Ethnocentrism",
-   "Egocentrism",
-   "Absolutism",
-   "Clichés"
-  ],
-  "why": "Ethnocentrism is the belief in the inherent superiority of your own group or culture.",
-  "source": "Textbook; listed in Lecture 1 [40:59]"
- },
- {
-  "id": "ch1-063",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Narrow-mindedness",
-  "kind": "application",
-  "q": "Someone argues, 'Animals can't really think or feel. They exist only to serve people, so how we treat them doesn't matter.' Which narrow-mindedness barrier does this show?",
-  "choices": [
-   "Anthropocentrism",
-   "Ethnocentrism",
-   "Egocentrism",
-   "Denial"
-  ],
-  "why": "Anthropocentrism is the belief that humans are the central or most significant beings in the universe, which can blind us to what other animals are capable of.",
-  "source": "Textbook; listed in Lecture 1 [40:59]"
- },
- {
-  "id": "ch1-064",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Other barriers",
-  "kind": "application",
-  "q": "After copying a classmate's homework, Ulugbek tells himself, 'The assignment was pointless, and everybody does it anyway, so it's fine.' Which barrier is this?",
-  "choices": [
-   "Rationalization",
-   "Doublethink",
-   "Social dissonance",
-   "Ignorance"
-  ],
-  "why": "He invents self-serving reasons to justify what he has already done. That's rationalization.",
-  "source": "Textbook; listed in Lecture 1 [40:59]"
- },
- {
-  "id": "ch1-065",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Other barriers",
-  "kind": "concept",
-  "q": "Holding two contradictory views at the same time and believing both are true is called…",
-  "choices": [
-   "Doublethink",
-   "Rationalization",
-   "Cognitive dissonance",
-   "Relativism"
-  ],
-  "why": "Doublethink (George Orwell's term) means holding contradictory beliefs without noticing the clash. Cognitive dissonance is the discomfort you feel when you do notice ideas conflicting.",
-  "source": "Textbook; listed in Lecture 1 [40:59]"
- },
- {
-  "id": "ch1-066",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Other barriers",
-  "kind": "concept",
-  "q": "The sense of disorientation you feel when new ideas directly conflict with your worldview is called…",
-  "choices": [
-   "Cognitive dissonance",
-   "Social dissonance",
-   "Doublethink",
-   "Stress"
-  ],
-  "why": "Cognitive dissonance is the clash between new ideas and your existing worldview. Social dissonance is when other people's behaviour and norms clash with it.",
-  "source": "Textbook; listed in Lecture 1 [40:59]"
- },
- {
-  "id": "ch1-067",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Other barriers",
-  "kind": "application",
-  "q": "A student from Tashkent starts an exchange semester abroad and feels disoriented because people's everyday social behaviour and norms clash with what she believes is proper. Which barrier is she experiencing?",
-  "choices": [
-   "Social dissonance",
-   "Cognitive dissonance",
-   "Ethnocentrism",
-   "Conformity"
-  ],
-  "why": "Social dissonance is the disorientation you feel when others' social behaviour and norms conflict with your worldview. It would become ethnocentrism only if she judged their culture inferior to hers.",
-  "source": "Textbook; listed in Lecture 1 [40:59]"
- },
- {
-  "id": "ch1-068",
-  "chapter": "Ch.1 Critical Thinking",
-  "topic": "Other barriers",
-  "kind": "application",
-  "q": "During finals week, exhausted and anxious, Asal stops weighing evidence and falls back on snap judgements and defensive habits she normally avoids. Which barrier is at work?",
-  "choices": [
-   "Stress",
-   "Struggling",
-   "Distractions",
-   "Fear of challenge"
-  ],
-  "why": "Too much stress impairs higher-level thinking and pushes us back onto defense mechanisms and narrow-minded habits.",
-  "source": "Textbook; listed in Lecture 1 [40:59]"
- },
- {
-  "id": "ch6-001",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Argument & Lincoln–Douglas",
-  "kind": "concept",
-  "q": "In logic and critical thinking, what does the word 'argument' mean?",
-  "choices": [
-   "Using reason and evidence to support a claim or conclusion",
-   "A heated quarrel between people who disagree",
-   "Any statement of a strongly held personal opinion",
-   "A speech designed to win an audience over to your side"
-  ],
-  "why": "In logic, an argument isn't shouting; it's reasoning with evidence to support a conclusion. A speech built to win people over is closer to rhetoric.",
-  "source": "Lecture 5 [10:19]"
- },
- {
-  "id": "ch6-002",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Argument & Lincoln–Douglas",
-  "kind": "application",
-  "q": "Your upstairs neighbours are shouting at each other about who forgot to pay the electricity bill: no reasons, just accusations. In the logical sense, is this an argument?",
-  "choices": [
-   "No, unless reasons are offered to support a claim",
-   "Yes, any disagreement between two people is an argument",
-   "Yes, raising your voice shows you are defending a conclusion",
-   "No, because an argument must be written down to count"
-  ],
-  "why": "In logic an argument means offering reasons and evidence for a claim. A quarrel made of accusations isn't one.",
-  "source": "Lecture 5 [10:19]"
- },
- {
-  "id": "ch6-003",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Argument & Lincoln–Douglas",
-  "kind": "concept",
-  "q": "Why does Lecture 5 open with the 1858 Lincoln–Douglas debates?",
-  "choices": [
-   "Their argument-then-rebuttal format is still used in debates today",
-   "Because Lincoln won the Illinois Senate seat by out-arguing Douglas",
-   "To show that emotional rhetoric always defeats careful argument",
-   "Because the debates overturned the Supreme Court's Dred Scott decision"
-  ],
-  "why": "One side presents an argument and the other answers with counter-arguments; scientific and political debates still use this format. Lincoln actually lost the election but became a nationally known speaker and critical thinker.",
-  "source": "Lecture 5 [08:14]"
- },
- {
-  "id": "ch6-004",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Argument & Lincoln–Douglas",
-  "kind": "concept",
-  "q": "How did Lincoln change the national controversy over slavery in the debates?",
-  "choices": [
-   "He recast it as a question of the whole nation's survival",
-   "He reframed it as a matter of each state minding its own business",
-   "He avoided slavery entirely and focused on the economy instead",
-   "He accepted the Dred Scott decision as the law of the land"
-  ],
-  "why": "Lincoln reworded the issue, which shows how the way you frame a question shapes the solution ('A house divided against itself cannot stand'). 'Mind its own business' and 'law of the land' were Douglas's positions.",
-  "source": "Lecture 5 [14:26]"
- },
- {
   "id": "ch6-005",
   "chapter": "Ch.6 Arguments",
   "topic": "Issue",
@@ -1107,7 +463,9 @@
    "Nothing; clear definition only matters in written essays"
   ],
   "why": "A vague issue is a slippery path: you drift onto other topics, the other side can steer the discussion wherever it likes, and it can end in frustration. Defining the issue takes clear thinking and good communication skills.",
-  "source": "Lecture 5 [12:22]"
+  "source": "Lecture 5 [12:22]",
+  "star": true,
+  "star_note": "[12:22] elaborates beyond the slide ('slippery path', opponent can drag you in different directions); repeats in construction step 1 at [38:52] ('the more the issue is clear, the better')"
  },
  {
   "id": "ch6-007",
@@ -1123,51 +481,6 @@
   ],
   "why": "All you know is that the wallet is missing; you may have misplaced it or it may be behind the dresser. The neutral issue is 'What happened to my wallet?', and open-mindedness is the trait of good critical thinkers and good detectives.",
   "source": "Lecture 5 [14:26]"
- },
- {
-  "id": "ch6-008",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Issue",
-  "kind": "application",
-  "q": "Your group project is behind schedule. Which is the best way to state the issue, following the lecture's advice?",
-  "choices": [
-   "Why is our project behind schedule?",
-   "Why is Aziz so lazy that he's ruining our project?",
-   "Who is to blame for wrecking our grade?",
-   "How do we get an extension, since this isn't our fault?"
-  ],
-  "why": "The neutral question states only what you know. The others are loaded with unsupported assumptions about who is to blame.",
-  "source": "Lecture 5 [16:27]"
- },
- {
-  "id": "ch6-009",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Issue",
-  "kind": "concept",
-  "q": "Why does the lecture stress 'asking the right questions' when identifying an issue?",
-  "choices": [
-   "Its wording shapes how we go looking for a solution",
-   "Asking questions lets you avoid ever committing to a conclusion",
-   "Asking enough questions guarantees that an argument is sound",
-   "It's only needed when you can talk to the other person face to face"
-  ],
-  "why": "The wording of the issue steers the search for answers. It matters even more with written material such as newspapers, where you can't clarify by talking to the author.",
-  "source": "Lecture 5 [14:26]"
- },
- {
-  "id": "ch6-010",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Rhetoric vs argument",
-  "kind": "concept",
-  "q": "Which best matches the lecture's definition of rhetoric?",
-  "choices": [
-   "Defending a set position to win people over, often ignoring opposing evidence",
-   "Using reason and evidence to explore an open question and discover the truth",
-   "Breaking an argument down into its separate premises and its conclusion",
-   "Restating an issue in neutral terms so that both sides can discuss it fairly"
-  ],
-  "why": "Rhetoric, the 'art of persuasion', defends a particular position, usually without adequate consideration of opposing evidence. Exploring an open question to find the truth is argument.",
-  "source": "Slides; Lecture 5 [16:27]"
  },
  {
   "id": "ch6-011",
@@ -1197,7 +510,9 @@
    "Arguments are only allowed to consider one side of an issue"
   ],
   "why": "Arguments should stay open to many perspectives. Framing an issue as a fight between two camps, which is common in politics, shuts out the in-between and creative options.",
-  "source": "Lecture 5 [18:27]"
+  "source": "Lecture 5 [18:27]",
+  "star": true,
+  "star_note": "[18:27] his own politics/religion 'us good, them evil' example; repeats the two-sides warning at [38:52] and [42:55] ('remember to avoid looking at our issue as a contest between two sides')"
  },
  {
   "id": "ch6-013",
@@ -1213,36 +528,6 @@
   ],
   "why": "It defends a fixed position, polarises the issue into good versus evil, and ignores opposing evidence, all in order to persuade.",
   "source": "Lecture 5 [16:27]"
- },
- {
-  "id": "ch6-014",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Rhetoric vs argument",
-  "kind": "application",
-  "q": "A research centre hasn't taken a side on whether schools in Uzbekistan should move to a four-day week. It gathers evidence from several countries and invites feedback before reaching a view. This is closer to…",
-  "choices": [
-   "Argument, because the aim is to discover the truth",
-   "Rhetoric, because it hopes to persuade the government",
-   "An explanation, because it describes other countries",
-   "Polarization, because it compares only two options"
-  ],
-  "why": "It starts from an open question, considers multiple perspectives and invites feedback, which is how the lecture describes argument.",
-  "source": "Lecture 5 [18:27]"
- },
- {
-  "id": "ch6-015",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Rhetoric vs argument",
-  "kind": "concept",
-  "q": "Besides giving reasons, what should a good argument do, according to the lecture?",
-  "choices": [
-   "Use language suited to its audience and invite feedback",
-   "Avoid feedback that might weaken its conclusion",
-   "Present the issue as having exactly two sides",
-   "Begin from a firmly held position statement"
-  ],
-  "why": "The purpose of argument is to present people with reasons, so identify your audience, pitch the language to them, and invite feedback and analysis.",
-  "source": "Lecture 5 [18:27]"
  },
  {
   "id": "ch6-016",
@@ -1272,22 +557,9 @@
    "The main claim that an argument is trying to prove to its audience"
   ],
   "why": "A proposition only has to be capable of being true or false. 'Toronto is the capital of Canada' is false but is still a proposition. The main claim is the conclusion.",
-  "source": "Slides; Lecture 5 [20:29]"
- },
- {
-  "id": "ch6-018",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Parts of an argument",
-  "kind": "application",
-  "q": "Which of these is a proposition?",
-  "choices": [
-   "Toronto is the capital of Canada.",
-   "Is Toronto the capital of Canada?",
-   "Please look up the capital of Canada.",
-   "Let's visit Ottawa next summer!"
-  ],
-  "why": "It's a complete thought that can be true or false (here it's false). Questions, requests and suggestions are neither true nor false.",
-  "source": "Lecture 5 [20:29]"
+  "source": "Slides; Lecture 5 [20:29]",
+  "star": true,
+  "star_note": "[20:29] asks students to pause the video and come up with their own propositions"
  },
  {
   "id": "ch6-019",
@@ -1302,22 +574,9 @@
    "It is the proposition that gives a reason for another"
   ],
   "why": "The conclusion is what the argument tries to prove, and it can come first (as a thesis or topic statement) or last. Indicator words help, but they aren't required.",
-  "source": "Lecture 5 [20:29]"
- },
- {
-  "id": "ch6-020",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Parts of an argument",
-  "kind": "concept",
-  "q": "In Lecture 5, conclusions are also called…",
-  "choices": [
-   "Claims, viewpoints or positions",
-   "Premises, reasons or grounds",
-   "Issues, problems or controversies",
-   "Explanations, causes or accounts"
-  ],
-  "why": "The conclusion is the claim, viewpoint or position being supported. Premises are the reasons for it.",
-  "source": "Lecture 5 [20:29]"
+  "source": "Lecture 5 [20:29]",
+  "star": true,
+  "star_note": "[20:29] conclusion can come at the start (thesis/topic statement) or end; refers back to it at [42:55] 'thesis statement, like I was mentioning'"
  },
  {
   "id": "ch6-021",
@@ -1333,51 +592,6 @@
   ],
   "why": "Reasoning runs from the premises to the conclusion. The proposition being proven is the conclusion itself.",
   "source": "Slides; Lecture 5 [22:30]"
- },
- {
-  "id": "ch6-022",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Parts of an argument",
-  "kind": "concept",
-  "q": "According to the lecture, good premises are based on…",
-  "choices": [
-   "Fact and experience, not opinion and assumption",
-   "The arguer's strongest feelings about the issue",
-   "Whatever the audience already happens to believe",
-   "Assumptions widely accepted in the culture"
-  ],
-  "why": "The more credible the premises, the better the argument. Culturally popular assumptions are exactly what the lecture tells you to check.",
-  "source": "Lecture 5 [22:30]"
- },
- {
-  "id": "ch6-023",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Parts of an argument",
-  "kind": "application",
-  "q": "'Canada has only one capital, and Ottawa is the capital of Canada. Therefore, Toronto isn't the capital of Canada.' What is the conclusion?",
-  "choices": [
-   "Toronto isn't the capital of Canada",
-   "Ottawa is the capital of Canada",
-   "Canada has only one capital",
-   "Canada's capital is either Ottawa or Toronto"
-  ],
-  "why": "'Therefore' flags the conclusion. The first two statements are the premises that support it.",
-  "source": "Slides; Lecture 5 [22:30]"
- },
- {
-  "id": "ch6-024",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Parts of an argument",
-  "kind": "application",
-  "q": "'Our university should keep the library open until midnight during exam weeks. Many students have no quiet place to study at home, and the dorm study rooms are always full.' What is the conclusion?",
-  "choices": [
-   "The library should stay open until midnight during exam weeks",
-   "Many students have no quiet place to study at home",
-   "The dorm study rooms are always full",
-   "Exam weeks are stressful for students"
-  ],
-  "why": "Here the conclusion comes first, like a thesis, and the next two sentences give reasons for it. There are no indicator words, so ask what the speaker is trying to prove.",
-  "source": "Lecture 5 [20:29]"
  },
  {
   "id": "ch6-025",
@@ -1440,21 +654,6 @@
   "source": "Lecture 5 [24:32]"
  },
  {
-  "id": "ch6-029",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Types of premise",
-  "kind": "application",
-  "q": "A premise in a debate on public transport states: 'Passenger counts show that metro ridership rose after the new line opened.' Which type of premise is this?",
-  "choices": [
-   "Descriptive",
-   "Prescriptive",
-   "Analogical",
-   "Definitional"
-  ],
-  "why": "It reports an observed, measurable fact, so it's descriptive.",
-  "source": "Lecture 5 [22:30]"
- },
- {
   "id": "ch6-030",
   "chapter": "Ch.6 Arguments",
   "topic": "Types of premise",
@@ -1467,36 +666,6 @@
    "Analogical"
   ],
   "why": "'Ought to' expresses a value judgement about how people should act, not an observed fact.",
-  "source": "Lecture 5 [24:32]"
- },
- {
-  "id": "ch6-031",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Types of premise",
-  "kind": "application",
-  "q": "'Just as a phone needs regular software updates to stay secure, a university curriculum needs regular revision to stay useful.' Which type of premise is this?",
-  "choices": [
-   "Analogical",
-   "Descriptive",
-   "Prescriptive",
-   "Definitional"
-  ],
-  "why": "It supports its point by comparing two similar things, which makes it analogical.",
-  "source": "Lecture 5 [24:32]"
- },
- {
-  "id": "ch6-032",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Types of premise",
-  "kind": "application",
-  "q": "Before arguing that plagiarism should be punished more strictly, Dilnoza says: 'By plagiarism I mean submitting any text, code or AI output as your own without giving credit.' Which type of premise is this?",
-  "choices": [
-   "Definitional",
-   "Descriptive",
-   "Prescriptive",
-   "Analogical"
-  ],
-  "why": "She is pinning down the meaning of a key, possibly ambiguous term, so it's a definitional premise.",
   "source": "Lecture 5 [24:32]"
  },
  {
@@ -1513,21 +682,6 @@
   ],
   "why": "An argument tries to show that a claim is true. An explanation takes the event as known and tells you its cause or how it came about.",
   "source": "Slides; Lecture 5 [24:32]"
- },
- {
-  "id": "ch6-034",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Arguments vs non-arguments",
-  "kind": "application",
-  "q": "'The cat yelled because I stepped on her tail.' What is this?",
-  "choices": [
-   "An explanation",
-   "An argument",
-   "A conditional statement",
-   "A descriptive premise"
-  ],
-  "why": "We already know the cat yelled; the sentence just tells us why. 'Because' is the trap: here it introduces a cause, not a reason to believe a conclusion.",
-  "source": "Lecture 5 [26:35]"
  },
  {
   "id": "ch6-035",
@@ -1557,36 +711,6 @@
    "Because it explains why something happened"
   ],
   "why": "An 'if… then…' statement only links two ideas hypothetically. Nothing is actually asserted as true, so there's no conclusion.",
-  "source": "Slides; Lecture 5 [26:35]"
- },
- {
-  "id": "ch6-037",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Arguments vs non-arguments",
-  "kind": "application",
-  "q": "'If the national football team wins tonight, then the streets of Tashkent will be full of celebrating fans.' What is this?",
-  "choices": [
-   "A conditional statement",
-   "An argument",
-   "An explanation",
-   "A descriptive premise"
-  ],
-  "why": "It has the 'if… then…' form and asserts no conclusion. It isn't an explanation either, since nothing has happened yet.",
-  "source": "Lecture 5 [26:35]"
- },
- {
-  "id": "ch6-038",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Breaking down arguments",
-  "kind": "concept",
-  "q": "What order does the lecture give for breaking down an argument?",
-  "choices": [
-   "Identify the propositions → identify the conclusion → identify the premises",
-   "Identify the premises → identify the propositions → identify the conclusion",
-   "Identify the conclusion → evaluate soundness → identify the propositions",
-   "State the issue → list the premises → establish the conclusion"
-  ],
-  "why": "First bracket the propositions, then find what the person is trying to prove, then find the reasons. The last choice mixes in the steps for constructing an argument.",
   "source": "Slides; Lecture 5 [26:35]"
  },
  {
@@ -1647,52 +771,9 @@
    "Students who want higher grades already sit in front"
   ],
   "why": "'Therefore' flags the conclusion. The other two stated propositions are premises supporting it.",
-  "source": "Slides; Lecture 5 [30:41]"
- },
- {
-  "id": "ch6-043",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Breaking down arguments",
-  "kind": "application",
-  "q": "In the same front-of-class argument ('…Therefore, you should move up to the front of the class, since I know you want to improve your GPA'), what role does 'I know you want to improve your GPA' play?",
-  "choices": [
-   "A premise, signalled by 'since'",
-   "The conclusion, signalled by 'since'",
-   "An explanation of why you sit at the back",
-   "An unstated premise"
-  ],
-  "why": "'Since' is a premise indicator. A premise can come after the conclusion, so where it sits in the sentence doesn't decide its role.",
-  "source": "Slides; Lecture 5 [30:41]"
- },
- {
-  "id": "ch6-044",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Breaking down arguments",
-  "kind": "application",
-  "q": "'We have to leave the party now, for the last metro train departs at midnight.' Which proposition is the premise?",
-  "choices": [
-   "The last metro train departs at midnight",
-   "We have to leave the party now",
-   "The party will end at midnight",
-   "We might miss the last metro train"
-  ],
-  "why": "'For' is a premise indicator here. The conclusion, 'we have to leave now', comes first in the sentence.",
-  "source": "Lecture 5 [28:40]"
- },
- {
-  "id": "ch6-045",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Breaking down arguments",
-  "kind": "concept",
-  "q": "Which statement about breaking down arguments is true?",
-  "choices": [
-   "It may fit in one sentence or several, with or without indicators",
-   "Every argument contains at least one premise or conclusion indicator",
-   "An argument must be spread over at least three separate sentences",
-   "The conclusion is always the first proposition you bracket"
-  ],
-  "why": "Arguments can appear in one sentence or several, and indicator words may or may not be there. Breaking them down helps you follow and visualise the line of thought.",
-  "source": "Lecture 5 [26:35]"
+  "source": "Slides; Lecture 5 [30:41]",
+  "star": true,
+  "star_note": "[30:41] sets it as an exercise: pause the video and find the propositions, conclusion and premise; make your own examples"
  },
  {
   "id": "ch6-046",
@@ -1722,37 +803,9 @@
    "Soundness: declare your opponent's conclusion false"
   ],
   "why": "If a key term is ambiguous, ask for clarification. As the lecture puts it, 'know the battleground' before you fight on it.",
-  "source": "Lecture 5 [30:41]"
- },
- {
-  "id": "ch6-048",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Evaluating arguments",
-  "kind": "concept",
-  "q": "When checking an argument's credibility, what does the lecture tell you to watch out for?",
-  "choices": [
-   "Popular assumptions passed off as facts",
-   "Premises that are worded too clearly and simply",
-   "Conclusions placed at the start of the argument",
-   "Arguments that invite feedback from the audience"
-  ],
-  "why": "Examine each premise on its own and ask if it's backed by evidence. Be especially alert to assumptions that are widely accepted in a culture or put forward by someone who isn't an authority in the field.",
-  "source": "Lecture 5 [32:41]"
- },
- {
-  "id": "ch6-049",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Evaluating arguments",
-  "kind": "application",
-  "q": "A fitness influencer with no medical training argues: 'Everyone knows cold water after a meal causes stomach illness, so never drink it.' Which evaluation criterion is this argument most likely to fail?",
-  "choices": [
-   "Credibility",
-   "Clarity",
-   "Completeness",
-   "Relevance"
-  ],
-  "why": "The premise is a popular assumption passed off as fact by a non-authority, with no evidence behind it. If it were true it would be relevant, so the weak point is credibility.",
-  "source": "Lecture 5 [32:41]"
+  "source": "Lecture 5 [30:41]",
+  "star": true,
+  "star_note": "[30:41-32:41] his own 'battleground' metaphor, repeated: be sure of the battleground, of the definitions of key terms"
  },
  {
   "id": "ch6-050",
@@ -1770,21 +823,6 @@
   "source": "Lecture 5 [34:47]"
  },
  {
-  "id": "ch6-051",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Evaluating arguments",
-  "kind": "application",
-  "q": "'Our football team has the best-looking uniforms in the league, so we'll definitely win the championship.' Which evaluation criterion does this argument clearly fail?",
-  "choices": [
-   "Relevance",
-   "Clarity",
-   "Completeness",
-   "Credibility"
-  ],
-  "why": "The uniforms may really be the best-looking, and the claim is clear, but looks have nothing to do with winning. The premise doesn't support the conclusion.",
-  "source": "Lecture 5 [32:41]"
- },
- {
   "id": "ch6-052",
   "chapter": "Ch.6 Arguments",
   "topic": "Evaluating arguments",
@@ -1797,22 +835,9 @@
    "Soundness: the conclusion has been shown to be false"
   ],
   "why": "The argument depends on the unstated premise that Texas is larger. Most Americans know that, but for an audience in Uzbekistan you might need to state it.",
-  "source": "Lecture 5 [36:49]"
- },
- {
-  "id": "ch6-053",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Evaluating arguments",
-  "kind": "application",
-  "q": "'Scholarships go to the students with the highest GPA, so Shahzoda will get one.' What unstated premise does this argument rely on?",
-  "choices": [
-   "Shahzoda has one of the highest GPAs",
-   "Scholarships are worth a lot of money",
-   "GPA is the fairest way to award scholarships",
-   "Most students would like a scholarship"
-  ],
-  "why": "Without 'Shahzoda has one of the highest GPAs', the conclusion doesn't follow. Spotting missing premises is the completeness check.",
-  "source": "Lecture 5 [34:47]"
+  "source": "Lecture 5 [36:49]",
+  "star": true,
+  "star_note": "[36:49] adds his own local twist: for someone from Uzbekistan you might need to state the 'Texas is larger' premise"
  },
  {
   "id": "ch6-054",
@@ -1830,36 +855,6 @@
   "source": "Slides; Lecture 5 [36:49]"
  },
  {
-  "id": "ch6-055",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Evaluating arguments",
-  "kind": "concept",
-  "q": "If an argument's premises fail to support its conclusion, what can we say about the conclusion?",
-  "choices": [
-   "Only that we don't know whether it is true or false",
-   "That it has been shown to be false",
-   "That it must still be true",
-   "That the argument is sound anyway"
-  ],
-  "why": "An unsupported conclusion is unproven, not disproven. The lecture's example is consciousness in other people, which probably can't be proved or disproved by logical argument.",
-  "source": "Lecture 5 [36:49]"
- },
- {
-  "id": "ch6-056",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Evaluating arguments",
-  "kind": "application",
-  "q": "Your friend argues that aliens have visited Earth, but his premises are weak and don't support his claim. You reply, 'So that proves aliens have never visited Earth.' What mistake are you making?",
-  "choices": [
-   "Treating an unsupported conclusion as if it were proven false",
-   "Accepting a weak argument as if it were sound",
-   "Confusing an explanation with an argument",
-   "Leaving one of your own premises unstated"
-  ],
-  "why": "When the premises don't support a conclusion, the most you can say is that you don't know whether it's true. Weak support doesn't show it's false.",
-  "source": "Lecture 5 [36:49]"
- },
- {
   "id": "ch6-057",
   "chapter": "Ch.6 Arguments",
   "topic": "Constructing arguments",
@@ -1875,153 +870,33 @@
   "source": "Slides; Lecture 5 [38:52]"
  },
  {
-  "id": "ch6-058",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Constructing arguments",
-  "kind": "concept",
-  "q": "Which issue statement does the lecture give as properly neutral?",
-  "choices": [
-   "Should the USA have stricter gun control laws?",
-   "Should the government do more to keep guns out of the hands of criminals?",
-   "Why do gun owners care more about guns than about public safety?",
-   "How can we stop the gun lobby from controlling American politics?"
-  ],
-  "why": "The neutral version doesn't build an answer into the question. 'Keep guns out of the hands of criminals' frames the issue so that one answer looks obvious.",
-  "source": "Lecture 5 [38:52]"
- },
- {
-  "id": "ch6-059",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Constructing arguments",
+  "id": "ch6-301",
+  "chapter": 6,
+  "topic": "Breaking down arguments",
   "kind": "application",
-  "q": "You're preparing an argument about Tashkent's plan to cut down old trees to widen roads. Which issue statement best follows the lecture's advice?",
+  "q": "'Prices rose sharply this year; therefore, many families are saving more, since wages have not kept up.' Which word introduces the conclusion?",
   "choices": [
-   "Should Tashkent widen roads where this means removing old trees?",
-   "Why is the city destroying our beautiful old trees?",
-   "How can we stop greedy developers from ruining Tashkent?",
-   "Should Tashkent finally fix its traffic by widening the roads?"
+   "therefore",
+   "since",
+   "sharply",
+   "have not"
   ],
-  "why": "Only the first is neutral. The others are loaded, either against the plan ('destroying', 'greedy') or for it ('finally fix').",
-  "source": "Lecture 5 [38:52]"
+  "why": "'Therefore' is a conclusion indicator (like thus, so, hence, consequently), so 'many families are saving more' is the conclusion. 'Since' is the closest trap: it is a premise indicator, introducing a reason ('wages have not kept up'), not the claim being proved.",
+  "source": "Slides; Lecture 5 [28:40]"
  },
  {
-  "id": "ch6-060",
-  "chapter": "Ch.6 Arguments",
+  "id": "ch6-302",
+  "chapter": 6,
   "topic": "Constructing arguments",
   "kind": "concept",
-  "q": "When developing your list of premises, what does the lecture advise?",
+  "q": "Which of these is NOT one of the lecture's steps for constructing an argument?",
   "choices": [
-   "Set your opinions aside and explore all sides of the issue",
-   "Choose only premises that support the view you already hold",
-   "Frame the issue as one right side and one wrong side",
-   "Write the conclusion first, then find premises that fit it"
+   "Spot the premise indicator words",
+   "Eliminate weak or irrelevant premises",
+   "Try out your argument on other people",
+   "Put your solution into action if needed"
   ],
-  "why": "Stay objective, avoid the two-sides trap, brainstorm with others, use reliable sources, watch for unsupported assumptions and keep a skeptic's attitude.",
-  "source": "Lecture 5 [38:52]"
- },
- {
-  "id": "ch6-061",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Constructing arguments",
-  "kind": "application",
-  "q": "While reviewing her list of premises, Madina wants to delete a well-sourced premise only because it goes against her own opinion. What does the lecture say?",
-  "choices": [
-   "Resist that; drop only premises that are weak or irrelevant",
-   "Delete it, since premises should support your own view",
-   "Delete it, then add an opposite premise to balance things",
-   "Keep it, but move it into the conclusion instead"
-  ],
-  "why": "Step 3 is to eliminate weak or irrelevant premises while resisting the temptation to drop ones that don't mesh with your opinion.",
-  "source": "Lecture 5 [40:54]"
- },
- {
-  "id": "ch6-062",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Constructing arguments",
-  "kind": "concept",
-  "q": "When should you establish your conclusion, and what should it do?",
-  "choices": [
-   "Only after settling the premises, taking in as many of them as possible",
-   "Before listing premises, so you know which ones to look for",
-   "After testing it on friends, picking whatever they liked best",
-   "At any point, as long as it matches your original opinion"
-  ],
-  "why": "You draw the conclusion only once you're satisfied with your premises, asking what follows from them and keeping an open mind.",
-  "source": "Lecture 5 [40:54]"
- },
- {
-  "id": "ch6-063",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Constructing arguments",
-  "kind": "concept",
-  "q": "If you present your argument as an essay, what does the lecture recommend for the opening?",
-  "choices": [
-   "State the issue and your thesis early, ideally in one sentence",
-   "Hide the conclusion until the very end to build suspense",
-   "Leave the issue unstated so readers can work it out themselves",
-   "List every possible premise before you mention the issue at all"
-  ],
-  "why": "Put the issue in the first paragraph and the conclusion (the thesis statement) near the start, ideally as one sentence, plus a line or two on why the issue matters.",
-  "source": "Lecture 5 [42:55]"
- },
- {
-  "id": "ch6-064",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Constructing arguments",
-  "kind": "concept",
-  "q": "Once you've built what seems like a strong argument, you should try it out on others. What attitude does the lecture say to bring?",
-  "choices": [
-   "Be open-minded and a good listener",
-   "Defend every point until the other person gives up",
-   "Present it only to people who already agree with you",
-   "Avoid feedback so that your confidence stays high"
-  ],
-  "why": "Testing your argument only helps if you listen. If it turns out weak, or the conclusion doesn't follow, you go back and revise.",
-  "source": "Lecture 5 [42:55]"
- },
- {
-  "id": "ch6-065",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Constructing arguments",
-  "kind": "application",
-  "q": "During a practice debate, an opponent raises a counter-argument that Sanjar realises is compelling. According to the lecture, what should he do?",
-  "choices": [
-   "Revise his position; refusing to would be irrational",
-   "Hold his ground, since changing his mind looks weak",
-   "Ignore it, because it wasn't on his list of premises",
-   "Switch to rhetoric to win the audience back"
-  ],
-  "why": "If a counter-argument is compelling, it would be irrational not to accept it and revise your position in its light.",
-  "source": "Lecture 5 [45:01]"
- },
- {
-  "id": "ch6-066",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Constructing arguments",
-  "kind": "application",
-  "q": "Residents of a mahalla have built a strong argument that their street lighting needs fixing. Following the lecture's final step, what is the best way to act on it?",
-  "choices": [
-   "Write to officials with a realistic solution and offer to help",
-   "Post angry complaints online until somebody notices",
-   "Keep the argument to themselves now that it's finished",
-   "Wait until every single resident agrees before acting"
-  ],
-  "why": "Good critical thinking has a behavioural component: where appropriate, put your conclusion into action, for example by suggesting a realistic solution and offering to help carry it out.",
-  "source": "Lecture 5 [45:01]"
- },
- {
-  "id": "ch6-067",
-  "chapter": "Ch.6 Arguments",
-  "topic": "Constructing arguments",
-  "kind": "concept",
-  "q": "When constructing an argument, which step comes right after 'eliminate weak or irrelevant premises'?",
-  "choices": [
-   "Establish a conclusion",
-   "Organize your argument",
-   "Develop a list of premises",
-   "Revise your argument"
-  ],
-  "why": "The order is: state the issue, develop premises, eliminate weak ones, establish a conclusion, organize, try it out on others, revise, act.",
-  "source": "Slides; Lecture 5 [40:54]"
+  "why": "Looking for indicator words belongs to BREAKING DOWN someone else's argument (identify propositions, conclusion, premises). The construction steps are: state the issue as a question, list premises, eliminate weak/irrelevant ones, establish a conclusion, organize, try it on others, revise, and put it into action if necessary.",
+  "source": "Slides; Lecture 5 [38:52]"
  }
 ]

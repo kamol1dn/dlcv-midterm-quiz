@@ -1,50 +1,5 @@
 [
  {
-  "id": "ch10-001",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Role of marketing",
-  "kind": "concept",
-  "q": "The lecture opens with a Turkish Airlines ad starring Kobe Bryant and Messi. What point does the lecturer use it to make?",
-  "choices": [
-   "Successful ads can drive sales and build followers and brand loyalty",
-   "Ads with celebrities are always an appeal to inappropriate authority",
-   "Airlines depend on product placement more than any other industry",
-   "Ads featuring athletes are mainly aimed at children and teenagers"
-  ],
-  "why": "He picked it because it was one of the most-watched ads on YouTube, to show that a successful ad boosts sales and brand loyalty. He doesn't analyse it as a fallacy.",
-  "source": "Lecture 6-1 [00:03]"
- },
- {
-  "id": "ch10-002",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Role of marketing",
-  "kind": "concept",
-  "q": "According to the lecture, what is the main purpose of a business, the goal that marketing ultimately serves?",
-  "choices": [
-   "Making a profit",
-   "Building brand loyalty among young customers",
-   "Informing society about new products and services",
-   "Creating jobs by outsourcing production to developing countries"
-  ],
-  "why": "He starts from the point that businesses chase profit: the margin left after all costs. Brand loyalty, informing customers and outsourcing are means to that end.",
-  "source": "Lecture 6-1 [02:04]"
- },
- {
-  "id": "ch10-003",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Role of marketing",
-  "kind": "concept",
-  "q": "Why does the lecturer say marketing has become 'the main job' of many big corporations?",
-  "choices": [
-   "Many design and sell products but outsource the manufacturing to countries like Uzbekistan, China or Vietnam",
-   "Consumer-protection laws force them to spend most of their budget on advertising instead of production",
-   "Customers today ignore product quality and respond only to celebrity endorsements and discounts",
-   "Marketing research has become their main product, which they sell on to smaller companies"
-  ],
-  "why": "Some big corporations don't even own factories. They design and market, ship production abroad, and in the end it's all about how much they can sell, and for how much.",
-  "source": "Lecture 6-1 [04:10]"
- },
- {
   "id": "ch10-004",
   "chapter": "Ch.10 Marketing & Advertising",
   "topic": "Marketing research",
@@ -58,51 +13,6 @@
   ],
   "why": "That's the slide's definition of marketing research. A strategic plan comes after the research and decides how to use the company's resources.",
   "source": "Lecture 6-1 [04:10] · Slides 6.1"
- },
- {
-  "id": "ch10-005",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Marketing research",
-  "kind": "concept",
-  "q": "Which three methods of marketing research does the lecture list?",
-  "choices": [
-   "Surveys, observation, experimentation",
-   "Surveys, focus groups, product placement",
-   "Observation, brand recognition, impulse buying",
-   "Experimentation, advertising, strategic planning"
-  ],
-  "why": "Surveys collect information, observation monitors buying patterns, and experimentation measures cause and effect. Focus groups are a kind of survey, not a separate method.",
-  "source": "Slides 6.1 · Lecture 6-1 [04:10]"
- },
- {
-  "id": "ch10-006",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Marketing research",
-  "kind": "application",
-  "q": "A Korzinka employee stops shoppers at the exit and asks them to rate the new self-checkout machines on a tablet. Which marketing research method is this?",
-  "choices": [
-   "Survey",
-   "Observation",
-   "Experimentation",
-   "Strategic planning"
-  ],
-  "why": "Asking people questions to collect information is a survey; in-store and street surveys are his examples. Observation would mean watching what shoppers do without asking them anything.",
-  "source": "Lecture 6-1 [04:10]"
- },
- {
-  "id": "ch10-007",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Marketing research",
-  "kind": "application",
-  "q": "A phone brand invites eight students to a room in Tashkent and asks them, as a group, what they dislike about their current phones. Which marketing research method does this focus group belong to?",
-  "choices": [
-   "Surveys (collecting information)",
-   "Observation (monitoring buying patterns)",
-   "Experimentation (measuring cause and effect)",
-   "Strategic planning (deploying resources to a goal)"
-  ],
-  "why": "He lists focus groups under surveys, next to online and in-person questionnaires. The company is asking people, not watching them or testing a change.",
-  "source": "Lecture 6-1 [06:11]"
  },
  {
   "id": "ch10-008",
@@ -135,21 +45,6 @@
   "source": "Lecture 6-1 [06:11]"
  },
  {
-  "id": "ch10-010",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Marketing research",
-  "kind": "concept",
-  "q": "In marketing research, 'observation' means:",
-  "choices": [
-   "Monitoring customers' buying behaviour and patterns",
-   "Asking customers questions online, in shops or in focus groups",
-   "Changing one factor, such as packaging, and measuring the effect on sales",
-   "Identifying a niche market and checking it against customer desires"
-  ],
-  "why": "Observation watches what customers actually do, for example through big data. Asking questions is a survey, and changing a factor to measure its effect is experimentation.",
-  "source": "Lecture 6-1 [06:11]"
- },
- {
   "id": "ch10-011",
   "chapter": "Ch.10 Marketing & Advertising",
   "topic": "Strategic plan",
@@ -163,36 +58,6 @@
   ],
   "why": "That's the slide definition. It builds on marketing research (identifying the target market), which comes first and tells the company what customers want.",
   "source": "Lecture 6-1 [08:11] · Slides 6.1"
- },
- {
-  "id": "ch10-012",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Marketing strategies",
-  "kind": "concept",
-  "q": "Which three strategies does the lecture give as examples of a company's strategic plan?",
-  "choices": [
-   "Brand recognition, motivating impulse buying, lengthening the purchase experience",
-   "Surveys, observation, experimentation",
-   "Creating product awareness, informing customers about features, motivating demand",
-   "Traditional advertising, product placement, hyperbole"
-  ],
-  "why": "The other lists are the three research methods, the three purposes of advertising, and a mix of ad types with a fallacy.",
-  "source": "Slides 6.1 · Lecture 6-1 [08:11]"
- },
- {
-  "id": "ch10-013",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Marketing strategies",
-  "kind": "application",
-  "q": "A fast-food chain invests heavily in a simple logo and signature colours, so that even a small child or an elderly person recognises its restaurants instantly. Which strategy is this?",
-  "choices": [
-   "Brand recognition",
-   "Motivating impulse buying",
-   "Lengthening the purchase experience",
-   "Product placement"
-  ],
-  "why": "He describes brand recognition as investing in logos, colours, mission statements and so on, so that anyone, even a child, recognises the brand at a glance.",
-  "source": "Lecture 6-1 [08:11]"
  },
  {
   "id": "ch10-014",
@@ -222,7 +87,9 @@
    "Observation of customers' buying patterns in the store"
   ],
   "why": "His Havas/Korzinka 'labyrinth' is the example of lengthening the purchase experience: the longer you stay, the more you're likely to buy. You may grab things on impulse on the way, but the layout itself is about time in the shop.",
-  "source": "Lecture 6-1 [10:13]"
+  "source": "Lecture 6-1 [10:13]",
+  "star": true,
+  "star_note": "[10:13] his own local example (Havas/Korzinka 'labyrinth', 'I don't like this Havas'), stresses it is done by design"
  },
  {
   "id": "ch10-016",
@@ -252,52 +119,9 @@
    "Building brand recognition"
   ],
   "why": "He lists it last but calls it the main purpose: in the end, people have to come and buy the product or use the service.",
-  "source": "Lecture 6-1 [12:13]"
- },
- {
-  "id": "ch10-018",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Advertising purposes",
-  "kind": "application",
-  "q": "A new online bookshop goes live, but nobody visits because nobody knows it exists. Which purpose of advertising does it need to serve first?",
-  "choices": [
-   "Creating product awareness",
-   "Informing about the product's features",
-   "Motivating impulse buying",
-   "Lengthening the purchase experience"
-  ],
-  "why": "This is his own example: you make a product, post it on your site, and nobody knows about it. Advertising first makes people aware it exists. The last two are marketing strategies, not ad purposes.",
-  "source": "Lecture 6-1 [12:13]"
- },
- {
-  "id": "ch10-019",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Advertising purposes",
-  "kind": "application",
-  "q": "A well-known mobile operator runs an ad that just lists its new tariff's price, data limit, minutes and coverage area. Which purpose of advertising does this mainly serve?",
-  "choices": [
-   "Informing about features",
-   "Creating product awareness",
-   "Motivating impulse buying",
-   "Product placement"
-  ],
-  "why": "Everyone already knows the operator, so awareness isn't the point. The ad gives details about features and characteristics, which is the 'inform' purpose.",
-  "source": "Lecture 6-1 [12:13]"
- },
- {
-  "id": "ch10-020",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Traditional ads vs product placement",
-  "kind": "concept",
-  "q": "Advertising that the audience clearly knows is an ad, like a TV commercial break or the ads before a cinema film, is called:",
-  "choices": [
-   "Traditional advertising",
-   "Product placement",
-   "Hidden advertising",
-   "Brand recognition"
-  ],
-  "why": "He contrasts traditional advertising, where you know it's an ad, with product placement, which he also calls hidden or unnoticed advertising.",
-  "source": "Lecture 6-1 [12:13]"
+  "source": "Lecture 6-1 [12:13]",
+  "star": true,
+  "star_note": "[12:13] singles out motivating demand as 'the last, but ... the main purpose' of advertising"
  },
  {
   "id": "ch10-021",
@@ -315,21 +139,6 @@
   "source": "Slides 6.1 · Lecture 6-1 [14:14]"
  },
  {
-  "id": "ch10-022",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Traditional ads vs product placement",
-  "kind": "application",
-  "q": "In a popular Uzbek TV series, the main character always drinks one clearly labelled brand of iced tea. Nobody mentions the brand and there's no ad break. What is this?",
-  "choices": [
-   "Product placement",
-   "Traditional advertising",
-   "Appeal to inappropriate authority",
-   "Popular appeal"
-  ],
-  "why": "A real product placed inside fiction without announcing it is product placement, like the sponsors' GM, German or Toyota cars in American films. The actor gives no advice or endorsement, so it isn't an appeal to authority.",
-  "source": "Lecture 6-1 [14:14]"
- },
- {
   "id": "ch10-023",
   "chapter": "Ch.10 Marketing & Advertising",
   "topic": "Traditional ads vs product placement",
@@ -342,22 +151,9 @@
    "Hyperbole"
   ],
   "why": "His football example: the match isn't paused to announce an ad, the logo is just there and we take it in while watching. Traditional ads interrupt the show and are clearly ads.",
-  "source": "Lecture 6-1 [14:14]"
- },
- {
-  "id": "ch10-024",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Evaluating ads",
-  "kind": "concept",
-  "q": "Why does the lecture say we must evaluate advertisements critically?",
-  "choices": [
-   "Businesses chasing profit sometimes use tactics that are misleading, confusing or morally wrong",
-   "Most advertising in a consumer culture is illegal and should be reported to the authorities",
-   "Advertisements almost never contain any true information about the products they sell",
-   "Consumers are legally responsible for checking every ad before they buy anything"
-  ],
-  "why": "In a consumer culture built on profit, some businesses cross the line into tactics that mislead people. The lecture's list of fallacies is the toolkit for spotting them.",
-  "source": "Lecture 6-1 [16:14]"
+  "source": "Lecture 6-1 [14:14]",
+  "star": true,
+  "star_note": "[14:14]-[16:14] spends about two minutes on product placement: car brands in movies, logos on football shirts"
  },
  {
   "id": "ch10-025",
@@ -375,21 +171,6 @@
   "source": "Lecture 6-1 [16:14]"
  },
  {
-  "id": "ch10-026",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: scare tactics",
-  "kind": "application",
-  "q": "A chewing-gum ad on Uzbek TV: 'Do you know what people whisper about your breath? Don't risk it. Chew FreshOn.' Which fallacy is this?",
-  "choices": [
-   "Scare tactics",
-   "Questionable cause",
-   "Snob appeal",
-   "Euphemism"
-  ],
-  "why": "It plays on fear and shame of being avoided. That's his own gum and toothpaste example: if you don't use it, people won't come near you.",
-  "source": "Lecture 6-1 [18:14]"
- },
- {
   "id": "ch10-027",
   "chapter": "Ch.10 Marketing & Advertising",
   "topic": "Ad fallacy: scare tactics",
@@ -402,22 +183,9 @@
    "Euphemism; the hidden message is that the danger is smaller than it sounds"
   ],
   "why": "He calls it scare tactics: on the surface it's a warning, underneath it says 'our product can do so many things'. It isn't inappropriate authority, because they're talking about their own field.",
-  "source": "Lecture 6-1 [18:14]"
- },
- {
-  "id": "ch10-028",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: questionable cause",
-  "kind": "concept",
-  "q": "An ad that creates a false expectation that using the product will make you more beautiful, thinner, more popular or happier commits:",
-  "choices": [
-   "Questionable cause",
-   "Scare tactics",
-   "Snob appeal",
-   "Naturalistic fallacy"
-  ],
-  "why": "The ad sets up a cause-and-effect link that isn't really there. The lecture calls it the same logic as scare tactics, but pointing at a wonderful outcome rather than a feared one.",
-  "source": "Lecture 6-1 [18:14]"
+  "source": "Lecture 6-1 [18:14]",
+  "star": true,
+  "star_note": "[18:14] his own current example: Sam Altman / Dario Amodei style AI warnings as scare-tactic marketing"
  },
  {
   "id": "ch10-029",
@@ -435,21 +203,6 @@
   "source": "Lecture 6-1 [18:14]"
  },
  {
-  "id": "ch10-030",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: questionable cause",
-  "kind": "concept",
-  "q": "What separates scare tactics from questionable cause in advertising?",
-  "choices": [
-   "Scare tactics threaten something bad if you don't buy; questionable cause promises something good if you do",
-   "Scare tactics rely on misleading statistics, while questionable cause relies on famous celebrities",
-   "Scare tactics exploit unclear grammar, while questionable cause exploits soft, pleasant word choices",
-   "Scare tactics are aimed only at adults, while questionable cause is aimed only at teenagers"
-  ],
-  "why": "Both build a false cause-and-effect link. The difference is direction: fear of a bad outcome if you don't buy, versus the promise of a wonderful one if you do.",
-  "source": "Lecture 6-1 [18:14]"
- },
- {
   "id": "ch10-031",
   "chapter": "Ch.10 Marketing & Advertising",
   "topic": "Ad fallacy: popular appeal",
@@ -462,7 +215,9 @@
    "Hasty generalization"
   ],
   "why": "His examples are Nike shoes and iPhones among young people; the textbook even reports US cases of theft and murder over such items. Snob appeal is narrower: linking the product to attractive or successful people.",
-  "source": "Lecture 6-1 [18:14]–[20:17]"
+  "source": "Lecture 6-1 [18:14]–[20:17]",
+  "star": true,
+  "star_note": "[18:14]-[20:17] says popular appeal is 'especially important' for teenagers/young people; Nike, iPhone, US theft/murder cases"
  },
  {
   "id": "ch10-032",
@@ -480,21 +235,6 @@
   "source": "Lecture 6-1 [20:17]"
  },
  {
-  "id": "ch10-033",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: popular appeal",
-  "kind": "application",
-  "q": "Which of these slogans is an example of popular appeal?",
-  "choices": [
-   "'Over 3 million families in Uzbekistan already trust our fridges'",
-   "'Our fridges are as strong as a mountain'",
-   "'The miracle fridge of the century: nothing on Earth keeps food fresher'",
-   "'Naturally fresh, because it's made from natural materials'"
-  ],
-  "why": "Pointing to how many people already use it is popular appeal. The others are a false analogy, hyperbole and the naturalistic fallacy.",
-  "source": "Lecture 6-1 [20:17]–[26:26]"
- },
- {
   "id": "ch10-034",
   "chapter": "Ch.10 Marketing & Advertising",
   "topic": "Ad fallacy: snob appeal",
@@ -507,21 +247,6 @@
    "Exaggerating the product with words like 'miracle' and 'must-see'"
   ],
   "why": "Snob appeal sells an image: buy this and you join the beautiful, strong, successful people. 'Everyone has it' is ordinary popular appeal.",
-  "source": "Lecture 6-1 [20:17]"
- },
- {
-  "id": "ch10-035",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: snob appeal",
-  "kind": "concept",
-  "q": "How does the lecture relate snob appeal to popular appeal?",
-  "choices": [
-   "Snob appeal is a type of popular appeal",
-   "Snob appeal is the opposite of popular appeal",
-   "Snob appeal is a type of scare tactic",
-   "Snob appeal is a fallacy of grammar, unrelated to popular appeal"
-  ],
-  "why": "He introduces snob appeal as a type of popular appeal: instead of 'everyone has it', the message is 'the beautiful, successful people have it'.",
   "source": "Lecture 6-1 [20:17]"
  },
  {
@@ -540,21 +265,6 @@
   "source": "Lecture 6-1 [20:17]"
  },
  {
-  "id": "ch10-037",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: inappropriate authority",
-  "kind": "concept",
-  "q": "A celebrity, athlete or scientist endorsing a product outside their own field of expertise is:",
-  "choices": [
-   "Appeal to inappropriate authority",
-   "Snob appeal (lifestyle association)",
-   "Popular appeal",
-   "Product placement"
-  ],
-  "why": "Experts have a narrow field. Using famous people (even scientists or politicians) to sell things they know nothing about is an appeal to inappropriate authority.",
-  "source": "Lecture 6-1 [20:17]–[22:20]"
- },
- {
   "id": "ch10-038",
   "chapter": "Ch.10 Marketing & Advertising",
   "topic": "Ad fallacy: inappropriate authority",
@@ -567,36 +277,6 @@
    "Euphemism"
   ],
   "why": "She is presented as giving financial advice, which is outside her expertise. If the ad only showed her glamorous life with the bank card and gave no advice, snob appeal would fit better.",
-  "source": "Lecture 6-1 [22:20]"
- },
- {
-  "id": "ch10-039",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: inappropriate authority",
-  "kind": "application",
-  "q": "Which endorsement is the clearest appeal to inappropriate authority?",
-  "choices": [
-   "A champion boxer recommending a brand of baby formula",
-   "A paediatrician explaining the recommended vaccine schedule",
-   "A professional chef recommending the frying pan she cooks with",
-   "A football coach recommending a fitness-tracking app"
-  ],
-  "why": "A boxer has no expertise in infant nutrition. The other three speak within, or close to, their own field.",
-  "source": "Lecture 6-1 [22:20]"
- },
- {
-  "id": "ch10-040",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: hasty generalization",
-  "kind": "concept",
-  "q": "According to the lecture, how does hasty generalization usually show up in advertising?",
-  "choices": [
-   "Ads that reinforce stereotypes about women or men",
-   "Ads that compare the product to something powerful",
-   "Ads with unclear grammar that leaves room for interpretation",
-   "Ads that hide the product inside films and sports"
-  ],
-  "why": "He says ads can reinforce stereotypes, e.g. that women follow certain standards or that men behave a certain way. The others are false analogy, amphiboly and product placement.",
   "source": "Lecture 6-1 [22:20]"
  },
  {
@@ -630,36 +310,6 @@
   "source": "Lecture 6-1 [22:20] · Slides 6.1"
  },
  {
-  "id": "ch10-043",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: amphiboly",
-  "kind": "concept",
-  "q": "Why might a company deliberately use amphiboly, according to the lecture?",
-  "choices": [
-   "If it is sued, it can argue it meant a different interpretation",
-   "Ambiguous slogans are cheaper to print and to translate",
-   "Unclear grammar frightens customers into buying quickly",
-   "It links the product to successful, attractive people"
-  ],
-  "why": "He says the vague grammar leaves room for interpretation, so if someone sues over the negative reading, the company can claim it meant something else.",
-  "source": "Lecture 6-1 [22:20]"
- },
- {
-  "id": "ch10-044",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: amphiboly",
-  "kind": "application",
-  "q": "A billboard reads: 'GlowCream: use it and be loved.' A customer complains that nothing changed, and the company replies that the slogan was two friendly wishes, not a promise. Which fallacy is the slogan built on?",
-  "choices": [
-   "Amphiboly",
-   "Questionable cause",
-   "Euphemism",
-   "Hyperbole"
-  ],
-  "why": "The 'and' leaves it grammatically open whether the cream causes being loved, and the company uses that to dodge responsibility, like 'Wear it and be happy' from Lecture 4. A plain promise ('this cream will make you loved') would be questionable cause.",
-  "source": "Lecture 6-1 [22:20] · Lecture 4"
- },
- {
   "id": "ch10-045",
   "chapter": "Ch.10 Marketing & Advertising",
   "topic": "Ad fallacy: amphiboly",
@@ -672,36 +322,6 @@
    "Logic & statistics: the 200,000 figure misleads"
   ],
   "why": "It can mean 'free in Tashkent, and free in the regions over 200,000' or 'free everywhere over 200,000'. That grammatical ambiguity, which the shop then reads in its own favour, is amphiboly.",
-  "source": "Lecture 6-1 [22:20]"
- },
- {
-  "id": "ch10-046",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: naturalistic fallacy",
-  "kind": "concept",
-  "q": "The naturalistic fallacy in an ad assumes that:",
-  "choices": [
-   "Whatever is natural is good or safe",
-   "Whatever is popular must be good",
-   "Whatever is expensive is high quality",
-   "Whatever is newest is better than the old"
-  ],
-  "why": "Natural doesn't mean safe: tobacco, earthquakes and poisonous plants are all natural. 'Popular means good' is popular appeal.",
-  "source": "Lecture 6-1 [22:20]"
- },
- {
-  "id": "ch10-047",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: naturalistic fallacy",
-  "kind": "application",
-  "q": "A herbal supplement sold on Instagram: '100% natural, so there are no side effects. Safe for everyone, even pregnant women.' Which fallacy is this?",
-  "choices": [
-   "Naturalistic fallacy",
-   "Questionable cause",
-   "Appeal to inappropriate authority",
-   "Popular appeal"
-  ],
-  "why": "The whole safety claim rests on 'natural', but natural substances can be harmful or interact with medicines. That's the naturalistic fallacy.",
   "source": "Lecture 6-1 [22:20]"
  },
  {
@@ -750,36 +370,6 @@
   "source": "Lecture 6-1 [24:24]"
  },
  {
-  "id": "ch10-051",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: euphemism",
-  "kind": "application",
-  "q": "A company's press release says it is 'optimising its workforce' when it is firing 300 employees. Which technique is this?",
-  "choices": [
-   "Euphemism",
-   "Amphiboly",
-   "Logic & statistics",
-   "Scare tactics"
-  ],
-  "why": "The lecture notes that politicians and marketers both use euphemism. 'Optimising the workforce' is a softer label for mass firing.",
-  "source": "Lecture 6-1 [24:24]"
- },
- {
-  "id": "ch10-052",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: hyperbole",
-  "kind": "concept",
-  "q": "Which description matches hyperbole in ads?",
-  "choices": [
-   "Exaggeration, as in 'must-see', 'product of champions' or 'miracle'",
-   "A soft word replacing a harsh one, as in 'pre-owned' for 'used'",
-   "A comparison with something powerful, as in 'strong as stone'",
-   "An ambiguous sentence, as in 'wear it and be happy'"
-  ],
-  "why": "These are his own hyperbole examples. The others describe euphemism, false analogy and amphiboly.",
-  "source": "Lecture 6-1 [24:24]"
- },
- {
   "id": "ch10-053",
   "chapter": "Ch.10 Marketing & Advertising",
   "topic": "Ad fallacy: hyperbole",
@@ -792,36 +382,6 @@
    "Snob appeal"
   ],
   "why": "Pure exaggeration, the same pattern as his 'must-see cinema' and 'must-go place'.",
-  "source": "Lecture 6-1 [24:24]"
- },
- {
-  "id": "ch10-054",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: hyperbole",
-  "kind": "application",
-  "q": "Three of these slogans are euphemisms. Which one is hyperbole instead?",
-  "choices": [
-   "'The most incredible sale in history!'",
-   "'Pre-loved phones at friendly prices'",
-   "'A small price adjustment from 1 March'",
-   "'Budget seating' for the cramped back rows"
-  ],
-  "why": "Hyperbole inflates; euphemism softens. 'Pre-loved' means used, 'price adjustment' means a price rise, and 'budget seating' hides cramped seats.",
-  "source": "Lecture 6-1 [24:24]"
- },
- {
-  "id": "ch10-055",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: false analogy",
-  "kind": "concept",
-  "q": "In the lecture, the 'analogy' problem in ads is:",
-  "choices": [
-   "A weak comparison between the product and something powerful",
-   "Linking the product to attractive, successful people and their lifestyle",
-   "Using true numbers in a way that misleads once you see the context",
-   "Using a celebrity to give advice outside their area of expertise"
-  ],
-  "why": "He describes it as an inductive argument by analogy: the comparison borrows the strength of something else, and often it's weak or false.",
   "source": "Lecture 6-1 [24:24]"
  },
  {
@@ -840,36 +400,6 @@
   "source": "Lecture 6-1 [26:26]"
  },
  {
-  "id": "ch10-057",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: false analogy",
-  "kind": "application",
-  "q": "A watch brand's billboard near the Registan: 'Like the Registan, our watches will stand for centuries.' Which fallacy does the comparison commit?",
-  "choices": [
-   "False analogy",
-   "Naturalistic fallacy",
-   "Snob appeal",
-   "Popular appeal"
-  ],
-  "why": "It borrows the lasting strength of a 600-year-old monument through comparison, but a watch shares little with a stone madrasa. Persuasion by a weak comparison is the analogy problem.",
-  "source": "Lecture 6-1 [24:24]–[26:26]"
- },
- {
-  "id": "ch10-058",
-  "chapter": "Ch.10 Marketing & Advertising",
-  "topic": "Ad fallacy: logic & statistics",
-  "kind": "concept",
-  "q": "What is the lecture's point about 'logic and statistics' in ads?",
-  "choices": [
-   "Numbers can check out as accurate yet still mislead once you look at the context",
-   "Statistics in ads are almost always invented, so they can safely be ignored",
-   "Ads are legally banned from using statistics, so any number is a red flag",
-   "Statistics are the most trustworthy part of an ad, since numbers can't lie"
-  ],
-  "why": "He alludes to 'lies, damned lies and statistics': the numbers may be correct if you double-check them, but put in context, or with the math done, they can deceive.",
-  "source": "Lecture 6-1 [26:26]"
- },
- {
   "id": "ch10-059",
   "chapter": "Ch.10 Marketing & Advertising",
   "topic": "Ad fallacy: logic & statistics",
@@ -885,21 +415,6 @@
   "source": "Lecture 6-1 [26:26]"
  },
  {
-  "id": "ch12-001",
-  "chapter": "Ch.12 Science",
-  "topic": "Why science matters",
-  "kind": "concept",
-  "q": "Why does the lecture open with global warming, COVID, nuclear energy in Uzbekistan, AI and vaccines?",
-  "choices": [
-   "Each has conflicting 'research'-backed narratives, so we need tools to judge them",
-   "They are examples of settled science that no longer needs any public debate at all",
-   "They show that only scientists should be allowed to comment on public issues",
-   "They are the lecture's main examples of pseudoscience in the news"
-  ],
-  "why": "On each topic some news and research is positive and some negative. The question 'where is the truth?' is why a critical thinker needs to understand how science works.",
-  "source": "Video 7 [00:02]"
- },
- {
   "id": "ch12-002",
   "chapter": "Ch.12 Science",
   "topic": "What science is",
@@ -913,51 +428,6 @@
   ],
   "why": "That's the slide definition. The facts are the data; the end product is an explanation that can be tested.",
   "source": "Video 7 [02:04] · Slides 7"
- },
- {
-  "id": "ch12-003",
-  "chapter": "Ch.12 Science",
-  "topic": "What science is",
-  "kind": "concept",
-  "q": "What does the lecture describe as the task of scientists?",
-  "choices": [
-   "To discover, observe and collect facts systematically and explain how they relate",
-   "To prove their explanations true with 100% certainty before publishing anything",
-   "To decide which values and beliefs society ought to hold",
-   "To replace religious explanations of the world with materialist ones"
-  ],
-  "why": "Systematic collection of facts, plus explaining the relationships between them. 100% proof is impossible, which is why the lecture later uses falsifiability as the test.",
-  "source": "Video 7 [02:04]"
- },
- {
-  "id": "ch12-004",
-  "chapter": "Ch.12 Science",
-  "topic": "What science is",
-  "kind": "concept",
-  "q": "Some cultures treat science as the natural way of seeing reality. What does the lecture remind us science also is?",
-  "choices": [
-   "A human-made system built on a worldview and assumptions",
-   "A method so free of assumptions that its results can never be biased",
-   "A religion with its own scriptures, rituals and authorities",
-   "A field limited to studying human societies rather than nature"
-  ],
-  "why": "Science is a human creation built on assumptions (empiricism, objectivity, materialism, predictability, unity), and those assumptions have limits.",
-  "source": "Video 7 [04:05]"
- },
- {
-  "id": "ch12-005",
-  "chapter": "Ch.12 Science",
-  "topic": "Assumptions of science",
-  "kind": "concept",
-  "q": "Which five assumptions underlie science, according to the lecture?",
-  "choices": [
-   "Empiricism, objectivity, materialism, predictability, unity",
-   "Empiricism, dualism, relativity, predictability, unity",
-   "Relevance, consistency, simplicity, falsifiability, prediction",
-   "Objectivity, paradigm, normal science, revolution, unity"
-  ],
-  "why": "The third list is the criteria for evaluating a hypothesis, dualism is the minority alternative to materialism, and paradigm and revolution are Kuhn's terms.",
-  "source": "Slides 7 · Video 7 [04:05]–[08:08]"
  },
  {
   "id": "ch12-006",
@@ -1005,36 +475,6 @@
   "source": "Video 7 [06:05]"
  },
  {
-  "id": "ch12-009",
-  "chapter": "Ch.12 Science",
-  "topic": "Assumptions of science",
-  "kind": "concept",
-  "q": "When the lecture calls materialism the working assumption of most scientists, what does 'materialism' mean here?",
-  "choices": [
-   "Everything in the universe is physical matter",
-   "Scientists love buying and consuming things",
-   "Research is mostly paid for by businesses",
-   "Only expensive instruments give valid data"
-  ],
-  "why": "He stresses it's not the consumer or marketing sense of 'materialistic'. It's the claim that everything is physical, so non-physical things may be ignored.",
-  "source": "Video 7 [06:05]"
- },
- {
-  "id": "ch12-010",
-  "chapter": "Ch.12 Science",
-  "topic": "Assumptions of science",
-  "kind": "concept",
-  "q": "The view, held by some scientists, that besides physical matter there is an independent non-material or spiritual realm is called:",
-  "choices": [
-   "Dualism",
-   "Materialism",
-   "Objectivity",
-   "Unity"
-  ],
-  "why": "Dualism is the minority view. Most scientists work from materialism, which says everything is physical.",
-  "source": "Video 7 [06:05]"
- },
- {
   "id": "ch12-011",
   "chapter": "Ch.12 Science",
   "topic": "Assumptions of science",
@@ -1065,36 +505,6 @@
   "source": "Video 7 [08:08]"
  },
  {
-  "id": "ch12-013",
-  "chapter": "Ch.12 Science",
-  "topic": "Assumptions of science",
-  "kind": "application",
-  "q": "A scientist says: 'If something can't be seen, measured or detected by our senses or instruments, I can't count it as knowledge.' Which assumption of science is she relying on?",
-  "choices": [
-   "Empiricism",
-   "Unity",
-   "Dualism",
-   "Objectivity"
-  ],
-  "why": "Treating the senses (and the instruments that extend them) as the source of knowledge is empiricism. Its limit: dark matter and other things our senses can't reach.",
-  "source": "Video 7 [04:05]"
- },
- {
-  "id": "ch12-014",
-  "chapter": "Ch.12 Science",
-  "topic": "Assumptions of science",
-  "kind": "application",
-  "q": "A physicist spends her career looking for a single 'theory of everything' that would explain all the forces of nature at once. Which assumption drives this search?",
-  "choices": [
-   "Unity",
-   "Predictability",
-   "Empiricism",
-   "Materialism"
-  ],
-  "why": "Believing that one underlying structure runs through all phenomena is the unity assumption. Predictability is related but narrower: orderly cause and effect.",
-  "source": "Video 7 [08:08]"
- },
- {
   "id": "ch12-015",
   "chapter": "Ch.12 Science",
   "topic": "Limits of science",
@@ -1107,67 +517,9 @@
    "Nicolaus Copernicus"
   ],
   "why": "The lecture uses Descartes as the first limitation of science. Kuhn wrote about paradigms, Wegener proposed continental drift, and Copernicus heliocentrism.",
-  "source": "Video 7 [08:08] · Slides 7"
- },
- {
-  "id": "ch12-016",
-  "chapter": "Ch.12 Science",
-  "topic": "Limits of science",
-  "kind": "concept",
-  "q": "The lecture mentions dark matter, dark energy, some electromagnetic waves and atomic particles to illustrate that:",
-  "choices": [
-   "Empiricism limits science to what can be observed",
-   "Quantum mechanics has shown that the universe isn't orderly",
-   "Observation can never establish a necessary causal link",
-   "Science is a social construct shaped by its society"
-  ],
-  "why": "These may not be detectable by our senses, or by instruments built as extensions of our senses. So science based on empiricism only covers what is observable and shared.",
-  "source": "Video 7 [10:08]"
- },
- {
-  "id": "ch12-017",
-  "chapter": "Ch.12 Science",
-  "topic": "Limits of science",
-  "kind": "concept",
-  "q": "Which development has called into question the assumption that the universe is orderly and predictable?",
-  "choices": [
-   "Quantum mechanics",
-   "The Big Bang theory",
-   "Continental drift theory",
-   "Human capital theory"
-  ],
-  "why": "The lecture names quantum mechanics as the challenge to orderliness and predictability. The Big Bang is his example of a hypothesis with strong predictive power.",
-  "source": "Video 7 [10:08]"
- },
- {
-  "id": "ch12-018",
-  "chapter": "Ch.12 Science",
-  "topic": "Limits of science",
-  "kind": "application",
-  "q": "For years a student has noticed that the bus arrives right after the corner café opens, and she concludes that the café opening makes the bus come. Which limitation of science does this illustrate?",
-  "choices": [
-   "Observation alone can't establish a necessary causal connection between two events",
-   "Empiricism limits science to what is observable and shared",
-   "Quantum mechanics makes events impossible to predict",
-   "We only have an idea of the outside world in our minds, never direct evidence that it exists"
-  ],
-  "why": "However many times B follows A, observation by itself can't prove that A causes B. The textbook credits this point to David Hume; it undermines the predictability assumption.",
-  "source": "Video 7 [10:08]–[12:10] · Textbook"
- },
- {
-  "id": "ch12-019",
-  "chapter": "Ch.12 Science",
-  "topic": "Limits of science",
-  "kind": "concept",
-  "q": "Before telescopes and space missions, people 'saw' meaningful shapes, channels or mountains on the Moon and planets that later turned out to be something else. What does the lecture use this to show?",
-  "choices": [
-   "Our brains organise and give meaning to what our senses take in",
-   "Empiricism always gives accurate knowledge if we observe long enough",
-   "Ancient astronomy was a paradigm that never needed to change",
-   "Quantum mechanics had already disproved the old view of the planets"
-  ],
-  "why": "Our brains bring old ideas and experiences to what we see. Better technology later showed the planets were very different from how they seemed.",
-  "source": "Video 7 [12:10]"
+  "source": "Video 7 [08:08] · Slides 7",
+  "star": true,
+  "star_note": "[08:08] asks students to pause the video and think of objections to the assumptions before giving the limitations"
  },
  {
   "id": "ch12-020",
@@ -1182,22 +534,9 @@
    "They concern the same reality and complement each other"
   ],
   "why": "Position one. It created antagonism with fundamentalist religion, which reads scripture as the literal word of God, and helped produce the opposite camp (religion trumps science).",
-  "source": "Video 7 [14:17]"
- },
- {
-  "id": "ch12-021",
-  "chapter": "Ch.12 Science",
-  "topic": "Science and religion",
-  "kind": "application",
-  "q": "A preacher tells his followers: 'Whenever a scientific finding disagrees with our holy book, the scientists are simply wrong.' Which position is this?",
-  "choices": [
-   "Religion always trumps science",
-   "Science always trumps religion",
-   "Separate, mutually exclusive realms",
-   "Same reality, compatible and complementary"
-  ],
-  "why": "When the two conflict, religion wins: position two. The lecture describes it partly as a reaction to the radical 'science trumps religion' camp.",
-  "source": "Video 7 [14:17]–[16:22]"
+  "source": "Video 7 [14:17]",
+  "star": true,
+  "star_note": "[12:10]-[20:27] calls science vs religion 'more interesting ... controversial', spends ~8 min on the four positions and adds a podcast link"
  },
  {
   "id": "ch12-022",
@@ -1215,36 +554,6 @@
   "source": "Video 7 [16:22]"
  },
  {
-  "id": "ch12-023",
-  "chapter": "Ch.12 Science",
-  "topic": "Science and religion",
-  "kind": "application",
-  "q": "A biology student accepts evolution, but believes the soul is given to humans in a spiritual realm that science simply doesn't deal with. Which position is she taking?",
-  "choices": [
-   "Separate, mutually exclusive realms",
-   "Same reality, compatible and complementary",
-   "Religion always trumps science",
-   "Science always trumps religion"
-  ],
-  "why": "This is the lecture's own example of the third position: you can accept evolution without giving up your religious convictions, because ensoulment happens in the spiritual realm.",
-  "source": "Video 7 [16:22]"
- },
- {
-  "id": "ch12-024",
-  "chapter": "Ch.12 Science",
-  "topic": "Science and religion",
-  "kind": "concept",
-  "q": "What problem does the lecture point out with the 'separate realms' view of science and religion?",
-  "choices": [
-   "Sometimes both make claims about the same events, and conflicting claims can't both be true",
-   "It forces believers to reinterpret their scripture every time science changes its mind",
-   "It means religion must always give way to science whenever a conflict appears",
-   "It only works for scientists who already accept the dualist assumption"
-  ],
-  "why": "Science and scripture sometimes speak about the same historical events. When those claims clash, logically they can't both be true, so the realms aren't fully separate.",
-  "source": "Video 7 [16:22]–[18:26]"
- },
- {
   "id": "ch12-025",
   "chapter": "Ch.12 Science",
   "topic": "Science and religion",
@@ -1258,36 +567,6 @@
   ],
   "why": "Reinterpreting scripture when it clashes with science is the fourth position. It isn't 'science trumps religion', because the aim is for both to converge and inform each other, not to discard religion.",
   "source": "Video 7 [18:26]"
- },
- {
-  "id": "ch12-026",
-  "chapter": "Ch.12 Science",
-  "topic": "Scientific method",
-  "kind": "concept",
-  "q": "The scientific method is described as a process involving:",
-  "choices": [
-   "The rigorous, systematic application of observation and experimentation",
-   "Emotional appeals and rhetoric aimed at winning public support",
-   "The accepted view of what the world is like and how to study it",
-   "The replacement of an old, problematic paradigm by a newer one"
-  ],
-  "why": "That's the slide definition. The others describe pseudoscience, a paradigm and a scientific revolution.",
-  "source": "Video 7 [20:27] · Slides 7"
- },
- {
-  "id": "ch12-027",
-  "chapter": "Ch.12 Science",
-  "topic": "Scientific method",
-  "kind": "concept",
-  "q": "The lecture says the scientific method is similar to which earlier idea from the course?",
-  "choices": [
-   "Experience → interpretation → analysis",
-   "The five assumptions of science",
-   "Kuhn's normal science, paradigm and revolution",
-   "The four positions on science and religion"
-  ],
-  "why": "These are the three levels of thinking from earlier in the course. Just as experience alone isn't enough without interpretation and analysis, the scientific method moves from a problem through data to tested explanations.",
-  "source": "Video 7 [20:27]"
  },
  {
   "id": "ch12-028",
@@ -1317,52 +596,9 @@
    "Evaluating the hypothesis"
   ],
   "why": "He puts the literature review in step one: it shows whether someone already solved the problem and where the gaps are. Refining comes later, once you already have a hypothesis.",
-  "source": "Video 7 [22:37]"
- },
- {
-  "id": "ch12-030",
-  "chapter": "Ch.12 Science",
-  "topic": "Scientific method",
-  "kind": "application",
-  "q": "After guessing that phone use lowers students' grades, a researcher reads more studies and books, talks to professors, and narrows her idea to 'phone use after midnight lowers exam scores'. Which step is this?",
-  "choices": [
-   "Refining the hypothesis with more information",
-   "Identifying the problem and its gaps",
-   "Testing the hypothesis in a study",
-   "Evaluating the hypothesis against the results of testing"
-  ],
-  "why": "She already has a hypothesis and is improving it with more information, which is step three. Nothing has been tested yet.",
-  "source": "Video 7 [24:40]–[26:43]"
- },
- {
-  "id": "ch12-031",
-  "chapter": "Ch.12 Science",
-  "topic": "Scientific method",
-  "kind": "application",
-  "q": "A lab gives a new drug to one group of mice and nothing to another, then measures their blood sugar for a month. Which step of the scientific method is this?",
-  "choices": [
-   "Testing the hypothesis",
-   "Evaluating the hypothesis",
-   "Refining the hypothesis",
-   "Identifying the problem"
-  ],
-  "why": "Testing can happen in a lab, through simulation or by experiment, depending on the subject. Evaluation comes after, when the results are compared with the hypothesis.",
-  "source": "Video 7 [26:43]"
- },
- {
-  "id": "ch12-032",
-  "chapter": "Ch.12 Science",
-  "topic": "Scientific method",
-  "kind": "application",
-  "q": "After an experiment, a team compares the results with what they expected and concludes that their hypothesis was wrong, but that they found something new worth reporting. Which step is this?",
-  "choices": [
-   "Evaluating the hypothesis",
-   "Testing the hypothesis",
-   "Refining the hypothesis",
-   "Identifying the problem"
-  ],
-  "why": "Step five judges the hypothesis on the basis of the test results: right, wrong, or a new contribution to the field.",
-  "source": "Video 7 [26:43]"
+  "source": "Video 7 [22:37]",
+  "star": true,
+  "star_note": "[22:37] long personal advice on step 1: master's/PhD, literature review, Google Scholar, finding gaps"
  },
  {
   "id": "ch12-033",
@@ -1392,22 +628,9 @@
    "Pseudoscience"
   ],
   "why": "A theory rests on hypotheses that have already been tested. His examples are relativity and human capital theory.",
-  "source": "Video 7 [24:40]"
- },
- {
-  "id": "ch12-035",
-  "chapter": "Ch.12 Science",
-  "topic": "Hypothesis vs theory",
-  "kind": "application",
-  "q": "Human capital theory says that investing more in education leads to higher earnings later. Why does the lecturer call it a theory rather than just a hypothesis?",
-  "choices": [
-   "Many researchers have tested it and a large body of data supports it",
-   "It was proposed by a well-known economist working in the USA",
-   "It is the simplest explanation, so it never needed any testing",
-   "It cannot be falsified by any observation or experiment"
-  ],
-  "why": "A hypothesis becomes a theory when it has been tested many times and a lot of evidence supports it. Being unfalsifiable would make it worse, not better.",
-  "source": "Video 7 [24:40]"
+  "source": "Video 7 [24:40]",
+  "star": true,
+  "star_note": "[24:40] illustrates 'theory' with human capital theory 'from my own subject' (reused at [34:52])"
  },
  {
   "id": "ch12-036",
@@ -1422,7 +645,9 @@
    "Popular, natural, well-funded, quickly published, peer-approved"
   ],
   "why": "In full: relevant to the problem, consistent with well-established theories, simplest, testable and falsifiable, and predictive. The second list is the assumptions of science, and the third is the steps of the scientific method.",
-  "source": "Slides 7 · Video 7 [28:44]"
+  "source": "Slides 7 · Video 7 [28:44]",
+  "star": true,
+  "star_note": "[26:43] says hypotheses 'play a crucial role' and we should know how to evaluate them, then goes through each criterion"
  },
  {
   "id": "ch12-037",
@@ -1440,21 +665,6 @@
   "source": "Video 7 [28:44]"
  },
  {
-  "id": "ch12-038",
-  "chapter": "Ch.12 Science",
-  "topic": "Evaluating hypotheses",
-  "kind": "concept",
-  "q": "Why does the lecture advise new researchers to keep their hypotheses consistent with well-established theories?",
-  "choices": [
-   "It gives them validation from the research community",
-   "It guarantees that the hypothesis will turn out to be true",
-   "It makes any hypothesis automatically testable and falsifiable",
-   "It protects them from publish-or-perish pressure at work"
-  ],
-  "why": "Science is a system of logically consistent hypotheses and theories. Building on tested theories lends a new study support, though it doesn't prove it right.",
-  "source": "Video 7 [28:44]–[30:48]"
- },
- {
   "id": "ch12-039",
   "chapter": "Ch.12 Science",
   "topic": "Evaluating hypotheses",
@@ -1470,36 +680,6 @@
   "source": "Video 7 [30:48]"
  },
  {
-  "id": "ch12-040",
-  "chapter": "Ch.12 Science",
-  "topic": "Evaluating hypotheses",
-  "kind": "concept",
-  "q": "According to the lecture, one reason most scientists reject intelligent design is that:",
-  "choices": [
-   "The theory of evolution seems simpler",
-   "Intelligent design has too few followers",
-   "Evolution was funded by governments",
-   "Intelligent design was proposed by outsiders"
-  ],
-  "why": "This is his example of the simplicity criterion. He adds a caveat: genuinely new ideas are often not simple and may go against well-established narratives.",
-  "source": "Video 7 [30:48]"
- },
- {
-  "id": "ch12-041",
-  "chapter": "Ch.12 Science",
-  "topic": "Evaluating hypotheses",
-  "kind": "concept",
-  "q": "The Big Bang theory predicted not only that the universe is expanding but also the amount of helium in it and the distribution of galaxies. Which criterion does this illustrate?",
-  "choices": [
-   "Predictive power",
-   "Simplicity",
-   "Relevance",
-   "Consistency with established theories"
-  ],
-  "why": "A good hypothesis can predict and explain similar events. The greater its predictive power, the more 'fruitful' it is, meaning it suggests new ideas for future research.",
-  "source": "Video 7 [32:50]"
- },
- {
   "id": "ch12-042",
   "chapter": "Ch.12 Science",
   "topic": "Evaluating hypotheses",
@@ -1512,7 +692,9 @@
    "Applying it in another country turns it into pseudoscience"
   ],
   "why": "His own example of predictive power: a well-established theory lets you predict results elsewhere, and then test whether they hold.",
-  "source": "Video 7 [34:52]"
+  "source": "Video 7 [34:52]",
+  "star": true,
+  "star_note": "[34:52] repeats his human capital example, applied to the Uzbek context, for predictive power"
  },
  {
   "id": "ch12-043",
@@ -1545,21 +727,6 @@
   "source": "Video 7 [32:50]"
  },
  {
-  "id": "ch12-045",
-  "chapter": "Ch.12 Science",
-  "topic": "Falsifiability",
-  "kind": "application",
-  "q": "A fortune teller says: 'Something important will happen to you this year.' Why is this not a good scientific hypothesis?",
-  "choices": [
-   "Almost any outcome would fit it, so it can't be falsified",
-   "It is far too simple to count as a proper scientific hypothesis",
-   "It is inconsistent with well-established theories like human capital",
-   "It was made without the client's informed consent"
-  ],
-  "why": "If no possible observation could show it wrong, it fails the 'testable and falsifiable' criterion. Vague claims like this are typical of pseudoscience.",
-  "source": "Video 7 [30:48]–[32:50]"
- },
- {
   "id": "ch12-046",
   "chapter": "Ch.12 Science",
   "topic": "Pseudoscience",
@@ -1573,96 +740,6 @@
   ],
   "why": "Science grounds its explanations in systematic observation, reason and testing. Pseudoscience only borrows its look.",
   "source": "Video 7 [34:52] · Slides 7"
- },
- {
-  "id": "ch12-047",
-  "chapter": "Ch.12 Science",
-  "topic": "Pseudoscience",
-  "kind": "concept",
-  "q": "Which group does the lecture give as examples of pseudoscience?",
-  "choices": [
-   "Astrology, numerology, mind reading, psychic healing",
-   "Quantum mechanics, relativity, the Big Bang",
-   "Ethnography, grounded theory, narrative and action research",
-   "Heliocentrism and continental drift"
-  ],
-  "why": "Heliocentrism and continental drift were once rejected but became accepted science through paradigm shifts. Ethnography and the rest are legitimate research designs.",
-  "source": "Slides 7 · Video 7 [34:52]"
- },
- {
-  "id": "ch12-048",
-  "chapter": "Ch.12 Science",
-  "topic": "Pseudoscience",
-  "kind": "application",
-  "q": "A 'bioenergy healer' in Tashkent claims to cure diabetes by moving his hands over patients. He shows emotional video testimonies and refuses any controlled trial. Is this science or pseudoscience?",
-  "choices": [
-   "Pseudoscience: it relies on emotional testimony, not testing",
-   "Science, because many patients say that they feel better afterwards",
-   "Science, because it has many followers and could become a paradigm",
-   "Pseudoscience, but only because it isn't taught at any university"
-  ],
-  "why": "What makes it pseudoscience is the method: emotion and rhetoric instead of testing. Where something is taught isn't the test, and followers alone don't make a claim scientific.",
-  "source": "Video 7 [34:52]"
- },
- {
-  "id": "ch12-049",
-  "chapter": "Ch.12 Science",
-  "topic": "Pseudoscience",
-  "kind": "application",
-  "q": "Which claim is the most scientific?",
-  "choices": [
-   "'Students who sleep 8 hours score higher; we'll compare two groups' sleep and exam results to check.'",
-   "'Scorpios make the best engineers, because the stars shape our talents from birth.'",
-   "'This crystal relieves exam stress because it stores positive energy from the mountains.'",
-   "'My grandfather has used this herb for 50 years and swears it cures every disease.'"
-  ],
-  "why": "Only the first states a testable, falsifiable hypothesis and a way to test it. The others rest on astrology, superstition and personal testimony.",
-  "source": "Video 7 [30:48]–[34:52]"
- },
- {
-  "id": "ch12-050",
-  "chapter": "Ch.12 Science",
-  "topic": "Research methodology",
-  "kind": "concept",
-  "q": "A systematic approach to gathering and analysing information, based on established scientific procedures and techniques, is:",
-  "choices": [
-   "Research methodology",
-   "A literature review",
-   "Normal science",
-   "A paradigm"
-  ],
-  "why": "Research methodology is how scientists test their hypotheses. Its concrete forms are called research methods or research designs.",
-  "source": "Video 7 [36:54] · Slides 7"
- },
- {
-  "id": "ch12-051",
-  "chapter": "Ch.12 Science",
-  "topic": "Research methodology",
-  "kind": "concept",
-  "q": "Research that deals with numbers and things that can be counted is ___; research that focuses on meaning and experiences, using interviews or document analysis, is ___.",
-  "choices": [
-   "quantitative; qualitative",
-   "qualitative; quantitative",
-   "experimental; correlational",
-   "empirical; narrative"
-  ],
-  "why": "Research designs fall into two methodologies: quantitative (numbers) and qualitative (meaning).",
-  "source": "Video 7 [39:00]"
- },
- {
-  "id": "ch12-052",
-  "chapter": "Ch.12 Science",
-  "topic": "Research methodology",
-  "kind": "application",
-  "q": "A researcher holds long interviews with 12 Uzbek labour migrants about their life in Russia and analyses the meanings in their stories. Which methodology is this?",
-  "choices": [
-   "Qualitative",
-   "Quantitative",
-   "Mixed methods",
-   "Experimental"
-  ],
-  "why": "Focusing on meaning and experience through interviews is qualitative. There's no counting and no second method, so it isn't quantitative or mixed.",
-  "source": "Video 7 [36:54]–[39:00]"
  },
  {
   "id": "ch12-053",
@@ -1680,66 +757,6 @@
   "source": "Video 7 [36:54]–[39:00]"
  },
  {
-  "id": "ch12-054",
-  "chapter": "Ch.12 Science",
-  "topic": "Research methodology",
-  "kind": "concept",
-  "q": "Which research design does the lecture illustrate with intervention, simulation and lab work?",
-  "choices": [
-   "Experimental research",
-   "Correlational research",
-   "Ethnographic research",
-   "Narrative research"
-  ],
-  "why": "Experimental research actively does something (an intervention, a simulation, a lab test) and measures what happens.",
-  "source": "Slides 7 · Video 7 [36:54]"
- },
- {
-  "id": "ch12-055",
-  "chapter": "Ch.12 Science",
-  "topic": "Research methodology",
-  "kind": "application",
-  "q": "A researcher lives in a Fergana Valley mahalla for six months, observing weddings, daily routines and customs to understand the community's culture from the inside. Which research design is this?",
-  "choices": [
-   "Ethnographic research",
-   "Survey research",
-   "Action research",
-   "Correlational research"
-  ],
-  "why": "Ethnography studies a culture through immersion and observation in its natural setting. The lecture lists it among the qualitative designs that focus on meaning and experience.",
-  "source": "Slides 7 · Textbook"
- },
- {
-  "id": "ch12-056",
-  "chapter": "Ch.12 Science",
-  "topic": "Research methodology",
-  "kind": "application",
-  "q": "Using existing data on 10,000 households, a researcher checks whether household income and number of children rise and fall together, without changing anything. Which research design is this?",
-  "choices": [
-   "Correlational research",
-   "Experimental research",
-   "Action research",
-   "Narrative research"
-  ],
-  "why": "Measuring how two variables are related in existing data is correlational research. An experiment would need an intervention, such as changing something for one group and comparing.",
-  "source": "Slides 7 · Textbook"
- },
- {
-  "id": "ch12-057",
-  "chapter": "Ch.12 Science",
-  "topic": "Research ethics",
-  "kind": "concept",
-  "q": "Which experiments from the early lectures does the lecture cite as reasons why scientists began discussing research ethics?",
-  "choices": [
-   "The Milgram experiment and the Stanford Prison Experiment",
-   "The black swan and Big Bang observations",
-   "Copernicus's heliocentrism and Wegener's continental drift studies",
-   "The 1960s human capital studies"
-  ],
-  "why": "Incidents like Milgram's obedience study and the Stanford Prison Experiment pushed the scientific community to talk about the ethics of research.",
-  "source": "Video 7 [39:00]"
- },
- {
   "id": "ch12-058",
   "chapter": "Ch.12 Science",
   "topic": "Research ethics",
@@ -1755,96 +772,6 @@
   "source": "Video 7 [41:02] · Slides 7"
  },
  {
-  "id": "ch12-059",
-  "chapter": "Ch.12 Science",
-  "topic": "Research ethics",
-  "kind": "concept",
-  "q": "Which ethical issues does the lecture place under data collection, rather than data reporting?",
-  "choices": [
-   "Informed consent and respect for site and participants",
-   "Honest reporting, proper citation and publishing on time",
-   "Political pressure and private funding of research",
-   "Publish-or-perish pressure from university KPIs"
-  ],
-  "why": "Collection is about how data is gathered from people (and animals). Honesty, citation and timely publishing are reporting issues; funding and politics fall under the neutrality of science.",
-  "source": "Slides 7 · Video 7 [41:02]"
- },
- {
-  "id": "ch12-060",
-  "chapter": "Ch.12 Science",
-  "topic": "Research ethics",
-  "kind": "application",
-  "q": "A psychology student stages a fake fight in the dormitory and secretly films classmates' reactions, without ever telling them it was an experiment. Which ethical principle is broken?",
-  "choices": [
-   "Informed consent",
-   "Proper citation",
-   "Publishing on time",
-   "Neutrality of science"
-  ],
-  "why": "The participants never agreed to take part or knew the consequences. That's a data-collection failure.",
-  "source": "Video 7 [41:02]"
- },
- {
-  "id": "ch12-061",
-  "chapter": "Ch.12 Science",
-  "topic": "Research ethics",
-  "kind": "application",
-  "q": "A research team doing fieldwork in a village photographs worshippers inside the mosque during prayer, against the community's rules. Which ethical issue is this?",
-  "choices": [
-   "Respect for the site and local norms",
-   "Honest reporting of the data that was collected",
-   "Proper citation of the sources used in the study",
-   "Publish-or-perish pressure on the research team"
-  ],
-  "why": "Researchers must respect the place, the people and the rules where they collect data. It's a collection issue, not a reporting one.",
-  "source": "Video 7 [41:02]"
- },
- {
-  "id": "ch12-062",
-  "chapter": "Ch.12 Science",
-  "topic": "Research ethics",
-  "kind": "application",
-  "q": "Before publishing, a researcher quietly deletes the survey responses that contradict her hypothesis. Which ethical issue is this?",
-  "choices": [
-   "Honest reporting",
-   "Informed consent",
-   "Respect for participants",
-   "Publishing on time"
-  ],
-  "why": "Skewing data toward your own hypothesis, worldview or politics is dishonest reporting, a data-reporting issue.",
-  "source": "Video 7 [41:02]"
- },
- {
-  "id": "ch12-063",
-  "chapter": "Ch.12 Science",
-  "topic": "Research ethics",
-  "kind": "application",
-  "q": "A lecturer translates a Russian journal article into English and publishes it under his own name. Which ethical issue is this?",
-  "choices": [
-   "Proper citation (plagiarism)",
-   "Informed consent",
-   "Honest reporting of research data",
-   "Neutrality of science"
-  ],
-  "why": "The lecture specifically mentions presenting a translated version of someone else's work as your own. It's plagiarism, a failure of proper citation.",
-  "source": "Video 7 [41:02]"
- },
- {
-  "id": "ch12-064",
-  "chapter": "Ch.12 Science",
-  "topic": "Research ethics",
-  "kind": "application",
-  "q": "A team discovers that a cheap filter removes arsenic from village wells, but leaves the results unpublished for three years while villagers keep drinking the water. Which obligation are they neglecting?",
-  "choices": [
-   "Publishing on time",
-   "Informed consent",
-   "Proper citation",
-   "Respect for the research site"
-  ],
-  "why": "Findings that could help people shouldn't sit unpublished, because those affected keep being affected. The lecture calls timely publishing an obligation of scientists.",
-  "source": "Video 7 [41:02]–[43:05]"
- },
- {
   "id": "ch12-065",
   "chapter": "Ch.12 Science",
   "topic": "Research ethics",
@@ -1857,7 +784,9 @@
    "Is the hypothesis the simplest one available?"
   ],
   "why": "This is the neutrality of science. Political pressure and private or business funding can bias research, so always check who is behind a study.",
-  "source": "Video 7 [47:09]"
+  "source": "Video 7 [47:09]",
+  "star": true,
+  "star_note": "[47:09] his recurring AI-company example ('we are close to AGI'): check who funded the research"
  },
  {
   "id": "ch12-066",
@@ -1872,52 +801,9 @@
    "Pseudoscientists losing their followers once real studies appear"
   ],
   "why": "It comes from KPIs and metrics at universities: publish enough to keep the job, get promoted or earn more. The lecture names it as one driver of today's ethical problems in science.",
-  "source": "Video 7 [43:05]"
- },
- {
-  "id": "ch12-067",
-  "chapter": "Ch.12 Science",
-  "topic": "Publish or perish",
-  "kind": "application",
-  "q": "Imagine IUT required every lecturer to publish 10 papers a year. What does the lecture expect would happen?",
-  "choices": [
-   "Stress would rise, teaching would be neglected and much of the research would be shallow",
-   "Teaching would improve, because lecturers would stay up to date with current research",
-   "Research would get deeper, because there would simply be much more of it",
-   "Lecturers would stop relying on AI, since they'd have no time to learn it"
-  ],
-  "why": "This is his own hypothetical. Juggling teaching with a paper quota means less attention to students and very basic science, even if the university boasts about its numbers.",
-  "source": "Video 7 [43:05]–[45:07]"
- },
- {
-  "id": "ch12-068",
-  "chapter": "Ch.12 Science",
-  "topic": "Publish or perish",
-  "kind": "application",
-  "q": "Why does the lecturer compare Einstein's output with that of some top scientists today?",
-  "choices": [
-   "Einstein published about 5–6 works a year, while some publish 50–100 today, which raises doubts about quality",
-   "Einstein published far more than anyone does today, which shows modern science has slowed down badly",
-   "Einstein published nothing until he turned 50, which shows that patience pays off in science",
-   "Einstein's 300 works prove that publishing more papers always moves science forward"
-  ],
-  "why": "Roughly 300 works over a 50-year career is 5–6 a year. Against 50–100 a year today, he asks whether such scientists are moving science or just playing the game.",
-  "source": "Video 7 [45:07]"
- },
- {
-  "id": "ch12-069",
-  "chapter": "Ch.12 Science",
-  "topic": "Kuhn: paradigms",
-  "kind": "concept",
-  "q": "What is the title of Thomas Kuhn's 1962 book discussed in the lecture?",
-  "choices": [
-   "The Structure of Scientific Revolutions",
-   "The Logic of Scientific Discovery",
-   "On the Origin of Species",
-   "Think: Critical Thinking and Logic Skills"
-  ],
-  "why": "Kuhn was an American physicist and historian of science. The Logic of Scientific Discovery is Karl Popper's book, and On the Origin of Species is Darwin's.",
-  "source": "Video 7 [49:10]"
+  "source": "Video 7 [43:05]",
+  "star": true,
+  "star_note": "[43:05]-[47:09] spends ~4 min on publish or perish: IUT 10-papers KPI, Einstein's 5-6 papers a year, AI use"
  },
  {
   "id": "ch12-070",
@@ -1933,21 +819,6 @@
   ],
   "why": "The other three are things Kuhn argued for. What he attacked was the picture of science as purely objective and moving steadily forward.",
   "source": "Video 7 [49:10] · Slides 7"
- },
- {
-  "id": "ch12-071",
-  "chapter": "Ch.12 Science",
-  "topic": "Kuhn: paradigms",
-  "kind": "concept",
-  "q": "When Kuhn calls science a 'social construct', he means that science:",
-  "choices": [
-   "Is shaped by its society's expectations and professional norms",
-   "Is invented and controlled by governments to shape what their citizens are allowed to believe",
-   "Is no more reliable than astrology or numerology, since both are just opinions in the end",
-   "Only studies social phenomena such as families and markets, never the natural world"
-  ],
-  "why": "Like other human enterprises, science reflects its society, and its norms decide which hypotheses count as acceptable. That isn't the same as saying it's worthless.",
-  "source": "Video 7 [49:10]"
  },
  {
   "id": "ch12-072",
@@ -1980,51 +851,6 @@
   "source": "Video 7 [49:10]–[51:11] · Slides 7"
  },
  {
-  "id": "ch12-074",
-  "chapter": "Ch.12 Science",
-  "topic": "Kuhn: paradigms",
-  "kind": "concept",
-  "q": "According to Kuhn, a paradigm becomes part of normal science when it:",
-  "choices": [
-   "Solves current problems and attracts many followers",
-   "Has been proven true with 100% certainty by repeated experiments",
-   "Is the simplest explanation available to the field",
-   "Is approved by both scientific and religious authorities"
-  ],
-  "why": "Both conditions are needed: success at solving problems, and enough followers. No paradigm is ever proven with certainty.",
-  "source": "Video 7 [51:11]"
- },
- {
-  "id": "ch12-075",
-  "chapter": "Ch.12 Science",
-  "topic": "Kuhn: paradigms",
-  "kind": "concept",
-  "q": "Kuhn argues that paradigms influence:",
-  "choices": [
-   "What counts as a problem, and even what we perceive",
-   "Only how research is funded, not what actually gets studied",
-   "Only how textbooks and journal articles are formatted",
-   "Nothing at all, because good scientists are fully objective"
-  ],
-  "why": "A paradigm shapes both the questions and the perceptions. That's why Kuhn rejects the idea that science is purely objective.",
-  "source": "Video 7 [51:11]"
- },
- {
-  "id": "ch12-076",
-  "chapter": "Ch.12 Science",
-  "topic": "Kuhn: paradigms",
-  "kind": "application",
-  "q": "The lecturer says evolution became 'normal science', and scientists of the last century did their research through it like a prism. In Kuhn's terms, evolution worked as a:",
-  "choices": [
-   "Paradigm",
-   "Anomaly",
-   "Pseudoscience",
-   "Rejected hypothesis"
-  ],
-  "why": "A paradigm is the worldview through which a field sees and studies its subject. Darwinism played that role for many scientists.",
-  "source": "Video 7 [51:11]"
- },
- {
   "id": "ch12-077",
   "chapter": "Ch.12 Science",
   "topic": "Kuhn: scientific revolutions",
@@ -2038,21 +864,6 @@
   ],
   "why": "This is Kuhn's third concept. Revolutions break up long periods of normal science.",
   "source": "Video 7 [53:11] · Slides 7"
- },
- {
-  "id": "ch12-078",
-  "chapter": "Ch.12 Science",
-  "topic": "Kuhn: scientific revolutions",
-  "kind": "concept",
-  "q": "What leads to a paradigm shift, according to Kuhn?",
-  "choices": [
-   "Anomalies that persist and can't be explained by the current paradigm cause a crisis",
-   "A majority vote among the leading scientists of the field",
-   "A change in which companies fund research in that field",
-   "A new experiment that confirms the old paradigm once again"
-  ],
-  "why": "Progress isn't linear. When anomalies pile up, a crisis follows, the old paradigm is rejected, and a new theory takes its place.",
-  "source": "Video 7 [51:11]–[53:11]"
  },
  {
   "id": "ch12-079",
@@ -2070,33 +881,35 @@
   "source": "Video 7 [53:11]"
  },
  {
-  "id": "ch12-080",
-  "chapter": "Ch.12 Science",
-  "topic": "Kuhn: scientific revolutions",
-  "kind": "application",
-  "q": "Alfred Wegener's continental drift theory wasn't taken seriously at first, but 30–40 years later, as data built up, it was accepted. What does this illustrate?",
+  "id": "ch12-301",
+  "chapter": 12,
+  "topic": "Limits of science",
+  "kind": "concept",
+  "q": "Which of these is NOT one of the limitations of science given in the lecture?",
   "choices": [
-   "A paradigm shift that took decades to win acceptance",
-   "Pseudoscience finally being exposed by new geological data",
-   "Normal science building smoothly on past work",
-   "A hypothesis rejected for being too simple"
+   "Scientific instruments always distort what they measure",
+   "Empiricism limits science to what can be observed",
+   "Observation alone can't prove a necessary causal link",
+   "Quantum mechanics questions that the universe is orderly"
   ],
-  "why": "New paradigms often meet resistance. As more research and data came in, Wegener's idea replaced the old view of fixed continents.",
-  "source": "Video 7 [53:11]"
+  "why": "The slide's limitations are: Descartes (we only have an idea of the outside world), empiricism limits science to the observable, observation can't establish a necessary causal connection, our experience of reality depends on our brains, and quantum mechanics. He mentions instruments only as extensions of our senses that still miss things like dark matter; he never says they distort, so that is the odd one out.",
+  "source": "Video 7 [08:08]-[12:10] · Slides 7",
+  "star": true,
+  "star_note": "[08:08] asks students to pause the video and think of objections to the assumptions before giving the limitations"
  },
  {
-  "id": "ch12-081",
-  "chapter": "Ch.12 Science",
-  "topic": "Kuhn: scientific revolutions",
+  "id": "ch12-302",
+  "chapter": 12,
+  "topic": "Evaluating hypotheses",
   "kind": "application",
-  "q": "The lecture notes that Einstein was only 26 when he first published his relativity hypothesis in 1905. Which of Kuhn's ideas does this support?",
+  "q": "A student's hypothesis contradicts several well-established theories in her field, and she cites none of them. Her supervisor warns she will get little validation from the research community. Which criterion for a good hypothesis is she failing?",
   "choices": [
-   "New paradigms attract young scientists and outsiders",
-   "Publish-or-perish pressure produces great science early in a career",
-   "Scientists always accept the simplest explanation first",
-   "Normal science is carried out mainly by young researchers"
+   "Consistency with well-established theories",
+   "Relevance to the problem under study",
+   "Being the simplest available explanation",
+   "Predictive power for similar events"
   ],
-  "why": "Kuhn says new paradigms usually attract the young and people from outside the field, because they have less invested in the old paradigm.",
-  "source": "Video 7 [53:11]–[55:12]"
+  "why": "A good hypothesis is consistent with well-established theories, and he advises new researchers to build on them to get validation from the research community. Relevance is the closest distractor, but her hypothesis can be on-topic and still clash with established theory.",
+  "source": "Video 7 [28:44]-[30:48] · Slides 7"
  }
 ]

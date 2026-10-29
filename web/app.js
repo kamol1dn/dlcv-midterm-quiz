@@ -18,7 +18,7 @@ const store = {
   set(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* private mode: play without saving */ } },
   remove(key) { try { localStorage.removeItem(key); } catch { /* ignore */ } },
 };
-const progKey = k => `mq:${k}:progress`;
+const progKey = k => `mq:${(decks.find(d => d.key === k) || {}).store || k}:progress`;
 const setKey = k => `mq:${k}:settings`;
 const emptyProg = () => ({ version: 1, turn: 0, recent: [], cards: {} });
 
@@ -158,7 +158,7 @@ async function openDeck(key) {
   app.innerHTML = `<p class="muted">Loading ${esc(deck.title)}…</p>`;
   cards = await (await fetch(`decks/${key}.json`)).json();
   prog = store.get(progKey(key), emptyProg());
-  settings = { units: [], mix: false, missed: false, ...store.get(setKey(key), {}) };
+  settings = { units: [], mix: false, missed: false, starred: false, ...store.get(setKey(key), {}) };
   location.hash = key;
   setup();
 }
@@ -176,6 +176,7 @@ function setup() {
       <td class="num">${sts.filter(s => s.box >= MASTERED).length}</td><td class="num">${n ? pct(r, n) + "%" : "–"}</td></tr>`;
   }).join("");
   const missedCount = cards.filter(c => states[c.id] && states[c.id].box <= 1).length;
+  const starCount = cards.filter(c => c.star).length;
   app.innerHTML = `
     <button class="btn link" id="back">← All decks</button>
     <h1>${esc(deck.title)}</h1>
@@ -188,6 +189,7 @@ function setup() {
         <button class="chip" id="order" aria-pressed="${!settings.mix}">In course order</button>
         <button class="chip" id="mix" aria-pressed="${settings.mix}">Random mix</button>
         <button class="chip" id="missed" aria-pressed="${settings.missed}">Only missed (${missedCount})</button>
+        ${starCount ? `<button class="chip" id="starred" aria-pressed="${settings.starred}">★ Only prof-stressed (${starCount})</button>` : ""}
       </div>
       <p class="meta" style="margin-top:10px">Course order teaches from the first idea to the last. Random mix spreads cards by
       how much of the exam each part covers: best for the last drill before the exam.</p>
@@ -209,6 +211,7 @@ function setup() {
   app.querySelector("#order").onclick = () => { settings.mix = false; store.set(setKey(deck.key), settings); setup(); };
   app.querySelector("#mix").onclick = () => { settings.mix = true; store.set(setKey(deck.key), settings); setup(); };
   app.querySelector("#missed").onclick = () => { settings.missed = !settings.missed; store.set(setKey(deck.key), settings); setup(); };
+  app.querySelector("#starred")?.addEventListener("click", () => { settings.starred = !settings.starred; store.set(setKey(deck.key), settings); setup(); });
   app.querySelector("#start").onclick = start;
   app.querySelector("#reset").onclick = () => {
     if (confirm(`Wipe all progress for ${deck.title}? This can't be undone.`)) { prog = emptyProg(); store.remove(progKey(deck.key)); setup(); }
@@ -231,6 +234,7 @@ function weakTopics() {
 function poolNow() {
   let pool = settings.units.length ? cards.filter(c => settings.units.includes(unitOf(c))) : cards;
   if (settings.missed) pool = pool.filter(c => prog.cards[c.id] && prog.cards[c.id].box <= 1);
+  if (settings.starred) pool = pool.filter(c => c.star);
   return pool;
 }
 
@@ -262,14 +266,14 @@ function drawCard(chosen = null) {
   app.innerHTML = `
     <div class="top"><button class="btn link" id="quit">← Stop</button><span class="meta">session ${session.n} · ${session.right} right</span></div>
     <div class="card">
-      <div class="top"><span class="meta">${esc(card.chapter)} · ${esc(card.topic)}</span>${tag}</div>
+      <div class="top"><span class="meta">${esc(card.chapter)} · ${esc(card.topic)}</span><span>${card.star ? `<span class="tag star" title="The professor stressed this in the lecture">★ PROF STRESSED</span> ` : ""}${tag}</span></div>
       <div class="question">${esc(card.q)}</div>
       ${order.map((idx, pos) => {
         let cls = "";
         if (done) cls = idx === 0 ? "right" : pos === chosen ? "wrong" : "dim";
         return `<button class="choice ${cls}" data-pos="${pos}" ${done ? "disabled" : ""}><span class="key">${LETTERS[pos]}</span><span>${esc(card.choices[idx])}</span></button>`;
       }).join("")}
-      ${done ? `${verdict}<div class="why">${esc(card.why)}${card.source ? `<div class="meta" style="margin-top:6px">${esc(card.source)}</div>` : ""}</div>
+      ${done ? `${verdict}<div class="why">${esc(card.why)}${card.source ? `<div class="meta" style="margin-top:6px">${esc(card.source)}</div>` : ""}${card.star_note ? `<div class="meta star-note">★ ${esc(card.star_note)}</div>` : ""}</div>
         <div class="row" style="margin-top:14px"><button class="btn primary" id="next">Next</button>
         ${chosen !== null && order[chosen] !== 0 ? `<button class="btn" id="typo">Mis-tap, I knew it</button>` : ""}</div>`
         : `<button class="btn" id="show" style="margin-top:6px">Don't know, show me</button>`}
